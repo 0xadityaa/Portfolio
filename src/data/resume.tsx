@@ -8,9 +8,9 @@ export const DATA = {
   location: "Toronto, ON",
   locationLink: "https://www.google.com/maps/place/toronto",
   description:
-    "Converting coffee ☕️ into code 👨‍💻, I craft elegant 🤌, scalable 📈 solutions, turning ideas 💡 into impactful products 🔥.",
+    "Converting coffee into code, I craft elegant and scalable software solutions, turning ideas into impactful products.",
   summary:
-    "Hello! Namaste! Bonjour! I’m a full-stack developer and architect from the vibrant heart of India 🇮🇳. At work, I blend code and creativity, transforming ideas into captivating digital products. Beyond work, I immerse myself in the whimsical realms of nature ⛰️, games 🎮, and music 🥁, where every hike, new beat, and winning move connects a dot in my creative journey.",
+    "Hello! Namaste! Bonjour! I’m a passionate full-stack developer and architect from the vibrant heart of India 🇮🇳. At work, I blend code and creativity, transforming ideas into captivating digital products. Beyond work, I immerse myself in the whimsical realms of nature ⛰️, games 🎮, and music 🥁, where every hike, new beat, and winning move connects a dot in my creative journey.",
   avatarUrl: "/Me.jpeg",
   skills: [
     "React",
