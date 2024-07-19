@@ -4,13 +4,13 @@ import { CodeIcon, HomeIcon, NotebookIcon, FileDownIcon } from "lucide-react";
 export const DATA = {
   name: "Aditya Negandhi",
   initials: "AN",
-  url: "https://0xaditya.xyz",
+  url: "https://0xadityaa.xyz",
   location: "Toronto, ON",
   locationLink: "https://www.google.com/maps/place/toronto",
   description:
     "Converting coffee into code, I craft elegant and scalable software solutions, turning ideas into impactful products.",
   summary:
-    "Hello! Namaste! Bonjour! I’m a passionate full-stack developer and architect from the vibrant heart of India 🇮🇳. At work, I blend code and creativity, transforming ideas into captivating digital products. Beyond work, I immerse myself in the whimsical realms of nature ⛰️, games 🎮, and music 🥁, where every hike, new beat, and winning move connects a dot in my creative journey.",
+    "Hello! Namaste! Bonjour! I’m a passionate full-stack developer and architect from the vibrant heart of India 🇮🇳, currently based in Toronto, ON 🇨🇦. At work, I blend code and creativity, transforming ideas into captivating digital products. Beyond work, I immerse myself in the whimsical realms of nature ⛰️, games 🎮, and music 🥁, where every hike, new beat, and winning move connects a dot in my creative journey.",
   avatarUrl: "/Me.jpeg",
   skills: [
     "React",
