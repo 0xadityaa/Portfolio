@@ -189,6 +189,35 @@ export const DATA = {
       image: "/Bytecast.png",
     },
     {
+      title: "Micro Commerce",
+      href: "https://github.com/0xadityaa/Micro-Commerce",
+      dates: "Jun 2024 - Aug 2024",
+      active: true,
+      description:
+        "Scalable fullstack e-commerce template built using async microservice architecture.",
+      technologies: [
+        "Java",
+        "Spring boot",
+        "Vaadin",
+        "React",
+        "TypeScript",
+        "Spring Cloud",
+        "Openfeign",
+        "Swagger",
+        "PostgreSQL",
+        "Kafka",
+        "Docker",
+      ],
+      links: [
+        {
+          type: "Source",
+          href: "https://github.com/0xadityaa/Micro-Commerce",
+          icon: <Icons.github className="size-3" />,
+        },
+      ],
+      image: "/Micro-Commerce.png",
+    },
+        {
       title: "Crypto Maniac",
       href: "https://github.com/0xadityaa/Crypto-Maniac",
       dates: "Jul 2021 - Jan 2022",
@@ -213,35 +242,6 @@ export const DATA = {
       ],
       image: "/Crypto-Maniac.png",
     },
-    // {
-    //   title: "Automatic Chat",
-    //   href: "https://automatic.chat",
-    //   dates: "April 2023 - March 2024",
-    //   active: true,
-    //   description:
-    //     "Developed an AI Customer Support Chatbot which automatically responds to customer support tickets using the latest GPT models.",
-    //   technologies: [
-    //     "Next.js",
-    //     "Typescript",
-    //     "PostgreSQL",
-    //     "Prisma",
-    //     "TailwindCSS",
-    //     "Shadcn UI",
-    //     "Magic UI",
-    //     "Stripe",
-    //     "Cloudflare Workers",
-    //   ],
-    //   links: [
-    //     {
-    //       type: "Website",
-    //       href: "https://automatic.chat",
-    //       icon: <Icons.globe className="size-3" />,
-    //     },
-    //   ],
-    //   image: "",
-    //   video:
-    //     "https://pub-83c5db439b40468498f97946200806f7.r2.dev/automatic-chat.mp4",
-    // },
   ],
   // hackathons: [
   //   {
