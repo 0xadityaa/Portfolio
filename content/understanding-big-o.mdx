@@ -54,8 +54,20 @@ for (let i = 0; i < nums.length; i++) {
 
 In this scenario, your effort doubles as you compare each pair of elements twice, making it more complex and time-consuming process.
 
+## O(n log n): The Log-Linear Path
+
+Consider the scenario where you need to sort a list of numbers. Many efficient sorting algorithms, like Merge Sort and Quick Sort, have an average time complexity of O(n log n). This means the execution time grows in a log-linear fashion with the size of the input data.
+
+```js
+let nums = [5, 3, 8, 4, 2];
+nums.sort((a, b) => a - b);
+// Should return [2, 3, 4, 5, 8]
+```
+
+In this example, the sorting operation involves dividing the list and merging it back, resulting in a log-linear time complexity. It's more efficient than O(n^2) but more complex than O(n).
+
 ---
 
 If you want to learn more about Data Structures and Algorithms, check out my [GitHub Repo](https://github.com/0xadityaa/dsa-in-js) where I'm diving into Neetcode's blind 75 problems using JS.
 
-✌️ Stay curious, keep coding, Peace Nerds!
+✌️ Stay curious, Keep coding, Peace nerds!
