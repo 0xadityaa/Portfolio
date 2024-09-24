@@ -37,14 +37,14 @@ Here, you instantly access the element without any extra effort. Efficient and s
 
 ## O(n^2): The Quadratic Time
 
-Picture yourself needing to compare every pair of elements in a list to find a specific condition. This is O(n^2), where the execution time grows quadratically with the input size.
+Picture yourself needing to compare every pair of elements in a list twice to find a specific condition. This is O(n^2), where the execution time grows quadratically with the input size.
 
 ```js
 let nums = [1, 2, 3, 4, 5];
 let target = 6;
 // Finding the indices of two numbers that add up to the target
 for (let i = 0; i < nums.length; i++) {
-    for (let j = 0; j < nums.length; j++) {
+    for (let j = i+1; j < nums.length; j++) {
         if (nums[i] + nums[j] === target) {
             return [i, j];
         }
