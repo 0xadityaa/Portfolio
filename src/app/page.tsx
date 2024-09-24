@@ -44,7 +44,7 @@ export default function Page() {
           <h2 className="text-xl font-bold">🧑‍💻 About</h2>
         </BlurFade>
         <BlurFade delay={BLUR_FADE_DELAY * 4}>
-          <Markdown className="prose max-w-full text-pretty font-sans text-md text-muted-foreground dark:prose-invert">
+          <Markdown className="prose max-w-full text-pretty font-sans text-lg text-muted-foreground dark:prose-invert">
             {DATA.summary}
           </Markdown>
         </BlurFade>
@@ -58,6 +58,7 @@ export default function Page() {
             <BlurFade
               key={work.company}
               delay={BLUR_FADE_DELAY * 6 + id * 0.05}
+              className="text-lg"
             >
               <ResumeCard
                 key={work.company}

@@ -1,0 +1,61 @@
+---
+title: "Understanding Big O"
+publishedAt: "2024-09-23"
+summary: "Learn Big O notation with easy JavaScript examples. Optimize your code and explore my GitHub!"
+---
+
+
+Understanding how algorithms perform is crucial in coding. The key to this understanding? Big O notation. Let's dive into this concept with clear and engaging examples!
+
+## O(n): The Linear Path
+
+Imagine you have a list of numbers and you need to find a specific number. You check each number one by one until you find the target. This is O(n), where the execution time of an algorithm grows linearly with the size of the input data.
+
+```js
+let nums = [1, 2, 3, 4, 5];
+let target = 4;
+for (let i = 0; i < nums.length; i++) {
+    if (nums[i] === target) {
+        return i;
+    }
+}
+```
+
+In this example, your search time increases directly with the number of elements in the array. Simple and straightforward!
+
+## O(1): The Constant Time
+
+Now, imagine you need to access a specific element in an array by its index. This is O(1), where the execution time remains constant regardless of the input size.
+
+```js
+let nums = [1, 2, 3, 4, 5];
+let index = 2;
+let value = nums[index]; // Should return '3'
+```
+
+Here, you instantly access the element without any extra effort. Efficient and swift!
+
+## O(n^2): The Quadratic Time
+
+Picture yourself needing to compare every pair of elements in a list to find a specific condition. This is O(n^2), where the execution time grows quadratically with the input size.
+
+```js
+let nums = [1, 2, 3, 4, 5];
+let target = 6;
+// Finding the indices of two numbers that add up to the target
+for (let i = 0; i < nums.length; i++) {
+    for (let j = 0; j < nums.length; j++) {
+        if (nums[i] + nums[j] === target) {
+            return [i, j];
+        }
+    }
+}
+```
+
+In this scenario, your effort doubles as you compare each pair of elements twice, making it more complex and time-consuming process.
+
+---
+
+If you want to learn more about Data Structures and Algorithms, check out my [GitHub Repo](https://github.com/0xadityaa/dsa-in-js) where I'm diving into Neetcode's blind 75 problems using JS.
+
+✌️ Stay curious, keep coding, Peace Nerds!

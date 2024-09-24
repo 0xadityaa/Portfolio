@@ -49,7 +49,7 @@ export const DATA = {
     { href: "/", icon: HomeIcon, label: "Home" },
     { href: "/blog", icon: NotebookIcon, label: "Blog" },
     { href: "#projects", icon: CodeIcon, label: "Projects" },
-    { href: "https://drive.google.com/file/d/10XfioJAuNNsxx757X6fsSvtRLoHVftwF/view?usp=sharing", icon: FileDownIcon, label: "Resume", target: "_blank" },
+    { href: "https://drive.google.com/file/d/1RjBMWuZDe5R0dN_lMmTRppEqTmTsSKTo/view?usp=sharing", icon: FileDownIcon, label: "Resume", target: "_blank" },
   ],
   contact: {
     email: "negandhi.aditya@gmail.com",
@@ -92,9 +92,9 @@ export const DATA = {
       title: "Fullstack Developer",
       logoUrl: "/j&m.png",
       start: "Apr 2024",
-      end: "Present",
+      end: "Aug 2024",
       description:
-        "Developed a job portal using an agile software development lifecycle. Leveraged Supabase as a backend to deliver instant alerts and facilitate efficient matching of job seekers with ad-hoc roles (data entry, retail, warehouse) in their vicinity. This resulted in increased application rates and reduced hiring times.",
+        "Developed a comprehensive job portal platform, incorporating real-time features to enhance user experience and optimize job matching. Implemented efficient scheduling and notification systems to improve application rates and reduce hiring times. Led the deployment and management of the platform, ensuring scalability, reliability, and cost-effectiveness. Demonstrated strong problem-solving and technical skills through successful project delivery.",
     },
     {
       company: "Opensource Contributor",
@@ -111,7 +111,7 @@ export const DATA = {
   ],
   education: [
     {
-      school: "Humber College",
+      school: "Humber Collage",
       href: "https://humber.ca/",
       degree: "Information Technology Solutions",
       logoUrl: "/humber.png",
@@ -121,7 +121,7 @@ export const DATA = {
     {
       school: "GLS University",
       href: "https://www.glsuniversity.ac.in/",
-      degree: "Bachelor's of Computer Applications (BCA)",
+      degree: "Bachelor's of Computer Applications",
       logoUrl: "/gls.png",
       start: "Apr 2019",
       end: "Aug 2022",
