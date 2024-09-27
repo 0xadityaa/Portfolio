@@ -1,0 +1,95 @@
+---
+title: "How Javascript Works"
+publishedAt: "2024-09-26"
+summary: "Understand how the Javascript code is executed and deep dive into its execution engine."
+---
+
+Javascript is a **Synchronous** and **Single Threaded** language. Meaning that it executes one line of code at a time and in the order that it is written. It cannot run in parallel.
+
+## Execution Context
+Everything in Javascript happens inside an **execution context**.
+
+Execution context consists of 2 main parts - **Variable Environment** and **Execution Stack**.
+
+![Execution Context in JS](/js-execution-context.png)
+
+## Variable Environment
+
+Variable Environment is a collection of variables that are available to the code. It is created when the code is executed and destroyed when the execution is finished.
+
+## Execution Stack
+
+Execution Stack is a data structure that keeps track of the order in which the code is executed. It is a stack of functions that are called when the code is executed.
+
+---
+
+## Let's look at how JS is executed under the hood
+Now that we have a basic understanding of how Javascript works, let's dive into its execution engine with an example.
+
+lets take this JS code as an example and look how it is executed by JS engine:
+
+```js
+var n = 2;
+
+function square(num) {
+    var ans = num * num;
+    return ans;
+}
+
+var squareOfN = square(n); // returns 4
+```
+
+Remember that we said everything in JS happens inside an execution context. So, the first step JS engine takes is to create an execution context of the code.
+
+Now we know that the execution context consists of 2 main parts - **Variable Environment** and **Execution Stack**.
+
+There are **3 phases** in the execution of JS code:
+
+### Phase 1 - Memory Creation Phase
+
+![JS Memory Creation](/js-memory-creation.png)
+
+In this phase, JS engine reserves the memory for all the variables and functions in the code. It does not store the actual values inside that variable just yet. Insted, it initializes the defined variable with `undefined` value initially.
+
+at this point our execution context looks like this:
+
+
+Now that the required memory is reserved, the next phase is called **Execution Phase**.
+
+### Phase 2 - Execution Phase
+
+![JS Code Execution](/js-code-execution.png)
+
+In this phase, JS engine executes the code line by line. It starts with the first line of code and executes it one by one. It now updates the initially reserved memory whih was set to `undefined` with the actual value of the variable.
+
+When the code exicution reaches to the function call, a new exicution context is created inside of current context.
+Now, after creating new execution context and computing the square, the `ans` variable is returned to the parent context which will then store that value in the `squareOfN` variable.
+
+### Phase 3 - Garbage Collection Phase
+
+After the execution of a function is complete, the context created for it will be destroyed and if we call same function again, entire execution cycle repeats. Execution cycle looks like this:
+
+![Execution Cycle in JS](/js-execution-cycle.png)
+
+---
+
+## How JS engine handles the code execution
+
+Now that we have an understanding of the brutforce way fo JS execution, lets look at how it is executed in a more practical way by the JS engine.
+
+The JS engine is a complex system that is responsible for executing the code. It is written in C++ and is called V8. It is the most popular Javascript engine and is used by Google, Facebook, and many other companies.
+
+![Execution Cycle in JS](/js-execution-in-engine.png)
+
+JS engine uses a stack to keep track of the order in which the code is executed. It is a data structure that stores the execution context of each function call. When a function is called, it is pushed onto the stack. When the function returns, the context is popped off the stack.
+
+The call stack also has a core component called `Global Execution Context`. This is the context that is used to execute the code outside of any function. It is the initial context that is created when the code is executed first. After complition of every function call in the stack, controll of execution returns to the Global Execution Context which then runs further code.
+
+---
+
+## Wrapping Up
+
+And there you have it, folks! We've journeyed through the intricate world of JavaScript's execution engine, from the creation of the execution context to the final garbage collection phase. Understanding these inner workings not only makes us better developers but also gives us a deeper appreciation for the magic happening under the hood every time we run our code.
+
+✌️ Stay curious, Keep coding, Peace nerds!
+
