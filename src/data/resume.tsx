@@ -111,7 +111,7 @@ export const DATA = {
   ],
   education: [
     {
-      school: "Humber Collage",
+      school: "Humber College",
       href: "https://humber.ca/",
       degree: "Information Technology Solutions",
       logoUrl: "/humber.png",
