@@ -58,9 +58,9 @@ Now that the required memory is reserved, the next phase is called **Execution P
 
 ![JS Code Execution](/js-code-execution.png)
 
-In this phase, JS engine executes the code line by line. It starts with the first line of code and executes it one by one. It now updates the initially reserved memory whih was set to `undefined` with the actual value of the variable.
+In this phase, JS engine executes the code line by line. It starts with the first line of code and executes it one by one. It now updates the initially reserved memory which was set to `undefined` with the actual value of the variable.
 
-When the code exicution reaches to the function call, a new exicution context is created inside of current context.
+When the code execution reaches to the function call, a new execution context is created inside of current context.
 Now, after creating new execution context and computing the square, the `ans` variable is returned to the parent context which will then store that value in the `squareOfN` variable.
 
 ### Phase 3 - Garbage Collection Phase
@@ -73,7 +73,7 @@ After the execution of a function is complete, the context created for it will b
 
 ## How JS engine handles the code execution
 
-Now that we have an understanding of the brutforce way fo JS execution, lets look at how it is executed in a more practical way by the JS engine.
+Now that we have an understanding of the brute force way fo JS execution, lets look at how it is executed in a more practical way by the JS engine.
 
 The JS engine is a complex system that is responsible for executing the code. It is written in C++ and is called V8. It is the most popular Javascript engine and is used by Google, Facebook, and many other companies.
 
@@ -81,7 +81,7 @@ The JS engine is a complex system that is responsible for executing the code. It
 
 JS engine uses a stack to keep track of the order in which the code is executed. It is a data structure that stores the execution context of each function call. When a function is called, it is pushed onto the stack. When the function returns, the context is popped off the stack.
 
-The call stack also has a core component called `Global Execution Context`. This is the context that is used to execute the code outside of any function. It is the initial context that is created when the code is executed first. After complition of every function call in the stack, controll of execution returns to the Global Execution Context which then runs further code.
+The call stack also has a core component called `Global Execution Context`. This is the context that is used to execute the code outside of any function. It is the initial context that is created when the code is executed first. After completion of every function call in the stack, control of execution returns to the Global Execution Context which then runs further code.
 
 ---
 
