@@ -1,0 +1,86 @@
+---
+title: "Hoisting in Javascript"
+publishedAt: "2024-09-30"
+summary: "Understand the concept of Hoisting in Javascript and explore the call stack of JS execution engine."
+---
+
+## What is Hoisting?
+
+Hoisting is a unique behavior in JavaScript where variable and function declarations are moved to the top of their containing scope during the compile phase. This means that you can use variables and functions before they are declared in the code. Understanding hoisting is crucial for mastering JavaScript, as it can lead to unexpected results if not properly understood.
+
+## How Hoisting Works
+
+In JavaScript, both variable declarations (using `var`, `let`, or `const`) and function declarations are hoisted. However, there are important differences in how they behave.
+
+### Variable Hoisting
+
+When you declare a variable using `var`, the declaration is hoisted to the top of its function or global scope, but the assignment remains in place. This can lead to situations where a variable is `undefined` if accessed before its assignment.
+
+```js
+console.log(myVar); // returns undefined
+var myVar = 5;
+console.log(myVar); // returns 5
+```
+
+In the example above, the first `console.log` outputs `undefined` because the declaration of `myVar` is hoisted, but the assignment `myVar = 5` is not. The code is interpreted as:
+
+```js
+var myVar;
+console.log(myVar); // returns undefined
+myVar = 5;
+console.log(myVar); // returns 5
+```
+
+### Function Hoisting
+
+Function declarations are fully hoisted, meaning you can call a function before it is defined in the code. This is because the entire function declaration is hoisted to the top of its scope.
+
+```js
+greet(); // returns "Hello, World!"
+
+function greet() {
+  console.log("Hello, World!");
+}
+```
+
+In this case, the function `greet` can be called before its declaration because the entire function is hoisted to the top.
+
+### Let and Const Hoisting
+
+Unlike `var`, variables declared with `let` and `const` are also hoisted, but they are not initialized. Accessing them before their declaration results in a `ReferenceError`.
+
+```js
+// returns ReferenceError: Cannot access 'myLet' before initialization
+console.log(myLet);
+let myLet = 10;
+
+// returns ReferenceError: Cannot access 'myConst' before initialization
+console.log(myConst);
+const myConst = 20;
+```
+
+In this example, both `myLet` and `myConst` throw a `ReferenceError` because they are in a "temporal dead zone" from the start of the block until their declaration.
+
+## Implications of Hoisting
+
+Understanding hoisting is essential for avoiding common pitfalls in JavaScript. Here are a few key takeaways:
+
+1. **Always Declare Variables**: To avoid confusion, always declare your variables at the top of their scope.
+2. **Function Declarations vs. Expressions**: Remember that function declarations are hoisted, but function expressions (including arrow functions) are not.
+
+```js
+// returns TypeError: square is not a function
+console.log(square(5)); 
+
+var square = function (num) {
+  return num * num;
+};
+```
+
+In this case, the `square` variable is hoisted, but since it is a function expression, it is not initialized until the assignment is reached, leading to a `TypeError`.
+
+## Wrapping Up
+
+If you are wondering why the functions with `function` declaration are hoisted and why `var func = function() {}` or `func() => {}` are not hoisted, you can check out [this](https://www.0xadityaa.xyz/blog/how-js-works) post where I have discussed how JS execution engine reserves memory for the code. In short, if declaration is made using the `function` keyword, the engine stores entire chunk of that function definition along with the reference which allows us to call the function before definition at runtime while in other cases, memory is initially `undefined` until execution context reaches its definition.
+
+✌️ Stay curious, Keep coding, Peace nerds!
