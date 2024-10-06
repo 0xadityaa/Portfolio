@@ -4,6 +4,7 @@ import { formatDate } from "@/lib/utils";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { Badge } from "@/components/ui/badge"; // Import Badge component
 
 export async function generateMetadata({
   params,
@@ -86,13 +87,22 @@ export default async function Blog({
       <h1 className="title font-medium text-4xl tracking-tighter max-w-[650px]">
         {post.metadata.title}
       </h1>
-      <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
+      <div className="flex justify-between items-center mt-2 mb-4 text-sm max-w-[650px]">
         <Suspense fallback={<p className="h-5" />}>
           <p className="text-lg text-neutral-600 dark:text-neutral-400">
             {formatDate(post.metadata.publishedAt)}
           </p>
         </Suspense>
       </div>
+      {post.metadata.tags && post.metadata.tags.length > 0 && (
+        <div className="flex flex-wrap gap-1 mt-2 mb-8">
+          {post.metadata.tags.map((tag: string) => (
+            <Badge key={tag} className="text-xs" variant="secondary">
+              #{tag}
+            </Badge>
+          ))}
+        </div>
+      )}
       <article
         className="prose dark:prose-invert text-xl mb-4"
         dangerouslySetInnerHTML={{ __html: post.source }}

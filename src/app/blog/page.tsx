@@ -3,6 +3,7 @@ import { getBlogPosts } from "@/data/blog";
 import Link from "next/link";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge"; // Import Badge component
 
 export const metadata = {
   title: "Blog",
@@ -35,8 +36,8 @@ export default async function BlogPage() {
           />
         </div>
         <h2 className="font-semibold text-3xl mb-8 tracking-tighter">
-        Latest Posts
-      </h2>
+          Latest Posts
+        </h2>
       </BlurFade>
       {posts
         .sort((a, b) => {
@@ -58,6 +59,15 @@ export default async function BlogPage() {
                 <p className="h-6 text-xs text-muted-foreground">
                   {post.metadata.publishedAt}
                 </p>
+                {post.metadata.tags && post.metadata.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    {post.metadata.tags.map((tag: string) => (
+                      <Badge key={tag} className="text-xs" variant="secondary">
+                        #{tag}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
               </div>
             </Link>
             <Separator className="my-4" />
