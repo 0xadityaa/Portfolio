@@ -205,6 +205,11 @@ export const DATA = {
       ],
       links: [
         {
+          type: "devlog",
+          href: "https://0xadityaa/blog/building-a-spell-checker",
+          icon: <Icons.notion className="size-3" />,
+        },
+        {
           type: "Website",
           href: "https://levenshtein-spell-checker.vercel.app/",
           icon: <Icons.globe className="size-3" />,
