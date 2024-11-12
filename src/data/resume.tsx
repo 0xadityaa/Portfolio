@@ -206,7 +206,7 @@ export const DATA = {
       links: [
         {
           type: "devlog",
-          href: "https://0xadityaa/blog/building-a-spell-checker",
+          href: "https://www.0xadityaa.xyz/blog/building-a-spell-checker",
           icon: <Icons.notion className="size-3" />,
         },
         {
