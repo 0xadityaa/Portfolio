@@ -29,9 +29,9 @@ export default async function BlogPage() {
             curiosity.
           </h3>
           <Image
-            src="/blog-banner.jpeg"
+            src="/blog-banner.png"
             alt="blog-cover"
-            width={150}
+            width={200}
             height={250}
           />
         </div>

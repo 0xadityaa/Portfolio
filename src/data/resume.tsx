@@ -10,7 +10,7 @@ export const DATA = {
   description:
     "Converting coffee into code, I craft elegant and scalable software solutions, turning ideas into impactful products.",
   summary:
-    "Hello! Namaste! Bonjour! I’m a passionate full-stack developer and architect from the vibrant heart of India 🇮🇳, currently based in Toronto, ON 🇨🇦. At work, I blend code and creativity, transforming ideas into captivating digital products. Beyond work, I immerse myself in the whimsical realms of nature ⛰️, games 🎮, and music 🥁, where every hike, new beat, and winning move connects a dot in my creative journey.",
+    "Hello! Namaste! Bonjour! I’m a passionate full-stack developer and architect from the vibrant heart of India 🇮🇳, currently based in Toronto, ON 🇨🇦. At work, I blend code and creativity, transforming ideas into captivating digital products. Beyond work, I immerse myself in the whimsical realms of nature ⛰️, music 🥁, and games 🎮, where every hike, new beat, and winning move connects a dot in my creative journey.",
   avatarUrl: "/Me.jpeg",
   skills: [
     "React",
@@ -24,6 +24,10 @@ export const DATA = {
     "React Query",
     "Redux",
     "Tailwind",
+    "Jest",
+    "Cypress",
+    "Sentry",
+    "Storybook",
     "Java",
     "Spring Boot",
     "Docker",
@@ -89,7 +93,7 @@ export const DATA = {
       company: "J&M Group",
       href: "http://www.jm-group.ca",
       location: "Toronto, ON",
-      title: "Fullstack Developer",
+      title: "Software Development Intern",
       logoUrl: "/j&m.png",
       start: "Apr 2024",
       end: "Aug 2024",
@@ -158,6 +162,36 @@ export const DATA = {
       ],
       image: "/ReactRooks.png",
     },
+        {
+      title: "JSON Parser",
+      href: "https://github.com/0xadityaa/json-parser",
+      dates: "Nov 2024",
+      active: true,
+      description:
+        "This Deno JSON parser, built with TypeScript, efficiently parses JSON strings into an AST, validates against the ECMA-404 standard, and supports both local JSON files or JSON from APIs.",
+      technologies: [
+        "Deno",
+        "Typescript",
+        "Tokenizer",
+        "Parser",
+        "AST",
+        "ECMA-404",
+        "JSON",
+      ],
+      links: [
+        {
+          type: "devlog",
+          href: "https://www.0xadityaa.xyz/blog/implementing-a-json-parser",
+          icon: <Icons.notion className="size-3" />,
+        },
+        {
+          type: "Source",
+          href: "https://github.com/0xadityaa/json-parser",
+          icon: <Icons.github className="size-3" />,
+        },
+      ],
+      image: "/json-parser.png",
+    },
     {
       title: "Byte Cast",
       href: "https://github.com/0xadityaa/Byte-Cast",
@@ -198,7 +232,7 @@ export const DATA = {
       technologies: [
         "Vite",
         "React",
-        "TpeScript",
+        "Typescript",
         "Tailwind CSS",
         "Shadcn UI",
         "Vercel",
@@ -220,7 +254,7 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/Spell-Checker.jpeg",
+      image: "/matrix.jpeg",
     },
         {
       title: "Crypto Maniac",
