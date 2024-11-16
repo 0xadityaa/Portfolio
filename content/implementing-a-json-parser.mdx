@@ -7,16 +7,16 @@ tags: ["computer science"]
 
 Ever wondered how applications understand and process data from APIs? The magic often lies in a data format called JSON. This human-readable format is widely used to transmit data over the internet. But how do computers interpret this data? That's where JSON parsers come in.
 
-In this devlog, we'll dive into the world of parser&apos;s and Implementing a JSON parser using **Deno** and **TypeScript** which could parse local JSON files as well as JSON responses from an API.
+In this devlog, we'll dive into the world of parser&apos;s and Implementing a JSON parser using **Deno** and **Typescript** which could parse local JSON files as well as JSON responses from an API.
 
 ## What is JSON and why is it everywhere? 🤔
 [JSON](https://www.json.org/json-en.html), or *JavaScript Object Notation*, is a lightweight, text-based data-interchange format. It's the de facto standard for data transmission over the internet, especially in APIs. Its simplicity and readability make it a favorite among developers.
  - **Language-Independent:** It's not tied to any specific programming language.
- - **Hierarchical Structure:** It allows for complex data structures, making it versatile.
+ - **Data Structures:** It allows for complex data structures, making it versatile.
  - **Efficient Parsing:** It's relatively easy to parse, leading to fast processing.
 
-Take this snippet as an example:
  ```json
+//  Take this snippet as an example:
  {
   "name": "Alice",
   "age": 25,
@@ -33,13 +33,13 @@ At its core, a parser is a program that converts text into a structured format a
 
 #### Example:
 
-Here&apos;s a JSON snippet:
 ```json
+// Here's a JSON snippet:
 { "id": 1, "isActive": true }
 ```
 
 After tokenizing, it becomes:
-```typescript
+```Typescript
 [
   { type: "BraceOpen", value: "{" },
   { type: "String", value: "id" },
@@ -54,7 +54,7 @@ After tokenizing, it becomes:
 ```
 
 After parsing, the **Abstract Syntax Tree (AST)** looks like this:
-```typescript
+```Typescript
 {
   type: "Object",
   value: {
@@ -72,8 +72,10 @@ Here&apos;s a visual flow of parsing a ***invalid JSON*** :
 
 ## Implementing a JSON Parser using Deno and Typescript 🛠️
 
-Using [Deno](https://deno.com/), I got a clean Typescript environment with out-of-the-box support for Typescript and lots of other cool tools like test-runnrs, coverage-chercker etc. The project structure is as follows:
+Using [Deno](https://deno.com/) because, it comes with out-of-the-box support for Typescript and lots of other cool tools like test-runnrs, coverage-chercker etc.
 ```
+# The project structure is as follows:
+
 /json-parser
       ├── main.ts          # Entry point for the application
       ├── parser.ts        # Contains the parser logic
@@ -97,7 +99,7 @@ Tokenizing helps us understand the structure of the code or input being processe
 It is important to *only use the grammer provided in [ECMA-404](https://www.json.org/json-en.html) for tokenizing JSON.* This ensures that the tokenizer can correctly identify and categorize JSON tokens.
 
 Here&apos;s an example of how `tokenizer.ts` file looks:
-```typescript
+```Typescript
 export const tokenizer = (input: string): Token[] => {
   let current = 0;
   const tokens: Token[] = [];
@@ -119,7 +121,7 @@ export const tokenizer = (input: string): Token[] => {
 The parser is where we make sense out of our tokens. Now we have to build our Abstract Syntax Tree (AST). The AST represents the structure and meaning of the code in a hierarchical tree-like structure. It captures the relationships between different elements of the code, such as statements, expressions, and declarations.
 
 Here&apos;s an example of how `parser.ts` file looks:
-```typescript
+```Typescript
 function parseValue(): ASTNode {
   const token = tokens[current];
   switch (token.type) {
@@ -134,9 +136,9 @@ function parseValue(): ASTNode {
     case "Null":
       return { type: "Null" };
     case "BraceOpen":
-      return parseObject();
+      return parseObject(); // recursive fn
     case "BracketOpen":
-      return parseArray();
+      return parseArray(); // recursive fn
     default:
       throw new Error(`Unexpected token type: ${token.type}`);
   }
@@ -147,17 +149,17 @@ function parseValue(): ASTNode {
 In order to ensure that our parser is working correctly and supporting all the ***ECMA-404 Standards***, we need to write tests. We also need to check for edge cases like `\n`, `\t`, `\r`, `\f`, and `\b` characters for Strings, `-` for negative numbers and so on.
 
 Here&apos;s an example of how `main_test.ts` file looks:
-```typescript
+```Typescript
 Deno.test("parser should correctly parse an array with mixed types", () => {
-  const jsonString = `[1, "string", true, null, {}]`;
+  const jsonString = `[-1, "string\n\t\r\f\b", true, null, {}]`;
   const tokens = tokenizer(jsonString);
   const ast: ASTNode = parser(tokens);
 
   assertEquals(ast, {
     type: "Array",
     value: [
-      { type: "Number", value: 1 },
-      { type: "String", value: "string" },
+      { type: "Number", value: -1 },
+      { type: "String", value: "string\n\t\r\f\b" },
       { type: "Boolean", value: true },
       { type: "Null" },
       { type: "Object", value: {} },
