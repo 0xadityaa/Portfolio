@@ -33,6 +33,7 @@ export default async function BlogPage() {
             alt="blog-cover"
             width={200}
             height={250}
+            className="rounded-lg"
           />
         </div>
         <h2 className="font-semibold text-3xl mb-8 tracking-tighter">
