@@ -100,18 +100,6 @@ export const DATA = {
       description:
         "Developed a comprehensive job portal platform, incorporating real-time features to enhance user experience and optimize job matching. Implemented efficient scheduling and notification systems to improve application rates and reduce hiring times. Led the deployment and management of the platform, ensuring scalability, reliability, and cost-effectiveness. Demonstrated strong problem-solving and technical skills through successful project delivery.",
     },
-    {
-      company: "Opensource Contributor",
-      badges: [],
-      href: "https://github.com/0xadityaa",
-      location: "Remote",
-      title: "Software Engineer",
-      logoUrl: "/GitHub.svg",
-      start: "Sept 2022",
-      end: "Jan 2023",
-      description:
-        "Spearheaded the development of a widely used open-source projects, contributing over 5,000 lines to the Codebase that helped improve the learning experience for new developers in the community.",
-    },
   ],
   education: [
     {
@@ -134,7 +122,7 @@ export const DATA = {
   projects: [
     {
       title: "React Rooks",
-      href: "https://github.com/0xadityaa/React-Rooks-UI",
+      href: "https://chess-against-ai.vercel.app/",
       dates: "Jun - Jul 2024",
       active: true,
       description:
@@ -151,12 +139,12 @@ export const DATA = {
       links: [
         {
           type: "Website",
-          href: "https://react-rooks-ui.vercel.app/",
+          href: "https://chess-against-ai.vercel.app/",
           icon: <Icons.globe className="size-3" />,
         },
         {
           type: "Source",
-          href: "https://github.com/0xadityaa/React-Rooks-UI",
+          href: "https://chess-against-ai.vercel.app/",
           icon: <Icons.github className="size-3" />,
         },
       ],
