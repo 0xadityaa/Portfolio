@@ -4,7 +4,8 @@ import { formatDate } from "@/lib/utils";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { Badge } from "@/components/ui/badge"; // Import Badge component
+import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
 
 export async function generateMetadata({
   params,
@@ -107,6 +108,7 @@ export default async function Blog({
         className="prose dark:prose-invert text-xl mb-4"
         dangerouslySetInnerHTML={{ __html: post.source }}
       ></article>
+      <Image src="/signature.gif" alt="signature gif" width={300} height={150} className="mt-5 mx-auto rounded-lg" />
     </section>
   );
 }
