@@ -23,12 +23,18 @@ export async function markdownToHTML(markdown: string) {
     .use(remarkParse)
     .use(remarkRehype)
     .use(rehypePrettyCode, {
-      // https://rehype-pretty.pages.dev/#usage
       theme: {
         light: "min-light",
         dark: "min-dark",
       },
-      keepBackground: false,
+      keepBackground: false, // Match your CSS variables approach
+      // Remove the custom line handlers as your CSS handles line numbers
+      onVisitHighlightedLine(node) {
+        node.properties.style = "background-color: var(--muted);";
+      },
+      onVisitHighlightedWord(node) {
+        node.properties.style = "background-color: var(--muted); padding: 0.125rem;";
+      },
     })
     .use(rehypeStringify)
     .process(markdown);
@@ -48,10 +54,16 @@ export async function getPost(slug: string) {
   };
 }
 
-async function getAllPosts(dir: string) {
+async function getAllPosts(dir: string, page: number = 1, perPage: number = 4) {
   let mdxFiles = getMDXFiles(dir);
-  return Promise.all(
-    mdxFiles.map(async (file) => {
+
+  const startIndex = (page - 1) * perPage;
+  const endIndex = startIndex + perPage;
+
+  const paginatedFiles = mdxFiles.slice(startIndex, endIndex);
+
+  const posts = await Promise.all(
+    paginatedFiles.map(async (file) => {
       let slug = path.basename(file, path.extname(file));
       let { metadata, source } = await getPost(slug);
       return {
@@ -61,8 +73,18 @@ async function getAllPosts(dir: string) {
       };
     })
   );
+
+  return {
+    posts,
+    pagination: {
+      total: mdxFiles.length,
+      pages: Math.ceil(mdxFiles.length / perPage),
+      current: page,
+      perPage,
+    },
+  };
 }
 
-export async function getBlogPosts() {
-  return getAllPosts(path.join(process.cwd(), "content"));
+export async function getBlogPosts(page: number = 1) {
+  return getAllPosts(path.join(process.cwd(), "content"), page);
 }
