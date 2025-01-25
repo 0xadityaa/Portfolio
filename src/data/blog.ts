@@ -21,27 +21,27 @@ function getMDXFiles(dir: string) {
 export async function markdownToHTML(markdown: string) {
   const p = await unified()
     .use(remarkParse)
-    .use(remarkRehype)
+    .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypePrettyCode, {
-      theme: {
-        light: "min-light",
-        dark: "min-dark",
+      theme: 'github-dark',  // Use a single theme instead of light/dark
+      keepBackground: true,
+      onVisitLine(node: any) {
+        if (node.children.length === 0) {
+          node.children = [{ type: 'text', value: ' ' }];
+        }
       },
-      keepBackground: false, // Match your CSS variables approach
-      // Remove the custom line handlers as your CSS handles line numbers
-      onVisitHighlightedLine(node) {
-        node.properties.style = "background-color: var(--muted);";
+      onVisitHighlightedLine(node: any) {
+        node.properties.className.push('highlighted');
       },
-      onVisitHighlightedWord(node) {
-        node.properties.style = "background-color: var(--muted); padding: 0.125rem;";
-      },
-    })
-    .use(rehypeStringify)
+      onVisitHighlightedWord(node: any) {
+        node.properties.className = ['word'];
+      }
+    } as any)
+    .use(rehypeStringify, { allowDangerousHtml: true })
     .process(markdown);
 
   return p.toString();
 }
-
 export async function getPost(slug: string) {
   const filePath = path.join("content", `${slug}.mdx`);
   let source = fs.readFileSync(filePath, "utf-8");
