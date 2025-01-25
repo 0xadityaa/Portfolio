@@ -8,6 +8,7 @@ tags: ["javascript"]
 Javascript is a **Synchronous** and **Single Threaded** language. Meaning that it executes one line of code at a time and in the order that it is written. It cannot run in parallel.
 
 ## Execution Context
+
 Everything in Javascript happens inside an **execution context**.
 
 Execution context consists of 2 main parts - **Variable Environment** and **Execution Stack**.
@@ -24,6 +25,7 @@ Execution Stack is a data structure that keeps track of the order in which the c
 ---
 
 ## Let's look at how JS is executed under the hood
+
 Now that we have a basic understanding of how Javascript works, let's dive into its execution engine with an example.
 
 lets take this JS code as an example and look how it is executed by JS engine:
@@ -32,8 +34,8 @@ lets take this JS code as an example and look how it is executed by JS engine:
 var n = 2;
 
 function square(num) {
-    var ans = num * num;
-    return ans;
+  var ans = num * num;
+  return ans;
 }
 
 var squareOfN = square(n); // returns 4
@@ -47,7 +49,7 @@ There are **3 phases** in the execution of JS code:
 
 ### Phase 1 - Memory Creation Phase
 
-In this phase, JS engine reserves the memory for all the variables and functions in the code. It does not store the actual values inside that variable just yet. Insted, it initializes the defined variable with `undefined` value initially.
+In this phase, JS engine reserves the memory for all the variables and functions in the code. It does not store the actual values inside that variable just yet. Instead, it initializes the defined variable with `undefined` value initially.
 
 at this point our execution context looks like this:
 
@@ -91,4 +93,3 @@ The call stack also has a core component called `Global Execution Context`. This
 And there you have it, folks! We've journeyed through the intricate world of JavaScript's execution engine, from the creation of the execution context to the final garbage collection phase. Understanding these inner workings not only makes us better developers but also gives us a deeper appreciation for the magic happening under the hood every time we run our code.
 
 ✌️ Stay curious, Keep coding, Peace nerds!
-

@@ -1,7 +1,7 @@
 ---
 title: "Implementing a JSON Parser"
 publishedAt: "2024-11-15"
-summary: "Implementing Tokenizer and Parser for JSON grammer provided in ECMA-404"
+summary: "Implementing Tokenizer and Parser for JSON grammar provided in ECMA-404"
 tags: ["computer science"]
 ---
 
@@ -10,25 +10,29 @@ Ever wondered how applications understand and process data from APIs? The magic 
 In this devlog, we'll dive into the world of parser&apos;s and Implementing a JSON parser using **Deno** and **Typescript** which could parse local JSON files as well as JSON responses from an API.
 
 ## What is JSON and why is it everywhere? 🤔
-[JSON](https://www.json.org/json-en.html), or *JavaScript Object Notation*, is a lightweight, text-based data-interchange format. It's the de facto standard for data transmission over the internet, especially in APIs. Its simplicity and readability make it a favorite among developers.
- - **Language-Independent:** It's not tied to any specific programming language.
- - **Data Structures:** It allows for complex data structures, making it versatile.
- - **Efficient Parsing:** It's relatively easy to parse, leading to fast processing.
 
- ```json
+[JSON](https://www.json.org/json-en.html), or _JavaScript Object Notation_, is a lightweight, text-based data-interchange format. It's the de facto standard for data transmission over the internet, especially in APIs. Its simplicity and readability make it a favorite among developers.
+
+- **Language-Independent:** It's not tied to any specific programming language.
+- **Data Structures:** It allows for complex data structures, making it versatile.
+- **Efficient Parsing:** It's relatively easy to parse, leading to fast processing.
+
+```json
 //  This is what a valid JSON looks like:
- {
+{
   "name": "Alice",
   "age": 25,
   "isDeveloper": true
 }
- ```
+```
+
 Its use cases range from transmitting API responses to saving application settings. But how does software make sense of JSON? That&apos;s where parsers come into play.
 
 ## What is a Parser? 🧐
+
 At its core, a parser is a program that converts text into a structured format and ensure nothing . For JSON, the parser&apos;s job is to transform raw strings into usable objects or data structures. The process typically involves two steps:
 
-1. **Tokenizing (Lexical Analysis):** Breaking the input into meaningful chunks called tokens (e.g. `{`, `"name"`, `:`, `"Alice"`). 
+1. **Tokenizing (Lexical Analysis):** Breaking the input into meaningful chunks called tokens (e.g. `{`, `"name"`, `:`, `"Alice"`).
 2. **Parsing (Constructing AST&apos;s):** Arranging these tokens into a hierarchical structure, known as an Abstract Syntax Tree (AST), that represents the JSON data.
 
 #### Example:
@@ -39,6 +43,7 @@ At its core, a parser is a program that converts text into a structured format a
 ```
 
 After tokenizing, it becomes:
+
 ```typescript
 [
   { type: "BraceOpen", value: "{" },
@@ -49,11 +54,12 @@ After tokenizing, it becomes:
   { type: "String", value: "isActive" },
   { type: "Colon", value: ":" },
   { type: "True", value: "true" },
-  { type: "BraceClose", value: "}" }
-]
+  { type: "BraceClose", value: "}" },
+];
 ```
 
 After parsing, the **Abstract Syntax Tree (AST)** looks like this:
+
 ```typescript
 {
   type: "Object",
@@ -64,15 +70,16 @@ After parsing, the **Abstract Syntax Tree (AST)** looks like this:
 }
 ```
 
-Here&apos;s a visual flow of parsing a ***valid JSON*** :
+Here&apos;s a visual flow of parsing a **_valid JSON_** :
 ![Valid JSON Parser Flow](/json-valid.png "Valid JSON Parser Flow")
 
-Here&apos;s a visual flow of parsing a ***invalid JSON*** :
+Here&apos;s a visual flow of parsing a **_invalid JSON_** :
 ![Invalid JSON Parser Flow](/json-invalid.png "Invalid JSON Parser Flow")
 
 ## Implementing a JSON Parser using Deno and Typescript 🛠️
 
-Using [Deno](https://deno.com/) because, it comes with out-of-the-box support for Typescript and lots of other cool tools like test-runnrs, coverage-chercker etc.
+Using [Deno](https://deno.com/) because, it comes with out-of-the-box support for Typescript and lots of other cool tools like test-runners, coverage-checker etc.
+
 ```bash
 # The project structure is as follows:
 
@@ -91,14 +98,16 @@ Using [Deno](https://deno.com/) because, it comes with out-of-the-box support fo
       └── deno.lock                # Deno lock file for dependencies
 ```
 
-### Implementing Tokenizer *(Lexical Analysis)* 
+### Implementing Tokenizer _(Lexical Analysis)_
+
 Tokenizing is always the first step when writing your own interpreter or compiler. Even your favorite prettifiers tokenize the entire file before prettifying it. Tokenizing involves breaking the code or input into smaller, understandable parts. This is essential because it allows the parser to determine where to start and stop during the parsing process.
 
 Tokenizing helps us understand the structure of the code or input being processed. By breaking it down into tokens, such as keywords, symbols, and literals, we gain insight into the underlying components. Additionally, tokenizing plays a crucial role in error handling. By identifying and categorizing tokens, we can detect and handle syntax errors more effectively.
 
-It is important to *only use the grammer provided in [ECMA-404](https://www.json.org/json-en.html) for tokenizing JSON.* This ensures that the tokenizer can correctly identify and categorize JSON tokens.
+It is important to _only use the grammar provided in [ECMA-404](https://www.json.org/json-en.html) for tokenizing JSON._ This ensures that the tokenizer can correctly identify and categorize JSON tokens.
 
 Here&apos;s an example of how `tokenizer.ts` file looks:
+
 ```typescript
 export const tokenizer = (input: string): Token[] => {
   let current = 0;
@@ -117,10 +126,12 @@ export const tokenizer = (input: string): Token[] => {
 };
 ```
 
-### Implementing Parser *(Constructing AST&apos;s)*
+### Implementing Parser _(Constructing AST&apos;s)_
+
 The parser is where we make sense out of our tokens. Now we have to build our Abstract Syntax Tree (AST). The AST represents the structure and meaning of the code in a hierarchical tree-like structure. It captures the relationships between different elements of the code, such as statements, expressions, and declarations.
 
 Here&apos;s an example of how `parser.ts` file looks:
+
 ```typescript
 function parseValue(): ASTNode {
   const token = tokens[current];
@@ -146,9 +157,11 @@ function parseValue(): ASTNode {
 ```
 
 ### Testing our JSON Parser
-In order to ensure that our parser is working correctly and supporting all the ***ECMA-404 Standards***, we need to write tests. We also need to check for edge cases like `\n`, `\t`, `\r`, `\f`, and `\b` characters for Strings, `-` for negative numbers and so on.
+
+In order to ensure that our parser is working correctly and supporting all the **_ECMA-404 Standards_**, we need to write tests. We also need to check for edge cases like `\n`, `\t`, `\r`, `\f`, and `\b` characters for Strings, `-` for negative numbers and so on.
 
 Here&apos;s an example of how `main_test.ts` file looks:
+
 ```typescript
 Deno.test("parser should correctly parse an array with mixed types", () => {
   const jsonString = `[-1, "string\n\t\r\f\b", true, null, {}]`;
@@ -197,6 +210,7 @@ Moving on to the parser, we built an Abstract Syntax Tree (AST) that neatly orga
 So, with our tokenizer and parser working hand in hand, we can confidently say that we&apos;ve successfully crafted our very own JSON parser!
 
 ---
+
 If you are curious to check out full code, here&apos;s the [GitHub Repo](https://github.com/0xadityaa/json-parser).
 
 ✌️ Stay curious, Keep coding, Peace nerds!
