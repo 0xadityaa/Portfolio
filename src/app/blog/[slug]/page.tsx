@@ -108,7 +108,14 @@ export default async function Blog({
         className="prose dark:prose-invert text-xl mb-4"
         dangerouslySetInnerHTML={{ __html: post.source }}
       ></article>
-      <Image src="/signature.gif" alt="signature gif" width={300} height={150} className="mt-5 mx-auto rounded-lg" />
+      <Image
+        unoptimized
+        src="/signature.gif"
+        alt="signature gif"
+        width={300}
+        height={150}
+        className="mt-5 mx-auto rounded-lg"
+      />
     </section>
   );
 }
