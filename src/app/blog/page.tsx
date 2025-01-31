@@ -19,7 +19,8 @@ export default async function BlogPage({
 }: {
   searchParams: { page?: string };
 }) {
-  const currentPage = (await Number(searchParams.page)) || 1;
+  const pageParams = await Number(searchParams.page);
+  const currentPage = pageParams || 1;
   const { posts, pagination } = await getBlogPosts(currentPage);
 
   return (

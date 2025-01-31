@@ -7,11 +7,11 @@ import { Suspense } from "react";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 
-type BlogParams = {
+interface BlogParams {
   params: {
     slug: string;
   };
-};
+}
 
 export async function generateMetadata({
   params,
@@ -50,7 +50,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function Blog({ params }: BlogParams) {
+export default async function BlogPost({ params }: BlogParams) {
   let post = await getPost(params.slug);
 
   if (!post) {
