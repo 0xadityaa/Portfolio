@@ -14,11 +14,12 @@ export const metadata = {
 
 const BLUR_FADE_DELAY = 0.04;
 
-export default async function BlogPage({
-  searchParams,
-}: {
-  searchParams: { page?: string };
-}) {
+export default async function BlogPage(
+  props: {
+    searchParams: Promise<{ page?: string }>;
+  }
+) {
+  const searchParams = await props.searchParams;
   const pageParams = await Number(searchParams.page);
   const currentPage = pageParams || 1;
   const { posts, pagination } = await getBlogPosts(currentPage);

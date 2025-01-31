@@ -8,14 +8,13 @@ import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 
 interface BlogParams {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-export async function generateMetadata({
-  params,
-}: BlogParams): Promise<Metadata | undefined> {
+export async function generateMetadata(props: BlogParams): Promise<Metadata | undefined> {
+  const params = await props.params;
   let post = await getPost(params.slug);
 
   let {
@@ -50,7 +49,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPost({ params }: BlogParams) {
+export default async function BlogPost(props: BlogParams) {
+  const params = await props.params;
   let post = await getPost(params.slug);
 
   if (!post) {
