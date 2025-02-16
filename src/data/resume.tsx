@@ -10,7 +10,7 @@ export const DATA = {
   description:
     "Converting coffee into code, I craft elegant and scalable software solutions, turning ideas into impactful products.",
   summary:
-    "Hello! Namaste! Bonjour! I’m a passionate full-stack developer and architect from the vibrant heart of India 🇮🇳, currently based in Toronto, ON 🇨🇦. At work, I blend code and creativity, transforming ideas into captivating digital products. Beyond work, I immerse myself in the whimsical realms of nature ⛰️, music 🥁, and games 🎮, where every hike, new beat, and winning move connects a dot in my creative journey.",
+    "Hello! Namaste! Bonjour! I’m a passionate full-stack developer and architect from the vibrant heart of India 🇮🇳, currently based in Toronto 🇨🇦. At work, I blend code and creativity, transforming ideas into captivating digital products. Beyond work, I immerse myself in the whimsical realms of nature ⛰️, music 🥁, and games 🎮, where every hike, new beat, and winning move connects a dot in my creative journey.",
   avatarUrl: "/Me.jpeg",
   skills: [
     "React",
@@ -48,16 +48,17 @@ export const DATA = {
     "GitHub Actions",
     "AWS CodeCommit",
     "Vercel",
+    "Langchain",
+    "Langgraph",
   ],
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
+    { href: "/projects", icon: CodeIcon, label: "Projects" },
     { href: "/blog", icon: NotebookIcon, label: "Blog" },
-    { href: "#projects", icon: CodeIcon, label: "Projects" },
-    { href: "https://drive.google.com/file/d/1RjBMWuZDe5R0dN_lMmTRppEqTmTsSKTo/view?usp=sharing", icon: FileDownIcon, label: "Resume", target: "_blank" },
   ],
   contact: {
     email: "negandhi.aditya@gmail.com",
-    tel: "+1 (647) 512-3032",
+    tel: "",
     social: {
       GitHub: {
         name: "GitHub",
@@ -117,7 +118,7 @@ export const DATA = {
       logoUrl: "/gls.png",
       start: "Apr 2019",
       end: "Aug 2022",
-    }
+    },
   ],
   projects: [
     {
@@ -150,7 +151,7 @@ export const DATA = {
       ],
       image: "/ReactRooks.png",
     },
-        {
+    {
       title: "JSON Parser",
       href: "https://github.com/0xadityaa/json-parser",
       dates: "Nov 2024",
@@ -194,7 +195,7 @@ export const DATA = {
         "Socket.io",
         "React",
         "Remix",
-        "AWS"
+        "AWS",
       ],
       links: [
         // {
@@ -244,7 +245,7 @@ export const DATA = {
       ],
       image: "/matrix.jpeg",
     },
-        {
+    {
       title: "Crypto Maniac",
       href: "https://github.com/0xadityaa/Crypto-Maniac",
       dates: "Jul 2021 - Jan 2022",
