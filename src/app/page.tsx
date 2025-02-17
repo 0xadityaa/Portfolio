@@ -1,7 +1,5 @@
-// import { HackathonCard } from "@/components/hackathon-card";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
-import { ProjectCard } from "@/components/project-card";
 import { ResumeCard } from "@/components/resume-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -108,6 +106,48 @@ export default function Page() {
                 <Badge key={skill}>{skill}</Badge>
               </BlurFade>
             ))}
+          </div>
+        </div>
+      </section>
+      <section id="code-stats">
+        <div className="flex min-h-0 flex-col gap-y-3">
+          <BlurFade delay={BLUR_FADE_DELAY * 9}>
+            <h2 className="text-xl font-bold">📈 Code Stats</h2>
+          </BlurFade>
+          <div className="flex flex-wrap gap-1 justify-start">
+            <figure className="w-full md:w-auto rounded-sm">
+              <BlurFade delay={BLUR_FADE_DELAY * 12}>
+                <object
+                  data="https://wakatime.com/share/@0xadityaa/ad4bcbfc-7acf-4ff9-8b3d-9d77e30fdb94.svg"
+                  type="image/svg+xml"
+                  width="100%"
+                  height="140"
+                  className="rounded-md"
+                ></object>
+              </BlurFade>
+            </figure>
+            <figure className="w-full md:w-auto lg:w-[100%] rounded-sm mt-4">
+              <BlurFade delay={BLUR_FADE_DELAY * 12}>
+                <object
+                  data="https://wakatime.com/share/@0xadityaa/aedb7477-f268-4541-a13a-d47de60dfbc0.svg"
+                  type="image/svg+xml"
+                  width="100%"
+                  height="400"
+                  className="rounded-md"
+                />
+              </BlurFade>
+            </figure>
+            <figure className="w-full md:w-auto lg:w-[100%] rounded-sm mt-4">
+              <BlurFade delay={BLUR_FADE_DELAY * 12}>
+                <object
+                  data="https://wakatime.com/share/@0xadityaa/02269a7b-a6f2-4849-80a8-4a6aa41170d0.svg"
+                  type="image/svg+xml"
+                  width="100%"
+                  height="400"
+                  className="rounded-md"
+                />
+              </BlurFade>
+            </figure>
           </div>
         </div>
       </section>
