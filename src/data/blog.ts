@@ -23,19 +23,19 @@ export async function markdownToHTML(markdown: string) {
     .use(remarkParse)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypePrettyCode, {
-      theme: 'github-dark',  // Use a single theme instead of light/dark
+      theme: "github-dark",
       keepBackground: true,
       onVisitLine(node: any) {
         if (node.children.length === 0) {
-          node.children = [{ type: 'text', value: ' ' }];
+          node.children = [{ type: "text", value: " " }];
         }
       },
       onVisitHighlightedLine(node: any) {
-        node.properties.className.push('highlighted');
+        node.properties.className.push("highlighted");
       },
       onVisitHighlightedWord(node: any) {
-        node.properties.className = ['word'];
-      }
+        node.properties.className = ["word"];
+      },
     } as any)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(markdown);
@@ -56,6 +56,15 @@ export async function getPost(slug: string) {
 
 async function getAllPosts(dir: string, page: number = 1, perPage: number = 4) {
   let mdxFiles = getMDXFiles(dir);
+
+  // Add this sort before pagination
+  mdxFiles.sort((a, b) => {
+    const aDate = matter(fs.readFileSync(path.join(dir, a), "utf-8")).data
+      .publishedAt;
+    const bDate = matter(fs.readFileSync(path.join(dir, b), "utf-8")).data
+      .publishedAt;
+    return new Date(bDate).getTime() - new Date(aDate).getTime();
+  });
 
   const startIndex = (page - 1) * perPage;
   const endIndex = startIndex + perPage;
