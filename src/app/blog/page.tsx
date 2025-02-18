@@ -14,11 +14,9 @@ export const metadata = {
 
 const BLUR_FADE_DELAY = 0.04;
 
-export default async function BlogPage(
-  props: {
-    searchParams: Promise<{ page?: string }>;
-  }
-) {
+export default async function BlogPage(props: {
+  searchParams: Promise<{ page?: string }>;
+}) {
   const searchParams = await props.searchParams;
   const pageParams = await Number(searchParams.page);
   const currentPage = pageParams || 1;
@@ -51,14 +49,11 @@ export default async function BlogPage(
       </BlurFade>
 
       {posts
-        .sort((a, b) => {
-          if (
-            new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)
-          ) {
-            return -1;
-          }
-          return 1;
-        })
+        .sort(
+          (a, b) =>
+            new Date(b.metadata.publishedAt).getTime() -
+            new Date(a.metadata.publishedAt).getTime()
+        )
         .map((post, id) => (
           <BlurFade delay={BLUR_FADE_DELAY * 2 + id * 0.05} key={post.slug}>
             <Link
