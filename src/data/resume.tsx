@@ -10,7 +10,7 @@ export const DATA = {
   description:
     "Converting coffee into code, I craft elegant and scalable software solutions, turning ideas into impactful products.",
   summary:
-    "Hello! Namaste! Bonjour! I’m a passionate full-stack developer and architect from the vibrant heart of India 🇮🇳, currently based in Toronto 🇨🇦. At work, I blend code and creativity, transforming ideas into captivating digital products. Beyond work, I immerse myself in the whimsical realms of nature ⛰️, music 🥁, and games 🎮, where every hike, new beat, and winning move connects a dot in my creative journey.",
+    "Hello! Namaste! Bonjour! I&apos;m a passionate full-stack developer and architect from the vibrant heart of India 🇮🇳, currently based in Toronto 🇨🇦. At work, I blend code and creativity, transforming ideas into captivating digital products. Beyond work, I immerse myself in the whimsical realms of nature ⛰️, music 🥁, and games 🎮, where every hike, new beat, and winning move connects a dot in my creative journey.",
   avatarUrl: "/Me.jpeg",
   skills: [
     "React",
@@ -25,7 +25,7 @@ export const DATA = {
     "Redux",
     "Tailwind",
     "Jest",
-    "Cypress",
+    "Playwright",
     "Sentry",
     "Storybook",
     "Java",
@@ -48,8 +48,10 @@ export const DATA = {
     "GitHub Actions",
     "AWS CodeCommit",
     "Vercel",
-    "Langchain",
-    "Langgraph",
+    "LangChain",
+    "LangGraph",
+    "Opentelemetry",
+    "Datadog",
   ],
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
@@ -122,6 +124,37 @@ export const DATA = {
   ],
   projects: [
     {
+      title: "Finchat",
+      href: "https://github.com/0xadityaa/Finchat",
+      dates: "Jan - Feb 2025",
+      active: true,
+      description:
+        "A smart chatbot that helps you analyze stocks and financial markets in real-time. Chat naturally to get live stock prices, company insights, and market trends with interactive charts and data visualizations. Built using RAG architecture and OpenAI's GPT-4o.",
+      technologies: [
+        "Python",
+        "Fast API",
+        "Streamlit",
+        "LangChain",
+        "LangGraph",
+        "Pandas",
+        "Azure OpenAI",
+        "Docker",
+      ],
+      links: [
+        {
+          type: "Devlog",
+          href: "https://www.0xadityaa.xyz/blog/what-are-llms-and-how-to-build-apps-using-it",
+          icon: <Icons.notion className="size-3" />,
+        },
+        {
+          type: "Source",
+          href: "https://github.com/0xadityaa/Finchat",
+          icon: <Icons.github className="size-3" />,
+        },
+      ],
+      image: "/Finchat.png",
+    },
+    {
       title: "React Rooks",
       href: "https://chess-against-ai.vercel.app/",
       dates: "Jun - Jul 2024",
@@ -169,7 +202,7 @@ export const DATA = {
       ],
       links: [
         {
-          type: "devlog",
+          type: "Devlog",
           href: "https://www.0xadityaa.xyz/blog/implementing-a-json-parser",
           icon: <Icons.notion className="size-3" />,
         },
@@ -228,7 +261,7 @@ export const DATA = {
       ],
       links: [
         {
-          type: "devlog",
+          type: "Devlog",
           href: "https://www.0xadityaa.xyz/blog/building-a-spell-checker",
           icon: <Icons.notion className="size-3" />,
         },
