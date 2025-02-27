@@ -25,11 +25,11 @@ export default async function BlogPage(props: {
   return (
     <section>
       <BlurFade delay={BLUR_FADE_DELAY}>
-        <h2 className="font-semibold text-4xl mb-8 tracking-tighter">
+        <h2 className="font-semibold text-2xl sm:text-3xl md:text-4xl mb-4 sm:mb-6 md:mb-8 tracking-tighter">
           🧠 Adi&apos;s Second Brain
         </h2>
-        <div className="flex flex-col-reverse sm:flex-row items-center mb-8 gap-4">
-          <h3 className="sm:mr-4 text-base sm:text-lg lg:text-xl text-pretty">
+        <div className="flex flex-col-reverse sm:flex-row items-center gap-4 sm:gap-6 md:gap-8 mb-6 sm:mb-8">
+          <h3 className="text-sm sm:text-base md:text-lg lg:text-xl text-pretty sm:mr-4 max-w-prose">
             Welcome to my blog! Peep into my journey as a full-stack developer,
             where I explore scalable systems, elegant software architectures,
             and the cutting-edge technologies that ignite my boundless
@@ -40,7 +40,7 @@ export default async function BlogPage(props: {
             alt="blog-cover"
             width={200}
             height={250}
-            className="w-[150px] h-[200px] sm:w-[200px] sm:h-[250px] rounded-lg object-cover"
+            className="w-full sm:w-auto h-auto sm:h-[200px] md:h-[250px] rounded-lg object-contain sm:object-cover"
           />
         </div>
         <h2 className="font-semibold text-3xl mb-8 tracking-tighter">
