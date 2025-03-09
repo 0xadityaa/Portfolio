@@ -1,0 +1,93 @@
+---
+title: "What exactly is MCP?"
+publishedAt: "2025-03-08"
+summary: "What is Model Context Protocol (MCP)? Explore how MCP, the USB-C for AI, is set to change data integrations into AI by standardizing context injection into models. Discover how it surpasses traditional APIs, tackles data silos, and enhances AI tool use across various platforms."
+tags: ["llm", "ai", "mcp"]
+---
+
+<Image
+  src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2U0am5hb2J4aTA5dGFyYzA5bHN4bG1hbWltcjJrcjQyM2M2Z3FjciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/mBpthYTk5rfbZvdtIy/giphy.gif"
+  alt="GIF of a robot furiously pressing buttons"
+  style="border-radius: 10px; width: 100%;"
+/>
+
+If you are active in tech communities on socials like LinkedIn, YouTube and X, there&apos;s a high chance that your feed is flooded with posts about MCP too. This was my state as well a few days ago, so I decided to dive in. Here, I&apos;m going to summarize everything I could find and understand until now.
+
+## TL;DR
+
+[MCP](https://www.anthropic.com/news/model-context-protocol) is **not** just another API; it&apos;s a new standard for injecting structured context into AI models. Think of it as a USB-C port for AI, allowing seamless and standardized integration with data sources, tools, and workflows. Why is it innovative? Because AI models are often context-blind, struggling to leverage real-world information effectively. MCP fixes this by bridging data silos, improving security, and ensuring model-agnostic, reusable integrations. For devs and AI engineers, this means simplified integrations, better model performance, faster development, and future-proof AI architectures.
+
+## What&apos;s the Big Deal?
+
+Many assume MCP is just another API, but it&apos;s much more than that. If you&apos;re picturing REST endpoints and JSON payloads, think bigger.. MCP is a protocol for making AI models more independent by giving them the right context about tools available to it and put model&apos;s reasoning abilities to good use by letting it decide what tool it need and when.
+
+### Why is Context so important?
+
+AI models today are incredibly capable, but they often struggle because they don&apos;t always have the right context to work with. In frameworks like LangChain, we tackled this by giving models tools and teaching them when and how to use them. MCP takes this further by structuring context from the start, so models don&apos;t have to rely solely on vague system prompts or tool descriptions.
+
+**More Context ~= Better output + Accuracy from LLMs**
+
+Here&apos;s a good analogy: Think of asking a friend for homework help. Instead of just saying, “How do I solve this?” you&apos;d explain:
+
+- “Hey, I&apos;m working on algebra homework.” (Domain)
+- “We&apos;re learning about quadratic equations.” (Specific Topic)
+- “I need to solve x² + 5x + 6 = 0.” (Task)
+- “Can you walk me through the steps?” (Request)
+
+With traditional ways, AI models often get a prompt and then based on the context from system prompt, it tries to figure out which tools to use and how to use them.
+
+MCP changes this by providing structured context upfront, so models can make more informed decisions about which tools to use and how to use them.
+
+### The Problem with Current AI Tool Use
+
+![AI tool use without MCP](http://res.cloudinary.com/total-typescript/image/upload/v1741365059/posts/post_hmxpo/ig9sx9vzc5oxzaywlff0.png)
+
+<cite>Image credit: Matt Pocock</cite>
+
+Right now, AI models don&apos;t inherently know how to use external tools, they have to be taught. The typical approach involves building custom data access tools, crafting prompt (like docstrings) on when and how to use them, and then attaching these tools to the LLM through a system prompt. The assumption is that the model will figure out the right tool to use based on the user's query.
+
+But this method has some serious downsides:
+
+**Glue Code Overload:** Developers need to write a lot of extra code to ensure tools work as expected.
+
+**Prompt Engineering Hassles:** LLMs rely on carefully worded system prompts to understand how to use tools, which can be tricky to get right.
+
+**Tight Coupling:** If a tool changes, its documentation, system prompt, and implementation all needs updating, creating long-term maintenance headaches.
+
+### How MCP propose a better way to fix this?
+
+![AI tool use with
+  MCP](http://res.cloudinary.com/total-typescript/image/upload/v1741365059/posts/post_hmxpo/k36sjzjwkv1bimytecqe.png)
+
+<cite>Image credit: Matt Pocock</cite>
+
+MCP removes the guesswork by standardizing tool and data access, so developers don&apos;t
+have to reinvent the wheel every time they integrate a new source. Instead of manually
+wiring everything together, MCP provides a structured approach where tools can be
+created once and reused across multiple AI agents or applications.
+
+With MCP, AI models get structured context upfront, eliminating ambiguity and reducing the reliance on system prompts. Instead of expecting the model to infer everything from vague instructions, we make sure all the key details are available from the start.
+
+**Bridging Data Silos:** One big challenge in enterprise AI? Important data is scattered everywhere. Some info is in databases, some in cloud storage, some buried in Slack messages. MCP helps AI access and use data from multiple sources in a unified way, so models aren&apos;t just relying on bits and pieces, they get the full picture.
+
+**Works with Any AI Model:** MCP isn&apos;t tied to one AI model. Whether you&apos;re using Claude, GPT, or your own custom LLM, MCP makes context handling consistent across different models and tools. Plus, its modular design means it plays nicely with different data sources and systems.
+
+**Security and Access Control:** Handling sensitive enterprise data? MCP bakes security into its design. It provides controlled access to data and tools, ensuring that AI models only access what they&apos;re supposed to.
+
+**Pre-Built Integrations:** To make life easier, MCP comes with ready-to-use connectors for platforms like Google Drive, Slack, GitHub, and databases. This helps developers quickly link AI models to industry standard data sources without reinventing the wheel.
+
+### How to get started with MCP?
+
+MCP is still new, but since it&apos;s an open standard, you can already start experimenting with it. Here are a few resources to dive in:
+
+**Read the official Docs:** Check out Anthropic&apos;s [documentation](https://modelcontextprotocol.io/introduction) for a deep dive into MCP&apos;s architecture.
+
+**Try Out Pre-Built MCP Servers:** Since MCP is open-source, npm-like registries are emerging with pre-built MCP servers for many of the tools we use daily. Here are some of the most useful ones I've come across so far: [smithery](https://smithery.ai/), [mcp-get](https://mcp-get.com/), [glama](https://glama.ai/mcp/servers), [mcp.so](https://mcp.so/).
+
+**Build Your Own MCP Server:** Follow the [quick start guide](https://modelcontextprotocol.io/tutorials/building-mcp-with-llms) to create custom MCP servers tailored to your needs.
+
+## Final Thoughts
+
+MCP is still in its early days, and while it promises a smarter way to connect AI with real-world data sources, it's too soon to say how much of an impact it will have. On the innovation side, MCP's approach to standardizing context for AI is a major step forward it could lead to better model accuracy, easier integrations, and more seamless automation. The pre-built connectors and modular framework make it appealing for developers looking to streamline workflows.
+
+But there are still open questions. Will companies widely adopt it? Can it scale efficiently across different AI models and enterprise systems? Right now, it&apos;s an interesting idea with a lot of potential, but we&apos;ll have to see how it evolves. If you're in the AI space, it&apos;s worth keeping an eye on and experimenting with, but whether it will _truly change_ the agentic ai game? Guess we&apos;ll just have to twiddle our thumbs and see.

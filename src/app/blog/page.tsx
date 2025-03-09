@@ -29,7 +29,7 @@ export default async function BlogPage(props: {
           🧠 Adi&apos;s Second Brain
         </h2>
         <div className="flex flex-col-reverse sm:flex-row items-center gap-4 sm:gap-6 md:gap-8 mb-6 sm:mb-8">
-          <h3 className="text-sm sm:text-base md:text-lg lg:text-xl text-pretty sm:mr-4 max-w-prose">
+          <h3 className="text-sm sm:text-base md:text-lg lg:text-lg text-pretty sm:mr-4 max-w-prose">
             Welcome to my blog! Peep into my journey as a full-stack developer,
             where I explore scalable systems, elegant software architectures,
             and the cutting-edge technologies that ignite my boundless
