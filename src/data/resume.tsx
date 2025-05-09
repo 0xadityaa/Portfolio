@@ -50,6 +50,8 @@ export const DATA = {
     "Vercel",
     "LangChain",
     "LangGraph",
+    "MCP",
+    "Vector (Semantic) Search",
     "Opentelemetry",
     "Datadog",
   ],
@@ -93,6 +95,17 @@ export const DATA = {
 
   work: [
     {
+      company: "Architech",
+      href: "https://www.architech.ca/",
+      location: "Toronto, ON",
+      title: "Software Development Mentee",
+      logoUrl: "/architech.png",
+      start: "Jan 2025",
+      end: "May 2025",
+      description:
+        "Developed AI-powered customer support automation using LangGraph/ReAct for diverse query handling and agentic workflows. Improved LLM performance via Semantic Search with OpenAI embeddings/pgvector/HNSW. Implemented human escalation and automated CI/CD pipelines for Python/React apps using Azure DevOps/GitHub Actions.",
+    },
+    {
       company: "J&M Group",
       href: "http://www.jm-group.ca",
       location: "Toronto, ON",
@@ -101,7 +114,7 @@ export const DATA = {
       start: "Apr 2024",
       end: "Aug 2024",
       description:
-        "Developed a comprehensive job portal platform, incorporating real-time features to enhance user experience and optimize job matching. Implemented efficient scheduling and notification systems to improve application rates and reduce hiring times. Led the deployment and management of the platform, ensuring scalability, reliability, and cost-effectiveness. Demonstrated strong problem-solving and technical skills through successful project delivery.",
+        "Designed and implemented a PostGIS-based location-aware system optimizing job seeker placement for faster hiring cycles. Built a PWA job board UI using React/Typescript/Tailwind/ShadCn. Enabled self-hosted Next.js deployment with dependencies (Supabase, Redis, RabbitMQ) via Docker Swarm on Linux.",
     },
   ],
   education: [
