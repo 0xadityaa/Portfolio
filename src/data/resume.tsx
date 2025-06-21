@@ -42,14 +42,15 @@ export const DATA = {
     "Redis",
     "Kafka",
     "WebSockets",
-    "AWS [ec2, s3, serverless]",
-    "ORM's [Prisma, Drizzle, Hibernate]",
+    "ORM's [Prisma, Drizzle, Hibernate, SQLAlchemy]",
     "Git",
     "GitHub Actions",
-    "AWS CodeCommit",
+    "Azure",
+    "GCP",
     "Vercel",
     "LangChain",
     "LangGraph",
+    "Vertex AI",
     "MCP",
     "Vector (Semantic) Search",
     "Opentelemetry",
@@ -137,6 +138,70 @@ export const DATA = {
   ],
   projects: [
     {
+      title: "Gitbuddy",
+      href: "https://github.com/0xadityaa/Gitbuddy",
+      dates: "Jun 2025",
+      active: true,
+      description:
+        "A Multi-Agent devtool that helps automate tedious tasks maintaining github repos. It can create and update Readmes, Dockerize the project for easy local dev, and generate a llm.txt file summarizing the version-controll history of project to pass on to other AI agents.",
+      technologies: [
+        "Next.js",
+        "Supabase",
+        "Langchain",
+        "Gemini 2.5 Flash + 2.5 Pro",
+        "Tailwind + ShadCN",
+      ],
+      links: [
+        {
+          type: "Devlog",
+          href: "https://devpost.com/software/gitbuddy-8feigv",
+          icon: <Icons.notion className="size-3" />,
+        },
+        {
+          type: "Website",
+          href: "https://gitbuddy-dev.lovable.app/",
+          icon: <Icons.globe className="size-3" />,
+        },
+        {
+          type: "Source",
+          href: "https://github.com/0xadityaa/Gitbuddy",
+          icon: <Icons.github className="size-3" />,
+        },
+      ],
+      image: "/gitbuddy.png",
+    },
+    {
+      title: "GraphRAG Chat",
+      href: "https://github.com/0xadityaa/GraphRAGChat",
+      dates: "May - Jun 2025",
+      active: true,
+      description:
+        "A scalable GraphRAG Chatbot that scrapes site data, builds a knowledge graph, and uses it to answer semantic and multi-document relational questions and provide citations as site links. Auto-scales Frontend, Backend, and DB as needed.",
+      technologies: [
+        "Next.js",
+        "FastAPI",
+        "Spanner Graph DB",
+        "Langchain",
+        "Gemini 2.5 Flash",
+        "Serverless",
+        "Playwright",
+        "GCP",
+      ],
+      links: [
+        {
+          type: "Website",
+          href: "https://frontend-471866182091.us-central1.run.app",
+          icon: <Icons.globe className="size-3" />,
+        },
+        {
+          type: "Source",
+          href: "https://github.com/0xadityaa/GraphRAGChat",
+          icon: <Icons.github className="size-3" />,
+        },
+      ],
+      image: "/graphrag-chat.png",
+    },
+    {
       title: "Finchat",
       href: "https://github.com/0xadityaa/Finchat",
       dates: "Jan - Feb 2025",
@@ -200,7 +265,7 @@ export const DATA = {
     {
       title: "JSON Parser",
       href: "https://github.com/0xadityaa/json-parser",
-      dates: "Nov 2024",
+      dates: "Dec 2024 - Jan 2025",
       active: true,
       description:
         "This Deno JSON parser, built with TypeScript, efficiently parses JSON strings into an AST, validates against the ECMA-404 standard, and supports both local JSON files or JSON from APIs.",
@@ -230,7 +295,7 @@ export const DATA = {
     {
       title: "Byte Cast",
       href: "https://github.com/0xadityaa/Byte-Cast",
-      dates: "March 2024 - Present",
+      dates: "March 2024",
       active: true,
       description:
         "This project allows users to capture their camera feed from their browser, encode it using FFMPEG, and stream it to the RTMP servers of platforms like YT, FB, LinkedIn, and others. It serves as a browser-based alternative to OBS for streaming.",
@@ -258,40 +323,6 @@ export const DATA = {
       image: "/Bytecast.png",
     },
     {
-      title: "Levenshtine's Spell Checker",
-      href: "https://github.com/0xadityaa/levenshtein-spell-checker",
-      dates: "Nov 2024",
-      active: true,
-      description:
-        "Implementation of a basic spell checker that uses levenshtine's algorithm to find similar words based on distance of editing.",
-      technologies: [
-        "Vite",
-        "React",
-        "Typescript",
-        "Tailwind CSS",
-        "Shadcn UI",
-        "Vercel",
-      ],
-      links: [
-        {
-          type: "Devlog",
-          href: "https://www.0xadityaa.xyz/blog/building-a-spell-checker",
-          icon: <Icons.notion className="size-3" />,
-        },
-        {
-          type: "Website",
-          href: "https://levenshtein-spell-checker.vercel.app/",
-          icon: <Icons.globe className="size-3" />,
-        },
-        {
-          type: "Source",
-          href: "https://github.com/0xadityaa/levenshtein-spell-checker",
-          icon: <Icons.github className="size-3" />,
-        },
-      ],
-      image: "/matrix.jpeg",
-    },
-    {
       title: "Crypto Maniac",
       href: "https://github.com/0xadityaa/Crypto-Maniac",
       dates: "Jul 2021 - Jan 2022",
@@ -308,6 +339,11 @@ export const DATA = {
         "iOS",
       ],
       links: [
+        {
+          type: "Devlog",
+          href: "https://docs.google.com/document/d/11gGMB3EVEGWfyBg2vHAreBNJFQk7ecJCeQyt98Mv0Vs/edit?usp=sharing",
+          icon: <Icons.notion className="size-3" />,
+        },
         {
           type: "Source",
           href: "https://github.com/0xadityaa/Crypto-Maniac",
