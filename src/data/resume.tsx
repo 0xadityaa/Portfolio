@@ -74,7 +74,7 @@ export const DATA = {
       },
       LinkedIn: {
         name: "LinkedIn",
-        url: "https://www.linkedin.com/in/aditya-negandhi-49290318b/",
+        url: "https://www.linkedin.com/in/aditya-negandhi",
         icon: Icons.linkedin,
         navbar: true,
       },
@@ -137,6 +137,42 @@ export const DATA = {
     },
   ],
   projects: [
+    {
+      title: "Clipper",
+      href: "https://github.com/0xadityaa/clipper",
+      dates: "Jul 2025",
+      active: true,
+      description:
+        "Clipper is an AI agent designed to help content creators effortlessly repurpose long-form video content such as podcasts, interviews, and live streams into engaging, bite-sized clips for platforms like TikTok, Instagram Reels, and YouTube Shorts.",
+      technologies: [
+        "Next.js",
+        "PostgreSQL",
+        "FastAPI",
+        "Gemini 2.5 Pro",
+        "Tailwind + ShadCN",
+        "AWS S3",
+        "FFMPEG",
+        "Inngest",
+      ],
+      links: [
+        {
+          type: "Devlog",
+          href: "https://devpost.com/software/clipper-ndiy1m",
+          icon: <Icons.notion className="size-3" />,
+        },
+        {
+          type: "Website",
+          href: "https://clipper-ai-omega.vercel.app/",
+          icon: <Icons.globe className="size-3" />,
+        },
+        {
+          type: "Source",
+          href: "https://github.com/0xadityaa/clipper",
+          icon: <Icons.github className="size-3" />,
+        },
+      ],
+      image: "/clipper.png",
+    },
     {
       title: "Gitbuddy",
       href: "https://github.com/0xadityaa/Gitbuddy",
