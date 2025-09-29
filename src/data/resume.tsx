@@ -14,6 +14,8 @@ export const DATA = {
   avatarUrl: "/Me.jpeg",
   skills: [
     "React",
+    "Nest.js",
+    "Tanstack",
     "Next",
     "Remix",
     "Node",
@@ -95,6 +97,17 @@ export const DATA = {
   },
 
   work: [
+    {
+      company: "Enercare",
+      href: "https://www.enercare.ca/",
+      location: "Markham, ON",
+      title: "Software Engineer",
+      logoUrl: "/enercare.png",
+      start: "Jul 2025",
+      end: "Present",
+      description:
+        "Currently, I'm a Software Engineer at Enercare, where I work across the stack using TypeScript, Nest.js microservices, Azure, MS SQL and React.js. I'm currently focused on a large-scale modernization project, where we are re-designing and re-building legacy business critical systems with modern event-driven architecture with primary focus on improving system reliability, performance, and user experience.",
+    },
     {
       company: "Architech",
       href: "https://www.architech.ca/",

@@ -109,7 +109,7 @@ export default function Page() {
           </div>
         </div>
       </section>
-      <section id="code-stats">
+      {/* <section id="code-stats">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 9}>
             <h2 className="text-xl font-bold">📈 Code Stats</h2>
@@ -150,7 +150,7 @@ export default function Page() {
             </figure>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* <section id="hackathons">
         <div className="space-y-12 w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 13}>
