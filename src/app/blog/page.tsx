@@ -25,23 +25,22 @@ export default async function BlogPage(props: {
   return (
     <section>
       <BlurFade delay={BLUR_FADE_DELAY}>
-        <h2 className="font-semibold text-2xl sm:text-3xl md:text-4xl mb-4 sm:mb-6 md:mb-8 tracking-tighter">
-          🧠 Adi&apos;s Second Brain
-        </h2>
-        <div className="flex flex-col-reverse sm:flex-row items-center gap-4 sm:gap-6 md:gap-8 mb-6 sm:mb-8">
-          <h3 className="text-sm sm:text-base md:text-lg lg:text-lg text-pretty sm:mr-4 max-w-prose">
-            Welcome to my blog! Peep into my journey as a full-stack developer,
-            where I explore scalable systems, elegant software architectures,
-            and the cutting-edge technologies that ignite my boundless
-            curiosity.
+         <div className="flex items-end gap-4 mb-4 sm:mb-6 md:mb-8 pl-4">
+             <Image
+                src="/cool-graphics/book-illustration.png"
+                alt="blog-cover"
+                width={100} 
+                height={100} 
+                className="object-contain hover:rotate-12 transition-transform duration-300"
+              />
+            <h2 className="font-semibold text-2xl sm:text-3xl md:text-4xl tracking-tighter">
+              Adi&apos;s Second Brain
+            </h2>
+         </div>
+        <div className="mb-6 sm:mb-8">
+          <h3 className="text-sm sm:text-base md:text-lg lg:text-lg text-pretty max-w-prose leading-relaxed">
+            Welcome to my blog. Here I document my journey as a full-stack dev—exploring scalable systems, software architecture, and the new tech that grabs my curiosity.
           </h3>
-          <Image
-            src="/blog-banner.png"
-            alt="blog-cover"
-            width={200}
-            height={250}
-            className="w-full sm:w-auto h-auto sm:h-[200px] md:h-[250px] rounded-lg object-contain sm:object-cover"
-          />
         </div>
         <h2 className="font-semibold text-3xl mb-8 tracking-tighter">
           Latest Posts
@@ -61,14 +60,14 @@ export default async function BlogPage(props: {
               href={`/blog/${post.slug}`}
             >
               <div className="w-full flex flex-col">
-                <p className="tracking-tight text-2xl">{post.metadata.title}</p>
-                <p className="h-6 text-xs text-muted-foreground">
+                <p className="tracking-tight text-2xl font-medium">{post.metadata.title}</p>
+                <p className="h-6 text-sm text-muted-foreground mt-1">
                   {post.metadata.publishedAt}
                 </p>
                 {post.metadata.tags && post.metadata.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-1 mt-2">
+                  <div className="flex flex-wrap gap-1 mt-3">
                     {post.metadata.tags.map((tag: string) => (
-                      <Badge key={tag} className="text-xs" variant="secondary">
+                      <Badge key={tag} className="text-xs font-normal" variant="secondary">
                         #{tag}
                       </Badge>
                     ))}
@@ -76,7 +75,7 @@ export default async function BlogPage(props: {
                 )}
               </div>
             </Link>
-            <Separator className="my-4" />
+            <Separator className="my-6" />
           </BlurFade>
         ))}
 
