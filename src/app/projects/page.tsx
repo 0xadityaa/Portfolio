@@ -12,7 +12,7 @@ export default function ProjectsPage() {
         <BlurFade delay={BLUR_FADE_DELAY * 11}>
           <div className="flex flex-col items-start justify-center space-y-4">
             <div className="space-y-2">
-               <div className="flex items-end justify-start gap-4 mb-2 pl-4">
+               <div className="flex items-end justify-start gap-3 mb-1">
                    <Image 
                      src="/cool-graphics/game-console-illustration.png" 
                      alt="Projects" 

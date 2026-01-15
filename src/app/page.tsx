@@ -12,7 +12,7 @@ const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
   return (
-    <main className="flex flex-col min-h-[100dvh] space-y-24 mb-24 overflow-x-hidden">
+    <main className="flex flex-col min-h-[100dvh] space-y-12 mb-24 overflow-x-hidden">
       <section id="hero">
         <div className="mx-auto w-full max-w-2xl space-y-8">
           <div className="gap-2 flex justify-between">
@@ -44,7 +44,7 @@ export default function Page() {
       <section id="about">
         <div className="w-full max-w-2xl mx-auto space-y-4">
           <BlurFade delay={BLUR_FADE_DELAY * 3}>
-             <div className="flex items-end gap-4 mb-2 pl-4">
+             <div className="flex items-end gap-3 mb-1">
                <Image 
                  src="/cool-graphics/budda-illustration.png" 
                  alt="About" 
@@ -66,7 +66,7 @@ export default function Page() {
       <section id="work">
          <div className="w-full max-w-2xl mx-auto flex min-h-0 flex-col gap-y-3">
             <BlurFade delay={BLUR_FADE_DELAY * 5}>
-              <div className="flex items-end gap-4 mb-2 pl-4">
+              <div className="flex items-end gap-3 mb-1">
                 <Image 
                  src="/cool-graphics/left-right-road-sign-illustration.png" 
                  alt="Work" 
@@ -101,7 +101,7 @@ export default function Page() {
       <section id="education">
         <div className="w-full max-w-2xl mx-auto flex min-h-0 flex-col gap-y-3">
             <BlurFade delay={BLUR_FADE_DELAY * 7}>
-              <div className="flex items-end gap-4 mb-2 pl-4">
+              <div className="flex items-end gap-3 mb-1">
                 <Image 
                  src="/cool-graphics/hat-illustration.png" 
                  alt="Education" 
@@ -134,7 +134,7 @@ export default function Page() {
       <section id="skills">
          <div className="w-full max-w-2xl mx-auto flex min-h-0 flex-col gap-y-3">
             <BlurFade delay={BLUR_FADE_DELAY * 9}>
-               <div className="flex items-end gap-4 mb-2 pl-4">
+               <div className="flex items-end gap-3 mb-1">
                   <Image 
                    src="/cool-graphics/chess-pieces-illustration.png" 
                    alt="Skills" 
@@ -159,7 +159,7 @@ export default function Page() {
         <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 16}>
             <div className="space-y-3 relative">
-               <div className="flex items-end justify-center gap-4 mb-2 pl-4">
+               <div className="flex items-end justify-center gap-3 mb-1">
                  <Image 
                    src="/cool-graphics/speaker-illustration.png" 
                    alt="Contact" 

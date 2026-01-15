@@ -25,7 +25,7 @@ export default async function BlogPage(props: {
   return (
     <section>
       <BlurFade delay={BLUR_FADE_DELAY}>
-         <div className="flex items-end gap-4 mb-4 sm:mb-6 md:mb-8 pl-4">
+         <div className="flex items-end gap-3 mb-4 sm:mb-6 md:mb-8">
              <Image
                 src="/cool-graphics/book-illustration.png"
                 alt="blog-cover"
