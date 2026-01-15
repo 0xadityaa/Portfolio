@@ -10,24 +10,20 @@ export default function ProjectsPage() {
     <section id="projects">
       <div className="space-y-12 w-full py-12">
         <BlurFade delay={BLUR_FADE_DELAY * 11}>
-          <div className="flex flex-col items-start justify-center space-y-4">
-            <div className="space-y-2">
-               <div className="flex items-end justify-start gap-3 mb-1">
-                   <Image 
-                     src="/cool-graphics/game-console-illustration.png" 
-                     alt="Projects" 
-                     width={100} 
-                     height={100} 
-                     className="object-contain hover:rotate-12 transition-transform duration-300"
-                   />
-                  <h2 className="text-2xl font-bold tracking-tighter sm:text-4xl">
-                    Stuff I built so far
-                  </h2>
-               </div>
-              <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                A collection of projects I've built, ranging from experimental tools to full-stack web applications.
-              </p>
-            </div>
+          <div className="flex flex-col items-center justify-center space-y-4 text-center w-full mb-8">
+            <Image 
+              src="/cool-graphics/game-console-illustration.png" 
+              alt="Projects" 
+              width={120} 
+              height={120} 
+              className="object-contain hover:rotate-12 transition-transform duration-300"
+            />
+            <h2 className="font-bold text-3xl sm:text-5xl tracking-tighter">
+              Stuff I&apos;ve Built
+            </h2>
+            <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed max-w-[600px] mx-auto">
+              From random experiments to full-blown web apps, here&apos;s a collection of things I&apos;ve built with code and caffeine.
+            </p>
           </div>
         </BlurFade>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 max-w-[800px] mx-auto">
