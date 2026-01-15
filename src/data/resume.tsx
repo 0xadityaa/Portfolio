@@ -10,7 +10,7 @@ export const DATA = {
   description:
     "Full Stack Engineer and aspiring Solutions Architect, building stuff with ❤️ & 🧠",
   summary:
-    "I’m a full-stack engineer based in Toronto, building things that live on the web. I thrive on solving complex problems, from architecting and shipping features e2e to building infra and dev tools, grounded in purposeful, well-documented, and reliable code. When I’m not in the terminal, you’ll find me exploring nature, making music, or gaming.",
+    "I&apos;m a full-stack engineer based in Toronto, building things that live on the web. I thrive on solving complex problems, from architecting and shipping features e2e to building infra and dev tools, grounded in purposeful code. When I&apos;m not in the terminal, you&apos;ll find me exploring nature, making music, or gaming.",
   avatarUrl: "/Me.jpeg",
   skills: [
     "React",

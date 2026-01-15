@@ -25,24 +25,22 @@ export default async function BlogPage(props: {
   return (
     <section>
       <BlurFade delay={BLUR_FADE_DELAY}>
-         <div className="flex items-end gap-3 mb-4 sm:mb-6 md:mb-8">
-             <Image
-                src="/cool-graphics/book-illustration.png"
-                alt="blog-cover"
-                width={100} 
-                height={100} 
-                className="object-contain hover:rotate-12 transition-transform duration-300"
-              />
-            <h2 className="font-semibold text-2xl sm:text-3xl md:text-4xl tracking-tighter">
-              Adi&apos;s Second Brain
-            </h2>
-         </div>
-        <div className="mb-6 sm:mb-8">
-          <h3 className="text-sm sm:text-base md:text-lg lg:text-lg text-pretty max-w-prose leading-relaxed">
-            Welcome to my blog. Here I document my journey as a full-stack dev—exploring scalable systems, software architecture, and the new tech that grabs my curiosity.
+        <div className="flex flex-col items-center justify-center space-y-4 text-center w-full mb-8">
+          <Image
+            src="/cool-graphics/book-illustration.png"
+            alt="blog-cover"
+            width={120}
+            height={120}
+            className="object-contain hover:rotate-12 transition-transform duration-300"
+          />
+          <h2 className="font-bold text-3xl sm:text-5xl tracking-tighter">
+            Adi&apos;s Second Brain
+          </h2>
+          <h3 className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed max-w-[600px]">
+            I write about building software and the systems behind it. Exploring full-stack engineering, architecture, and anything else that sparks my curiosity.
           </h3>
         </div>
-        <h2 className="font-semibold text-3xl mb-8 tracking-tighter">
+        <h2 className="font-semibold text-3xl mb-4 tracking-tighter">
           Latest Posts
         </h2>
       </BlurFade>
