@@ -33,9 +33,9 @@ export const ResumeCard = ({
       href={href || "#"}
       className="block cursor-pointer"
     >
-      <Card className="flex" suppressHydrationWarning>
-        <div className="flex-none" suppressHydrationWarning>
-          <Avatar className="border size-12 m-auto bg-muted-background dark:bg-foreground">
+      <Card className="flex p-0 hover:bg-accent/50 transition-colors" suppressHydrationWarning>
+        <div className="flex-none w-[100px] flex justify-center" suppressHydrationWarning>
+          <Avatar className="border size-12 m-auto bg-muted dark:bg-foreground">
             <AvatarImage
               src={logoUrl}
               alt={altText}
@@ -47,7 +47,7 @@ export const ResumeCard = ({
         <div className="flex-grow ml-4 items-center flex-col group" suppressHydrationWarning>
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between gap-x-2 text-base" suppressHydrationWarning>
-              <h3 className="inline-flex items-center justify-center font-semibold leading-none text-xs sm:text-sm">
+              <h3 className="inline-flex items-center justify-center font-semibold leading-none text-sm sm:text-base">
                 {title}
                 {badges && (
                   <span className="inline-flex gap-x-1">
