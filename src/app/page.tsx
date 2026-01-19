@@ -97,7 +97,7 @@ export default function Page() {
                 delay={BLUR_FADE_DELAY}
                 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/tight"
                 yOffset={8}
-                text={`Hi, I'm ${DATA.name.split(" ")[0]} 👋`}
+                text={`Hi, I'm ${DATA.name.split(" ")[0]}`}
               />
               <BlurFadeText
                 className="max-w-[600px] md:text-xl"
@@ -114,6 +114,10 @@ export default function Page() {
                   height={100}
                   className="size-32 object-contain hover:rotate-12 transition-transform duration-300"
                 />
+                {/* <Avatar className="size-28 border">
+                  <AvatarImage alt={DATA.name} src={DATA.avatarUrl} className="object-cover" />
+                  <AvatarFallback>{DATA.initials}</AvatarFallback>
+                </Avatar> */}
               </div>
             </BlurFade>
           </div>
@@ -123,7 +127,7 @@ export default function Page() {
       <section id="about">
         <div className="w-full max-w-2xl mx-auto space-y-4">
           <BlurFade delay={BLUR_FADE_DELAY * 3}>
-             <div className="flex items-end gap-3 mb-4">
+             <div className="flex items-end gap-3 mb-1">
                <Image 
                  src="/cool-graphics/fish-circle-illustration.png" 
                  alt="About" 
@@ -142,77 +146,10 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="work">
-         <div className="w-full max-w-2xl mx-auto flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={BLUR_FADE_DELAY * 5}>
-            <div className="flex items-end gap-3 mb-4">
-              <Image 
-               src="/cool-graphics/left-right-road-sign-illustration.png" 
-               alt="Work" 
-               width={100} 
-               height={100} 
-               className="object-contain hover:rotate-12 transition-transform duration-300"
-             />
-             <h2 className="text-xl font-bold">Work Experience</h2>
-           </div>
-          </BlurFade>
-          {DATA.work.map((work, id) => (
-            <BlurFade
-              key={work.company}
-              delay={BLUR_FADE_DELAY * 6 + id * 0.05}
-            >
-              <ResumeCard
-                key={work.company}
-                logoUrl={work.logoUrl}
-                altText={work.company}
-                title={work.company}
-                subtitle={work.title}
-                href={work.href}
-                period={`${work.start} - ${work.end ?? "Present"}`}
-                description={work.description}
-              />
-            </BlurFade>
-          ))}
-        </div>
-      </section>
-
-      <section id="education">
-        <div className="w-full max-w-2xl mx-auto flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={BLUR_FADE_DELAY * 7}>
-            <div className="flex items-end gap-3 mb-4">
-              <Image 
-               src="/cool-graphics/hat-illustration.png" 
-               alt="Education" 
-               width={100} 
-               height={100} 
-               className="object-contain hover:rotate-12 transition-transform duration-300"
-             />
-             <h2 className="text-xl font-bold">Education</h2>
-           </div>
-          </BlurFade>
-          {DATA.education.map((education, id) => (
-            <BlurFade
-              key={education.school}
-              delay={BLUR_FADE_DELAY * 8 + id * 0.05}
-            >
-              <ResumeCard
-                key={education.school}
-                href={education.href}
-                logoUrl={education.logoUrl}
-                altText={education.school}
-                title={education.school}
-                subtitle={education.degree}
-                period={`${education.start} - ${education.end}`}
-              />
-            </BlurFade>
-          ))}
-        </div>
-      </section>
-
       <section id="skills">
          <div className="w-full max-w-2xl mx-auto flex min-h-0 flex-col gap-y-3">
             <BlurFade delay={BLUR_FADE_DELAY * 9}>
-               <div className="flex items-end gap-3 mb-4">
+               <div className="flex items-end gap-3 mb-1">
                   <Image 
                    src="/cool-graphics/chess-pieces-illustration.png" 
                    alt="Skills" 
@@ -220,7 +157,7 @@ export default function Page() {
                    height={100} 
                    className="object-contain hover:rotate-12 transition-transform duration-300"
                  />
-                 <h2 className="text-xl font-bold">Skills</h2>
+                 <h2 className="text-xl font-bold">Tools I Use</h2>
                </div>
             </BlurFade>
             <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background pb-12 pt-8">
@@ -264,13 +201,80 @@ export default function Page() {
           </div>
       </section>
 
+      <section id="work">
+         <div className="w-full max-w-2xl mx-auto flex min-h-0 flex-col gap-y-3">
+            <BlurFade delay={BLUR_FADE_DELAY * 5}>
+              <div className="flex items-end gap-3 mb-1">
+                <Image 
+                 src="/cool-graphics/left-right-road-sign-illustration.png" 
+                 alt="Work" 
+                 width={100} 
+                 height={100} 
+                 className="object-contain hover:rotate-12 transition-transform duration-300"
+               />
+               <h2 className="text-xl font-bold">Work Experience</h2>
+             </div>
+            </BlurFade>
+            {DATA.work.map((work, id) => (
+              <BlurFade
+                key={work.company}
+                delay={BLUR_FADE_DELAY * 6 + id * 0.05}
+                              >
+                <ResumeCard
+                  key={work.company}
+                  logoUrl={work.logoUrl}
+                  altText={work.company}
+                  title={work.company}
+                  subtitle={work.title}
+                  href={work.href}
+                  period={`${work.start} - ${work.end ?? "Present"}`}
+                  description={work.description}
+                />
+              </BlurFade>
+            ))}
+          </div>
+      </section>
+
+      <section id="education">
+        <div className="w-full max-w-2xl mx-auto flex min-h-0 flex-col gap-y-3">
+            <BlurFade delay={BLUR_FADE_DELAY * 7}>
+              <div className="flex items-end gap-3 mb-1">
+                <Image 
+                 src="/cool-graphics/hat-illustration.png" 
+                 alt="Education" 
+                 width={100} 
+                 height={100} 
+                 className="object-contain hover:rotate-12 transition-transform duration-300"
+               />
+               <h2 className="text-xl font-bold">Education</h2>
+             </div>
+            </BlurFade>
+            {DATA.education.map((education, id) => (
+              <BlurFade
+                key={education.school}
+                delay={BLUR_FADE_DELAY * 8 + id * 0.05}
+                >
+                <ResumeCard
+                  key={education.school}
+                  href={education.href}
+                  logoUrl={education.logoUrl}
+                  altText={education.school}
+                  title={education.school}
+                  subtitle={education.degree}
+                  period={`${education.start} - ${education.end}`}
+                />
+              </BlurFade>
+            ))}
+        </div>
+      </section>
+
       <section id="contact">
         <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 16}>
             <div className="space-y-3 relative">
-               <div className="flex items-end justify-center gap-3 mb-4">
+               <div className="flex items-end justify-center gap-3 mb-1">
                  <Image 
-                   src="/cool-graphics/speaker-illustration.png"  
+                   src="/cool-graphics/speaker-illustration.png" 
                    alt="Contact" 
                    width={100} 
                    height={100} 
