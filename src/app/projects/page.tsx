@@ -1,6 +1,7 @@
 import BlurFade from "@/components/magicui/blur-fade";
 import { ProjectCard } from "@/components/project-card";
 import { DATA } from "@/data/resume";
+import Image from "next/image";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -9,23 +10,20 @@ export default function ProjectsPage() {
     <section id="projects">
       <div className="space-y-12 w-full py-12">
         <BlurFade delay={BLUR_FADE_DELAY * 11}>
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
-                My Projects
-              </div>
-              <h2 className="text-2xl font-bold tracking-tighter sm:text-4xl">
-                I&rsquo;ve been building{" "}
-                <span className="text-red-500 underline">
-                  a lot of cool stuff
-                </span>
-              </h2>
-              <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                I&apos;ve worked on a variety of projects, from small
-                experiments to full-blown web applications, each project
-                showcases my love for coding and design.
-              </p>
-            </div>
+          <div className="flex flex-col items-center justify-center space-y-4 text-center w-full mb-8">
+            <Image 
+              src="/cool-graphics/game-console-illustration.png" 
+              alt="Projects" 
+              width={120} 
+              height={120} 
+              className="object-contain hover:rotate-12 transition-transform duration-300"
+            />
+            <h2 className="font-bold text-3xl sm:text-5xl tracking-tighter">
+              Stuff I&apos;ve Built
+            </h2>
+            <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed max-w-[600px] mx-auto">
+              From random experiments to full-blown web apps, here&apos;s a collection of things I&apos;ve built with code and caffeine.
+            </p>
           </div>
         </BlurFade>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 max-w-[800px] mx-auto">

@@ -81,10 +81,10 @@ export default async function BlogPost(props: BlogParams) {
           }),
         }}
       />
-      <h1 className="title font-medium text-4xl tracking-tighter max-w-[650px]">
+      <h1 className="title font-medium text-4xl tracking-tighter max-w-[650px] mb-4">
         {post.metadata.title}
       </h1>
-      <div className="flex justify-between items-center mt-2 mb-4 text-sm max-w-[650px]">
+      <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
         <Suspense fallback={<p className="h-5" />}>
           <p className="text-lg text-neutral-600 dark:text-neutral-400">
             {formatDate(post.metadata.publishedAt)}
@@ -101,7 +101,7 @@ export default async function BlogPost(props: BlogParams) {
         </div>
       )}
       <article
-        className="prose dark:prose-invert text-xl mb-4"
+        className="prose dark:prose-invert text-lg md:text-xl leading-relaxed prose-headings:font-bold prose-a:text-blue-500 hover:prose-a:underline mb-12 max-w-none"
         dangerouslySetInnerHTML={{ __html: post.source }}
       ></article>
       <Image
@@ -110,7 +110,7 @@ export default async function BlogPost(props: BlogParams) {
         alt="signature gif"
         width={300}
         height={150}
-        className="mt-5 mx-auto rounded-lg"
+        className="mt-5 mx-auto rounded-lg opacity-80"
       />
     </section>
   );

@@ -42,6 +42,7 @@ export async function markdownToHTML(markdown: string) {
 
   return p.toString();
 }
+
 export async function getPost(slug: string) {
   const filePath = path.join("content", `${slug}.mdx`);
   let source = fs.readFileSync(filePath, "utf-8");
@@ -49,6 +50,16 @@ export async function getPost(slug: string) {
   const content = await markdownToHTML(rawContent);
   return {
     source: content,
+    metadata,
+    slug,
+  };
+}
+
+export function getPostMetadata(slug: string) {
+  const filePath = path.join("content", `${slug}.mdx`);
+  let source = fs.readFileSync(filePath, "utf-8");
+  const { data: metadata } = matter(source);
+  return {
     metadata,
     slug,
   };
@@ -71,17 +82,15 @@ async function getAllPosts(dir: string, page: number = 1, perPage: number = 4) {
 
   const paginatedFiles = mdxFiles.slice(startIndex, endIndex);
 
-  const posts = await Promise.all(
-    paginatedFiles.map(async (file) => {
-      let slug = path.basename(file, path.extname(file));
-      let { metadata, source } = await getPost(slug);
-      return {
-        metadata,
-        slug,
-        source,
-      };
-    })
-  );
+  const posts = paginatedFiles.map((file) => {
+    let slug = path.basename(file, path.extname(file));
+    let { metadata } = getPostMetadata(slug);
+    return {
+      metadata,
+      slug,
+      source: "", // Providing empty source to maintain structural compatibility if needed, though not used in listing
+    };
+  });
 
   return {
     posts,

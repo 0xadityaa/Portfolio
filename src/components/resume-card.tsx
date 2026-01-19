@@ -34,7 +34,7 @@ export const ResumeCard = ({
       className="block cursor-pointer"
     >
       <Card className="flex" suppressHydrationWarning>
-        <div className="flex-none" suppressHydrationWarning>
+        <div className="flex-none w-[100px] flex justify-center" suppressHydrationWarning>
           <Avatar className="border size-12 m-auto bg-muted-background dark:bg-foreground">
             <AvatarImage
               src={logoUrl}

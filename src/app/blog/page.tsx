@@ -25,50 +25,41 @@ export default async function BlogPage(props: {
   return (
     <section>
       <BlurFade delay={BLUR_FADE_DELAY}>
-        <h2 className="font-semibold text-2xl sm:text-3xl md:text-4xl mb-4 sm:mb-6 md:mb-8 tracking-tighter">
-          🧠 Adi&apos;s Second Brain
-        </h2>
-        <div className="flex flex-col-reverse sm:flex-row items-center gap-4 sm:gap-6 md:gap-8 mb-6 sm:mb-8">
-          <h3 className="text-sm sm:text-base md:text-lg lg:text-lg text-pretty sm:mr-4 max-w-prose">
-            Welcome to my blog! Peep into my journey as a full-stack developer,
-            where I explore scalable systems, elegant software architectures,
-            and the cutting-edge technologies that ignite my boundless
-            curiosity.
-          </h3>
+        <div className="flex flex-col items-center justify-center space-y-4 text-center w-full mb-8">
           <Image
-            src="/blog-banner.png"
+            src="/cool-graphics/book-illustration.png"
             alt="blog-cover"
-            width={200}
-            height={250}
-            className="w-full sm:w-auto h-auto sm:h-[200px] md:h-[250px] rounded-lg object-contain sm:object-cover"
+            width={120}
+            height={120}
+            className="object-contain hover:rotate-12 transition-transform duration-300"
           />
+          <h2 className="font-bold text-3xl sm:text-5xl tracking-tighter">
+            Adi&apos;s Second Brain
+          </h2>
+          <h3 className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed max-w-[600px]">
+            I write about building software and the systems behind it. Exploring full-stack engineering, architecture, and anything else that sparks my curiosity.
+          </h3>
         </div>
-        <h2 className="font-semibold text-3xl mb-8 tracking-tighter">
+        <h2 className="font-semibold text-3xl mb-4 tracking-tighter">
           Latest Posts
         </h2>
       </BlurFade>
 
-      {posts
-        .sort(
-          (a, b) =>
-            new Date(b.metadata.publishedAt).getTime() -
-            new Date(a.metadata.publishedAt).getTime()
-        )
-        .map((post, id) => (
+      {posts.map((post, id) => (
           <BlurFade delay={BLUR_FADE_DELAY * 2 + id * 0.05} key={post.slug}>
             <Link
               className="flex flex-col space-y-1 mb-4"
               href={`/blog/${post.slug}`}
             >
               <div className="w-full flex flex-col">
-                <p className="tracking-tight text-2xl">{post.metadata.title}</p>
-                <p className="h-6 text-xs text-muted-foreground">
+                <p className="tracking-tight text-2xl font-medium">{post.metadata.title}</p>
+                <p className="h-6 text-sm text-muted-foreground mt-1">
                   {post.metadata.publishedAt}
                 </p>
                 {post.metadata.tags && post.metadata.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-1 mt-2">
+                  <div className="flex flex-wrap gap-1 mt-3">
                     {post.metadata.tags.map((tag: string) => (
-                      <Badge key={tag} className="text-xs" variant="secondary">
+                      <Badge key={tag} className="text-xs font-normal" variant="secondary">
                         #{tag}
                       </Badge>
                     ))}
@@ -76,7 +67,7 @@ export default async function BlogPage(props: {
                 )}
               </div>
             </Link>
-            <Separator className="my-4" />
+            <Separator className="my-6" />
           </BlurFade>
         ))}
 

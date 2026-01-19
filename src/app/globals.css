@@ -73,6 +73,9 @@
   body {
     @apply bg-background text-foreground;
   }
+  ::selection {
+    @apply bg-primary text-primary-foreground;
+  }
 }
 
 h3 code {
