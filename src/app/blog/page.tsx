@@ -45,13 +45,7 @@ export default async function BlogPage(props: {
         </h2>
       </BlurFade>
 
-      {posts
-        .sort(
-          (a, b) =>
-            new Date(b.metadata.publishedAt).getTime() -
-            new Date(a.metadata.publishedAt).getTime()
-        )
-        .map((post, id) => (
+      {posts.map((post, id) => (
           <BlurFade delay={BLUR_FADE_DELAY * 2 + id * 0.05} key={post.slug}>
             <Link
               className="flex flex-col space-y-1 mb-4"
