@@ -8,7 +8,7 @@ export const DATA = {
   location: "Toronto, ON",
   locationLink: "https://www.google.com/maps/place/toronto",
   description:
-    "Full Stack Engineer and aspiring Solutions Architect, building stuff with 🧠 & ❤️",
+    "Full Stack Engineer and aspiring solutions architect, building stuff with 🧠 & ❤️",
   summary:
     "I&apos;m a full-stack engineer based in Toronto, building things that live on the web. I thrive on solving interesting problems, from architecting and shipping features e2e to building infra and dev tools. When I&apos;m not in the terminal, you&apos;ll find me exploring nature, making music, or gaming.",
   avatarUrl: "/Me.jpeg",

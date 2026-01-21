@@ -7,83 +7,9 @@ import Link from "next/link";
 import Markdown from "react-markdown";
 import Image from "next/image";
 import Marquee from "@/components/magicui/marquee";
-
-import { Icons } from "@/components/icons";
+import { SkillIcon } from "@/components/skill-icon";
 
 const BLUR_FADE_DELAY = 0.04;
-
-const iconSlugs: { [key: string]: string } = {
-  "React": "react",
-  "Nest.js": "nestjs",
-  "Tanstack": "reactquery",
-  "Next.js": "nextdotjs",
-  "React Native": "react",
-  "Node": "nodedotjs",
-  "Bun": "bun",
-  "Deno": "deno",
-  "Javascript": "javascript",
-  "Typescript": "typescript",
-  "React Query": "reactquery",
-  "Redux": "redux",
-  "Tailwind": "tailwindcss",
-  "Jest": "jest",
-  "Playwright": "playwright",
-  "Sentry": "sentry",
-  "Storybook": "storybook",
-  "Java": "openjdk",
-  "Spring Boot": "springboot",
-  "Docker": "docker",
-  "MS SQL": "microsoftsqlserver",
-  "MySQL": "mysql",
-  "PostgreSQL": "postgresql",
-  "MongoDB": "mongodb",
-  "DynamoDB": "amazondynamodb",
-  "Firebase": "firebase",
-  "FastAPI": "fastapi",
-  "Supabase": "supabase",
-  "Convex": "convex",
-  "Redis": "redis",
-  "Kafka": "apachekafka",
-  "WebSockets": "socketdotio",
-  "ORM's [Prisma, Drizzle, Hibernate, SQLAlchemy]": "prisma",
-  "Git": "git",
-  "GitHub Actions": "githubactions",
-  "Azure": "microsoftazure",
-  "Azure DevOps": "azuredevops",
-  "GCP": "googlecloud",
-  "Vercel": "vercel",
-  "Vercel AI SDK": "vercel",
-  "LangChain": "langchain",
-  "LangGraph": "langchain",
-  "Vertex AI": "googlecloud",
-  "MCP": "anthropic",
-  "Vector Search": "algolia",
-  "Opentelemetry": "opentelemetry",
-  "Datadog": "datadog",
-  "Python": "python",
-  "Go": "go",
-  "C++": "cplusplus",
-  "C#": "csharp",
-  "Linux": "linux",
-  "Terraform": "terraform",
-  "Ansible": "ansible",
-  "Kubernetes": "kubernetes",
-  "Grafana": "grafana",
-};
-
-// Fallback for broken simple-icons or missing ones
-const customIcons: { [key: string]: string } = {
-  "DynamoDB": "https://svgl.app/library/dynamodb.svg",
-  "Azure": "https://svgl.app/library/azure.svg",
-  "Azure DevOps": "https://svgl.app/library/azure.svg", // Using Azure icon as requested
-  "MS SQL": Icons.mssql,
-  "Playwright": "https://svgl.app/library/playwright.svg",
-  "Convex": "https://svgl.app/library/convex.svg",
-  "MCP": Icons.mcp,
-  "TensorFlow": "https://www.vectorlogo.zone/logos/tensorflow/tensorflow-icon.svg",
-  "Prisma": "https://svgl.app/library/prisma.svg",
-  "TypeORM": "https://svgl.app/library/typeorm.svg",
-};
 
 export default function Page() {
   return (
@@ -156,47 +82,25 @@ export default function Page() {
                    height={100} 
                    className="object-contain hover:rotate-12 transition-transform duration-300"
                  />
-                 <h2 className="text-xl font-bold">Tools I Use</h2>
+                 <h2 className="text-xl font-bold">Toolbox</h2>
                </div>
             </BlurFade>
             <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background pb-12 pt-8">
                 <Marquee pauseOnHover className="[--duration:80s]">
-                    {DATA.skills.slice(0, Math.ceil(DATA.skills.length / 2)).map((skill) => {
-                        const iconUrl = customIcons[skill] || (iconSlugs[skill] ? `https://cdn.simpleicons.org/${iconSlugs[skill]}/000000` : null);
-                        return (
-                          <div key={skill} className="flex items-center gap-2 mr-4 px-4 py-2 border rounded-full bg-card hover:bg-accent/50 transition-colors">
-                              {iconUrl ? (
-                                  <Image
-                                      src={iconUrl}
-                                      className="size-4 brightness-0 dark:invert" 
-                                      alt={skill}
-                                      width={16}
-                                      height={16}
-                                  />
-                              ) : null}
-                              <span className="text-sm font-medium">{skill}</span>
-                          </div>
-                        );
-                    })}
+                    {DATA.skills.slice(0, Math.ceil(DATA.skills.length / 2)).map((skill) => (
+                      <div key={skill} className="flex items-center gap-2 mr-4 px-4 py-2 border rounded-full bg-card hover:bg-accent/50 transition-colors">
+                          <SkillIcon skill={skill} className="size-4 text-foreground" />
+                          <span className="text-sm font-medium">{skill}</span>
+                      </div>
+                    ))}
                 </Marquee>
                 <Marquee reverse pauseOnHover className="[--duration:80s] mt-2">
-                    {DATA.skills.slice(Math.ceil(DATA.skills.length / 2)).map((skill) => {
-                        const iconUrl = customIcons[skill] || (iconSlugs[skill] ? `https://cdn.simpleicons.org/${iconSlugs[skill]}/000000` : null);
-                        return (
-                          <div key={skill} className="flex items-center gap-2 mr-4 px-4 py-2 border rounded-full bg-card hover:bg-accent/50 transition-colors">
-                              {iconUrl ? (
-                                  <Image
-                                      src={iconUrl}
-                                      className="size-4 brightness-0 dark:invert" 
-                                      alt={skill}
-                                      width={16}
-                                      height={16}
-                                  />
-                              ) : null}
-                              <span className="text-sm font-medium">{skill}</span>
-                          </div>
-                        );
-                    })}
+                    {DATA.skills.slice(Math.ceil(DATA.skills.length / 2)).map((skill) => (
+                      <div key={skill} className="flex items-center gap-2 mr-4 px-4 py-2 border rounded-full bg-card hover:bg-accent/50 transition-colors">
+                          <SkillIcon skill={skill} className="size-4 text-foreground" />
+                          <span className="text-sm font-medium">{skill}</span>
+                      </div>
+                    ))}
                 </Marquee>
                 <div className="pointer-events-none absolute inset-y-0 left-0 w-1/6 bg-gradient-to-r from-background"></div>
                 <div className="pointer-events-none absolute inset-y-0 right-0 w-1/6 bg-gradient-to-l from-background"></div>
@@ -215,7 +119,7 @@ export default function Page() {
                  height={100} 
                  className="object-contain hover:rotate-12 transition-transform duration-300"
                />
-               <h2 className="text-xl font-bold">Work Experience</h2>
+               <h2 className="text-xl font-bold">Work</h2>
              </div>
             </BlurFade>
             {DATA.work.map((work, id) => (
