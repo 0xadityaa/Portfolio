@@ -10,8 +10,8 @@ export const DATA = {
   description:
     "Full Stack Engineer and aspiring solutions architect, building stuff with 🧠 & ❤️",
   summary:
-    "I&apos;m a full-stack engineer based in Toronto, building things that live on the web. I thrive on solving interesting problems, from architecting and shipping features e2e to building infra and dev tools. When I&apos;m not in the terminal, you&apos;ll find me exploring nature, making music, or gaming.",
-  avatarUrl: "/Me.jpeg",
+    "I'm a full-stack engineer based in Toronto, building things that live on the web. I thrive on solving interesting problems, from architecting and shipping features e2e to building infra and dev tools. When I'm not in the terminal, you'll find me exploring nature, making music, or gaming.",
+  avatarUrl: "/images/profile/Me.jpeg",
   skills: [
     "React",
     "Nest.js",
@@ -104,7 +104,7 @@ export const DATA = {
       href: "https://www.enercare.ca/",
       location: "Markham, ON",
       title: "Associate Software Engineer",
-      logoUrl: "/enercare.png",
+      logoUrl: "/images/projects/enercare.png",
       start: "Jul 2025",
       end: "Present",
       description:
@@ -115,7 +115,7 @@ export const DATA = {
       href: "https://www.architech.ca/",
       location: "Toronto, ON",
       title: "Software Development Mentee",
-      logoUrl: "/architech.png",
+      logoUrl: "/images/projects/architech.png",
       start: "Jan 2025",
       end: "May 2025",
       description:
@@ -126,7 +126,7 @@ export const DATA = {
       href: "http://www.jm-group.ca",
       location: "Toronto, ON",
       title: "Software Development Intern",
-      logoUrl: "/j&m.png",
+      logoUrl: "/images/projects/j&m.png",
       start: "Apr 2024",
       end: "Aug 2024",
       description:
@@ -138,7 +138,7 @@ export const DATA = {
       school: "Humber Polytechnic",
       href: "https://humber.ca/",
       degree: "MS Information Technology",
-      logoUrl: "/humber.png",
+      logoUrl: "/images/projects/humber.png",
       start: "Jan 2023",
       end: "Aug 2024",
     },
@@ -146,7 +146,7 @@ export const DATA = {
       school: "GLS University",
       href: "https://www.glsuniversity.ac.in/",
       degree: "BS Computer Applications",
-      logoUrl: "/gls.png",
+      logoUrl: "/images/projects/gls.png",
       start: "Apr 2019",
       end: "Aug 2022",
     },
@@ -186,7 +186,7 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/clipper.png",
+      image: "/images/projects/clipper.png",
     },
     {
       title: "Gitbuddy",
@@ -219,7 +219,7 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/gitbuddy.png",
+      image: "/images/projects/gitbuddy.png",
     },
     {
       title: "GraphRAG Chat",
@@ -250,7 +250,7 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/graphrag-chat.png",
+      image: "/images/projects/graphrag-chat.png",
     },
     {
       title: "Finchat",
@@ -281,7 +281,7 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/Finchat.png",
+      image: "/images/projects/Finchat.png",
     },
     {
       title: "React Rooks",
@@ -311,7 +311,7 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/ReactRooks.png",
+      image: "/images/projects/ReactRooks.png",
     },
     {
       title: "JSON Parser",
@@ -341,7 +341,7 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/json-parser.png",
+      image: "/images/projects/json-parser.png",
     },
     {
       title: "Byte Cast",
@@ -360,18 +360,13 @@ export const DATA = {
         "AWS",
       ],
       links: [
-        // {
-        //   type: "Website",
-        //   href: "#",
-        //   icon: <Icons.globe className="size-3" />,
-        // },
         {
           type: "Source",
           href: "https://github.com/0xadityaa/Byte-Cast",
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/Bytecast.png",
+      image: "/images/projects/Bytecast.png",
     },
     {
       title: "Crypto Maniac",
@@ -401,7 +396,7 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/Crypto-Maniac.png",
+      image: "/images/projects/Crypto-Maniac.png",
     },
   ],
 } as const;

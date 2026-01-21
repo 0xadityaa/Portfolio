@@ -33,7 +33,7 @@ export default function Page() {
             <BlurFade delay={BLUR_FADE_DELAY}>
               <div className="relative size-28 p-2">
                 <Image
-                  src="/cool-graphics/budda-illustration.png"
+                  src="/images/illustrations/budda-illustration.png"
                   alt="Budda"
                   width={100}
                   height={100}
@@ -54,7 +54,7 @@ export default function Page() {
           <BlurFade delay={BLUR_FADE_DELAY * 3}>
              <div className="flex items-end gap-3 mb-1">
                <Image 
-                 src="/cool-graphics/fish-circle-illustration.png" 
+                 src="/images/illustrations/fish-circle-illustration.png" 
                  alt="About" 
                  width={100} 
                  height={100} 
@@ -76,7 +76,7 @@ export default function Page() {
             <BlurFade delay={BLUR_FADE_DELAY * 9}>
                <div className="flex items-end gap-3 mb-1">
                   <Image 
-                   src="/cool-graphics/chess-pieces-illustration.png" 
+                   src="/images/illustrations/chess-pieces-illustration.png" 
                    alt="Skills" 
                    width={100} 
                    height={100} 
@@ -113,7 +113,7 @@ export default function Page() {
             <BlurFade delay={BLUR_FADE_DELAY * 5}>
               <div className="flex items-end gap-3 mb-1">
                 <Image 
-                 src="/cool-graphics/left-right-road-sign-illustration.png" 
+                 src="/images/illustrations/left-right-road-sign-illustration.png" 
                  alt="Work" 
                  width={100} 
                  height={100} 
@@ -147,7 +147,7 @@ export default function Page() {
             <BlurFade delay={BLUR_FADE_DELAY * 7}>
               <div className="flex items-end gap-3 mb-1">
                 <Image 
-                 src="/cool-graphics/hat-illustration.png" 
+                 src="/images/illustrations/hat-illustration.png" 
                  alt="Education" 
                  width={100} 
                  height={100} 
@@ -181,7 +181,7 @@ export default function Page() {
             <div className="space-y-3 relative">
                <div className="flex items-end justify-center gap-3 mb-1">
                  <Image 
-                   src="/cool-graphics/speaker-illustration.png" 
+                   src="/images/illustrations/speaker-illustration.png" 
                    alt="Contact" 
                    width={100} 
                    height={100} 

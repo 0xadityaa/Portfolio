@@ -12,7 +12,7 @@ Javascript is a **Synchronous** and **Single Threaded** language. Meaning that i
 Everything in Javascript happens inside an **execution context**.
 
 Execution context consists of 2 main parts - **Variable Environment** and **Execution Stack**.
-![Execution Context in JS](/js-execution-context.png)
+![Execution Context in JS](/images/blog/js-execution-context.png)
 
 ## Variable Environment
 
@@ -53,13 +53,13 @@ In this phase, JS engine reserves the memory for all the variables and functions
 
 at this point our execution context looks like this:
 
-![JS Memory Creation](/js-memory-creation.png)
+![JS Memory Creation](/images/blog/js-memory-creation.png)
 
 Now that the required memory is reserved, the next phase is called **Execution Phase**.
 
 ### Phase 2 - Execution Phase
 
-![JS Code Execution](/js-code-execution.png)
+![JS Code Execution](/images/blog/js-code-execution.png)
 
 In this phase, JS engine executes the code line by line. It starts with the first line of code and executes it one by one. It now updates the initially reserved memory which was set to `undefined` with the actual value of the variable.
 
@@ -70,7 +70,7 @@ Now, after creating new execution context and computing the square, the `ans` va
 
 After the execution of a function is complete, the context created for it will be destroyed and if we call same function again, entire execution cycle repeats. Execution cycle looks like this:
 
-![Execution Cycle in JS](/js-execution-cycle.png)
+![Execution Cycle in JS](/images/blog/js-execution-cycle.png)
 
 ---
 
@@ -80,7 +80,7 @@ Now that we have an understanding of the brute force way fo JS execution, lets l
 
 The JS engine is a complex system that is responsible for executing the code. It is written in C++ and is called V8. It is the most popular Javascript engine and is used by Google, Facebook, and many other companies.
 
-![Execution Cycle in JS](/js-execution-in-engine.png)
+![Execution Cycle in JS](/images/blog/js-execution-in-engine.png)
 
 JS engine uses a stack to keep track of the order in which the code is executed. It is a data structure that stores the execution context of each function call. When a function is called, it is pushed onto the stack. When the function returns, the context is popped off the stack.
 

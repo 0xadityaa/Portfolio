@@ -87,6 +87,15 @@ const config = {
             opacity: "0",
           },
         },
+        signature: {
+          "0%": { strokeDashoffset: "var(--length)", fill: "transparent" },
+          "45%": { strokeDashoffset: "0", fill: "transparent" },
+          "50%, 100%": { strokeDashoffset: "0", fill: "transparent" },
+        },
+        "signature-dot": {
+          "0%": { opacity: "0", transform: "scale(0)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -94,6 +103,8 @@ const config = {
         marquee: "marquee var(--duration) linear infinite",
         "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
         meteor: "meteor 5s linear infinite",
+        signature: "signature 5s ease-in-out infinite",
+        "signature-dot": "signature-dot 0.3s ease-out forwards",
       },
     },
   },

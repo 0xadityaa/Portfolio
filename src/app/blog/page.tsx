@@ -28,7 +28,7 @@ export default async function BlogPage(props: {
         <BlurFade delay={BLUR_FADE_DELAY}>
           <div className="flex flex-col items-center justify-center space-y-4 text-center w-full mb-8">
             <Image
-              src="/cool-graphics/book-illustration.png"
+              src="/images/illustrations/book-illustration.png"
               alt="blog-cover"
               width={120}
               height={120}

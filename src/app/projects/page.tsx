@@ -12,7 +12,7 @@ export default function ProjectsPage() {
         <BlurFade delay={BLUR_FADE_DELAY * 11}>
           <div className="flex flex-col items-center justify-center space-y-4 text-center w-full mb-8">
             <Image 
-              src="/cool-graphics/game-console-illustration.png" 
+              src="/images/illustrations/game-console-illustration.png" 
               alt="Projects" 
               width={120} 
               height={120} 
