@@ -1,11 +1,13 @@
 import { getPost } from "@/data/blog";
 import { DATA } from "@/data/resume";
 import { formatDate } from "@/lib/utils";
+import { formatReadingTime } from "@/lib/blog-utils";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
+import { ClockIcon } from "@radix-ui/react-icons";
 
 interface BlogParams {
   params: Promise<{
@@ -84,17 +86,26 @@ export default async function BlogPost(props: BlogParams) {
       <h1 className="title font-medium text-4xl tracking-tighter max-w-[650px] mb-4">
         {post.metadata.title}
       </h1>
-      <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
+      <div className="flex items-center gap-4 mt-2 mb-4 text-sm max-w-[650px]">
         <Suspense fallback={<p className="h-5" />}>
           <p className="text-lg text-neutral-600 dark:text-neutral-400">
             {formatDate(post.metadata.publishedAt)}
           </p>
         </Suspense>
+        {post.metadata.readingTime && (
+          <>
+            <span className="text-neutral-400">•</span>
+            <div className="flex items-center gap-1.5 text-neutral-600 dark:text-neutral-400">
+              <ClockIcon className="size-4" />
+              <span className="text-base">{formatReadingTime(post.metadata.readingTime)}</span>
+            </div>
+          </>
+        )}
       </div>
       {post.metadata.tags && post.metadata.tags.length > 0 && (
-        <div className="flex flex-wrap gap-1 mt-2 mb-8">
+        <div className="flex flex-wrap gap-2 mt-2 mb-8">
           {post.metadata.tags.map((tag: string) => (
-            <Badge key={tag} className="text-xs" variant="secondary">
+            <Badge key={tag} className="text-xs px-3 py-1.5" variant="secondary">
               #{tag}
             </Badge>
           ))}
