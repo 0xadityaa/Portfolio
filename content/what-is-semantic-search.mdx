@@ -1,7 +1,7 @@
 ---
 title: "What is semantic search & how to implement it?"
 publishedAt: "2025-04-06"
-summary: "Learn how to implement semantic search in your API pipeline using vector embeddings, optimized dimensionality, and efficient indexing. Discover how combining semantic search with LLMs leads to faster responses, lower token usage, and dramatically reduced hallucinations."
+summary: "Implement semantic search using vector embeddings and efficient indexing to enhance LLM accuracy, speed, and relevance in your applications."
 tags: ["vector embeddings", "semantic search", "llm", "db"]
 ---
 
@@ -19,7 +19,7 @@ Semantic search focuses on matching meaning rather than just keywords. I impleme
 
 ## What is semantic search and how is it different?
 
-![rest vs semantic search based agents](/rest-vs-semantic-search.png)
+![rest vs semantic search based agents](/images/blog/rest-vs-semantic-search.png)
 Traditional search systems rely on _lexical matching_ where they look for exact or partial keyword matches in the data. If a user searches for “laptop”, the system will only return results that contain the exact word “laptop.” It doesn&apos;t understand that “chromebook” or “MacBook” might mean the same thing in context.
 
 Semantic search works differently. Instead of just matching strings, it _tries to match meanings_.
@@ -66,7 +66,7 @@ So even if the user doesn&apos;t use the exact keyword in the dataset, the searc
 - I used cosine similarity because it worked well for my text-based use case. After comparing, you return the top n most similar results. This flow allows users to ask questions in plain language, and still get highly relevant responses.
 
 Incase you are wondering if it's worth the effort, here are some performance benchmarks I ran:
-![semantic search performance benchmarks](/semantic-search-benchmarks.png)
+![semantic search performance benchmarks](/images/blog/semantic-search-benchmarks.png)
 
 ## Final Thoughts
 

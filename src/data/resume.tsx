@@ -8,10 +8,10 @@ export const DATA = {
   location: "Toronto, ON",
   locationLink: "https://www.google.com/maps/place/toronto",
   description:
-    "Full Stack Engineer and aspiring Solutions Architect, building stuff with 🧠 & ❤️",
+    "Full Stack Engineer and aspiring solutions architect, building stuff with 🧠 & ❤️",
   summary:
-    "I&apos;m a full-stack engineer based in Toronto, building things that live on the web. I thrive on solving interesting problems, from architecting and shipping features e2e to building infra and dev tools. When I&apos;m not in the terminal, you&apos;ll find me exploring nature, making music, or gaming.",
-  avatarUrl: "/Me.jpeg",
+    "I'm a full-stack engineer based in Toronto, building things that live on the web. I thrive on solving interesting problems, from architecting and shipping features e2e to building infra and dev tools. When I'm not in the terminal, you'll find me exploring nature, making music, or gaming.",
+  avatarUrl: "/images/profile/Me.jpeg",
   skills: [
     "React",
     "Nest.js",
@@ -50,6 +50,7 @@ export const DATA = {
     "Azure",
     "Azure DevOps",
     "GCP",
+    "Cloudflare",
     "Vercel",
     "TensorFlow",
     "Vercel AI SDK",
@@ -103,18 +104,18 @@ export const DATA = {
       href: "https://www.enercare.ca/",
       location: "Markham, ON",
       title: "Associate Software Engineer",
-      logoUrl: "/enercare.png",
+      logoUrl: "/images/projects/enercare.png",
       start: "Jul 2025",
       end: "Present",
       description:
-        "I'm working across the stack with TypeScript, Nest.js, Azure, and React. I help modernize legacy systems into a reliable, event-driven architecture  .",
+        "I'm working across the stack with TypeScript, Nest.js, Azure, and React. I help modernize legacy systems into a reliable, event-driven architecture.",
     },
     {
       company: "Architech",
       href: "https://www.architech.ca/",
       location: "Toronto, ON",
       title: "Software Development Mentee",
-      logoUrl: "/architech.png",
+      logoUrl: "/images/projects/architech.png",
       start: "Jan 2025",
       end: "May 2025",
       description:
@@ -125,27 +126,27 @@ export const DATA = {
       href: "http://www.jm-group.ca",
       location: "Toronto, ON",
       title: "Software Development Intern",
-      logoUrl: "/j&m.png",
+      logoUrl: "/images/projects/j&m.png",
       start: "Apr 2024",
       end: "Aug 2024",
       description:
-        "Designed a location-aware hiring system with PostGIS, and contributed to Next.js badsed PWA job board using React and help managed our self-hosted Docker Swarm infrastructure.",
+        "Designed a location-aware hiring system with PostGIS, and contributed to Next.js based PWA job board using React and help managed our self-hosted Docker Swarm infrastructure.",
     },
   ],
   education: [
     {
-      school: "Humber College",
+      school: "Humber Polytechnic",
       href: "https://humber.ca/",
-      degree: "Information Technology Solutions",
-      logoUrl: "/humber.png",
+      degree: "MS Information Technology",
+      logoUrl: "/images/projects/humber.png",
       start: "Jan 2023",
       end: "Aug 2024",
     },
     {
       school: "GLS University",
       href: "https://www.glsuniversity.ac.in/",
-      degree: "Bachelor's of Computer Applications",
-      logoUrl: "/gls.png",
+      degree: "BS Computer Applications",
+      logoUrl: "/images/projects/gls.png",
       start: "Apr 2019",
       end: "Aug 2022",
     },
@@ -157,7 +158,7 @@ export const DATA = {
       dates: "Jul 2025",
       active: true,
       description:
-        "AI agent that automatically repurposes long-form video content into engaging clips for social media. Powered by Gemini 2.5 Pro and FFMPEG to streamline content creation.",
+        "AI agent that repurposes long videos into social media clips using Gemini 2.5 Pro and FFMPEG.",
       technologies: [
         "Next.js",
         "PostgreSQL",
@@ -166,7 +167,7 @@ export const DATA = {
         "Tailwind + ShadCN",
         "AWS S3",
         "FFMPEG",
-        "Inngest",
+        "Vercel AI SDK",
       ],
       links: [
         {
@@ -185,7 +186,7 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/clipper.png",
+      image: "/images/projects/clipper.png",
     },
     {
       title: "Gitbuddy",
@@ -193,7 +194,7 @@ export const DATA = {
       dates: "Jun 2025",
       active: true,
       description:
-        "A multi-agent developer tool that automates repository maintenance. It handles tasks like generating documentation, Dockerizing projects, and summarizing commit history.",
+        "Multi-agent tool that automates repository tasks like documentation, Dockerization, and commit history.",
       technologies: [
         "Next.js",
         "Supabase",
@@ -218,7 +219,7 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/gitbuddy.png",
+      image: "/images/projects/gitbuddy.png",
     },
     {
       title: "GraphRAG Chat",
@@ -249,7 +250,7 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/graphrag-chat.png",
+      image: "/images/projects/graphrag-chat.png",
     },
     {
       title: "Finchat",
@@ -257,11 +258,11 @@ export const DATA = {
       dates: "Jan - Feb 2025",
       active: true,
       description:
-        "A smart chatbot that helps you analyze stocks and financial markets in real-time. Chat naturally to get live stock prices, company insights, and market trends with interactive charts and data visualizations. Built using RAG architecture and OpenAI's GPT-4o.",
+        "Real-time financial chatbot for stock analysis and market trends with interactive charts. Built using RAG and GPT-4o.",
       technologies: [
         "Python",
         "Fast API",
-        "Streamlit",
+        "GPT-4o",
         "LangChain",
         "LangGraph",
         "Pandas",
@@ -280,7 +281,7 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/Finchat.png",
+      image: "/images/projects/Finchat.png",
     },
     {
       title: "React Rooks",
@@ -310,7 +311,7 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/ReactRooks.png",
+      image: "/images/projects/ReactRooks.png",
     },
     {
       title: "JSON Parser",
@@ -318,7 +319,7 @@ export const DATA = {
       dates: "Dec 2024 - Jan 2025",
       active: true,
       description:
-        "A custom JSON parser, built with TypeScript, efficiently parses JSON strings into an AST, validates against the ECMA-404 standard, and supports both local JSON files or APIs.",
+        "TypeScript-based JSON parser that validates against ECMA-404 and supports local files or APIs.",
       technologies: [
         "Deno",
         "Typescript",
@@ -340,7 +341,7 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/json-parser.png",
+      image: "/images/projects/json-parser.png",
     },
     {
       title: "Byte Cast",
@@ -359,18 +360,13 @@ export const DATA = {
         "AWS",
       ],
       links: [
-        // {
-        //   type: "Website",
-        //   href: "#",
-        //   icon: <Icons.globe className="size-3" />,
-        // },
         {
           type: "Source",
           href: "https://github.com/0xadityaa/Byte-Cast",
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/Bytecast.png",
+      image: "/images/projects/Bytecast.png",
     },
     {
       title: "Crypto Maniac",
@@ -400,7 +396,7 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         },
       ],
-      image: "/Crypto-Maniac.png",
+      image: "/images/projects/Crypto-Maniac.png",
     },
   ],
 } as const;
