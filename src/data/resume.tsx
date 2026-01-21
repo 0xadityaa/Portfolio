@@ -50,6 +50,7 @@ export const DATA = {
     "Azure",
     "Azure DevOps",
     "GCP",
+    "Cloudflare",
     "Vercel",
     "TensorFlow",
     "Vercel AI SDK",
@@ -107,7 +108,7 @@ export const DATA = {
       start: "Jul 2025",
       end: "Present",
       description:
-        "I'm working across the stack with TypeScript, Nest.js, Azure, and React. I help modernize legacy systems into a reliable, event-driven architecture  .",
+        "I'm working across the stack with TypeScript, Nest.js, Azure, and React. I help modernize legacy systems into a reliable, event-driven architecture.",
     },
     {
       company: "Architech",
@@ -129,14 +130,14 @@ export const DATA = {
       start: "Apr 2024",
       end: "Aug 2024",
       description:
-        "Designed a location-aware hiring system with PostGIS, and contributed to Next.js badsed PWA job board using React and help managed our self-hosted Docker Swarm infrastructure.",
+        "Designed a location-aware hiring system with PostGIS, and contributed to Next.js based PWA job board using React and help managed our self-hosted Docker Swarm infrastructure.",
     },
   ],
   education: [
     {
-      school: "Humber College",
+      school: "Humber Polytechnic",
       href: "https://humber.ca/",
-      degree: "Information Technology Solutions",
+      degree: "MS Information Technology",
       logoUrl: "/humber.png",
       start: "Jan 2023",
       end: "Aug 2024",
@@ -144,7 +145,7 @@ export const DATA = {
     {
       school: "GLS University",
       href: "https://www.glsuniversity.ac.in/",
-      degree: "Bachelor's of Computer Applications",
+      degree: "BS Computer Applications",
       logoUrl: "/gls.png",
       start: "Apr 2019",
       end: "Aug 2022",
@@ -157,7 +158,7 @@ export const DATA = {
       dates: "Jul 2025",
       active: true,
       description:
-        "AI agent that automatically repurposes long-form video content into engaging clips for social media. Powered by Gemini 2.5 Pro and FFMPEG to streamline content creation.",
+        "AI agent that repurposes long videos into social media clips using Gemini 2.5 Pro and FFMPEG.",
       technologies: [
         "Next.js",
         "PostgreSQL",
@@ -166,7 +167,7 @@ export const DATA = {
         "Tailwind + ShadCN",
         "AWS S3",
         "FFMPEG",
-        "Inngest",
+        "Vercel AI SDK",
       ],
       links: [
         {
@@ -193,7 +194,7 @@ export const DATA = {
       dates: "Jun 2025",
       active: true,
       description:
-        "A multi-agent developer tool that automates repository maintenance. It handles tasks like generating documentation, Dockerizing projects, and summarizing commit history.",
+        "Multi-agent tool that automates repository tasks like documentation, Dockerization, and commit history.",
       technologies: [
         "Next.js",
         "Supabase",
@@ -257,11 +258,11 @@ export const DATA = {
       dates: "Jan - Feb 2025",
       active: true,
       description:
-        "A smart chatbot that helps you analyze stocks and financial markets in real-time. Chat naturally to get live stock prices, company insights, and market trends with interactive charts and data visualizations. Built using RAG architecture and OpenAI's GPT-4o.",
+        "Real-time financial chatbot for stock analysis and market trends with interactive charts. Built using RAG and GPT-4o.",
       technologies: [
         "Python",
         "Fast API",
-        "Streamlit",
+        "GPT-4o",
         "LangChain",
         "LangGraph",
         "Pandas",
@@ -318,7 +319,7 @@ export const DATA = {
       dates: "Dec 2024 - Jan 2025",
       active: true,
       description:
-        "A custom JSON parser, built with TypeScript, efficiently parses JSON strings into an AST, validates against the ECMA-404 standard, and supports both local JSON files or APIs.",
+        "TypeScript-based JSON parser that validates against ECMA-404 and supports local files or APIs.",
       technologies: [
         "Deno",
         "Typescript",
