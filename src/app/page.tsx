@@ -85,6 +85,7 @@ const customIcons: { [key: string]: string } = {
 };
 
 import { getGitHubBuilderProfile } from "@/lib/github";
+import { BookMarked } from "lucide-react";
 
 export default async function Page() {
   let githubData;
@@ -111,117 +112,82 @@ export default async function Page() {
     <main className="flex flex-col min-h-[100dvh] space-y-12 mb-24 overflow-x-hidden pt-4">
       {/* HERO SECTION */}
       <section id="hero">
-        <div className="mx-auto w-full max-w-2xl space-y-6">
-          <div className="gap-4 flex flex-col-reverse sm:flex-row justify-between items-start">
-            <div className="flex-col flex flex-1 space-y-2">
+        <div className="mx-auto w-full max-w-2xl space-y-8">
+          <div className="gap-6 flex flex-col-reverse sm:flex-row justify-between items-start">
+            <div className="flex-col flex flex-1 space-y-4">
               <BlurFadeText
                 delay={BLUR_FADE_DELAY}
-                className="text-4xl font-extrabold tracking-tighter sm:text-5xl xl:text-6xl/none font-sans uppercase"
+                className="text-4xl font-bold tracking-tight sm:text-5xl xl:text-6xl/none"
                 yOffset={8}
-                text={`Hi, I'm ${DATA.name.split(" ")[0]}.`}
+                text={DATA.name}
               />
               <BlurFadeText
-                className="max-w-[600px] text-lg sm:text-xl font-mono text-muted-foreground font-semibold"
+                className="max-w-[600px] text-lg sm:text-xl text-muted-foreground leading-relaxed"
                 delay={BLUR_FADE_DELAY}
                 text={DATA.description}
               />
+              
+              {/* MINIMAL GITHUB STATS */}
+              <BlurFade delay={BLUR_FADE_DELAY * 2}>
+                <div className="flex items-center gap-6 text-sm text-muted-foreground mt-4">
+                  <div className="flex items-center gap-2">
+                    <span className={`size-2 rounded-full ${isOffline ? "bg-red-500" : "bg-green-500"}`}></span>
+                    <span>{isOffline ? "Offline" : "Available"}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <Icons.github className="size-4" />
+                    <span>{githubData.contributionsCount.toLocaleString()} contributions</span>
+                  </div>
+                  <div className="hidden sm:flex items-center gap-1.5">
+                    <BookMarked className="size-4" />
+                    <span>{githubData.publicReposCount} repos</span>
+                  </div>
+                </div>
+              </BlurFade>
             </div>
             <BlurFade delay={BLUR_FADE_DELAY}>
-              <div className="relative border-4 border-black dark:border-white p-1 bg-card shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
-                <Avatar className="size-20 sm:size-24 rounded-none border border-black/10 dark:border-white/10">
-                  <AvatarImage alt={DATA.name} src={DATA.avatarUrl} className="object-cover rounded-none" />
-                  <AvatarFallback className="rounded-none font-mono font-bold text-xl">{DATA.initials}</AvatarFallback>
-                </Avatar>
-              </div>
+              <Avatar className="size-24 sm:size-32 rounded-2xl border border-border">
+                <AvatarImage alt={DATA.name} src={DATA.avatarUrl} className="object-cover" />
+                <AvatarFallback className="rounded-2xl font-medium text-xl bg-muted text-muted-foreground">{DATA.initials}</AvatarFallback>
+              </Avatar>
             </BlurFade>
           </div>
         </div>
-      </section>
-
-      {/* TERMINAL SECTION */}
-      <section id="terminal" className="w-full max-w-2xl mx-auto">
-        <BlurFade delay={BLUR_FADE_DELAY * 2}>
-          <BrutalistTerminal />
-        </BlurFade>
       </section>
 
       {/* ABOUT SECTION */}
       <section id="about">
         <div className="w-full max-w-2xl mx-auto space-y-4">
           <BlurFade delay={BLUR_FADE_DELAY * 3}>
-            <div className="border-b-4 border-black dark:border-white pb-1 mb-2">
-              <h2 className="text-xl sm:text-2xl font-extrabold uppercase font-mono tracking-tight">01 // Profile Summary</h2>
-            </div>
+            <h2 className="text-sm tracking-widest text-muted-foreground uppercase font-medium">About</h2>
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 4}>
-            <Markdown className="prose max-w-full text-pretty font-sans text-base sm:text-lg leading-relaxed text-muted-foreground dark:prose-invert">
+            <Markdown className="prose prose-neutral dark:prose-invert max-w-full text-pretty text-base sm:text-lg leading-relaxed text-foreground">
               {DATA.summary}
             </Markdown>
           </BlurFade>
         </div>
       </section>
 
-      {/* GITHUB BUILDER SPEC CARD (DYNAMIC INTEGRATION) */}
-      <section id="github-specs" className="w-full max-w-2xl mx-auto">
-        <BlurFade delay={BLUR_FADE_DELAY * 5}>
-          <div className="border-b-4 border-black dark:border-white pb-1 mb-4">
-            <h2 className="text-xl sm:text-2xl font-extrabold uppercase font-mono tracking-tight">02 // Live Builder Specifications</h2>
-          </div>
-          <div className="border-2 border-black dark:border-white p-5 bg-card text-card-foreground shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] font-mono text-sm rounded-none">
-            <div className="flex items-center justify-between border-b-2 border-black dark:border-white pb-3 mb-4 select-none">
-              <div className="flex items-center gap-2">
-                <span className={`size-3 inline-block animate-pulse ${isOffline ? "bg-red-500" : "bg-green-500"}`}></span>
-                <span className="font-bold tracking-tight">0xadityaa.json</span>
-              </div>
-              <span className="text-[10px] bg-muted border border-black dark:border-white px-2 py-0.5 font-bold uppercase tracking-wider">[ DYNAMIC STATE ]</span>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <div className="border-2 border-black dark:border-white p-3 bg-muted shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]">
-                <div className="text-[10px] text-muted-foreground uppercase tracking-wider font-bold">Followers</div>
-                <div className="text-xl font-bold mt-1">{githubData.followersCount}</div>
-              </div>
-              <div className="border-2 border-black dark:border-white p-3 bg-muted shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]">
-                <div className="text-[10px] text-muted-foreground uppercase tracking-wider font-bold">Public Repos</div>
-                <div className="text-xl font-bold mt-1">{githubData.publicReposCount}</div>
-              </div>
-              <div className="border-2 border-black dark:border-white p-3 bg-muted shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]">
-                <div className="text-[10px] text-muted-foreground uppercase tracking-wider font-bold">Status</div>
-                <div className={`text-xl font-bold mt-1 uppercase tracking-tight ${isOffline ? "text-red-500" : "text-green-500"}`}>
-                  {isOffline ? "DEV_OFFLINE" : "ONLINE"}
-                </div>
-              </div>
-              <div className="border-2 border-black dark:border-white p-3 bg-muted shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]">
-                <div className="text-[10px] text-muted-foreground uppercase tracking-wider font-bold">Contributions</div>
-                <div className="text-xl font-bold mt-1 uppercase text-foreground">
-                  {githubData.contributionsCount}
-                </div>
-              </div>
-            </div>
-          </div>
-        </BlurFade>
-      </section>
-
       {/* SKILLS MARQUEE SECTION */}
       <section id="skills">
-        <div className="w-full max-w-2xl mx-auto flex min-h-0 flex-col gap-y-3">
+        <div className="w-full max-w-2xl mx-auto flex min-h-0 flex-col gap-y-4">
           <BlurFade delay={BLUR_FADE_DELAY * 6}>
-            <div className="border-b-4 border-black dark:border-white pb-1 mb-2">
-              <h2 className="text-xl sm:text-2xl font-extrabold uppercase font-mono tracking-tight">03 // Built-in Core Skills</h2>
-            </div>
+            <h2 className="text-sm tracking-widest text-muted-foreground uppercase font-medium">Tech Stack</h2>
           </BlurFade>
-          <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden border-2 border-black dark:border-white bg-background py-6 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]">
+          <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden py-4 mask-edges">
             <Marquee pauseOnHover className="[--duration:60s]">
               {DATA.skills.slice(0, Math.ceil(DATA.skills.length / 2)).map((skill) => {
                 const iconUrl = customIcons[skill] || (iconSlugs[skill] ? `https://cdn.simpleicons.org/${iconSlugs[skill]}/000000` : null);
                 return (
-                  <div key={skill} className="flex items-center gap-2 mr-3 px-3 py-1.5 border-2 border-black dark:border-white bg-card text-card-foreground shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] font-mono text-xs font-semibold">
+                  <div key={skill} className="flex items-center gap-2 mr-4 px-4 py-2 rounded-lg bg-muted text-foreground text-sm font-medium">
                     {iconUrl ? (
                       <Image
                         src={iconUrl}
-                        className="size-3.5 brightness-0 dark:invert"
+                        className="size-4 brightness-0 dark:invert opacity-70"
                         alt={skill}
-                        width={14}
-                        height={14}
+                        width={16}
+                        height={16}
                       />
                     ) : null}
                     <span>{skill}</span>
@@ -229,18 +195,18 @@ export default async function Page() {
                 );
               })}
             </Marquee>
-            <Marquee reverse pauseOnHover className="[--duration:60s] mt-3">
+            <Marquee reverse pauseOnHover className="[--duration:60s] mt-4">
               {DATA.skills.slice(Math.ceil(DATA.skills.length / 2)).map((skill) => {
                 const iconUrl = customIcons[skill] || (iconSlugs[skill] ? `https://cdn.simpleicons.org/${iconSlugs[skill]}/000000` : null);
                 return (
-                  <div key={skill} className="flex items-center gap-2 mr-3 px-3 py-1.5 border-2 border-black dark:border-white bg-card text-card-foreground shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] font-mono text-xs font-semibold">
+                  <div key={skill} className="flex items-center gap-2 mr-4 px-4 py-2 rounded-lg bg-muted text-foreground text-sm font-medium">
                     {iconUrl ? (
                       <Image
                         src={iconUrl}
-                        className="size-3.5 brightness-0 dark:invert"
+                        className="size-4 brightness-0 dark:invert opacity-70"
                         alt={skill}
-                        width={14}
-                        height={14}
+                        width={16}
+                        height={16}
                       />
                     ) : null}
                     <span>{skill}</span>
@@ -248,6 +214,8 @@ export default async function Page() {
                 );
               })}
             </Marquee>
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-background"></div>
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-background"></div>
           </div>
         </div>
       </section>
@@ -256,11 +224,9 @@ export default async function Page() {
       <section id="work">
         <div className="w-full max-w-2xl mx-auto flex min-h-0 flex-col gap-y-4">
           <BlurFade delay={BLUR_FADE_DELAY * 7}>
-            <div className="border-b-4 border-black dark:border-white pb-1 mb-2">
-              <h2 className="text-xl sm:text-2xl font-extrabold uppercase font-mono tracking-tight">04 // Professional Track</h2>
-            </div>
+            <h2 className="text-sm tracking-widest text-muted-foreground uppercase font-medium">Experience</h2>
           </BlurFade>
-          <div className="space-y-4">
+          <div className="space-y-6">
             {DATA.work.map((work, id) => (
               <BlurFade
                 key={work.company}
@@ -285,11 +251,9 @@ export default async function Page() {
       <section id="education">
         <div className="w-full max-w-2xl mx-auto flex min-h-0 flex-col gap-y-4">
           <BlurFade delay={BLUR_FADE_DELAY * 9}>
-            <div className="border-b-4 border-black dark:border-white pb-1 mb-2">
-              <h2 className="text-xl sm:text-2xl font-extrabold uppercase font-mono tracking-tight">05 // Academic Foundations</h2>
-            </div>
+            <h2 className="text-sm tracking-widest text-muted-foreground uppercase font-medium">Education</h2>
           </BlurFade>
-          <div className="space-y-4">
+          <div className="space-y-6">
             {DATA.education.map((education, id) => (
               <BlurFade
                 key={education.school}
@@ -311,25 +275,25 @@ export default async function Page() {
 
       {/* CONTACT */}
       <section id="contact">
-        <div className="w-full max-w-2xl mx-auto py-8 border-t-4 border-black dark:border-white">
+        <div className="w-full max-w-2xl mx-auto py-12 mt-12 border-t border-border">
           <BlurFade delay={BLUR_FADE_DELAY * 11}>
-            <div className="space-y-4 text-center">
-              <h2 className="text-3xl font-extrabold tracking-tighter uppercase font-sans sm:text-4xl">
+            <div className="space-y-6 text-center">
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-foreground">
                 Get in Touch
               </h2>
-              <p className="mx-auto max-w-[500px] text-muted-foreground font-mono text-sm">
+              <p className="mx-auto max-w-[500px] text-muted-foreground text-sm sm:text-base">
                 Have an interesting problem to solve, or want to discuss architecture? Let&apos;s build something.
               </p>
-              <div className="flex flex-wrap justify-center gap-3 pt-2">
+              <div className="flex flex-wrap justify-center gap-4 pt-4">
                 <Link
                   href={DATA.contact.social.email.url}
-                  className="border-2 border-black dark:border-white bg-card text-card-foreground font-mono text-xs sm:text-sm px-4 py-2 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] active:translate-x-0 active:translate-y-0 active:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] transition-all select-none font-bold uppercase tracking-wider"
+                  className="px-6 py-3 bg-primary text-primary-foreground rounded-full text-sm font-medium transition-transform hover:scale-105"
                 >
                   Send Email
                 </Link>
                 <Link
                   href={DATA.contact.social.X.url}
-                  className="border-2 border-black dark:border-white bg-card text-card-foreground font-mono text-xs sm:text-sm px-4 py-2 shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] active:translate-x-0 active:translate-y-0 active:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] transition-all select-none font-bold uppercase tracking-wider"
+                  className="px-6 py-3 bg-muted text-foreground rounded-full text-sm font-medium transition-transform hover:scale-105"
                 >
                   Twitter / X DM
                 </Link>

@@ -5,7 +5,7 @@ import BlurFade from "@/components/magicui/blur-fade";
 import { cn } from "@/lib/utils";
 import { ProjectCard } from "@/components/project-card";
 import { DATA } from "@/data/resume";
-import { SearchIcon, XIcon } from "lucide-react";
+import { Search as SearchIcon, X as XIcon } from "lucide-react";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -42,27 +42,27 @@ export default function ProjectsPage() {
         
         {/* Page Title & Subtitle */}
         <BlurFade delay={BLUR_FADE_DELAY}>
-          <div className="border-b-4 border-black dark:border-white pb-3 mb-6">
-            <h1 className="text-4xl font-extrabold tracking-tighter uppercase font-sans">
-              Stuff I&apos;ve Built
+          <div className="flex flex-col gap-2 mb-6">
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Projects
             </h1>
-            <p className="text-muted-foreground font-mono text-sm mt-2 font-medium">
-              A comprehensive directory of my technical products, open-source utilities, and micro-services.
+            <p className="text-muted-foreground text-sm sm:text-base">
+              A directory of my technical products, open-source utilities, and micro-services.
             </p>
           </div>
         </BlurFade>
 
         {/* Interactive Filters Bar */}
         <BlurFade delay={BLUR_FADE_DELAY * 2}>
-          <div className="space-y-4 font-mono">
+          <div className="space-y-4">
             {/* Search Input Box */}
             <div className="relative flex items-center">
               <input
                 type="text"
-                placeholder="Search projects (e.g. LLM, Deno, AWS)..."
+                placeholder="Search projects (e.g. LLM, React, Python)..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full border-2 border-black dark:border-white bg-background text-foreground px-10 py-2.5 text-sm select-text focus:outline-none focus:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:focus:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] transition-all rounded-none"
+                className="w-full bg-muted text-foreground px-10 py-3 text-sm rounded-xl border border-transparent focus:outline-none focus:border-border transition-colors"
               />
               <SearchIcon className="absolute left-3.5 size-4 text-muted-foreground pointer-events-none" />
               {searchQuery && (
@@ -77,17 +77,17 @@ export default function ProjectsPage() {
 
             {/* Tag Selection Bar */}
             <div className="flex flex-col gap-2">
-              <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">
+              <div className="text-xs text-muted-foreground font-medium">
                 Filter by Core Tech Stack:
               </div>
-              <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto pr-1 pb-1">
+              <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto pr-1 pb-1 scrollbar-hide">
                 <button
                   onClick={() => setSelectedTag(null)}
                   className={cn(
-                    "px-2.5 py-0.5 text-[10px] font-bold uppercase rounded-none border transition-all cursor-pointer",
+                    "px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer",
                     selectedTag === null
-                      ? "border-black dark:border-white bg-foreground text-background"
-                      : "border-black/20 dark:border-white/20 bg-muted hover:border-black dark:hover:border-white text-foreground"
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
                   )}
                 >
                   All Tech
@@ -97,10 +97,10 @@ export default function ProjectsPage() {
                     key={tag}
                     onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
                     className={cn(
-                      "px-2.5 py-0.5 text-[10px] font-bold uppercase rounded-none border transition-all cursor-pointer",
+                      "px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer",
                       selectedTag === tag
-                        ? "border-black dark:border-white bg-foreground text-background"
-                        : "border-black/20 dark:border-white/20 bg-muted hover:border-black dark:hover:border-white text-foreground"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
                     )}
                   >
                     {tag}
@@ -134,11 +134,11 @@ export default function ProjectsPage() {
         {/* Empty Filter State */}
         {filteredProjects.length === 0 && (
           <BlurFade delay={BLUR_FADE_DELAY * 3}>
-            <div className="border-2 border-dashed border-black dark:border-white p-12 text-center bg-muted rounded-none font-mono">
-              <span className="block text-xl font-bold uppercase tracking-tight text-foreground/80 mb-2">
-                Specs Unmatched // Code Not Found
+            <div className="p-12 text-center bg-muted/50 rounded-xl border border-border mt-8">
+              <span className="block text-lg font-semibold text-foreground/80 mb-2">
+                No projects found
               </span>
-              <p className="text-xs text-muted-foreground max-w-sm mx-auto">
+              <p className="text-sm text-muted-foreground max-w-sm mx-auto">
                 No active projects match your search constraints. Try running a different filter query.
               </p>
               <button
@@ -146,7 +146,7 @@ export default function ProjectsPage() {
                   setSearchQuery("");
                   setSelectedTag(null);
                 }}
-                className="mt-6 border-2 border-black dark:border-white bg-card text-card-foreground text-xs uppercase font-extrabold tracking-wider px-4 py-2 hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] transition-all cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+                className="mt-6 px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-full hover:bg-primary/90 transition-colors cursor-pointer"
               >
                 Reset Search Filters
               </button>

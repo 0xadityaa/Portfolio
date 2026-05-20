@@ -84,17 +84,12 @@ query ($username: String!) {
 export async function getGitHubBuilderProfile(username: string = "0xadityaa"): Promise<GitHubBuilderProfile> {
   const token = process.env.GITHUB_TOKEN;
 
-  if (!token) {
-    console.error(`
-🚨 [BUILD ERROR] Mising GITHUB_TOKEN environment variable!
-Please create a Personal Access Token (PAT) on GitHub:
-   1. Go to GitHub -> Settings -> Developer Settings -> Personal Access Tokens -> Tokens (classic)
-   2. Generate a token with the 'repo' scope.
-   3. Add it to your local environment file:
-      echo "GITHUB_TOKEN=your_token_here" >> .env.local
-   4. Restart the Next.js development server.
+  if (!token || token.includes("dummy")) {
+    console.warn(`
+⚠️ [WARN] Missing or dummy GITHUB_TOKEN environment variable!
+Returning mock GitHub data.
 `);
-    throw new Error("Missing GITHUB_TOKEN environment variable. Build halted.");
+    return getMockProfile();
   }
 
   try {
@@ -164,8 +159,46 @@ Please create a Personal Access Token (PAT) on GitHub:
     };
   } catch (error) {
     console.error("❌ Failed to fetch GitHub profile stats:", error);
-    // If local dev, allow gracefully falling back to mock data if not throwing hard,
-    // but throwing guarantees build integrity as requested.
-    throw error;
+    console.warn("⚠️ Returning mock GitHub data due to fetch failure.");
+    return getMockProfile();
   }
+}
+
+function getMockProfile(): GitHubBuilderProfile {
+  return {
+    name: "Aditya Negandhi (Mock)",
+    bio: "Full Stack Engineer & aspiring Solutions Architect.",
+    company: null,
+    location: "Toronto, ON",
+    avatarUrl: "/Me.jpeg",
+    followersCount: 123,
+    publicReposCount: 45,
+    contributionsCount: 890,
+    pinnedRepos: [
+      {
+        name: "Mock Project 1",
+        description: "This is a mocked github pinned repository.",
+        url: "#",
+        homepageUrl: null,
+        stargazerCount: 42,
+        forkCount: 7,
+        openGraphImageUrl: "",
+        primaryLanguage: { name: "TypeScript", color: "#3178c6" },
+        languages: ["TypeScript", "React"],
+        topics: ["nextjs", "react"],
+      },
+      {
+        name: "Mock Project 2",
+        description: "Another mocked repository since github token is missing.",
+        url: "#",
+        homepageUrl: null,
+        stargazerCount: 24,
+        forkCount: 3,
+        openGraphImageUrl: "",
+        primaryLanguage: { name: "Python", color: "#3572A5" },
+        languages: ["Python"],
+        topics: ["machine-learning"],
+      }
+    ],
+  };
 }

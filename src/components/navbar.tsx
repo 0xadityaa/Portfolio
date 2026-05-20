@@ -1,7 +1,6 @@
 "use client";
 
 import { ModeToggle } from "@/components/mode-toggle";
-import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
   Tooltip,
@@ -17,8 +16,8 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 w-full max-w-2xl mx-auto px-6 pb-6 pointer-events-none">
-      <div className="pointer-events-auto border-2 border-black dark:border-white bg-background text-foreground shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] flex items-center justify-between p-1 select-none font-mono">
+    <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 pointer-events-none">
+      <div className="pointer-events-auto rounded-full border border-border bg-background/70 backdrop-blur-lg shadow-sm flex items-center p-1.5 gap-1.5">
         {/* Navigation Routes */}
         <div className="flex items-center gap-1">
           {DATA.navbar.map((item) => {
@@ -29,17 +28,16 @@ export default function Navbar() {
                   <Link
                     href={item.href}
                     className={cn(
-                      "h-9 px-3 text-xs uppercase font-bold tracking-wider select-none flex items-center gap-1.5 border border-transparent transition-all",
+                      "flex items-center justify-center size-10 rounded-full transition-colors",
                       isActive
-                        ? "border-black dark:border-white bg-foreground text-background"
-                        : "hover:border-black/20 dark:hover:border-white/20"
+                        ? "bg-primary text-primary-foreground"
+                        : "hover:bg-muted text-muted-foreground hover:text-foreground"
                     )}
                   >
-                    <item.icon className="size-3.5" />
-                    <span className="hidden xs:inline">{item.label}</span>
+                    <item.icon className="size-4" />
                   </Link>
                 </TooltipTrigger>
-                <TooltipContent className="border border-black dark:border-white bg-card text-card-foreground font-mono text-[10px] uppercase font-bold px-2 py-0.5 rounded-none">
+                <TooltipContent className="bg-foreground text-background border-none rounded-md px-3 py-1.5 text-xs">
                   <p>{item.label}</p>
                 </TooltipContent>
               </Tooltip>
@@ -47,8 +45,7 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Separator */}
-        <Separator orientation="vertical" className="h-6 w-[2px] bg-black dark:bg-white" />
+        <Separator orientation="vertical" className="h-6 w-[1px] bg-border mx-1" />
 
         {/* Social Links */}
         <div className="flex items-center gap-1">
@@ -60,27 +57,27 @@ export default function Navbar() {
                   <Link
                     href={social.url}
                     target="_blank"
-                    className="size-9 border border-transparent flex items-center justify-center transition-all hover:border-black/20 dark:hover:border-white/20"
+                    className="flex items-center justify-center size-10 rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                   >
                     <social.icon className="size-4" />
                   </Link>
                 </TooltipTrigger>
-                <TooltipContent className="border border-black dark:border-white bg-card text-card-foreground font-mono text-[10px] uppercase font-bold px-2 py-0.5 rounded-none">
+                <TooltipContent className="bg-foreground text-background border-none rounded-md px-3 py-1.5 text-xs">
                   <p>{name}</p>
                 </TooltipContent>
               </Tooltip>
             ))}
 
-          <Separator orientation="vertical" className="h-6 w-[2px] bg-black dark:bg-white mx-1" />
+          <Separator orientation="vertical" className="h-6 w-[1px] bg-border mx-1" />
 
           {/* Theme Mode Toggle */}
           <Tooltip>
             <TooltipTrigger asChild>
-              <div className="size-9 border border-transparent flex items-center justify-center hover:border-black/20 dark:hover:border-white/20 cursor-pointer">
+              <div>
                 <ModeToggle />
               </div>
             </TooltipTrigger>
-            <TooltipContent className="border border-black dark:border-white bg-card text-card-foreground font-mono text-[10px] uppercase font-bold px-2 py-0.5 rounded-none">
+            <TooltipContent className="bg-foreground text-background border-none rounded-md px-3 py-1.5 text-xs">
               <p>Theme</p>
             </TooltipContent>
           </Tooltip>

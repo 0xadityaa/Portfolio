@@ -4,8 +4,7 @@ import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import BlurFade from "@/components/magicui/blur-fade";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { SearchIcon, XIcon, CalendarIcon, TagIcon } from "lucide-react";
+import { Search as SearchIcon, X as XIcon, Calendar as CalendarIcon, Tag as TagIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const BLUR_FADE_DELAY = 0.04;
@@ -55,18 +54,18 @@ export function BrutalistBlogList({ initialPosts }: BrutalistBlogListProps) {
   }, [initialPosts, searchQuery, selectedTag]);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 mt-6">
       {/* Search and Filter Panel */}
       <BlurFade delay={BLUR_FADE_DELAY * 2}>
-        <div className="space-y-4 font-mono">
+        <div className="space-y-4">
           {/* Search Input Box */}
           <div className="relative flex items-center">
             <input
               type="text"
-              placeholder="Search articles in Second Brain..."
+              placeholder="Search articles..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full border-2 border-black dark:border-white bg-background text-foreground px-10 py-2.5 text-sm select-text focus:outline-none focus:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:focus:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] transition-all rounded-none"
+              className="w-full bg-muted text-foreground px-10 py-3 text-sm rounded-xl border border-transparent focus:outline-none focus:border-border transition-colors"
             />
             <SearchIcon className="absolute left-3.5 size-4 text-muted-foreground pointer-events-none" />
             {searchQuery && (
@@ -81,18 +80,18 @@ export function BrutalistBlogList({ initialPosts }: BrutalistBlogListProps) {
 
           {/* Tag Selection Bar */}
           <div className="flex flex-col gap-2">
-            <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider flex items-center gap-1.5 select-none">
+            <div className="text-xs text-muted-foreground font-medium flex items-center gap-1.5">
               <TagIcon className="size-3" />
               <span>Browse by Category:</span>
             </div>
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => setSelectedTag(null)}
                 className={cn(
-                  "px-2.5 py-0.5 text-[10px] font-bold uppercase rounded-none border transition-all cursor-pointer",
+                  "px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer",
                   selectedTag === null
-                    ? "border-black dark:border-white bg-foreground text-background"
-                    : "border-black/20 dark:border-white/20 bg-muted hover:border-black dark:hover:border-white text-foreground"
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
                 )}
               >
                 All posts
@@ -102,10 +101,10 @@ export function BrutalistBlogList({ initialPosts }: BrutalistBlogListProps) {
                   key={tag}
                   onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
                   className={cn(
-                    "px-2.5 py-0.5 text-[10px] font-bold uppercase rounded-none border transition-all cursor-pointer",
+                    "px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer",
                     selectedTag === tag
-                      ? "border-black dark:border-white bg-foreground text-background"
-                      : "border-black/20 dark:border-white/20 bg-muted hover:border-black dark:hover:border-white text-foreground"
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
                   )}
                 >
                   #{tag}
@@ -116,43 +115,39 @@ export function BrutalistBlogList({ initialPosts }: BrutalistBlogListProps) {
         </div>
       </BlurFade>
 
-      <Separator className="h-1 bg-black dark:bg-white" />
-
       {/* Dynamic Articles List */}
-      <div className="space-y-6">
+      <div className="space-y-4 pt-4">
         {filteredPosts.map((post, id) => (
           <BlurFade delay={BLUR_FADE_DELAY * 3 + id * 0.04} key={post.slug}>
             <Link
               href={`/blog/${post.slug}`}
               className="block group"
             >
-              <div className="border-2 border-black dark:border-white p-5 bg-card text-card-foreground shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] active:translate-x-0 active:translate-y-0 active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:active:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] transition-all duration-100 ease-out">
+              <div className="p-5 -mx-5 rounded-xl border border-transparent hover:border-border bg-transparent hover:bg-muted/30 transition-all duration-300 ease-out">
                 
                 {/* Meta details */}
-                <div className="flex items-center gap-4 text-xs font-mono font-semibold text-muted-foreground mb-2 select-none">
-                  <div className="flex items-center gap-1">
-                    <CalendarIcon className="size-3" />
-                    <span>{post.metadata.publishedAt}</span>
-                  </div>
+                <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground mb-2">
+                  <CalendarIcon className="size-3" />
+                  <span>{post.metadata.publishedAt}</span>
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xl sm:text-2xl font-extrabold uppercase tracking-tight group-hover:underline decoration-2">
+                <h3 className="text-xl font-semibold tracking-tight text-foreground minimal-link inline-block">
                   {post.metadata.title}
                 </h3>
 
                 {/* Summary */}
-                <p className="text-sm sm:text-base text-muted-foreground mt-3 leading-relaxed font-sans font-medium">
+                <p className="text-sm sm:text-base text-muted-foreground mt-2 leading-relaxed max-w-3xl">
                   {post.metadata.summary}
                 </p>
 
                 {/* Tags Badges */}
                 {post.metadata.tags && post.metadata.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5 mt-4 select-none">
+                  <div className="flex flex-wrap gap-2 mt-4">
                     {post.metadata.tags.map((tag) => (
                       <Badge
                         key={tag}
-                        className="px-2 py-0.5 text-[10px] font-mono font-bold uppercase rounded-none border border-black/20 dark:border-white/20 bg-muted text-foreground transition-none"
+                        className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-muted text-muted-foreground hover:bg-muted"
                         variant="secondary"
                       >
                         #{tag}
@@ -168,11 +163,11 @@ export function BrutalistBlogList({ initialPosts }: BrutalistBlogListProps) {
         {/* Empty Search State */}
         {filteredPosts.length === 0 && (
           <BlurFade delay={BLUR_FADE_DELAY * 3}>
-            <div className="border-2 border-dashed border-black dark:border-white p-12 text-center bg-muted rounded-none font-mono">
-              <span className="block text-xl font-bold uppercase tracking-tight text-foreground/80 mb-2">
-                Second Brain Offline // Query Empty
+            <div className="p-12 text-center bg-muted/50 rounded-xl border border-border mt-8">
+              <span className="block text-lg font-semibold text-foreground/80 mb-2">
+                No articles found
               </span>
-              <p className="text-xs text-muted-foreground max-w-sm mx-auto">
+              <p className="text-sm text-muted-foreground max-w-sm mx-auto">
                 No articles matched your criteria. Try adjusting your tags or running a broader keyword search.
               </p>
               <button
@@ -180,9 +175,9 @@ export function BrutalistBlogList({ initialPosts }: BrutalistBlogListProps) {
                   setSearchQuery("");
                   setSelectedTag(null);
                 }}
-                className="mt-6 border-2 border-black dark:border-white bg-card text-card-foreground text-xs uppercase font-extrabold tracking-wider px-4 py-2 hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] transition-all cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+                className="mt-6 px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded-full hover:bg-primary/90 transition-colors cursor-pointer"
               >
-                Reset Search constraints
+                Reset Search Filters
               </button>
             </div>
           </BlurFade>
