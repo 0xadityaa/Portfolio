@@ -5,64 +5,64 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 210 11.1% 3.53%;
+    --foreground: 0 0% 4%;
 
     --card: 0 0% 100%;
-    --card-foreground: 210 11.1% 3.53%;
+    --card-foreground: 0 0% 4%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 210 11.1% 3.53%;
+    --popover-foreground: 0 0% 4%;
 
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
 
     --secondary: 0 0% 96.1%;
     --secondary-foreground: 0 0% 9%;
 
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 30%;
 
     --accent: 0 0% 96.1%;
     --accent-foreground: 0 0% 9%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
+    --border: 0 0% 0%;
+    --input: 0 0% 0%;
+    --ring: 0 0% 0%;
 
-    --radius: 0.5rem;
+    --radius: 0px;
   }
 
   .dark {
-    --background: 210 11.1% 3.53%;
+    --background: 0 0% 4%;
     --foreground: 0 0% 98%;
 
-    --card: 210 11.1% 3.53%;
+    --card: 0 0% 4%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 210 11.1% 3.53%;
+    --popover: 0 0% 4%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
 
-    --secondary: 0 0% 14.9%;
+    --secondary: 0 0% 10%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 70%;
 
-    --accent: 0 0% 14.9%;
+    --accent: 0 0% 12%;
     --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
+    --border: 0 0% 100%;
+    --input: 0 0% 100%;
+    --ring: 0 0% 100%;
   }
 }
 
@@ -71,92 +71,98 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-300;
   }
   ::selection {
-    @apply bg-primary text-primary-foreground;
+    @apply bg-foreground text-background;
   }
 }
 
-h3 code {
-  @apply !text-lg md:!text-xl;
+/* Custom Neo-Brutalist Utility Classes */
+@layer components {
+  .brutalist-card {
+    @apply border-2 border-black dark:border-white bg-card text-card-foreground p-5
+           shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]
+           hover:translate-x-[-2px] hover:translate-y-[-2px]
+           hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[6px_6px_0px_0px_rgba(255,255,255,1)]
+           active:translate-x-[0px] active:translate-y-[0px]
+           active:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:active:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]
+           transition-all duration-100 ease-out;
+  }
+
+  .brutalist-button {
+    @apply border-2 border-black dark:border-white bg-background text-foreground font-mono text-sm px-4 py-2 flex items-center justify-center gap-2
+           shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)]
+           hover:translate-x-[-1px] hover:translate-y-[-1px]
+           hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]
+           active:translate-x-[0px] active:translate-y-[0px]
+           active:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] dark:active:shadow-[1px_1px_0px_0px_rgba(255,255,255,1)]
+           transition-all duration-75 select-none;
+  }
+
+  .brutalist-input {
+    @apply border-2 border-black dark:border-white bg-background text-foreground px-4 py-2 font-mono text-sm
+           focus:outline-none focus:ring-0 focus:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:focus:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)]
+           placeholder:text-muted-foreground transition-all duration-75;
+  }
+
+  .brutalist-badge {
+    @apply border border-black dark:border-white bg-muted text-foreground font-mono text-xs px-2 py-0.5 select-none font-semibold;
+  }
 }
 
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-background border-l-2 border-black dark:border-white;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-foreground border-2 border-background;
+}
+
+/* Callouts - Obsidian Style */
+blockquote[data-callout] {
+  @apply border-l-4 border-black dark:border-white bg-muted p-4 my-6 font-mono text-sm leading-relaxed;
+}
+blockquote[data-callout]::before {
+  content: attr(data-callout-type);
+  @apply block font-bold uppercase tracking-wider text-xs mb-2 text-foreground/80;
+}
+
+/* Code highlights */
 pre {
-  @apply !px-0 rounded-lg overflow-x-auto py-4;
+  @apply border-2 border-black dark:border-white bg-muted p-4 my-6 overflow-x-auto rounded-none
+         shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)];
+}
+
+pre code {
+  @apply font-mono text-sm leading-relaxed p-0 bg-transparent text-foreground;
 }
 
 pre [data-line] {
-  @apply px-4;
+  @apply px-0;
 }
 
 code {
-  @apply text-sm md:text-base !leading-loose;
+  @apply font-mono text-sm bg-muted px-1.5 py-0.5 text-foreground border border-black/10 dark:border-white/10;
 }
 
 pre > code {
   counter-reset: line;
-}
-
-code[data-theme*=" "],
-code[data-theme*=" "] span {
-  color: var(--shiki-light);
-  background-color: var(--shiki-light-bg);
-}
-
-@media (prefers-color-scheme: dark) {
-  code[data-theme*=" "],
-  code[data-theme*=" "] span {
-    color: var(--shiki-dark);
-    background-color: var(--shiki-dark-bg);
-  }
-}
-
-code[data-line-numbers] {
-  counter-reset: line;
+  @apply border-none bg-transparent p-0;
 }
 
 code[data-line-numbers] > [data-line]::before {
   counter-increment: line;
   content: counter(line);
-  @apply inline-block w-4 mr-4 text-right text-gray-500;
-}
-
-code {
-  counter-reset: line;
-}
-
-code > [data-line]::before {
-  counter-increment: line;
-  content: counter(line);
-
-  /* Other styling */
-  display: inline-block;
-  width: 1rem;
-  margin-right: 2rem;
-  text-align: right;
-  color: gray;
-}
-
-code[data-line-numbers-max-digits="2"] > [data-line]::before {
-  width: 2rem;
-}
-
-code[data-line-numbers-max-digits="3"] > [data-line]::before {
-  width: 3rem;
-}
-
-/* Syntax highlighting */
-pre {
-  @apply rounded-lg border p-4 my-6 overflow-x-auto;
-}
-
-pre code {
-  @apply grid;
+  @apply inline-block w-4 mr-4 text-right text-muted-foreground font-mono;
 }
 
 [data-rehype-pretty-code-title] {
-  @apply px-4 py-2 text-sm font-mono border rounded-t-lg text-foreground bg-muted;
+  @apply px-4 py-2 text-xs font-mono border-2 border-b-0 border-black dark:border-white text-foreground bg-muted font-bold tracking-wide uppercase;
 }
 
 [data-rehype-pretty-code-fragment] {
@@ -164,5 +170,6 @@ pre code {
 }
 
 .highlighted {
-  @apply bg-muted/50 border-l-4 border-primary pl-3;
+  @apply bg-foreground/10 border-l-4 border-foreground pl-3;
 }
+

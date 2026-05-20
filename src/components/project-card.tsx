@@ -1,4 +1,5 @@
 "use client";
+
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -27,8 +28,6 @@ interface Props {
   className?: string;
 }
 
-
-
 export function ProjectCard({
   title,
   href,
@@ -40,44 +39,53 @@ export function ProjectCard({
   links,
   className,
 }: Props) {
+  const projectSlug = href ? href.split("/").pop() : "";
+  const isGitHubUrl = href ? href.startsWith("https://github.com") : false;
+  const detailHref = isGitHubUrl ? `/projects/${projectSlug}` : (href || "#");
 
   return (
     <Card
-      className={
-        "flex flex-col overflow-hidden border hover:shadow-lg transition-all duration-300 ease-out h-full"
-      }
-      id="projects"
+      className={cn(
+        "flex flex-col overflow-hidden border-2 border-black dark:border-white rounded-none bg-card text-card-foreground shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[5px_5px_0px_0px_rgba(255,255,255,1)] active:translate-x-0 active:translate-y-0 active:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] dark:active:shadow-[1px_1px_0px_0px_rgba(255,255,255,1)] transition-all duration-100 ease-out h-full",
+        className
+      )}
     >
-      <Link
-        href={href || "#"}
-        className={cn("block cursor-pointer", className)}
-      >
+      {/* Project Cover Image */}
+      {image && (
+        <Link href={detailHref} className="block cursor-pointer overflow-hidden border-b-2 border-black dark:border-white relative aspect-video bg-muted shrink-0 group">
           <Image
-            src={image!}
+            src={image}
             alt={title}
-            width={200}
-            height={200}
-            className="w-full h-[200px] overflow-hidden object-cover object-bottom"
+            fill
+            className="object-cover object-center group-hover:scale-105 transition-transform duration-200"
+            unoptimized
           />
-      </Link>
-      <CardHeader className="px-2">
-        <div className="space-y-1">
-          <CardTitle className="mt-1 text-base">{title}</CardTitle>
-          <time className="font-sans text-xs">{dates}</time>
-          <div className="hidden font-sans text-xs underline print:visible">
-            {link?.replace("https://", "").replace("www.", "").replace("/", "")}
+        </Link>
+      )}
+
+      {/* Card Header */}
+      <CardHeader className="p-4 flex-grow shrink-0">
+        <div className="space-y-2">
+          <div className="flex items-center justify-between gap-x-2 font-mono">
+            <Link href={detailHref} className="hover:underline">
+              <CardTitle className="text-base sm:text-lg font-bold tracking-tight uppercase cursor-pointer">{title}</CardTitle>
+            </Link>
+            <time className="text-[10px] text-muted-foreground font-semibold">{dates}</time>
           </div>
-          <p className="prose max-w-full text-pretty font-sans text-xs text-muted-foreground dark:prose-invert">
+          
+          <p className="prose max-w-full text-pretty font-sans text-xs sm:text-sm leading-relaxed text-muted-foreground dark:prose-invert">
             {description}
           </p>
         </div>
       </CardHeader>
-      <CardContent className="mt-auto flex flex-col px-2">
+
+      {/* Card Tags / Tech Badges */}
+      <CardContent className="p-4 pt-0 flex-grow">
         {tags && tags.length > 0 && (
-          <div className="mt-2 flex flex-wrap gap-1">
-            {tags?.map((tag) => (
+          <div className="flex flex-wrap gap-1.5">
+            {tags.map((tag) => (
               <Badge
-                className="px-1 py-0 text-[10px]"
+                className="px-2 py-0.5 text-[10px] font-mono font-bold uppercase rounded-none border border-black/20 dark:border-white/20 bg-muted hover:bg-muted text-foreground transition-none select-none"
                 variant="secondary"
                 key={tag}
               >
@@ -87,14 +95,19 @@ export function ProjectCard({
           </div>
         )}
       </CardContent>
-      <CardFooter className="px-2 pb-2">
+
+      {/* Card Footer Links */}
+      <CardFooter className="p-4 pt-0 shrink-0 border-t-2 border-neutral-100 dark:border-neutral-900 mt-2 bg-muted/30">
         {links && links.length > 0 && (
-          <div className="flex flex-row flex-wrap items-start gap-1">
-            {links?.map((link, idx) => (
-              <Link href={link?.href} key={idx} target="_blank">
-                <Badge key={idx} className="flex gap-2 px-2 py-1 text-[10px]">
-                  {link.icon}
-                  {link.type}
+          <div className="flex flex-row flex-wrap items-center gap-2 mt-4">
+            {links.map((linkItem, idx) => (
+              <Link href={linkItem.href} key={idx} target="_blank" className="inline-flex">
+                <Badge
+                  key={idx}
+                  className="flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono font-extrabold uppercase rounded-none border-2 border-black dark:border-white bg-card hover:bg-foreground hover:text-background text-foreground shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[3px_3px_0px_0px_rgba(255,255,255,1)] active:translate-x-0 active:translate-y-0 active:shadow-[1px_1px_0px_0px_rgba(0,0,0,1)] dark:active:shadow-[1px_1px_0px_0px_rgba(255,255,255,1)] transition-all duration-75 select-none"
+                >
+                  {linkItem.icon}
+                  <span>{linkItem.type}</span>
                 </Badge>
               </Link>
             ))}

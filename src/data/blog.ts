@@ -7,11 +7,13 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 
-type Metadata = {
+export type BlogPostMetadata = {
   title: string;
   publishedAt: string;
   summary: string;
   image?: string;
+  tags?: string[];
+  isObsidian?: boolean;
 };
 
 function getMDXFiles(dir: string) {
@@ -50,7 +52,7 @@ export async function getPost(slug: string) {
   const content = await markdownToHTML(rawContent);
   return {
     source: content,
-    metadata,
+    metadata: metadata as BlogPostMetadata,
     slug,
   };
 }
@@ -60,7 +62,7 @@ export function getPostMetadata(slug: string) {
   let source = fs.readFileSync(filePath, "utf-8");
   const { data: metadata } = matter(source);
   return {
-    metadata,
+    metadata: metadata as BlogPostMetadata,
     slug,
   };
 }
@@ -106,3 +108,27 @@ async function getAllPosts(dir: string, page: number = 1, perPage: number = 4) {
 export async function getBlogPosts(page: number = 1) {
   return getAllPosts(path.join(process.cwd(), "content"), page);
 }
+
+export async function getAllBlogPosts() {
+  const dir = path.join(process.cwd(), "content");
+  if (!fs.existsSync(dir)) return [];
+  
+  const mdxFiles = fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx" || path.extname(file) === ".md");
+
+  const posts = mdxFiles.map((file) => {
+    const slug = path.basename(file, path.extname(file));
+    const { metadata } = getPostMetadata(slug);
+    return {
+      metadata,
+      slug,
+    };
+  });
+
+  // Sort by date descending
+  return posts.sort((a, b) => {
+    const dateA = new Date(a.metadata.publishedAt || "").getTime();
+    const dateB = new Date(b.metadata.publishedAt || "").getTime();
+    return dateB - dateA;
+  });
+}
+
