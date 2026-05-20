@@ -6,11 +6,11 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
+import { Star, GitFork } from "lucide-react";
 
 interface Props {
   title: string;
@@ -25,6 +25,8 @@ interface Props {
     type: string;
     href: string;
   }[];
+  stargazerCount?: number;
+  forkCount?: number;
   className?: string;
 }
 
@@ -37,6 +39,8 @@ export function ProjectCard({
   link,
   image,
   links,
+  stargazerCount,
+  forkCount,
   className,
 }: Props) {
   const projectSlug = href ? href.split("/").pop() : "";
@@ -46,13 +50,13 @@ export function ProjectCard({
   return (
     <Card
       className={cn(
-        "flex flex-col overflow-hidden border border-transparent hover:border-border rounded-xl bg-transparent hover:bg-muted/30 transition-all duration-300 ease-out h-full group/card",
+        "flex flex-col sm:flex-row overflow-hidden border border-transparent hover:border-border rounded-xl bg-transparent hover:bg-muted/30 transition-all duration-300 ease-out group/card",
         className
       )}
     >
       {/* Project Cover Image */}
       {image && (
-        <Link href={detailHref} className="block cursor-pointer overflow-hidden border-b border-border relative aspect-video bg-muted shrink-0 group">
+        <Link href={detailHref} className="block cursor-pointer overflow-hidden border-b sm:border-b-0 sm:border-r border-border relative aspect-video sm:w-48 sm:h-auto shrink-0 bg-muted group">
           <Image
             src={image}
             alt={title}
@@ -63,57 +67,80 @@ export function ProjectCard({
         </Link>
       )}
 
-      {/* Card Header */}
-      <CardHeader className="p-4 flex-grow shrink-0">
-        <div className="space-y-2">
-          <div className="flex items-start justify-between gap-x-2">
-            <Link href={detailHref} className="minimal-link font-semibold text-base sm:text-lg text-foreground">
-              {title}
-            </Link>
-            <time className="text-xs text-muted-foreground font-medium shrink-0 mt-1">{dates}</time>
+      {/* Content wrapper */}
+      <div className="flex flex-col flex-grow min-w-0">
+        {/* Card Header */}
+        <CardHeader className="p-4 pb-2 flex-grow shrink-0">
+          <div className="space-y-1.5">
+            <div className="flex items-start justify-between gap-x-2">
+              <div className="flex flex-col gap-1.5">
+                <Link href={detailHref} className="minimal-link font-semibold text-base sm:text-lg text-foreground group-hover/card:underline decoration-foreground/30 underline-offset-4 decoration-1">
+                  {title}
+                </Link>
+                {/* GitHub Stars & Forks if present */}
+                {(stargazerCount !== undefined || forkCount !== undefined) && (
+                  <div className="flex items-center gap-3 text-xs text-muted-foreground font-medium">
+                    {stargazerCount !== undefined && stargazerCount > 0 && (
+                      <span className="flex items-center gap-1">
+                        <Star className="size-3 text-amber-500 fill-amber-500" />
+                        <span>{stargazerCount}</span>
+                      </span>
+                    )}
+                    {forkCount !== undefined && forkCount > 0 && (
+                      <span className="flex items-center gap-1">
+                        <GitFork className="size-3" />
+                        <span>{forkCount}</span>
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+              <time className="text-xs text-muted-foreground font-medium shrink-0 mt-1">{dates}</time>
+            </div>
+            
+            <p className="prose prose-sm max-w-full text-pretty leading-relaxed text-muted-foreground dark:prose-invert">
+              {description}
+            </p>
           </div>
-          
-          <p className="prose prose-sm max-w-full text-pretty leading-relaxed text-muted-foreground dark:prose-invert">
-            {description}
-          </p>
-        </div>
-      </CardHeader>
+        </CardHeader>
 
-      {/* Card Tags / Tech Badges */}
-      <CardContent className="p-4 pt-0 flex-grow">
-        {tags && tags.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 mt-1">
-            {tags.map((tag) => (
-              <Badge
-                className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-muted text-muted-foreground hover:bg-muted"
-                variant="secondary"
-                key={tag}
-              >
-                {tag}
-              </Badge>
-            ))}
-          </div>
-        )}
-      </CardContent>
-
-      {/* Card Footer Links */}
-      <CardFooter className="p-4 pt-0 shrink-0">
-        {links && links.length > 0 && (
-          <div className="flex flex-row flex-wrap items-center gap-2 mt-auto">
-            {links.map((linkItem, idx) => (
-              <Link href={linkItem.href} key={idx} target="_blank" className="inline-flex">
+        {/* Card Tags / Tech Badges */}
+        <CardContent className="p-4 pt-0 pb-2 flex-grow">
+          {tags && tags.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mt-1">
+              {tags.map((tag) => (
                 <Badge
-                  key={idx}
-                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-none"
+                  className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-muted text-muted-foreground hover:bg-muted"
+                  variant="secondary"
+                  key={tag}
                 >
-                  {linkItem.icon}
-                  <span>{linkItem.type}</span>
+                  {tag}
                 </Badge>
-              </Link>
-            ))}
-          </div>
-        )}
-      </CardFooter>
+              ))}
+            </div>
+          )}
+        </CardContent>
+
+        {/* Card Footer Links */}
+        <CardFooter className="p-4 pt-0 shrink-0">
+          {links && links.length > 0 && (
+            <div className="flex flex-row flex-wrap items-center gap-2 mt-auto">
+              {links.map((linkItem, idx) => (
+                <Link href={linkItem.href} key={idx} target="_blank" className="inline-flex">
+                  <Badge
+                    key={idx}
+                    className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-none cursor-pointer"
+                  >
+                    {linkItem.icon}
+                    <span>{linkItem.type}</span>
+                  </Badge>
+                </Link>
+              ))}
+            </div>
+          )}
+        </CardFooter>
+      </div>
     </Card>
   );
 }
+

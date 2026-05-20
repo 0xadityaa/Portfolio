@@ -1,6 +1,5 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { ChevronRight as ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
@@ -31,10 +30,13 @@ export const ResumeCard = ({
     <Link href={href || "#"} className="block cursor-pointer group">
       <div className="flex gap-4 p-4 -mx-4 rounded-xl transition-colors hover:bg-muted/50" suppressHydrationWarning>
         <div className="flex-none mt-1" suppressHydrationWarning>
-          <Avatar className="size-10 sm:size-12 rounded-full border border-border bg-white shadow-sm">
-            <AvatarImage src={logoUrl} alt={altText} className="object-contain p-1.5" />
-            <AvatarFallback className="rounded-full text-xs bg-muted text-muted-foreground font-medium">{altText[0]}</AvatarFallback>
-          </Avatar>
+          <div className="size-10 sm:size-12 rounded-lg border border-border bg-white flex items-center justify-center overflow-hidden p-1.5 shadow-sm" suppressHydrationWarning>
+            {logoUrl ? (
+              <img src={logoUrl} alt={altText} className="h-full w-full object-contain" />
+            ) : (
+              <span className="text-xs bg-muted text-muted-foreground font-medium flex h-full w-full items-center justify-center rounded-sm">{altText[0]}</span>
+            )}
+          </div>
         </div>
         <div className="flex-grow flex flex-col" suppressHydrationWarning>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-y-1 mb-1 text-sm sm:text-base" suppressHydrationWarning>

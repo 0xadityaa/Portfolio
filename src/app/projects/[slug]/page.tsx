@@ -2,7 +2,7 @@ import { DATA } from "@/data/resume";
 import { markdownToHTML } from "@/data/blog";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ChevronLeft as ChevronLeftIcon, ExternalLink as ExternalLinkIcon, Github as GithubIcon, Star as StarIcon, GitFork as GitForkIcon } from "lucide-react";
+import { ChevronLeft as ChevronLeftIcon, ExternalLink as ExternalLinkIcon, Star as StarIcon, GitFork as GitForkIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { Metadata } from "next";
 
