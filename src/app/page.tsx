@@ -85,7 +85,8 @@ const customIcons: { [key: string]: string } = {
 };
 
 import { getGitHubBuilderProfile } from "@/lib/github";
-import { BookMarked } from "lucide-react";
+import { BookMarked, ArrowRight } from "lucide-react";
+import { GitHubRepoCard } from "@/components/github-repo-card";
 
 export default async function Page() {
   let githubData;
@@ -168,6 +169,29 @@ export default async function Page() {
           </BlurFade>
         </div>
       </section>
+
+      {/* GITHUB PINNED REPOS */}
+      {githubData.pinnedRepos && githubData.pinnedRepos.length > 0 && (
+        <section id="pinned-repos">
+          <div className="w-full max-w-2xl mx-auto space-y-4">
+            <BlurFade delay={BLUR_FADE_DELAY * 5}>
+              <div className="flex items-center justify-between">
+                <h2 className="text-sm tracking-widest text-muted-foreground uppercase font-medium">Featured Repos</h2>
+                <Link href="/projects" className="text-sm font-medium hover:text-foreground text-muted-foreground transition-colors flex items-center gap-1">
+                  View all <ArrowRight className="size-3" />
+                </Link>
+              </div>
+            </BlurFade>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {githubData.pinnedRepos.slice(0, 4).map((repo: any, id: number) => (
+                <BlurFade key={repo.name} delay={BLUR_FADE_DELAY * 5 + id * 0.05}>
+                  <GitHubRepoCard repo={repo} />
+                </BlurFade>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* SKILLS MARQUEE SECTION */}
       <section id="skills">
