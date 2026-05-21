@@ -96,6 +96,10 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
           issuesCount = match.issuesCount;
           commitsCount = match.commitsCount;
           usedRepoUrls.add(match.url.toLowerCase());
+          
+          // Override description and tags from GitHub if available
+          if (match.description) p.description = match.description;
+          if (match.languages && match.languages.length > 0) p.technologies = match.languages;
         }
       }
 
@@ -240,7 +244,7 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
               title={project.title}
               description={project.description}
               dates={project.dates}
-              tags={project.technologies}
+              tags={Array.from(new Set(project.technologies.map(getCategoryForTag)))}
               image={project.image}
               links={project.links}
               stargazerCount={project.stargazerCount}

@@ -131,19 +131,27 @@ export default async function Page() {
               {/* MINIMAL GITHUB STATS */}
               <BlurFade delay={BLUR_FADE_DELAY * 2}>
                 <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground mt-4">
-                  <div className="flex items-center gap-2" title="Location">
-                    <svg className="size-4 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="12" y1="2" x2="12" y2="22" />
-                      <line x1="9" y1="22" x2="15" y2="22" />
-                      <path d="M12 2 L14.5 8 L12 7 L9.5 8 Z" fill="currentColor" stroke="none" />
-                      <ellipse cx="12" cy="10" rx="3" ry="1" />
-                      <ellipse cx="12" cy="14" rx="2" ry="0.7" />
+                  <div className="flex items-center gap-1.5" title="Location">
+                    <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 2v6" />
+                      <path d="M11 8h2v3h-2z" />
+                      <path d="M10 11h4v1h-4z" />
+                      <path d="M9 12h6" />
+                      <path d="M8 13h8" />
+                      <path d="M7.5 14h9c1 0 1.5.5 1.5 1.5S17.5 17 16.5 17h-9C6.5 17 6 16.5 6 15.5S6.5 14 7.5 14z" />
+                      <path d="M9 17v5" />
+                      <path d="M15 17v5" />
+                      <path d="M10.5 17v5" />
+                      <path d="M13.5 17v5" />
+                      <path d="M12 17v5" />
+                      <path d="M7 16.5h10" />
+                      <path d="M8.5 14.5h7" />
                     </svg>
-                    <span>{githubData.location || "Earth"}</span>
+                    <span>Toronto, Canada</span>
                   </div>
-                  <div className="flex items-center gap-1.5" title="All-time Contributions">
+                  <div className="flex items-center gap-1.5" title="Contributions">
                     <Icons.github className="size-4" />
-                    <span>{githubData.contributionsCount.toLocaleString()} all-time contributions</span>
+                    <span>{githubData.contributionsCount.toLocaleString()} contributions</span>
                   </div>
                   <div className="hidden sm:flex items-center gap-1.5" title="Public Repositories">
                     <BookMarked className="size-4" />

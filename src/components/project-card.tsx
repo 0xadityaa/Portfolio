@@ -98,8 +98,7 @@ export function ProjectCard({
                   </div>
                 )}
               </div>
-              <time className="text-xs text-muted-foreground font-medium shrink-0 mt-1">{dates}</time>
-            </div>
+              </div>
             
             <p className="prose prose-sm max-w-full text-pretty leading-relaxed text-muted-foreground dark:prose-invert">
               {description}
@@ -129,14 +128,8 @@ export function ProjectCard({
           {links && links.length > 0 && (
             <div className="flex flex-row flex-wrap items-center gap-2 mt-auto">
               {links.map((linkItem, idx) => (
-                <Link href={linkItem.href} key={idx} target="_blank" className="inline-flex">
-                  <Badge
-                    key={idx}
-                    className="flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors shadow-none cursor-pointer"
-                  >
-                    {linkItem.icon}
-                    <span>{linkItem.type}</span>
-                  </Badge>
+                <Link href={linkItem.href} key={idx} target="_blank" className="inline-flex text-muted-foreground hover:text-foreground transition-colors [&>svg]:size-5" title={linkItem.type}>
+                  {linkItem.icon}
                 </Link>
               ))}
             </div>
