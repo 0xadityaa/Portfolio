@@ -7,6 +7,7 @@ import { ProjectCard } from "@/components/project-card";
 import { Icons } from "@/components/icons";
 
 const BLUR_FADE_DELAY = 0.04;
+const PROJECTS_PER_PAGE = 6;
 
 interface Project {
   title: string;
@@ -34,6 +35,7 @@ interface ProjectsClientProps {
 
 export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Merge DATA.projects with githubRepos
   const mergedProjects = useMemo(() => {
@@ -123,9 +125,21 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
     });
   }, [mergedProjects, selectedTag]);
 
+  // Reset page when filter changes
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedTag]);
+
+  // Pagination
+  const totalPages = Math.ceil(filteredProjects.length / PROJECTS_PER_PAGE);
+  const paginatedProjects = useMemo(() => {
+    const startIndex = (currentPage - 1) * PROJECTS_PER_PAGE;
+    return filteredProjects.slice(startIndex, startIndex + PROJECTS_PER_PAGE);
+  }, [filteredProjects, currentPage]);
+
   return (
     <div className="space-y-8 w-full max-w-3xl mx-auto">
-      
+
       {/* Page Title & Subtitle */}
       <BlurFade delay={BLUR_FADE_DELAY}>
         <div className="flex flex-col gap-2 mb-6">
@@ -138,47 +152,45 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
         </div>
       </BlurFade>
 
-      {/* Interactive Filters Bar */}
+      {/* Tag Filters */}
       <BlurFade delay={BLUR_FADE_DELAY * 2}>
-        <div className="space-y-4">
-          <div className="flex flex-col gap-2">
-            <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
-              Filter by Core Tech Stack:
-            </div>
-            <div className="flex flex-nowrap overflow-x-auto gap-2 pb-4 scroll-smooth w-full" style={{ WebkitOverflowScrolling: 'touch' }}>
+        <div className="space-y-2">
+          <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
+            Tags
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => setSelectedTag(null)}
+              className={cn(
+                "px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer border border-border bg-card hover:bg-muted/50 hover:text-foreground",
+                selectedTag === null
+                  ? "bg-foreground text-background hover:bg-foreground/90 border-foreground"
+                  : "text-muted-foreground"
+              )}
+            >
+              All
+            </button>
+            {allTags.map((tag) => (
               <button
-                onClick={() => setSelectedTag(null)}
+                key={tag}
+                onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
                 className={cn(
                   "px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer border border-border bg-card hover:bg-muted/50 hover:text-foreground",
-                  selectedTag === null
+                  selectedTag === tag
                     ? "bg-foreground text-background hover:bg-foreground/90 border-foreground"
                     : "text-muted-foreground"
                 )}
               >
-                All Tech
+                {tag}
               </button>
-              {allTags.map((tag) => (
-                <button
-                  key={tag}
-                  onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
-                  className={cn(
-                    "px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer border border-border bg-card hover:bg-muted/50 hover:text-foreground",
-                    selectedTag === tag
-                      ? "bg-foreground text-background hover:bg-foreground/90 border-foreground"
-                      : "text-muted-foreground"
-                  )}
-                >
-                  {tag}
-                </button>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
       </BlurFade>
 
-      {/* Dynamic Project List (Single Column Layout) */}
+      {/* Dynamic Project List */}
       <div className="flex flex-col gap-6 pt-2">
-        {filteredProjects.map((project, id) => (
+        {paginatedProjects.map((project, id) => (
           <BlurFade
             key={project.href || project.title}
             delay={BLUR_FADE_DELAY * 3 + id * 0.04}
@@ -208,18 +220,41 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
               No projects found
             </span>
             <p className="text-sm text-muted-foreground max-w-sm mx-auto">
-              No active projects match your search constraints. Try running a different filter query.
+              No active projects match your filter. Try a different tag.
             </p>
             <button
-              onClick={() => {
-                setSelectedTag(null);
-              }}
+              onClick={() => setSelectedTag(null)}
               className="mt-6 px-4 py-2 bg-foreground text-background text-sm font-medium rounded-md hover:bg-foreground/90 transition-colors cursor-pointer border border-transparent"
             >
               Reset Filters
             </button>
           </div>
         </BlurFade>
+      )}
+
+      {/* Pagination Controls — same style as blog */}
+      {totalPages > 1 && (
+        <div className="flex flex-col items-center gap-4 mt-8 pt-4 border-t border-border">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="px-4 py-2 text-sm font-medium rounded-md border border-border bg-background hover:bg-muted/50 disabled:opacity-50 disabled:pointer-events-none transition-colors"
+            >
+              Previous
+            </button>
+            <button
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className="px-4 py-2 text-sm font-medium rounded-md border border-border bg-background hover:bg-muted/50 disabled:opacity-50 disabled:pointer-events-none transition-colors"
+            >
+              Next
+            </button>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            Page {currentPage} of {totalPages}
+          </p>
+        </div>
       )}
     </div>
   );

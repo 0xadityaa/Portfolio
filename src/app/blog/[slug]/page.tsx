@@ -62,7 +62,7 @@ export default async function BlogPost(props: BlogParams) {
   }
 
   return (
-    <section id="blog" className="mb-24 space-y-8">
+    <section id="blog" className="mb-24 space-y-6">
       <script
         type="application/ld+json"
         suppressHydrationWarning
@@ -93,20 +93,21 @@ export default async function BlogPost(props: BlogParams) {
           className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
         >
           <ChevronLeftIcon className="size-4 mr-1 group-hover:-translate-x-1 transition-transform" />
-          <span>Back to Second Brain</span>
+          <span>Back to blog</span>
         </Link>
       </div>
 
-      {/* Article Specification Box */}
-      <div className="p-6 bg-muted/30 rounded-xl border border-border">
-        <div className="flex flex-col gap-3 text-sm">
-          <div>
-            <span className="text-muted-foreground font-medium mr-2">Title:</span>
-            <span className="font-semibold text-foreground">{post.metadata.title}</span>
-          </div>
+      {/* Article Spec: Title + Tags + Date — compact, no extra padding */}
+      <div className="border-b border-border pb-6 space-y-2">
+        <h1 className="font-bold text-2xl sm:text-4xl tracking-tight leading-tight text-foreground">
+          {post.metadata.title}
+        </h1>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
+          <Suspense fallback={<span className="opacity-50">...</span>}>
+            <span>{formatDate(post.metadata.publishedAt)}</span>
+          </Suspense>
           {post.metadata.tags && post.metadata.tags.length > 0 && (
-            <div className="flex items-center flex-wrap gap-1.5">
-              <span className="text-muted-foreground font-medium mr-1">Categories:</span>
+            <div className="flex flex-wrap gap-1.5">
               {post.metadata.tags.map((tag: string) => (
                 <Badge
                   key={tag}
@@ -118,45 +119,38 @@ export default async function BlogPost(props: BlogParams) {
               ))}
             </div>
           )}
-          <div>
-            <span className="text-muted-foreground font-medium mr-2">Published:</span>
-            <span className="font-semibold text-foreground">
-              <Suspense fallback={<span className="opacity-50">...</span>}>
-                {formatDate(post.metadata.publishedAt)}
-              </Suspense>
-            </span>
-          </div>
         </div>
       </div>
 
-      {/* Article Title Header */}
-      <h1 className="font-bold text-3xl sm:text-5xl tracking-tight leading-tight text-foreground">
-        {post.metadata.title}
-      </h1>
-
-      {/* Article Body Content */}
+      {/* Article Body Content — clean markdown prose */}
       <article
-        className="prose prose-neutral dark:prose-invert text-base leading-relaxed max-w-none pt-6 pb-12
-                   prose-headings:font-semibold prose-headings:tracking-tight
-                   prose-h2:text-2xl prose-h3:text-xl
-                   prose-a:minimal-link prose-a:font-medium prose-a:no-underline
-                   prose-pre:border prose-pre:border-border"
+        className="prose prose-neutral dark:prose-invert max-w-none
+                   prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-foreground
+                   prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg
+                   prose-p:text-foreground/90 prose-p:leading-7
+                   prose-a:text-foreground prose-a:underline prose-a:underline-offset-4 prose-a:decoration-border hover:prose-a:decoration-foreground
+                   prose-strong:text-foreground prose-strong:font-semibold
+                   prose-code:text-foreground prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
+                   prose-pre:bg-muted prose-pre:border prose-pre:border-border prose-pre:rounded-lg prose-pre:text-sm
+                   prose-blockquote:border-l-border prose-blockquote:text-muted-foreground
+                   prose-hr:border-border
+                   prose-ul:text-foreground/90 prose-ol:text-foreground/90
+                   prose-li:marker:text-muted-foreground
+                   prose-img:rounded-lg prose-img:border prose-img:border-border"
         dangerouslySetInnerHTML={{ __html: post.source }}
       />
 
-      {/* Monochromatic Premium Signature Layout */}
+      {/* Signature */}
       {DATA.name && (
-        <div className="border-t border-border pt-12 flex flex-col items-center justify-center space-y-4">
-          <div className="p-4 bg-transparent">
-            <Image
-              unoptimized
-              src="/signature.gif"
-              alt="signature gif"
-              width={200}
-              height={100}
-              className="opacity-80 invert dark:invert-0 hover:opacity-100 transition-opacity"
-            />
-          </div>
+        <div className="border-t border-border pt-8 flex flex-col items-center justify-center">
+          <Image
+            unoptimized
+            src="/signature.gif"
+            alt="signature gif"
+            width={200}
+            height={100}
+            className="opacity-80 invert dark:invert-0 hover:opacity-100 transition-opacity"
+          />
         </div>
       )}
     </section>
