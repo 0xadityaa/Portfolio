@@ -23,6 +23,8 @@ interface Project {
   image?: string;
   stargazerCount?: number;
   forkCount?: number;
+  issuesCount?: number;
+  commitsCount?: number;
 }
 
 interface ProjectsClientProps {
@@ -42,6 +44,8 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
     projects.forEach((p) => {
       let stargazerCount: number | undefined = undefined;
       let forkCount: number | undefined = undefined;
+      let issuesCount: number | undefined = undefined;
+      let commitsCount: number | undefined = undefined;
 
       const isGitHubUrl = p.href ? p.href.startsWith("https://github.com") : false;
       const repoSlug = isGitHubUrl ? p.href.split("/").pop()?.toLowerCase() : "";
@@ -51,6 +55,8 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
         if (match) {
           stargazerCount = match.stargazerCount;
           forkCount = match.forkCount;
+          issuesCount = match.issuesCount;
+          commitsCount = match.commitsCount;
           usedRepoUrls.add(match.url.toLowerCase());
         }
       }
@@ -59,6 +65,8 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
         ...p,
         stargazerCount,
         forkCount,
+        issuesCount,
+        commitsCount,
       });
     });
 
@@ -90,6 +98,8 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
         links,
         stargazerCount: repo.stargazerCount,
         forkCount: repo.forkCount,
+        issuesCount: repo.issuesCount,
+        commitsCount: repo.commitsCount,
         image: repo.openGraphImageUrl || undefined,
       });
     });
@@ -119,11 +129,11 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
       {/* Page Title & Subtitle */}
       <BlurFade delay={BLUR_FADE_DELAY}>
         <div className="flex flex-col gap-2 mb-6">
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl text-foreground">
-            Projects & Repositories
+          <h1 className="text-3xl font-bold tracking-tight sm:text-5xl text-foreground">
+            Stuff I&apos;ve Built
           </h1>
-          <p className="text-muted-foreground text-sm sm:text-base">
-            A directory of my technical products, open-source utilities, and GitHub repositories.
+          <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+            From random experiments to full-blown web apps, here&apos;s a collection of things I&apos;ve built with code and caffeine.
           </p>
         </div>
       </BlurFade>
@@ -135,7 +145,7 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
             <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
               Filter by Core Tech Stack:
             </div>
-            <div className="flex flex-wrap gap-2 max-h-32 overflow-y-auto pr-1 pb-1 scrollbar-hide">
+            <div className="flex flex-nowrap overflow-x-auto gap-2 pb-4 scroll-smooth w-full" style={{ WebkitOverflowScrolling: 'touch' }}>
               <button
                 onClick={() => setSelectedTag(null)}
                 className={cn(
@@ -183,6 +193,8 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
               links={project.links}
               stargazerCount={project.stargazerCount}
               forkCount={project.forkCount}
+              issuesCount={project.issuesCount}
+              commitsCount={project.commitsCount}
             />
           </BlurFade>
         ))}

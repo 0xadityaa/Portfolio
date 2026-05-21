@@ -26,6 +26,8 @@ interface BrutalistBlogListProps {
 export function BrutalistBlogList({ initialPosts }: BrutalistBlogListProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const POSTS_PER_PAGE = 4;
 
   // Extract all unique tags across all posts
   const allTags = useMemo(() => {
@@ -52,6 +54,18 @@ export function BrutalistBlogList({ initialPosts }: BrutalistBlogListProps) {
       return matchesSearch && matchesTag;
     });
   }, [initialPosts, searchQuery, selectedTag]);
+
+  // Reset page when filters change
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, selectedTag]);
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
+  const paginatedPosts = useMemo(() => {
+    const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+    return filteredPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+  }, [filteredPosts, currentPage]);
 
   return (
     <div className="space-y-8 mt-6">
@@ -80,10 +94,6 @@ export function BrutalistBlogList({ initialPosts }: BrutalistBlogListProps) {
 
           {/* Tag Selection Bar */}
           <div className="flex flex-col gap-2">
-            <div className="text-xs text-muted-foreground font-medium flex items-center gap-1.5">
-              <TagIcon className="size-3" />
-              <span>Browse by Category:</span>
-            </div>
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => setSelectedTag(null)}
@@ -117,7 +127,7 @@ export function BrutalistBlogList({ initialPosts }: BrutalistBlogListProps) {
 
       {/* Dynamic Articles List */}
       <div className="space-y-4 pt-4">
-        {filteredPosts.map((post, id) => (
+        {paginatedPosts.map((post, id) => (
           <BlurFade delay={BLUR_FADE_DELAY * 3 + id * 0.04} key={post.slug}>
             <Link
               href={`/blog/${post.slug}`}
@@ -181,6 +191,31 @@ export function BrutalistBlogList({ initialPosts }: BrutalistBlogListProps) {
               </button>
             </div>
           </BlurFade>
+        )}
+
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="flex flex-col items-center gap-4 mt-8 pt-4 border-t border-border">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="px-4 py-2 text-sm font-medium rounded-md border border-border bg-background hover:bg-muted/50 disabled:opacity-50 disabled:pointer-events-none transition-colors"
+              >
+                Previous
+              </button>
+              <button
+                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 text-sm font-medium rounded-md border border-border bg-background hover:bg-muted/50 disabled:opacity-50 disabled:pointer-events-none transition-colors"
+              >
+                Next
+              </button>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Page {currentPage} of {totalPages}
+            </p>
+          </div>
         )}
       </div>
     </div>

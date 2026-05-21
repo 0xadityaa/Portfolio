@@ -12,6 +12,8 @@ export interface GitHubPinnedRepo {
   } | null;
   languages: string[];
   topics: string[];
+  issuesCount?: number;
+  commitsCount?: number;
 }
 
 export interface GitHubBuilderProfile {
@@ -49,6 +51,18 @@ query ($username: String!) {
         homepageUrl
         stargazerCount
         forkCount
+        issues(states: OPEN) {
+          totalCount
+        }
+        defaultBranchRef {
+          target {
+            ... on Commit {
+              history {
+                totalCount
+              }
+            }
+          }
+        }
         openGraphImageUrl
         primaryLanguage {
           name
@@ -78,6 +92,18 @@ query ($username: String!) {
           homepageUrl
           stargazerCount
           forkCount
+          issues(states: OPEN) {
+            totalCount
+          }
+          defaultBranchRef {
+            target {
+              ... on Commit {
+                history {
+                  totalCount
+                }
+              }
+            }
+          }
           openGraphImageUrl
           primaryLanguage {
             name
@@ -155,6 +181,8 @@ Returning mock GitHub data.
       homepageUrl: node.homepageUrl || null,
       stargazerCount: node.stargazerCount || 0,
       forkCount: node.forkCount || 0,
+      issuesCount: node.issues?.totalCount || 0,
+      commitsCount: node.defaultBranchRef?.target?.history?.totalCount || 0,
       openGraphImageUrl: node.openGraphImageUrl || "",
       primaryLanguage: node.primaryLanguage
         ? {
@@ -169,6 +197,10 @@ Returning mock GitHub data.
     const pinnedRepos: GitHubPinnedRepo[] = (user.pinnedItems?.nodes || []).map(mapRepoNode);
     const repos: GitHubPinnedRepo[] = (user.repositories?.nodes || []).map(mapRepoNode);
 
+    // Sum all repository commits as an all-time contribution approximation
+    const allTimeCommits = repos.reduce((acc, repo) => acc + (repo.commitsCount || 0), 0);
+    const defaultContributions = user.contributionsCollection?.contributionCalendar?.totalContributions || 0;
+
     return {
       name: user.name || "Aditya Negandhi",
       bio: user.bio || "Full Stack Engineer & aspiring Solutions Architect.",
@@ -177,7 +209,7 @@ Returning mock GitHub data.
       avatarUrl: user.avatarUrl || "/Me.jpeg",
       followersCount: user.followers?.totalCount || 0,
       publicReposCount: user.repositories?.totalCount || 0,
-      contributionsCount: user.contributionsCollection?.contributionCalendar?.totalContributions || 0,
+      contributionsCount: allTimeCommits > 0 ? allTimeCommits : defaultContributions,
       pinnedRepos,
       repos,
     };

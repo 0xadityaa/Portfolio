@@ -16,12 +16,11 @@ export default async function BlogPage() {
     <section className="space-y-8 mb-24">
       <BlurFade delay={BLUR_FADE_DELAY}>
         <div className="flex flex-col space-y-4 w-full mb-6">
-          <h1 className="font-bold text-3xl sm:text-4xl tracking-tight text-foreground">
-            Second Brain
+          <h1 className="font-bold text-3xl sm:text-5xl tracking-tight text-foreground">
+            My Engineering Insights
           </h1>
-          <p className="text-muted-foreground text-sm sm:text-base max-w-[650px] leading-relaxed">
-            A digital garden where I document code patterns, systems, frameworks, and architecture.
-            No fluff, just raw engineering guides and technical notes.
+          <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed max-w-[600px] leading-relaxed">
+            I write about building software and the systems behind it. Exploring full-stack engineering, architecture, and anything else that sparks my curiosity.
           </p>
         </div>
       </BlurFade>

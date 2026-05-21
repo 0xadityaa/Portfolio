@@ -130,16 +130,16 @@ export default async function Page() {
               
               {/* MINIMAL GITHUB STATS */}
               <BlurFade delay={BLUR_FADE_DELAY * 2}>
-                <div className="flex items-center gap-6 text-sm text-muted-foreground mt-4">
-                  <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground mt-4">
+                  <div className="flex items-center gap-2" title="Location">
                     <span className={`size-2 rounded-full ${isOffline ? "bg-red-500" : "bg-green-500"}`}></span>
-                    <span>{isOffline ? "Offline" : "Available"}</span>
+                    <span>{githubData.location || "Earth"}</span>
                   </div>
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-1.5" title="All-time Contributions">
                     <Icons.github className="size-4" />
-                    <span>{githubData.contributionsCount.toLocaleString()} contributions</span>
+                    <span>{githubData.contributionsCount.toLocaleString()} all-time contributions</span>
                   </div>
-                  <div className="hidden sm:flex items-center gap-1.5">
+                  <div className="hidden sm:flex items-center gap-1.5" title="Public Repositories">
                     <BookMarked className="size-4" />
                     <span>{githubData.publicReposCount} repos</span>
                   </div>

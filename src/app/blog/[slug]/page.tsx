@@ -99,35 +99,33 @@ export default async function BlogPost(props: BlogParams) {
 
       {/* Article Specification Box */}
       <div className="p-6 bg-muted/30 rounded-xl border border-border">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+        <div className="flex flex-col gap-3 text-sm">
           <div>
-            <span className="text-muted-foreground font-medium">Title:</span>{" "}
+            <span className="text-muted-foreground font-medium mr-2">Title:</span>
             <span className="font-semibold text-foreground">{post.metadata.title}</span>
           </div>
+          {post.metadata.tags && post.metadata.tags.length > 0 && (
+            <div className="flex items-center flex-wrap gap-1.5">
+              <span className="text-muted-foreground font-medium mr-1">Categories:</span>
+              {post.metadata.tags.map((tag: string) => (
+                <Badge
+                  key={tag}
+                  className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-muted text-muted-foreground hover:bg-muted"
+                  variant="secondary"
+                >
+                  #{tag}
+                </Badge>
+              ))}
+            </div>
+          )}
           <div>
-            <span className="text-muted-foreground font-medium">Published:</span>{" "}
+            <span className="text-muted-foreground font-medium mr-2">Published:</span>
             <span className="font-semibold text-foreground">
               <Suspense fallback={<span className="opacity-50">...</span>}>
                 {formatDate(post.metadata.publishedAt)}
               </Suspense>
             </span>
           </div>
-          {post.metadata.tags && post.metadata.tags.length > 0 && (
-            <div className="md:col-span-2">
-              <span className="text-muted-foreground font-medium">Categories:</span>{" "}
-              <div className="inline-flex flex-wrap gap-1.5 ml-2 align-middle mt-1">
-                {post.metadata.tags.map((tag: string) => (
-                  <Badge
-                    key={tag}
-                    className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-muted text-muted-foreground hover:bg-muted"
-                    variant="secondary"
-                  >
-                    #{tag}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </div>
 

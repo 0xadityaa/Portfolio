@@ -10,7 +10,7 @@ import {
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { Star, GitFork } from "lucide-react";
+import { Star, GitFork, GitCommit, CircleDot } from "lucide-react";
 
 interface Props {
   title: string;
@@ -27,6 +27,8 @@ interface Props {
   }[];
   stargazerCount?: number;
   forkCount?: number;
+  issuesCount?: number;
+  commitsCount?: number;
   className?: string;
 }
 
@@ -41,6 +43,8 @@ export function ProjectCard({
   links,
   stargazerCount,
   forkCount,
+  issuesCount,
+  commitsCount,
   className,
 }: Props) {
   const projectSlug = href ? href.split("/").pop() : "";
@@ -54,19 +58,6 @@ export function ProjectCard({
         className
       )}
     >
-      {/* Project Cover Image */}
-      {image && (
-        <Link href={detailHref} className="block cursor-pointer overflow-hidden border-b sm:border-b-0 sm:border-r border-border relative aspect-video sm:w-48 sm:h-auto shrink-0 bg-muted group">
-          <Image
-            src={image}
-            alt={title}
-            fill
-            className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-            unoptimized
-          />
-        </Link>
-      )}
-
       {/* Content wrapper */}
       <div className="flex flex-col flex-grow min-w-0">
         {/* Card Header */}
@@ -77,19 +68,31 @@ export function ProjectCard({
                 <Link href={detailHref} className="minimal-link font-semibold text-base sm:text-lg text-foreground group-hover/card:underline decoration-foreground/30 underline-offset-4 decoration-1">
                   {title}
                 </Link>
-                {/* GitHub Stars & Forks if present */}
-                {(stargazerCount !== undefined || forkCount !== undefined) && (
-                  <div className="flex items-center gap-3 text-xs text-muted-foreground font-medium">
+                {/* GitHub Stats if present */}
+                {(stargazerCount !== undefined || forkCount !== undefined || commitsCount !== undefined || issuesCount !== undefined) && (
+                  <div className="flex items-center gap-4 text-xs text-muted-foreground font-medium mt-1">
                     {stargazerCount !== undefined && stargazerCount > 0 && (
-                      <span className="flex items-center gap-1">
-                        <Star className="size-3 text-amber-500 fill-amber-500" />
+                      <span className="flex items-center gap-1.5" title="Stars">
+                        <Star className="size-3.5 text-amber-500 fill-amber-500" />
                         <span>{stargazerCount}</span>
                       </span>
                     )}
                     {forkCount !== undefined && forkCount > 0 && (
-                      <span className="flex items-center gap-1">
-                        <GitFork className="size-3" />
+                      <span className="flex items-center gap-1.5" title="Forks">
+                        <GitFork className="size-3.5" />
                         <span>{forkCount}</span>
+                      </span>
+                    )}
+                    {commitsCount !== undefined && commitsCount > 0 && (
+                      <span className="flex items-center gap-1.5" title="Commits">
+                        <GitCommit className="size-3.5" />
+                        <span>{commitsCount}</span>
+                      </span>
+                    )}
+                    {issuesCount !== undefined && issuesCount > 0 && (
+                      <span className="flex items-center gap-1.5" title="Open Issues">
+                        <CircleDot className="size-3.5 text-green-500" />
+                        <span>{issuesCount}</span>
                       </span>
                     )}
                   </div>
