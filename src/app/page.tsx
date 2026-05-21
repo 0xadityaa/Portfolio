@@ -299,30 +299,24 @@ export default async function Page() {
 
       {/* CONTACT */}
       <section id="contact">
-        <div className="w-full max-w-2xl mx-auto py-12 mt-12 border-t border-border">
+        <div className="w-full max-w-2xl mx-auto py-8 mt-8 border-t border-border">
           <BlurFade delay={BLUR_FADE_DELAY * 11}>
-            <div className="space-y-6 text-center">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-foreground">
-                Get in Touch
-              </h2>
-              <p className="mx-auto max-w-[500px] text-muted-foreground text-sm sm:text-base">
-                Have an interesting problem to solve, or want to discuss architecture? Let&apos;s build something.
-              </p>
-              <div className="flex flex-wrap justify-center gap-4 pt-4">
-                <Link
-                  href={DATA.contact.social.email.url}
-                  className="px-6 py-3 bg-primary text-primary-foreground rounded-full text-sm font-medium transition-transform hover:scale-105"
-                >
-                  Send Email
-                </Link>
-                <Link
-                  href={DATA.contact.social.X.url}
-                  className="px-6 py-3 bg-muted text-foreground rounded-full text-sm font-medium transition-transform hover:scale-105"
-                >
-                  Twitter / X DM
-                </Link>
-              </div>
-            </div>
+            <p className="text-lg sm:text-xl text-muted-foreground">
+              Want to chat? send me an{" "}
+              <Link
+                href={DATA.contact.social.email.url}
+                className="text-foreground font-medium hover:underline underline-offset-4 decoration-1"
+              >
+                email
+              </Link>
+              {" "}or shoot a dm on{" "}
+              <Link
+                href={DATA.contact.social.X.url}
+                className="text-foreground font-medium hover:underline underline-offset-4 decoration-1"
+              >
+                twitter
+              </Link>
+            </p>
           </BlurFade>
         </div>
       </section>

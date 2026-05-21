@@ -9,6 +9,43 @@ import { Icons } from "@/components/icons";
 const BLUR_FADE_DELAY = 0.04;
 const PROJECTS_PER_PAGE = 6;
 
+// Broad category mapping — each granular tech maps to a high-level group
+const TAG_CATEGORY_MAP: Record<string, string> = {
+  // Frontend
+  "React": "Frontend", "Next.js": "Frontend", "Vue": "Frontend", "Angular": "Frontend",
+  "Svelte": "Frontend", "HTML": "Frontend", "CSS": "Frontend", "Tailwind CSS": "Frontend",
+  "JavaScript": "Frontend", "TypeScript": "Frontend", "Vite": "Frontend",
+  // Backend
+  "Node.js": "Backend", "Express": "Backend", "FastAPI": "Backend", "Flask": "Backend",
+  "Django": "Backend", "Spring": "Backend", "Go": "Backend", "Rust": "Backend",
+  "Python": "Backend", "Java": "Backend", "C#": "Backend", "Ruby": "Backend",
+  "GraphQL": "Backend", "REST": "Backend", "Prisma": "Backend", "Drizzle": "Backend",
+  // AI / ML
+  "LangChain": "AI / ML", "LangGraph": "AI / ML", "OpenAI": "AI / ML",
+  "Azure OpenAI": "AI / ML", "Gemini": "AI / ML", "TensorFlow": "AI / ML",
+  "PyTorch": "AI / ML", "Hugging Face": "AI / ML", "RAG": "AI / ML",
+  "langgraph": "AI / ML", "langchain": "AI / ML",
+  // Cloud & Infra
+  "AWS": "Cloud", "GCP": "Cloud", "Azure": "Cloud", "Docker": "Cloud",
+  "Kubernetes": "Cloud", "Terraform": "Cloud", "Vercel": "Cloud",
+  "AWS S3": "Cloud", "Firebase": "Cloud",
+  // Mobile
+  "Flutter": "Mobile", "React Native": "Mobile", "Dart": "Mobile",
+  "Swift": "Mobile", "Kotlin": "Mobile", "Android": "Mobile",
+  // Data & DB
+  "PostgreSQL": "Data", "MongoDB": "Data", "Redis": "Data", "Supabase": "Data",
+  "MySQL": "Data", "SQLite": "Data", "Neo4j": "Data", "Elasticsearch": "Data",
+  "supabase": "Data",
+  // DevTools
+  "Git": "DevTools", "CI/CD": "DevTools", "GitHub Actions": "DevTools",
+  "Deno": "DevTools", "FFmpeg": "DevTools", "Socket.IO": "DevTools",
+  "ffmpeg": "DevTools", "socketio": "DevTools",
+};
+
+function getCategoryForTag(tag: string): string {
+  return TAG_CATEGORY_MAP[tag] || "Other";
+}
+
 interface Project {
   title: string;
   href: string;
@@ -30,7 +67,7 @@ interface Project {
 
 interface ProjectsClientProps {
   projects: readonly Project[];
-  githubRepos: any[]; // Array of GitHubPinnedRepo from github.ts
+  githubRepos: any[];
 }
 
 export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
@@ -42,7 +79,6 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
     const list: Project[] = [];
     const usedRepoUrls = new Set<string>();
 
-    // 1. Process manual projects and attach stats if matched
     projects.forEach((p) => {
       let stargazerCount: number | undefined = undefined;
       let forkCount: number | undefined = undefined;
@@ -53,7 +89,7 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
       const repoSlug = isGitHubUrl ? p.href.split("/").pop()?.toLowerCase() : "";
 
       if (repoSlug) {
-        const match = githubRepos.find((r) => r.name.toLowerCase() === repoSlug);
+        const match = githubRepos.find((r: any) => r.name.toLowerCase() === repoSlug);
         if (match) {
           stargazerCount = match.stargazerCount;
           forkCount = match.forkCount;
@@ -72,8 +108,7 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
       });
     });
 
-    // 2. Add remaining github repos
-    githubRepos.forEach((repo) => {
+    githubRepos.forEach((repo: any) => {
       if (usedRepoUrls.has(repo.url.toLowerCase())) return;
 
       const links = [];
@@ -109,19 +144,24 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
     return list;
   }, [projects, githubRepos]);
 
-  // Extract all unique tags
-  const allTags = useMemo(() => {
-    const tagsSet = new Set<string>();
+  // Extract consolidated category tags
+  const allCategories = useMemo(() => {
+    const catSet = new Set<string>();
     mergedProjects.forEach((p) => {
-      p.technologies.forEach((t) => tagsSet.add(t));
+      p.technologies.forEach((t) => {
+        catSet.add(getCategoryForTag(t));
+      });
     });
-    return Array.from(tagsSet).sort();
+    return Array.from(catSet).sort();
   }, [mergedProjects]);
 
-  // Filter projects based on selected tag
+  // Filter projects based on selected category
   const filteredProjects = useMemo(() => {
     return mergedProjects.filter((project) => {
-      return selectedTag ? (project.technologies as readonly string[]).includes(selectedTag) : true;
+      if (!selectedTag) return true;
+      return (project.technologies as readonly string[]).some(
+        (t) => getCategoryForTag(t) === selectedTag
+      );
     });
   }, [mergedProjects, selectedTag]);
 
@@ -133,13 +173,13 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
   // Pagination
   const totalPages = Math.ceil(filteredProjects.length / PROJECTS_PER_PAGE);
   const paginatedProjects = useMemo(() => {
-    const startIndex = (currentPage - 1) * PROJECTS_PER_PAGE;
-    return filteredProjects.slice(startIndex, startIndex + PROJECTS_PER_PAGE);
+    const start = (currentPage - 1) * PROJECTS_PER_PAGE;
+    return filteredProjects.slice(start, start + PROJECTS_PER_PAGE);
   }, [filteredProjects, currentPage]);
 
   return (
     <div className="space-y-8 w-full max-w-3xl mx-auto">
-
+      
       {/* Page Title & Subtitle */}
       <BlurFade delay={BLUR_FADE_DELAY}>
         <div className="flex flex-col gap-2 mb-6">
@@ -152,9 +192,9 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
         </div>
       </BlurFade>
 
-      {/* Tag Filters */}
+      {/* Tags */}
       <BlurFade delay={BLUR_FADE_DELAY * 2}>
-        <div className="space-y-2">
+        <div className="flex flex-col gap-2">
           <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
             Tags
           </div>
@@ -170,18 +210,18 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
             >
               All
             </button>
-            {allTags.map((tag) => (
+            {allCategories.map((cat) => (
               <button
-                key={tag}
-                onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
+                key={cat}
+                onClick={() => setSelectedTag(selectedTag === cat ? null : cat)}
                 className={cn(
                   "px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer border border-border bg-card hover:bg-muted/50 hover:text-foreground",
-                  selectedTag === tag
+                  selectedTag === cat
                     ? "bg-foreground text-background hover:bg-foreground/90 border-foreground"
                     : "text-muted-foreground"
                 )}
               >
-                {tag}
+                {cat}
               </button>
             ))}
           </div>
@@ -223,7 +263,9 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
               No active projects match your filter. Try a different tag.
             </p>
             <button
-              onClick={() => setSelectedTag(null)}
+              onClick={() => {
+                setSelectedTag(null);
+              }}
               className="mt-6 px-4 py-2 bg-foreground text-background text-sm font-medium rounded-md hover:bg-foreground/90 transition-colors cursor-pointer border border-transparent"
             >
               Reset Filters

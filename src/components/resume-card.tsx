@@ -30,7 +30,7 @@ export const ResumeCard = ({
     <Link href={href || "#"} className="block cursor-pointer group">
       <div className="flex gap-4 p-4 -mx-4 rounded-xl transition-colors hover:bg-muted/50" suppressHydrationWarning>
         <div className="flex-none mt-1" suppressHydrationWarning>
-          <div className="size-10 sm:size-12 rounded-lg bg-muted/50 flex items-center justify-center overflow-hidden p-1" suppressHydrationWarning>
+          <div className="size-12 sm:size-14 rounded-lg bg-muted/50 flex items-center justify-center overflow-hidden p-1.5" suppressHydrationWarning>
             {logoUrl ? (
               <img src={logoUrl} alt={altText} className="h-full w-full object-contain" />
             ) : (

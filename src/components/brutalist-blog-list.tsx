@@ -4,8 +4,27 @@ import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import BlurFade from "@/components/magicui/blur-fade";
 import { Badge } from "@/components/ui/badge";
-import { Search as SearchIcon, X as XIcon, Calendar as CalendarIcon, Tag as TagIcon } from "lucide-react";
+import { Search as SearchIcon, X as XIcon, Calendar as CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+// Broad category mapping for blog tags
+const BLOG_TAG_CATEGORY_MAP: Record<string, string> = {
+  "nextjs": "Frontend", "react": "Frontend", "vue": "Frontend", "css": "Frontend",
+  "typescript": "Frontend", "javascript": "Frontend", "html": "Frontend",
+  "node": "Backend", "python": "Backend", "go": "Backend", "rust": "Backend",
+  "api": "Backend", "graphql": "Backend", "rest": "Backend",
+  "ai": "AI / ML", "ml": "AI / ML", "llm": "AI / ML", "langchain": "AI / ML",
+  "openai": "AI / ML", "rag": "AI / ML", "agents": "AI / ML",
+  "aws": "Cloud", "gcp": "Cloud", "azure": "Cloud", "docker": "Cloud",
+  "kubernetes": "Cloud", "devops": "Cloud", "ci-cd": "Cloud",
+  "database": "Data", "postgresql": "Data", "mongodb": "Data", "redis": "Data",
+  "architecture": "Engineering", "system-design": "Engineering", "patterns": "Engineering",
+  "testing": "Engineering", "performance": "Engineering", "security": "Engineering",
+};
+
+function getBlogCategory(tag: string): string {
+  return BLOG_TAG_CATEGORY_MAP[tag.toLowerCase()] || "Other";
+}
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -29,15 +48,14 @@ export function BrutalistBlogList({ initialPosts }: BrutalistBlogListProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const POSTS_PER_PAGE = 4;
 
-  // Extract all unique tags across all posts
-  const allTags = useMemo(() => {
-    const tagsSet = new Set<string>();
+  const allCategories = useMemo(() => {
+    const catSet = new Set<string>();
     initialPosts.forEach((post) => {
       if (post.metadata.tags) {
-        post.metadata.tags.forEach((t) => tagsSet.add(t));
+        post.metadata.tags.forEach((t) => catSet.add(getBlogCategory(t)));
       }
     });
-    return Array.from(tagsSet).sort();
+    return Array.from(catSet).sort();
   }, [initialPosts]);
 
   // Filter posts based on search query and selected tag
@@ -49,7 +67,9 @@ export function BrutalistBlogList({ initialPosts }: BrutalistBlogListProps) {
         (post.metadata.tags &&
           post.metadata.tags.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase())));
 
-      const matchesTag = selectedTag ? post.metadata.tags?.includes(selectedTag) : true;
+      const matchesTag = selectedTag
+        ? post.metadata.tags?.some((t) => getBlogCategory(t) === selectedTag)
+        : true;
 
       return matchesSearch && matchesTag;
     });
@@ -94,30 +114,33 @@ export function BrutalistBlogList({ initialPosts }: BrutalistBlogListProps) {
 
           {/* Tag Selection Bar */}
           <div className="flex flex-col gap-2">
+            <div className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
+              Tags
+            </div>
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => setSelectedTag(null)}
                 className={cn(
-                  "px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer",
+                  "px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer border border-border bg-card hover:bg-muted/50 hover:text-foreground",
                   selectedTag === null
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
+                    ? "bg-foreground text-background hover:bg-foreground/90 border-foreground"
+                    : "text-muted-foreground"
                 )}
               >
                 All posts
               </button>
-              {allTags.map((tag) => (
+              {allCategories.map((cat) => (
                 <button
-                  key={tag}
-                  onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
+                  key={cat}
+                  onClick={() => setSelectedTag(selectedTag === cat ? null : cat)}
                   className={cn(
-                    "px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer",
-                    selectedTag === tag
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
+                    "px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer border border-border bg-card hover:bg-muted/50 hover:text-foreground",
+                    selectedTag === cat
+                      ? "bg-foreground text-background hover:bg-foreground/90 border-foreground"
+                      : "text-muted-foreground"
                   )}
                 >
-                  #{tag}
+                  {cat}
                 </button>
               ))}
             </div>
