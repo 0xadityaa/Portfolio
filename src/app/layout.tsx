@@ -63,7 +63,7 @@ export default function RootLayout({
           `${dmSans.variable} font-sans`
         )}
       >
-        <ThemeProvider attribute="class" defaultTheme="dark">
+        <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark" enableSystem={false}>
           <TooltipProvider delayDuration={0}>
             {children}
             <Analytics />

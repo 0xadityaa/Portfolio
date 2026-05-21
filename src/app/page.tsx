@@ -132,7 +132,13 @@ export default async function Page() {
               <BlurFade delay={BLUR_FADE_DELAY * 2}>
                 <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground mt-4">
                   <div className="flex items-center gap-2" title="Location">
-                    <span className={`size-2 rounded-full ${isOffline ? "bg-red-500" : "bg-green-500"}`}></span>
+                    <svg className="size-4 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="12" y1="2" x2="12" y2="22" />
+                      <line x1="9" y1="22" x2="15" y2="22" />
+                      <path d="M12 2 L14.5 8 L12 7 L9.5 8 Z" fill="currentColor" stroke="none" />
+                      <ellipse cx="12" cy="10" rx="3" ry="1" />
+                      <ellipse cx="12" cy="14" rx="2" ry="0.7" />
+                    </svg>
                     <span>{githubData.location || "Earth"}</span>
                   </div>
                   <div className="flex items-center gap-1.5" title="All-time Contributions">
@@ -299,10 +305,13 @@ export default async function Page() {
 
       {/* CONTACT */}
       <section id="contact">
-        <div className="w-full max-w-2xl mx-auto py-8 mt-8 border-t border-border">
+        <div className="w-full max-w-2xl mx-auto flex min-h-0 flex-col gap-y-4">
           <BlurFade delay={BLUR_FADE_DELAY * 11}>
+            <h2 className="text-sm tracking-widest text-muted-foreground uppercase font-medium">Want to chat?</h2>
+          </BlurFade>
+          <BlurFade delay={BLUR_FADE_DELAY * 12}>
             <p className="text-lg sm:text-xl text-muted-foreground">
-              Want to chat? send me an{" "}
+              send me an{" "}
               <Link
                 href={DATA.contact.social.email.url}
                 className="text-foreground font-medium hover:underline underline-offset-4 decoration-1"

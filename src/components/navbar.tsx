@@ -1,6 +1,6 @@
 "use client";
 
-import { ModeToggle } from "@/components/mode-toggle";
+
 import { Separator } from "@/components/ui/separator";
 import {
   Tooltip,
@@ -68,19 +68,6 @@ export default function Navbar() {
               </Tooltip>
             ))}
 
-          <Separator orientation="vertical" className="h-6 w-[1px] bg-border mx-1" />
-
-          {/* Theme Mode Toggle */}
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <div>
-                <ModeToggle />
-              </div>
-            </TooltipTrigger>
-            <TooltipContent className="bg-foreground text-background border-none rounded-md px-3 py-1.5 text-xs">
-              <p>Theme</p>
-            </TooltipContent>
-          </Tooltip>
         </div>
       </div>
     </div>
