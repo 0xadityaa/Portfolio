@@ -88,6 +88,9 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
       const isGitHubUrl = p.href ? p.href.startsWith("https://github.com") : false;
       const repoSlug = isGitHubUrl ? p.href.split("/").pop()?.toLowerCase() : "";
 
+      let description = p.description;
+      let technologies = p.technologies;
+
       if (repoSlug) {
         const match = githubRepos.find((r: any) => r.name.toLowerCase() === repoSlug);
         if (match) {
@@ -98,13 +101,15 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
           usedRepoUrls.add(match.url.toLowerCase());
           
           // Override description and tags from GitHub if available
-          if (match.description) p.description = match.description;
-          if (match.languages && match.languages.length > 0) p.technologies = match.languages;
+          if (match.description) description = match.description;
+          if (match.languages && match.languages.length > 0) technologies = match.languages;
         }
       }
 
       list.push({
         ...p,
+        description,
+        technologies,
         stargazerCount,
         forkCount,
         issuesCount,
