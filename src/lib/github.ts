@@ -6,6 +6,7 @@ export interface GitHubPinnedRepo {
   stargazerCount: number;
   forkCount: number;
   openGraphImageUrl: string;
+  pushedAt: string;
   primaryLanguage: {
     name: string;
     color: string;
@@ -51,6 +52,7 @@ query ($username: String!) {
         homepageUrl
         stargazerCount
         forkCount
+        pushedAt
         issues(states: OPEN) {
           totalCount
         }
@@ -92,6 +94,7 @@ query ($username: String!) {
           homepageUrl
           stargazerCount
           forkCount
+          pushedAt
           issues(states: OPEN) {
             totalCount
           }
@@ -184,6 +187,7 @@ Returning mock GitHub data.
       issuesCount: node.issues?.totalCount || 0,
       commitsCount: node.defaultBranchRef?.target?.history?.totalCount || 0,
       openGraphImageUrl: node.openGraphImageUrl || "",
+      pushedAt: node.pushedAt || new Date().toISOString(),
       primaryLanguage: node.primaryLanguage
         ? {
             name: node.primaryLanguage.name,
@@ -230,6 +234,7 @@ function getMockProfile(): GitHubBuilderProfile {
       stargazerCount: 15,
       forkCount: 2,
       openGraphImageUrl: "",
+      pushedAt: new Date(Date.now() - 100000000).toISOString(),
       primaryLanguage: { name: "TypeScript", color: "#3178c6" },
       languages: ["TypeScript", "Python"],
       topics: ["nextjs", "gemini", "ffmpeg"],
@@ -242,6 +247,7 @@ function getMockProfile(): GitHubBuilderProfile {
       stargazerCount: 12,
       forkCount: 1,
       openGraphImageUrl: "",
+      pushedAt: new Date(Date.now() - 500000000).toISOString(),
       primaryLanguage: { name: "TypeScript", color: "#3178c6" },
       languages: ["TypeScript", "CSS"],
       topics: ["langchain", "supabase"],
@@ -254,6 +260,7 @@ function getMockProfile(): GitHubBuilderProfile {
       stargazerCount: 8,
       forkCount: 0,
       openGraphImageUrl: "",
+      pushedAt: new Date(Date.now() - 1500000000).toISOString(),
       primaryLanguage: { name: "TypeScript", color: "#3178c6" },
       languages: ["TypeScript", "FastAPI"],
       topics: ["langchain", "gcp"],
@@ -266,6 +273,7 @@ function getMockProfile(): GitHubBuilderProfile {
       stargazerCount: 5,
       forkCount: 1,
       openGraphImageUrl: "",
+      pushedAt: new Date(Date.now() - 2500000000).toISOString(),
       primaryLanguage: { name: "Python", color: "#3572A5" },
       languages: ["Python"],
       topics: ["langgraph", "azure"],
@@ -278,6 +286,7 @@ function getMockProfile(): GitHubBuilderProfile {
       stargazerCount: 3,
       forkCount: 0,
       openGraphImageUrl: "",
+      pushedAt: new Date(Date.now() - 8500000000).toISOString(),
       primaryLanguage: { name: "TypeScript", color: "#3178c6" },
       languages: ["TypeScript"],
       topics: ["deno", "parser"],
@@ -290,6 +299,7 @@ function getMockProfile(): GitHubBuilderProfile {
       stargazerCount: 6,
       forkCount: 2,
       openGraphImageUrl: "",
+      pushedAt: new Date(Date.now() - 18500000000).toISOString(),
       primaryLanguage: { name: "JavaScript", color: "#f1e05a" },
       languages: ["JavaScript"],
       topics: ["ffmpeg", "socketio"],
@@ -302,6 +312,7 @@ function getMockProfile(): GitHubBuilderProfile {
       stargazerCount: 2,
       forkCount: 0,
       openGraphImageUrl: "",
+      pushedAt: new Date(Date.now() - 38500000000).toISOString(),
       primaryLanguage: { name: "Dart", color: "#00B4AB" },
       languages: ["Dart"],
       topics: ["flutter", "firebase"],

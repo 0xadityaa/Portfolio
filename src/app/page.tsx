@@ -85,7 +85,7 @@ const customIcons: { [key: string]: string } = {
 };
 
 import { getGitHubBuilderProfile } from "@/lib/github";
-import { BookMarked, ArrowRight } from "lucide-react";
+import { BookMarked, ArrowRight, MapPin } from "lucide-react";
 import { GitHubRepoCard } from "@/components/github-repo-card";
 
 export default async function Page() {
@@ -132,21 +132,7 @@ export default async function Page() {
               <BlurFade delay={BLUR_FADE_DELAY * 2}>
                 <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground mt-4">
                   <div className="flex items-center gap-1.5" title="Location">
-                    <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 2v6" />
-                      <path d="M11 8h2v3h-2z" />
-                      <path d="M10 11h4v1h-4z" />
-                      <path d="M9 12h6" />
-                      <path d="M8 13h8" />
-                      <path d="M7.5 14h9c1 0 1.5.5 1.5 1.5S17.5 17 16.5 17h-9C6.5 17 6 16.5 6 15.5S6.5 14 7.5 14z" />
-                      <path d="M9 17v5" />
-                      <path d="M15 17v5" />
-                      <path d="M10.5 17v5" />
-                      <path d="M13.5 17v5" />
-                      <path d="M12 17v5" />
-                      <path d="M7 16.5h10" />
-                      <path d="M8.5 14.5h7" />
-                    </svg>
+                    <MapPin className="size-4" />
                     <span>Toronto, Canada</span>
                   </div>
                   <div className="flex items-center gap-1.5" title="Contributions">

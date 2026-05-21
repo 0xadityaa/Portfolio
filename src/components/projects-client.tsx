@@ -14,36 +14,42 @@ const TAG_CATEGORY_MAP: Record<string, string> = {
   // Frontend
   "React": "Frontend", "Next.js": "Frontend", "Vue": "Frontend", "Angular": "Frontend",
   "Svelte": "Frontend", "HTML": "Frontend", "CSS": "Frontend", "Tailwind CSS": "Frontend",
-  "JavaScript": "Frontend", "TypeScript": "Frontend", "Vite": "Frontend",
+  "JavaScript": "Frontend", "TypeScript": "Frontend", "Vite": "Frontend", "Tailwind + ShadCN": "Frontend",
+  "TailwindCSS": "Frontend", "Shadcn UI": "Frontend", "Remix": "Frontend",
   // Backend
   "Node.js": "Backend", "Express": "Backend", "FastAPI": "Backend", "Flask": "Backend",
   "Django": "Backend", "Spring": "Backend", "Go": "Backend", "Rust": "Backend",
   "Python": "Backend", "Java": "Backend", "C#": "Backend", "Ruby": "Backend",
-  "GraphQL": "Backend", "REST": "Backend", "Prisma": "Backend", "Drizzle": "Backend",
+  "GraphQL": "Backend", "REST": "Backend", "Prisma": "Backend", "Drizzle": "Backend", "Fast API": "Backend",
+  "WebSockets": "Backend", "WASM": "Backend",
   // AI / ML
   "LangChain": "AI / ML", "LangGraph": "AI / ML", "OpenAI": "AI / ML",
   "Azure OpenAI": "AI / ML", "Gemini": "AI / ML", "TensorFlow": "AI / ML",
   "PyTorch": "AI / ML", "Hugging Face": "AI / ML", "RAG": "AI / ML",
-  "langgraph": "AI / ML", "langchain": "AI / ML",
+  "Gemini 2.5 Pro": "AI / ML", "Gemini 2.5 Flash": "AI / ML", "Gemini 2.5 Flash + 2.5 Pro": "AI / ML",
   // Cloud & Infra
   "AWS": "Cloud", "GCP": "Cloud", "Azure": "Cloud", "Docker": "Cloud",
   "Kubernetes": "Cloud", "Terraform": "Cloud", "Vercel": "Cloud",
-  "AWS S3": "Cloud", "Firebase": "Cloud",
+  "AWS S3": "Cloud", "Firebase": "Cloud", "Inngest": "Cloud", "Serverless": "Cloud",
   // Mobile
   "Flutter": "Mobile", "React Native": "Mobile", "Dart": "Mobile",
-  "Swift": "Mobile", "Kotlin": "Mobile", "Android": "Mobile",
+  "Swift": "Mobile", "Kotlin": "Mobile", "Android": "Mobile", "iOS": "Mobile",
   // Data & DB
   "PostgreSQL": "Data", "MongoDB": "Data", "Redis": "Data", "Supabase": "Data",
   "MySQL": "Data", "SQLite": "Data", "Neo4j": "Data", "Elasticsearch": "Data",
-  "supabase": "Data",
-  // DevTools
+  "Spanner Graph DB": "Data", "Pandas": "Data", "Firestore": "Data",
+  // DevTools & Core
   "Git": "DevTools", "CI/CD": "DevTools", "GitHub Actions": "DevTools",
   "Deno": "DevTools", "FFmpeg": "DevTools", "Socket.IO": "DevTools",
-  "ffmpeg": "DevTools", "socketio": "DevTools",
+  "Playwright": "DevTools", "Tokenizer": "DevTools", "Parser": "DevTools", "AST": "DevTools", "ECMA-404": "DevTools", "JSON": "DevTools",
 };
 
 function getCategoryForTag(tag: string): string {
-  return TAG_CATEGORY_MAP[tag] || "Other";
+  const t = tag.toLowerCase();
+  for (const [key, val] of Object.entries(TAG_CATEGORY_MAP)) {
+    if (key.toLowerCase() === t) return val;
+  }
+  return "Other";
 }
 
 interface Project {
@@ -63,6 +69,11 @@ interface Project {
   forkCount?: number;
   issuesCount?: number;
   commitsCount?: number;
+  pushedAt?: string;
+  primaryLanguage?: {
+    name: string;
+    color: string;
+  } | null;
 }
 
 interface ProjectsClientProps {
@@ -90,6 +101,8 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
 
       let description = p.description;
       let technologies = p.technologies;
+      let pushedAt: string | undefined = undefined;
+      let primaryLanguage: { name: string; color: string } | null | undefined = undefined;
 
       if (repoSlug) {
         const match = githubRepos.find((r: any) => r.name.toLowerCase() === repoSlug);
@@ -98,11 +111,14 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
           forkCount = match.forkCount;
           issuesCount = match.issuesCount;
           commitsCount = match.commitsCount;
+          pushedAt = match.pushedAt;
+          primaryLanguage = match.primaryLanguage;
           usedRepoUrls.add(match.url.toLowerCase());
           
           // Override description and tags from GitHub if available
           if (match.description) description = match.description;
-          if (match.languages && match.languages.length > 0) technologies = match.languages;
+          if (match.topics && match.topics.length > 0) technologies = match.topics;
+          else if (match.languages && match.languages.length > 0) technologies = match.languages;
         }
       }
 
@@ -114,6 +130,8 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
         forkCount,
         issuesCount,
         commitsCount,
+        pushedAt,
+        primaryLanguage,
       });
     });
 
@@ -140,13 +158,15 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
         dates: "Live on GitHub",
         active: true,
         description: repo.description,
-        technologies: repo.languages || [],
+        technologies: repo.topics?.length ? repo.topics : (repo.languages || []),
         links,
         stargazerCount: repo.stargazerCount,
         forkCount: repo.forkCount,
         issuesCount: repo.issuesCount,
         commitsCount: repo.commitsCount,
         image: repo.openGraphImageUrl || undefined,
+        pushedAt: repo.pushedAt,
+        primaryLanguage: repo.primaryLanguage,
       });
     });
 
@@ -249,13 +269,15 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
               title={project.title}
               description={project.description}
               dates={project.dates}
-              tags={Array.from(new Set(project.technologies.map(getCategoryForTag)))}
+              tags={project.technologies}
               image={project.image}
               links={project.links}
               stargazerCount={project.stargazerCount}
               forkCount={project.forkCount}
               issuesCount={project.issuesCount}
               commitsCount={project.commitsCount}
+              pushedAt={project.pushedAt}
+              primaryLanguage={project.primaryLanguage}
             />
           </BlurFade>
         ))}

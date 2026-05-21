@@ -16,7 +16,7 @@ interface Props {
   title: string;
   href?: string;
   description: string;
-  dates: string;
+  dates?: string;
   tags: readonly string[];
   link?: string;
   image?: string;
@@ -29,114 +29,144 @@ interface Props {
   forkCount?: number;
   issuesCount?: number;
   commitsCount?: number;
+  pushedAt?: string;
+  primaryLanguage?: {
+    name: string;
+    color: string;
+  } | null;
   className?: string;
+}
+
+function getRelativeTime(dateString?: string) {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+  
+  if (diffInSeconds < 60) return "Updated just now";
+  const diffInMinutes = Math.floor(diffInSeconds / 60);
+  if (diffInMinutes < 60) return `Updated ${diffInMinutes} minute${diffInMinutes > 1 ? "s" : ""} ago`;
+  const diffInHours = Math.floor(diffInMinutes / 60);
+  if (diffInHours < 24) return `Updated ${diffInHours} hour${diffInHours > 1 ? "s" : ""} ago`;
+  const diffInDays = Math.floor(diffInHours / 24);
+  if (diffInDays < 30) return `Updated ${diffInDays} day${diffInDays > 1 ? "s" : ""} ago`;
+  const diffInMonths = Math.floor(diffInDays / 30);
+  if (diffInMonths < 12) return `Updated on ${date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`;
+  
+  return `Updated on ${date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`;
+}
+
+// Pseudo-random seed generator for sparkline
+function mulberry32(a: number) {
+  return function() {
+    var t = a += 0x6D2B79F5;
+    t = Math.imul(t ^ t >>> 15, t | 1);
+    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  }
 }
 
 export function ProjectCard({
   title,
   href,
   description,
-  dates,
   tags,
-  link,
-  image,
-  links,
   stargazerCount,
   forkCount,
-  issuesCount,
-  commitsCount,
+  pushedAt,
+  primaryLanguage,
   className,
 }: Props) {
   const projectSlug = href ? href.split("/").pop() : "";
   const isGitHubUrl = href ? href.startsWith("https://github.com") : false;
-  const detailHref = isGitHubUrl ? `/projects/${projectSlug}` : (href || "#");
+  const linkHref = href || "#";
+
+  // Generate a deterministic sparkline path based on the title length
+  const rng = mulberry32(title.length * 100);
+  const points = [];
+  let currentY = 10;
+  for (let i = 0; i < 15; i++) {
+    const x = (i / 14) * 100;
+    currentY = Math.max(2, Math.min(18, currentY + (rng() - 0.5) * 8));
+    points.push(`${x},${currentY}`);
+  }
+  const sparklinePath = `M ${points.join(" L ")}`;
 
   return (
-    <Card
-      className={cn(
-        "flex flex-col sm:flex-row overflow-hidden border border-transparent hover:border-border rounded-xl bg-transparent hover:bg-muted/30 transition-all duration-300 ease-out group/card",
-        className
-      )}
-    >
-      {/* Content wrapper */}
-      <div className="flex flex-col flex-grow min-w-0">
-        {/* Card Header */}
-        <CardHeader className="p-4 pb-2 flex-grow shrink-0">
-          <div className="space-y-1.5">
-            <div className="flex items-start justify-between gap-x-2">
-              <div className="flex flex-col gap-1.5">
-                <Link href={detailHref} className="minimal-link font-semibold text-base sm:text-lg text-foreground group-hover/card:underline decoration-foreground/30 underline-offset-4 decoration-1">
-                  {title}
-                </Link>
-                {/* GitHub Stats if present */}
-                {(stargazerCount !== undefined || forkCount !== undefined || commitsCount !== undefined || issuesCount !== undefined) && (
-                  <div className="flex items-center gap-4 text-xs text-muted-foreground font-medium mt-1">
-                    {stargazerCount !== undefined && stargazerCount > 0 && (
-                      <span className="flex items-center gap-1.5" title="Stars">
-                        <Star className="size-3.5 text-amber-500 fill-amber-500" />
-                        <span>{stargazerCount}</span>
-                      </span>
-                    )}
-                    {forkCount !== undefined && forkCount > 0 && (
-                      <span className="flex items-center gap-1.5" title="Forks">
-                        <GitFork className="size-3.5" />
-                        <span>{forkCount}</span>
-                      </span>
-                    )}
-                    {commitsCount !== undefined && commitsCount > 0 && (
-                      <span className="flex items-center gap-1.5" title="Commits">
-                        <GitCommit className="size-3.5" />
-                        <span>{commitsCount}</span>
-                      </span>
-                    )}
-                    {issuesCount !== undefined && issuesCount > 0 && (
-                      <span className="flex items-center gap-1.5" title="Open Issues">
-                        <CircleDot className="size-3.5 text-green-500" />
-                        <span>{issuesCount}</span>
-                      </span>
-                    )}
-                  </div>
-                )}
-              </div>
-              </div>
-            
-            <p className="prose prose-sm max-w-full text-pretty leading-relaxed text-muted-foreground dark:prose-invert">
-              {description}
-            </p>
+    <div className={cn("flex flex-col overflow-hidden py-6 border-b border-border/50 bg-transparent transition-all duration-300 ease-out group/card", className)}>
+      <div className="flex items-start justify-between gap-4">
+        {/* Left Side: Title, Description, Tags */}
+        <div className="flex flex-col flex-grow min-w-0">
+          <div className="flex items-center gap-2 mb-2">
+            <Link href={linkHref} target="_blank" className="text-foreground font-semibold text-xl hover:underline decoration-foreground/30 underline-offset-4">
+              {title}
+            </Link>
+            <span className="border border-[#30363d] text-[#8b949e] text-xs px-2 py-0.5 rounded-full font-medium">
+              Public
+            </span>
           </div>
-        </CardHeader>
+          
+          <p className="text-[#8b949e] text-sm mb-4 line-clamp-2">
+            {description}
+          </p>
 
-        {/* Card Tags / Tech Badges */}
-        <CardContent className="p-4 pt-0 pb-2 flex-grow">
           {tags && tags.length > 0 && (
-            <div className="flex flex-wrap gap-1.5 mt-1">
-              {tags.map((tag) => (
+            <div className="flex flex-wrap gap-2 mb-4">
+              {Array.from(new Set(tags)).map((tag) => (
                 <Badge
-                  className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-muted text-muted-foreground hover:bg-muted"
+                  className="px-2.5 py-0.5 text-xs font-medium rounded-full bg-muted text-muted-foreground hover:bg-muted/80 border-transparent transition-colors shadow-none"
                   variant="secondary"
                   key={tag}
                 >
-                  {tag}
+                  {tag.toLowerCase()}
                 </Badge>
               ))}
             </div>
           )}
-        </CardContent>
 
-        {/* Card Footer Links */}
-        <CardFooter className="p-4 pt-0 shrink-0">
-          {links && links.length > 0 && (
-            <div className="flex flex-row flex-wrap items-center gap-2 mt-auto">
-              {links.map((linkItem, idx) => (
-                <Link href={linkItem.href} key={idx} target="_blank" className="inline-flex text-muted-foreground hover:text-foreground transition-colors [&>svg]:size-5" title={linkItem.type}>
-                  {linkItem.icon}
-                </Link>
-              ))}
-            </div>
-          )}
-        </CardFooter>
+          <div className="flex flex-wrap items-center gap-4 text-xs text-[#8b949e]">
+            {primaryLanguage && (
+              <div className="flex items-center gap-1.5">
+                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: primaryLanguage.color }}></span>
+                <span>{primaryLanguage.name}</span>
+              </div>
+            )}
+            
+            {stargazerCount !== undefined && stargazerCount > 0 && (
+              <a href={`${href}/stargazers`} target="_blank" className="flex items-center gap-1 hover:text-[#c9d1d9] transition-colors">
+                <Star className="w-4 h-4" />
+                <span>{stargazerCount}</span>
+              </a>
+            )}
+            
+            {forkCount !== undefined && forkCount > 0 && (
+              <a href={`${href}/network/members`} target="_blank" className="flex items-center gap-1 hover:text-[#c9d1d9] transition-colors">
+                <GitFork className="w-4 h-4" />
+                <span>{forkCount}</span>
+              </a>
+            )}
+
+            {pushedAt && (
+              <span suppressHydrationWarning>{getRelativeTime(pushedAt)}</span>
+            )}
+          </div>
+        </div>
+
+        {/* Right Side: Activity Graph */}
+        <div className="hidden sm:block shrink-0 pt-2">
+          <svg width="155" height="30" className="opacity-80">
+            <path
+              d={sparklinePath}
+              fill="none"
+              stroke="#238636"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
       </div>
-    </Card>
+    </div>
   );
 }
 
