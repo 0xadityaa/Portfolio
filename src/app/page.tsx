@@ -120,7 +120,7 @@ export default async function Page() {
                 delay={BLUR_FADE_DELAY}
                 className="text-4xl font-bold tracking-tight sm:text-5xl xl:text-6xl/none"
                 yOffset={8}
-                text={DATA.name}
+                text="hi, i am aditya 👋"
               />
               <BlurFadeText
                 className="max-w-[600px] text-lg sm:text-xl text-muted-foreground leading-relaxed"
@@ -170,33 +170,25 @@ export default async function Page() {
         </div>
       </section>
 
-      {/* GITHUB PINNED REPOS */}
-      {githubData.pinnedRepos && githubData.pinnedRepos.length > 0 && (
-        <section id="pinned-repos">
-          <div className="w-full max-w-2xl mx-auto space-y-4">
-            <BlurFade delay={BLUR_FADE_DELAY * 5}>
-              <div className="flex items-center justify-between">
-                <h2 className="text-sm tracking-widest text-muted-foreground uppercase font-medium">Featured Repos</h2>
-                <Link href="/projects" className="text-sm font-medium hover:text-foreground text-muted-foreground transition-colors flex items-center gap-1">
-                  View all <ArrowRight className="size-3" />
-                </Link>
-              </div>
-            </BlurFade>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {githubData.pinnedRepos.slice(0, 4).map((repo: any, id: number) => (
-                <BlurFade key={repo.name} delay={BLUR_FADE_DELAY * 5 + id * 0.05}>
-                  <GitHubRepoCard repo={repo} />
-                </BlurFade>
-              ))}
+      {/* WHY I BUILD SECTION */}
+      <section id="why-i-build">
+        <div className="w-full max-w-2xl mx-auto space-y-4">
+          <BlurFade delay={BLUR_FADE_DELAY * 4.5}>
+            <h2 className="text-sm tracking-widest text-muted-foreground uppercase font-medium">Why I Build?</h2>
+          </BlurFade>
+          <BlurFade delay={BLUR_FADE_DELAY * 4.8}>
+            <div className="prose prose-neutral dark:prose-invert max-w-full text-pretty text-base sm:text-lg leading-relaxed text-foreground space-y-4">
+              <p>To me, building is more than making code work. It’s about exploring systems, understanding the problem at hand, and seeing how it shapes the overall architecture. I take pride in engineering impactful software, ensuring the underlying system is just as powerful and robust as the user experience it powers.</p>
+              <p>I’m curious how people interact with everyday apps, what makes them stick, and how a codebase evolves as it scales. That curiosity drives me to look under the hood of everything I touch, exploring both modern frontiers and the legacy systems built on decades of industry groundwork.</p>
             </div>
-          </div>
-        </section>
-      )}
+          </BlurFade>
+        </div>
+      </section>
 
       {/* SKILLS MARQUEE SECTION */}
       <section id="skills">
         <div className="w-full max-w-2xl mx-auto flex min-h-0 flex-col gap-y-4">
-          <BlurFade delay={BLUR_FADE_DELAY * 6}>
+          <BlurFade delay={BLUR_FADE_DELAY * 5}>
             <h2 className="text-sm tracking-widest text-muted-foreground uppercase font-medium">Tech Stack</h2>
           </BlurFade>
           <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden py-4 mask-edges">
@@ -243,6 +235,29 @@ export default async function Page() {
           </div>
         </div>
       </section>
+
+      {/* GITHUB PINNED REPOS */}
+      {githubData.pinnedRepos && githubData.pinnedRepos.length > 0 && (
+        <section id="pinned-repos">
+          <div className="w-full max-w-2xl mx-auto space-y-4">
+            <BlurFade delay={BLUR_FADE_DELAY * 6}>
+              <div className="flex items-center justify-between">
+                <h2 className="text-sm tracking-widest text-muted-foreground uppercase font-medium">Featured Repos</h2>
+                <Link href="/projects" className="text-sm font-medium hover:text-foreground text-muted-foreground transition-colors flex items-center gap-1">
+                  View all <ArrowRight className="size-3" />
+                </Link>
+              </div>
+            </BlurFade>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {githubData.pinnedRepos.slice(0, 4).map((repo: any, id: number) => (
+                <BlurFade key={repo.name} delay={BLUR_FADE_DELAY * 6 + id * 0.05}>
+                  <GitHubRepoCard repo={repo} />
+                </BlurFade>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* WORK EXPERIENCE */}
       <section id="work">

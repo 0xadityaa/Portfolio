@@ -5,7 +5,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { Badge } from "@/components/ui/badge";
-import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft as ChevronLeftIcon } from "lucide-react";
 
@@ -136,29 +135,13 @@ export default async function BlogPost(props: BlogParams) {
 
       {/* Article Body Content */}
       <article
-        className="prose prose-neutral dark:prose-invert text-base leading-relaxed max-w-none pt-6 pb-12
+        className="prose prose-neutral dark:prose-invert text-base leading-relaxed max-w-none pt-6 pb-2
                    prose-headings:font-semibold prose-headings:tracking-tight
                    prose-h2:text-2xl prose-h3:text-xl
                    prose-a:minimal-link prose-a:font-medium prose-a:no-underline
                    prose-pre:border prose-pre:border-border"
         dangerouslySetInnerHTML={{ __html: post.source }}
       />
-
-      {/* Monochromatic Premium Signature Layout */}
-      {DATA.name && (
-        <div className="border-t border-border pt-12 flex flex-col items-center justify-center space-y-4">
-          <div className="p-4 bg-transparent">
-            <Image
-              unoptimized
-              src="/signature.gif"
-              alt="signature gif"
-              width={200}
-              height={100}
-              className="opacity-80 invert dark:invert-0 hover:opacity-100 transition-opacity"
-            />
-          </div>
-        </div>
-      )}
     </section>
   );
 }

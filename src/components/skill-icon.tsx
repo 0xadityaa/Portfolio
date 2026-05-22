@@ -59,6 +59,7 @@ const iconMapping: { [key: string]: string } = {
   "Azure OpenAI": "openai",
   "GCP": "googlecloud",
   "Cloudflare": "cloudflare",
+  "Oracle": "oracle",
   "Vercel": "vercel",
   "Vercel AI SDK": "vercel",
   "LangChain": "langchain",
