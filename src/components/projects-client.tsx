@@ -27,10 +27,12 @@ const TAG_CATEGORY_MAP: Record<string, string> = {
   "Azure OpenAI": "AI / ML", "Gemini": "AI / ML", "TensorFlow": "AI / ML",
   "PyTorch": "AI / ML", "Hugging Face": "AI / ML", "RAG": "AI / ML",
   "Gemini 2.5 Pro": "AI / ML", "Gemini 2.5 Flash": "AI / ML", "Gemini 2.5 Flash + 2.5 Pro": "AI / ML",
+  "Claude": "AI / ML",
   // Cloud & Infra
   "AWS": "Cloud", "GCP": "Cloud", "Azure": "Cloud", "Docker": "Cloud",
   "Kubernetes": "Cloud", "Terraform": "Cloud", "Vercel": "Cloud",
   "AWS S3": "Cloud", "Firebase": "Cloud", "Inngest": "Cloud", "Serverless": "Cloud",
+  "Dapr": "Cloud",
   // Mobile
   "Flutter": "Mobile", "React Native": "Mobile", "Dart": "Mobile",
   "Swift": "Mobile", "Kotlin": "Mobile", "Android": "Mobile", "iOS": "Mobile",
@@ -42,6 +44,7 @@ const TAG_CATEGORY_MAP: Record<string, string> = {
   "Git": "DevTools", "CI/CD": "DevTools", "GitHub Actions": "DevTools",
   "Deno": "DevTools", "FFmpeg": "DevTools", "Socket.IO": "DevTools",
   "Playwright": "DevTools", "Tokenizer": "DevTools", "Parser": "DevTools", "AST": "DevTools", "ECMA-404": "DevTools", "JSON": "DevTools",
+  "Bash": "DevTools",
 };
 
 function getCategoryForTag(tag: string): string {
@@ -213,7 +216,7 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
       <BlurFade delay={BLUR_FADE_DELAY}>
         <div className="flex flex-col gap-2 mb-6">
           <h1 className="text-3xl font-bold tracking-tight sm:text-5xl text-foreground">
-            Stuff I&apos;ve Built
+            my opensource work
           </h1>
           <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
             From random experiments to full-blown web apps, here&apos;s a collection of things I&apos;ve built with code and caffeine.

@@ -8,9 +8,9 @@ export const DATA = {
   location: "Toronto, ON",
   locationLink: "https://www.google.com/maps/place/toronto",
   description:
-    "Full Stack Engineer and aspiring solutions architect, building stuff with 🧠 & ❤️",
+    "full stack engineer and aspiring solutions architect, building stuff with 🧠 & ❤️",
   summary:
-    "I'm a full-stack engineer based in Toronto, building things that live on the web. I thrive on solving interesting problems, from architecting and shipping features e2e to building infra and dev tools. When I'm not in the terminal, you'll find me exploring nature, making music, or gaming.",
+    "I have always been driven by a need to understand how things are built from the ground up. I view engineering as a form of digital architecture. That curiosity doesn't stop at the keyboard. Whether I am figuring out a new progression while making music, exploring outdoors, or deconstructing a new idea, I just genuinely enjoy the process of figuring out how pieces fit together.",
   avatarUrl: "/images/profile/Me.jpeg",
   skills: [
     "React",
@@ -47,13 +47,15 @@ export const DATA = {
     "TypeORM",
     "Git",
     "GitHub Actions",
+    "Bash",
     "Azure",
     "Azure DevOps",
     "GCP",
-    "Cloudflare",
+    "Dapr",
     "Vercel",
     "TensorFlow",
     "Vercel AI SDK",
+    "Claude",
     "LangChain",
     "Vertex AI",
     "MCP",
@@ -130,7 +132,7 @@ export const DATA = {
       start: "Apr 2024",
       end: "Aug 2024",
       description:
-        "Designed a location-aware hiring system with PostGIS, and contributed to Next.js based PWA job board using React and help managed our self-hosted Docker Swarm infrastructure.",
+        "Designed a location-aware hiring system with PostGIS, contributed to a Next.js-based PWA job board, and helped manage our self-hosted Docker Swarm infrastructure.",
     },
   ],
   education: [
@@ -289,7 +291,7 @@ export const DATA = {
       dates: "Jun - Jul 2024",
       active: true,
       description:
-        "A local-first chess game where you can play against ai. Features real-time gameplay analysis and scalable difficulty levels.",
+        "A local-first chess game where you can play against AI. Features real-time gameplay analysis and scalable difficulty levels.",
       technologies: [
         "Next.js",
         "Typescript",
