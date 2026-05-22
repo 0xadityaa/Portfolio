@@ -51,6 +51,7 @@ const iconSlugs: { [key: string]: string } = {
   "Azure": "microsoftazure",
   "Azure DevOps": "azuredevops",
   "GCP": "googlecloud",
+  "Oracle": "oracle",
   "Vercel": "vercel",
   "Vercel AI SDK": "vercel",
   "LangChain": "langchain",

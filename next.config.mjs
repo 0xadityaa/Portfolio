@@ -9,14 +9,17 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "svgl.app",
+        pathname: "/library/**",
       },
       {
         protocol: "https",
         hostname: "cdn.simpleicons.org",
+        pathname: "/**",
       },
       {
         protocol: "https",
         hostname: "www.vectorlogo.zone",
+        pathname: "/logos/**",
       },
     ],
   },
