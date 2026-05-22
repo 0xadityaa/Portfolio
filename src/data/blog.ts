@@ -73,7 +73,7 @@ export async function markdownToHTML(markdown: string) {
   return html;
 }
 
-export async function getPost(slug: string): Promise<{ source: string; metadata: Metadata; slug: string }> {
+export async function getPost(slug: string): Promise<{ source: string; metadata: BlogPostMetadata; slug: string }> {
   const filePath = path.join("content", `${slug}.mdx`);
   let source = fs.readFileSync(filePath, "utf-8");
   const { content: rawContent, data: metadata } = matter(source);
@@ -89,7 +89,7 @@ export async function getPost(slug: string): Promise<{ source: string; metadata:
   };
 }
 
-export function getPostMetadata(slug: string): { metadata: Metadata; slug: string } {
+export function getPostMetadata(slug: string): { metadata: BlogPostMetadata; slug: string } {
   const filePath = path.join("content", `${slug}.mdx`);
   let source = fs.readFileSync(filePath, "utf-8");
   const { content: rawContent, data: metadata } = matter(source);

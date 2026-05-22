@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { ChevronRight as ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 
 interface ResumeCardProps {
   logoUrl: string;
@@ -30,9 +31,9 @@ export const ResumeCard = ({
     <Link href={href || "#"} className="block cursor-pointer group">
       <div className="flex gap-4 p-4 -mx-4 rounded-xl transition-colors hover:bg-muted/50" suppressHydrationWarning>
         <div className="flex-none mt-1" suppressHydrationWarning>
-          <div className="size-12 sm:size-14 rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0" suppressHydrationWarning>
+          <div className="size-12 sm:size-14 rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0 relative" suppressHydrationWarning>
             {logoUrl ? (
-              <img src={logoUrl} alt={altText} className="h-full w-full object-cover" />
+              <Image src={logoUrl} alt={altText} fill className="object-cover" />
             ) : (
               <span className="text-xs bg-muted text-muted-foreground font-medium flex h-full w-full items-center justify-center">{altText[0]}</span>
             )}
