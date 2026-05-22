@@ -8,12 +8,13 @@ import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 import { calculateReadingTime } from "@/lib/blog-utils";
 
-type Metadata = {
+export type BlogPostMetadata = {
   title: string;
   publishedAt: string;
   summary: string;
   image?: string;
   tags?: string[];
+  isObsidian?: boolean;
   readingTime?: number;
 };
 
@@ -72,7 +73,7 @@ export async function markdownToHTML(markdown: string) {
   return html;
 }
 
-export async function getPost(slug: string): Promise<{ source: string; metadata: Metadata; slug: string }> {
+export async function getPost(slug: string): Promise<{ source: string; metadata: BlogPostMetadata; slug: string }> {
   const filePath = path.join("content", `${slug}.mdx`);
   let source = fs.readFileSync(filePath, "utf-8");
   const { content: rawContent, data: metadata } = matter(source);
@@ -83,12 +84,12 @@ export async function getPost(slug: string): Promise<{ source: string; metadata:
     metadata: {
       ...metadata,
       readingTime,
-    } as Metadata,
+    } as BlogPostMetadata,
     slug,
   };
 }
 
-export function getPostMetadata(slug: string): { metadata: Metadata; slug: string } {
+export function getPostMetadata(slug: string): { metadata: BlogPostMetadata; slug: string } {
   const filePath = path.join("content", `${slug}.mdx`);
   let source = fs.readFileSync(filePath, "utf-8");
   const { content: rawContent, data: metadata } = matter(source);
@@ -97,7 +98,7 @@ export function getPostMetadata(slug: string): { metadata: Metadata; slug: strin
     metadata: {
       ...metadata,
       readingTime,
-    } as Metadata,
+    } as BlogPostMetadata,
     slug,
   };
 }
@@ -143,3 +144,27 @@ async function getAllPosts(dir: string, page: number = 1, perPage: number = 4) {
 export async function getBlogPosts(page: number = 1) {
   return getAllPosts(path.join(process.cwd(), "content"), page);
 }
+
+export async function getAllBlogPosts() {
+  const dir = path.join(process.cwd(), "content");
+  if (!fs.existsSync(dir)) return [];
+  
+  const mdxFiles = fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx" || path.extname(file) === ".md");
+
+  const posts = mdxFiles.map((file) => {
+    const slug = path.basename(file, path.extname(file));
+    const { metadata } = getPostMetadata(slug);
+    return {
+      metadata,
+      slug,
+    };
+  });
+
+  // Sort by date descending
+  return posts.sort((a, b) => {
+    const dateA = new Date(a.metadata.publishedAt || "").getTime();
+    const dateB = new Date(b.metadata.publishedAt || "").getTime();
+    return dateB - dateA;
+  });
+}
+

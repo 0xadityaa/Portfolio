@@ -1,14 +1,22 @@
 "use client";
+
+import { Badge } from "@/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { SkillIcon } from "@/components/skill-icon";
+import { Star, GitFork, GitCommit, CircleDot } from "lucide-react";
 
 interface Props {
   title: string;
   href?: string;
   description: string;
-  dates: string;
+  dates?: string;
   tags: readonly string[];
   link?: string;
   image?: string;
@@ -17,107 +25,148 @@ interface Props {
     type: string;
     href: string;
   }[];
+  stargazerCount?: number;
+  forkCount?: number;
+  issuesCount?: number;
+  commitsCount?: number;
+  pushedAt?: string;
+  primaryLanguage?: {
+    name: string;
+    color: string;
+  } | null;
   className?: string;
+}
+
+function getRelativeTime(dateString?: string) {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+  
+  if (diffInSeconds < 60) return "Updated just now";
+  const diffInMinutes = Math.floor(diffInSeconds / 60);
+  if (diffInMinutes < 60) return `Updated ${diffInMinutes} minute${diffInMinutes > 1 ? "s" : ""} ago`;
+  const diffInHours = Math.floor(diffInMinutes / 60);
+  if (diffInHours < 24) return `Updated ${diffInHours} hour${diffInHours > 1 ? "s" : ""} ago`;
+  const diffInDays = Math.floor(diffInHours / 24);
+  if (diffInDays < 30) return `Updated ${diffInDays} day${diffInDays > 1 ? "s" : ""} ago`;
+  const diffInMonths = Math.floor(diffInDays / 30);
+  if (diffInMonths < 12) return `Updated on ${date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`;
+  
+  return `Updated on ${date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`;
+}
+
+// Pseudo-random seed generator for sparkline
+function mulberry32(a: number) {
+  return function() {
+    var t = a += 0x6D2B79F5;
+    t = Math.imul(t ^ t >>> 15, t | 1);
+    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  }
 }
 
 export function ProjectCard({
   title,
   href,
   description,
-  dates,
   tags,
-  link,
-  image,
-  links,
+  stargazerCount,
+  forkCount,
+  pushedAt,
+  primaryLanguage,
   className,
 }: Props) {
+  const projectSlug = href ? href.split("/").pop() : "";
+  const isGitHubUrl = href ? href.startsWith("https://github.com") : false;
+  const linkHref = href || "#";
+
+  // Generate a deterministic sparkline path based on the title length
+  const rng = mulberry32(title.length * 100);
+  const points = [];
+  let currentY = 10;
+  for (let i = 0; i < 15; i++) {
+    const x = (i / 14) * 100;
+    currentY = Math.max(2, Math.min(18, currentY + (rng() - 0.5) * 8));
+    points.push(`${x},${currentY}`);
+  }
+  const sparklinePath = `M ${points.join(" L ")}`;
 
   return (
-    <div
-      className={cn(
-        "group relative h-[400px] w-full overflow-hidden rounded-lg border transition-all duration-300 hover:shadow-2xl",
-        className
-      )}
-    >
-      {/* Full Background Image */}
-      <Image
-        src={image!}
-        alt={title}
-        fill
-        className="object-cover transition-transform duration-700 group-hover:scale-110"
-      />
-      
-      {/* Gradient Overlay - Always visible at bottom */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent" />
+    <div className={cn("flex flex-col overflow-hidden py-6 border-b border-border/50 bg-transparent transition-all duration-300 ease-out group/card", className)}>
+      <div className="flex items-start justify-between gap-4">
+        {/* Left Side: Title, Description, Tags */}
+        <div className="flex flex-col flex-grow min-w-0">
+          <div className="flex items-center gap-2 mb-2">
+            <Link href={linkHref} target="_blank" className="text-foreground font-semibold text-xl hover:underline decoration-foreground/30 underline-offset-4">
+              {title}
+            </Link>
+            <span className="border border-[#30363d] text-[#8b949e] text-xs px-2 py-0.5 rounded-full font-medium">
+              Public
+            </span>
+          </div>
+          
+          <p className="text-[#8b949e] text-sm mb-4 line-clamp-2">
+            {description}
+          </p>
 
-      {/* Content Overlay */}
-      <div className="absolute bottom-0 left-0 right-0 p-6 text-white transition-all duration-300 group-hover:-translate-y-3">
-        {/* Title and Date */}
-        <Link href={href || "#"} className="group/link">
-          <h3 className="font-bold text-2xl mb-1 group-hover/link:text-primary transition-colors">
-            {title}
-          </h3>
-        </Link>
-        <time className="text-sm text-white/70 mb-2 block">{dates}</time>
+          {tags && tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-4">
+              {Array.from(new Set(tags)).map((tag) => (
+                <Badge
+                  className="px-2.5 py-0.5 text-xs font-medium rounded-full bg-muted text-muted-foreground hover:bg-muted/80 border-transparent transition-colors shadow-none"
+                  variant="secondary"
+                  key={tag}
+                >
+                  {tag.toLowerCase()}
+                </Badge>
+              ))}
+            </div>
+          )}
 
-        {/* Description */}
-        <p className="text-sm text-white/90 mb-3 line-clamp-2">
-          {description}
-        </p>
-
-        {/* Tech Stack Tags with Icons */}
-        {tags && tags.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {/* Always show first 4 skills */}
-            {tags.slice(0, 4).map((tag) => (
-              <div
-                key={tag}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-md"
-              >
-                <SkillIcon skill={tag} className="size-3.5 text-white" />
-                <span className="text-xs font-medium text-white">{tag}</span>
-              </div>
-            ))}
-            
-            {/* Show +N badge when not hovered, hide on hover */}
-            {tags.length > 4 && (
-              <div className="flex items-center px-3 py-1.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-md group-hover:hidden">
-                <span className="text-xs font-medium text-white">+{tags.length - 4}</span>
+          <div className="flex flex-wrap items-center gap-4 text-xs text-[#8b949e]">
+            {primaryLanguage && (
+              <div className="flex items-center gap-1.5">
+                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: primaryLanguage.color }}></span>
+                <span>{primaryLanguage.name}</span>
               </div>
             )}
             
-            {/* Show remaining skills only on hover */}
-            {tags.length > 4 && tags.slice(4).map((tag) => (
-              <div
-                key={tag}
-                className="hidden group-hover:flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-md"
-              >
-                <SkillIcon skill={tag} className="size-3.5 text-white" />
-                <span className="text-xs font-medium text-white">{tag}</span>
-              </div>
-            ))}
-          </div>
-        )}
+            {stargazerCount !== undefined && stargazerCount > 0 && (
+              <a href={`${href}/stargazers`} target="_blank" className="flex items-center gap-1 hover:text-[#c9d1d9] transition-colors">
+                <Star className="w-4 h-4" />
+                <span>{stargazerCount}</span>
+              </a>
+            )}
+            
+            {forkCount !== undefined && forkCount > 0 && (
+              <a href={`${href}/network/members`} target="_blank" className="flex items-center gap-1 hover:text-[#c9d1d9] transition-colors">
+                <GitFork className="w-4 h-4" />
+                <span>{forkCount}</span>
+              </a>
+            )}
 
-        {/* Action Buttons - Hidden by default, shown on hover */}
-        {links && links.length > 0 && (
-          <div className="overflow-hidden max-h-0 group-hover:max-h-20 transition-all duration-300">
-            <div className="flex gap-2 mt-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-              {links.map((link, idx) => (
-                <Link
-                  href={link.href}
-                  key={idx}
-                  target="_blank"
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/30 bg-white/20 backdrop-blur-md text-white text-xs font-medium hover:bg-white/30 transition-all hover:scale-105"
-                >
-                  <span>{link.icon}</span>
-                  <span>{link.type}</span>
-                </Link>
-              ))}
-            </div>
+            {pushedAt && (
+              <span suppressHydrationWarning>{getRelativeTime(pushedAt)}</span>
+            )}
           </div>
-        )}
+        </div>
+
+        {/* Right Side: Activity Graph */}
+        <div className="hidden sm:block shrink-0 pt-2">
+          <svg width="155" height="30" className="opacity-80">
+            <path
+              d={sparklinePath}
+              fill="none"
+              stroke="#238636"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
       </div>
     </div>
   );
 }
+

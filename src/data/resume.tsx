@@ -1,5 +1,5 @@
 import { Icons } from "@/components/icons";
-import { CodeIcon, HomeIcon, NotebookIcon, FileDownIcon } from "lucide-react";
+import { Code as CodeIcon, Home as HomeIcon, Notebook as NotebookIcon, FileDown as FileDownIcon } from "lucide-react";
 
 export const DATA = {
   name: "Aditya Negandhi",

@@ -1,12 +1,10 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardHeader } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import { ChevronRightIcon } from "lucide-react";
+import { ChevronRight as ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 
 interface ResumeCardProps {
   logoUrl: string;
@@ -18,6 +16,7 @@ interface ResumeCardProps {
   period: string;
   description?: string;
 }
+
 export const ResumeCard = ({
   logoUrl,
   altText,
@@ -29,56 +28,44 @@ export const ResumeCard = ({
   description,
 }: ResumeCardProps) => {
   return (
-    <Link
-      href={href || "#"}
-      className="block cursor-pointer"
-    >
-      <Card className="flex" suppressHydrationWarning>
-        <div className="flex-none w-[100px] flex justify-center" suppressHydrationWarning>
-          <Avatar className="border size-12 m-auto bg-muted-background dark:bg-foreground">
-            <AvatarImage
-              src={logoUrl}
-              alt={altText}
-              className="object-contain"
-            />
-            <AvatarFallback>{altText[0]}</AvatarFallback>
-          </Avatar>
-        </div>
-        <div className="flex-grow ml-4 items-center flex-col group" suppressHydrationWarning>
-          <CardHeader className="pb-2">
-            <div className="flex items-center justify-between gap-x-2 text-base" suppressHydrationWarning>
-              <h3 className="inline-flex items-center justify-center font-semibold leading-none text-xs sm:text-sm">
-                {title}
-                {badges && (
-                  <span className="inline-flex gap-x-1">
-                    {badges.map((badge, index) => (
-                      <Badge
-                        variant="secondary"
-                        className="align-middle text-xs"
-                        key={index}
-                      >
-                        {badge}
-                      </Badge>
-                    ))}
-                  </span>
-                )}
-                <ChevronRightIcon
-                  className="size-4 translate-x-0 transform opacity-0 transition-all duration-300 ease-out group-hover:translate-x-1 group-hover:opacity-100"
-                />
-              </h3>
-              <div className="text-xs sm:text-sm tabular-nums text-muted-foreground text-right" suppressHydrationWarning>
-                {period}
-              </div>
-            </div>
-            {subtitle && <div className="font-sans text-xs" suppressHydrationWarning>{subtitle}</div>}
-            {description && (
-              <div className="mt-2 text-xs sm:text-sm text-muted-foreground" suppressHydrationWarning>
-                {description}
-              </div>
+    <Link href={href || "#"} className="block cursor-pointer group">
+      <div className="flex gap-4 p-4 -mx-4 rounded-xl transition-colors hover:bg-muted/50" suppressHydrationWarning>
+        <div className="flex-none mt-1" suppressHydrationWarning>
+          <div className="size-12 sm:size-14 rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0 relative" suppressHydrationWarning>
+            {logoUrl ? (
+              <Image src={logoUrl} alt={altText} fill className="object-cover" />
+            ) : (
+              <span className="text-xs bg-muted text-muted-foreground font-medium flex h-full w-full items-center justify-center">{altText[0]}</span>
             )}
-          </CardHeader>
+          </div>
         </div>
-      </Card>
+        <div className="flex-grow flex flex-col" suppressHydrationWarning>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-y-1 mb-1 text-sm sm:text-base" suppressHydrationWarning>
+            <h3 className="inline-flex items-center gap-2 font-semibold leading-none text-foreground">
+              {title}
+              {badges && (
+                <span className="inline-flex gap-x-1">
+                  {badges.map((badge, index) => (
+                    <Badge variant="secondary" className="text-[10px] rounded-md px-1.5 py-0.5" key={index}>
+                      {badge}
+                    </Badge>
+                  ))}
+                </span>
+              )}
+              <ChevronRightIcon className="size-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-muted-foreground" />
+            </h3>
+            <div className="text-xs sm:text-sm tabular-nums text-muted-foreground sm:text-right" suppressHydrationWarning>
+              {period}
+            </div>
+          </div>
+          {subtitle && <div className="text-sm font-medium text-muted-foreground" suppressHydrationWarning>{subtitle}</div>}
+          {description && (
+            <div className="mt-2 text-sm text-foreground/80 leading-relaxed" suppressHydrationWarning>
+              {description}
+            </div>
+          )}
+        </div>
+      </div>
     </Link>
   );
 };
