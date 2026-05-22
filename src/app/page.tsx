@@ -204,6 +204,7 @@ export default async function Page() {
                         alt={skill}
                         width={16}
                         height={16}
+                        unoptimized
                       />
                     ) : null}
                     <span>{skill}</span>
@@ -223,6 +224,7 @@ export default async function Page() {
                         alt={skill}
                         width={16}
                         height={16}
+                        unoptimized
                       />
                     ) : null}
                     <span>{skill}</span>
