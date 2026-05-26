@@ -1,6 +1,11 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { Queue } from "./queue/Queue.mjs";
+import { handleBlogPublish } from "./queue/handlers/blogPublish.mjs";
+
+const queue = new Queue();
+queue.registerHandler("blogPublish", handleBlogPublish);
 
 const OBSIDIAN_DIR = path.join(process.cwd(), "obsidian");
 const CONTENT_DIR = path.join(process.cwd(), "content");
@@ -114,7 +119,7 @@ function parseCallouts(content) {
 }
 
 // Main sync function
-function syncObsidianVault() {
+async function syncObsidianVault() {
   console.log("🔄 Starting Obsidian Vault Synchronization...");
   
   // 1. Clear previous notes to ensure no orphan/deleted notes remain
@@ -210,6 +215,15 @@ function syncObsidianVault() {
         fs.writeFileSync(outFilePath, finalFileContent, "utf-8");
         processedCount++;
         console.log(`   ✅ Wrote published note to: content/${slug}.mdx`);
+
+        // Queue publishing to Dev.to and Medium if not already done
+        if (!data.devto_url || !data.medium_url) {
+          queue.addJob("blogPublish", {
+            filePath,
+            title: newMetadata.title,
+            tags: newMetadata.tags || [],
+          });
+        }
       }
     } catch (err) {
       console.error(`🔴 Error processing note "${filePath}":`, err);
@@ -217,6 +231,13 @@ function syncObsidianVault() {
   }
 
   console.log(`✨ Obsidian Synchronization complete. ${processedCount} published note(s) processed.`);
+
+  // Run the queue worker to process any newly added or pending jobs
+  try {
+    await queue.runWorker();
+  } catch (queueErr) {
+    console.error("🔴 Error running queue worker:", queueErr);
+  }
 }
 
 // Check for --watch flag
@@ -225,7 +246,7 @@ const isWatchMode = args.includes("--watch");
 
 if (isWatchMode) {
   console.log(`👀 Watching /obsidian for changes...`);
-  syncObsidianVault();
+  await syncObsidianVault();
 
   // Watch recursively
   let timeoutId = null;
@@ -233,12 +254,12 @@ if (isWatchMode) {
     if (filename) {
       // Debounce to avoid double-runs on multiple rapid file modifications
       clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
+      timeoutId = setTimeout(async () => {
         console.log(`📝 Change detected in ${filename}. Re-syncing...`);
-        syncObsidianVault();
+        await syncObsidianVault();
       }, 300);
     }
   });
 } else {
-  syncObsidianVault();
+  await syncObsidianVault();
 }
