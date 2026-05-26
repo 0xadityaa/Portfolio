@@ -216,8 +216,8 @@ async function syncObsidianVault() {
         processedCount++;
         console.log(`   ✅ Wrote published note to: content/${slug}.mdx`);
 
-        // Queue publishing to Dev.to and Medium if not already done
-        if (!data.devto_url || !data.medium_url) {
+        // Queue publishing to Dev.to and Medium if not already done (only in local environments)
+        if (process.env.VERCEL !== "1" && (!data.devto_url || !data.medium_url)) {
           queue.addJob("blogPublish", {
             filePath,
             title: newMetadata.title,
@@ -232,11 +232,15 @@ async function syncObsidianVault() {
 
   console.log(`✨ Obsidian Synchronization complete. ${processedCount} published note(s) processed.`);
 
-  // Run the queue worker to process any newly added or pending jobs
-  try {
-    await queue.runWorker();
-  } catch (queueErr) {
-    console.error("🔴 Error running queue worker:", queueErr);
+  // Run the queue worker to process any newly added or pending jobs (only in local environments)
+  if (process.env.VERCEL !== "1") {
+    try {
+      await queue.runWorker();
+    } catch (queueErr) {
+      console.error("🔴 Error running queue worker:", queueErr);
+    }
+  } else {
+    console.log("⏭️ Vercel build environment detected. Skipping event queue worker execution.");
   }
 }
 
