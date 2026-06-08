@@ -153,8 +153,8 @@ export function ProjectCard({
         </div>
 
         {/* Right Side: Activity Graph */}
-        <div className="hidden sm:block shrink-0 pt-2">
-          <svg width="155" height="30" className="opacity-60 text-muted-foreground">
+        <div className="hidden sm:flex shrink-0 items-center justify-center bg-muted/30 border border-border/50 rounded-md p-2 mt-1 h-fit">
+          <svg width="155" height="30" className="opacity-80 text-muted-foreground">
             <path
               d={sparklinePath}
               fill="none"
