@@ -123,7 +123,7 @@ export default async function Page() {
                 delay={BLUR_FADE_DELAY}
                 className="text-4xl font-bold tracking-tight sm:text-5xl xl:text-6xl/none"
                 yOffset={8}
-                text="hi, i am aditya 👋"
+                text="Hi, I am Aditya 👋"
               />
               <BlurFadeText
                 className="max-w-[600px] text-lg sm:text-xl text-muted-foreground leading-relaxed"
