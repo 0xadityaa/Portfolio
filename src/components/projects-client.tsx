@@ -216,7 +216,7 @@ export function ProjectsClient({ projects, githubRepos }: ProjectsClientProps) {
       <BlurFade delay={BLUR_FADE_DELAY}>
         <div className="flex flex-col gap-2 mb-6">
           <h1 className="text-3xl font-bold tracking-tight sm:text-5xl text-foreground">
-            my opensource work
+            My Opensource Work
           </h1>
           <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
             From random experiments to full-blown web apps, here&apos;s a collection of things I&apos;ve built with code and caffeine.
