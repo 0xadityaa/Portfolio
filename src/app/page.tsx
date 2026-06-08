@@ -151,7 +151,7 @@ export default async function Page() {
             </div>
             <BlurFade delay={BLUR_FADE_DELAY}>
               <Avatar className="size-24 sm:size-32 rounded-full border border-border">
-                <AvatarImage alt={DATA.name} src={DATA.avatarUrl} className="object-cover origin-top scale-[1.05]" />
+                <AvatarImage alt={DATA.name} src={DATA.avatarUrl} className="object-cover scale-[1.06]" />
                 <AvatarFallback className="rounded-full font-medium text-xl bg-muted text-muted-foreground">{DATA.initials}</AvatarFallback>
               </Avatar>
             </BlurFade>
