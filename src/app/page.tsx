@@ -150,9 +150,9 @@ export default async function Page() {
               </BlurFade>
             </div>
             <BlurFade delay={BLUR_FADE_DELAY}>
-              <Avatar className="size-24 sm:size-32 rounded-2xl border border-border">
-                <AvatarImage alt={DATA.name} src={DATA.avatarUrl} className="object-cover" />
-                <AvatarFallback className="rounded-2xl font-medium text-xl bg-muted text-muted-foreground">{DATA.initials}</AvatarFallback>
+              <Avatar className="size-24 sm:size-32 rounded-full border border-border">
+                <AvatarImage alt={DATA.name} src={DATA.avatarUrl} className="object-cover scale-[1.06]" />
+                <AvatarFallback className="rounded-full font-medium text-xl bg-muted text-muted-foreground">{DATA.initials}</AvatarFallback>
               </Avatar>
             </BlurFade>
           </div>

@@ -11,7 +11,7 @@ export const DATA = {
     "full stack engineer and aspiring solutions architect, building stuff with 🧠 & ❤️",
   summary:
     "I have always been driven by a need to understand how things are built from the ground up. I view engineering as a form of digital architecture. That curiosity doesn't stop at the keyboard. Whether I am figuring out a new progression while making music, exploring outdoors, or deconstructing a new idea, I just genuinely enjoy the process of figuring out how pieces fit together.",
-  avatarUrl: "/images/profile/Me.jpeg",
+  avatarUrl: "/images/profile/PixelArt.png",
   skills: [
     "React",
     "Nest.js",
