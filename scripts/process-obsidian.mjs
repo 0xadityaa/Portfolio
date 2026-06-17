@@ -256,6 +256,9 @@ if (isWatchMode) {
   let timeoutId = null;
   fs.watch(OBSIDIAN_DIR, { recursive: true }, (eventType, filename) => {
     if (filename) {
+      // Ignore queue file to prevent infinite loops
+      if (filename.endsWith('.queue.json')) return;
+
       // Debounce to avoid double-runs on multiple rapid file modifications
       clearTimeout(timeoutId);
       timeoutId = setTimeout(async () => {
