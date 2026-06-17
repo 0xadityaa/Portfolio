@@ -1,0 +1,100 @@
+---
+title: Microservices? Do You Really Need Them?
+publishedAt: '2026-06-17'
+summary: >-
+  A real-world take on microservices and why the orchestrator-based SAGA pattern
+  might be the most important architectural decision you will make when scaling
+  them.
+tags:
+  - microservices
+  - architecture
+  - saga
+  - distributed-systems
+publish: true
+devto_url: 'https://dev.to/mock_user/microservices-do-you-really-need-them_623'
+medium_url: 'https://medium.com/@mock_user/microservices-do-you-really-need-them_229'
+isObsidian: true
+---
+<!-- GENERATED FROM OBSIDIAN VAULT. DO NOT EDIT DIRECTLY. -->
+
+<Image
+  src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOTg3cXJieTRzeWh1enVvNndqbndwc25zdThoM2ZsMXZ3cmxpOTh6ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/PPvY7HQkmuyGfgmFUa/giphy.gif"
+  alt="GIF of a chaotic network of connected nodes"
+  style="border-radius: 10px; width: 100%; max-height: 400px; object-fit: cover;"
+/>
+
+Everyone and their dog is running microservices these days. Split the monolith, they said. It will scale better, they said. And look, they are not wrong. But here is what nobody tells you upfront: breaking your app into a bunch of independent services is the easy part. Keeping them in sync when something goes wrong? That is where things get spicy.
+
+I have spent the past year as an associate engineer shipping and scaling production microservices, working closely with solution architects and principal engineers. Somewhere along the way, I noticed something that genuinely confused me. Our UI was calling an orchestrator, which then called the actual service. And I thought, wait. Why are we adding an extra hop here? Why not just call the service directly? That would save a network call, cut latency, and simplify the whole thing... right?
+
+Boy, was I wrong.
+
+## TL;DR
+
+When your data is spread across multiple independent services, a simple multi-step operation (like placing an order) becomes a distributed transaction. If one step fails halfway through, you need a way to cleanly undo everything that came before it. That is what the [SAGA pattern](https://microservices.io/patterns/data/saga.html) solves. There are two ways to implement it: Choreography (decentralized, event-driven) and Orchestration (centralized, command-driven). Orchestration is harder to set up initially but it is almost always the right call as you scale. Here is why.
+
+## So what even is a distributed transaction?
+
+In a monolith, if something breaks mid-operation, your database rolls everything back automatically. ACID properties handle it for you and life is good.
+
+In a microservices world, that safety net is gone. Your `Order Service`, `Payment Service`, and `Inventory Service` each own their own database. There is no single transaction that spans all three of them. So if your payment goes through but inventory reservation fails, you now have a partially completed order sitting in production with real money on the line.
+
+This is the distributed transaction problem, and it is the first wall every team hits when they go all-in on microservices.
+
+## Enter the SAGA Pattern
+
+A Saga is a sequence of local transactions chained together. Each service does its own thing, and if a step fails, you run **compensating transactions** to undo the steps that already succeeded. Think of it as a structured "undo" plan baked directly into your architecture.
+
+There are two ways to wire this up.
+
+## Choreography vs Orchestration what is the difference?
+
+Think of a restaurant kitchen.
+
+**Choreography** is a kitchen with no head chef. Every station just listens for the previous one to yell out that their job is done, then reacts accordingly. The grill chef hears "prep done!" and fires the steak. The fry station hears "steak done!" and drops the fries. It works. Until someone misses a shout, or two stations react to the same event at the same time, and now nobody knows what state the order is actually in.
+
+**Orchestration** is a kitchen with a head chef holding the ticket. They tell grill to fire, wait for confirmation, then tell fry to drop. If anything fails, they know exactly what happened and who needs to roll back what.
+
+### Choreography
+
+Services publish events. Other services listen and react. No central controller, fully decoupled.
+
+**The good part:** Services genuinely do not know about each other. Feels very clean and "pure microservices" on paper.
+
+**The bad part:** The moment your workflow grows past 3 or 4 services, debugging becomes a murder mystery. You have no single place to check the state of a transaction. You are piecing together logs from 6 different services hoping the timestamps line up. And cyclic dependencies start appearing because services end up listening to each other's failure events just to compensate for them.
+
+### Orchestration
+
+One central **Orchestrator** manages the whole workflow. It sends explicit commands to each service, waits for a reply (success or failure), and decides what happens next.
+
+- **Command-driven:** Orchestrator tells `Payment Service` to charge. Gets back "success". Tells `Inventory Service` to reserve. Gets back "failed". Issues a refund command back to `Payment Service`. Done.
+- **Full state visibility:** At any point you can query the orchestrator and know exactly what step the transaction is on and why it stopped.
+- **Compensation is centralized:** When something fails, the orchestrator knows exactly what already succeeded and fires rollback commands in order. No guessing.
+
+## Back to my "why the extra hop" question
+
+So here is why I was wrong to think calling the service directly would be better.
+
+When our UI calls the orchestrator, the orchestrator is not just a middleman passing traffic. It is managing a multi-step transaction that might touch 3 or 4 services behind the scenes. If the UI called each service directly, it would have to manage the SAGA logic itself: deciding what to call next, handling partial failures, issuing compensation calls. You would essentially be building an orchestrator in your frontend. Which is a terrible idea.
+
+By routing through the orchestrator, the UI stays dumb and focused. The orchestrator stays smart and focused. Each service stays dumb and focused. Everyone has one job and does it well. The "extra network call" is not overhead, it is the architecture doing its job.
+
+## Why Orchestration wins at scale
+
+**Visibility:** One place to check the state of any business transaction. Priceless when you are on-call at 2am.
+
+**Simpler services:** Individual microservices just execute commands and report back. They do not need to know about the broader business flow. That is the orchestrator's job.
+
+**No cyclic dependencies:** Choreography breeds coupling in disguise because services end up reacting to each other's events to handle failures. Orchestration keeps the dependency graph strictly one-directional.
+
+**Easier testing:** You can test the orchestration workflow by mocking the service replies. No need to spin up the entire event mesh.
+
+## Final Thoughts
+
+My hot take? Choreography is a great starting point, but Orchestration is the endgame for any microservices architecture that actually ships and scales.
+
+A lot of teams start with choreography because it feels elegant and decoupled. And it is, for simple things. But the moment complexity creeps in (and it always does), you will spend more time debugging event flows than building features. The orchestrator pattern forces you to make your business logic explicit, visible, and testable. That is not overhead. That is engineering discipline.
+
+Start simple. But when your workflow spans more than 3 services, do yourself a favor and reach for an orchestrator-based SAGA. Your future self, and your on-call rotation, will thank you.
+
+✌️ Stay curious, Keep coding, Peace nerds!

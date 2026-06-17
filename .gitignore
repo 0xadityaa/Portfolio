@@ -37,3 +37,4 @@ next-env.d.ts
 
 # generated obsidian assets
 /public/obsidian/
+/obsidian/.queue.json
