@@ -41,6 +41,14 @@ function getFilesRecursively(dir, filterFn) {
 
 // Clean up previously generated Obsidian files in content directory
 function cleanupGeneratedNotes() {
+  // On Vercel, the Obsidian vault is not present in the repo.
+  // Skipping cleanup prevents deleting committed content files that have no
+  // vault source to be regenerated from, which would wipe all blogs in production.
+  if (process.env.VERCEL === "1") {
+    console.log("⏭️ Vercel build detected. Skipping content cleanup to preserve committed blog files.");
+    return;
+  }
+
   console.log("🧼 Cleaning up old generated Obsidian notes from /content...");
   const files = fs.readdirSync(CONTENT_DIR);
   for (const file of files) {
