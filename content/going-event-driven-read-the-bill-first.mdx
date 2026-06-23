@@ -1,0 +1,67 @@
+---
+title: Going Event-Driven? Read the Bill First.
+publishedAt: '2026-06-19'
+summary: >-
+  Event-driven architecture is powerful, but if you design it blindly your cloud
+  bill will have a lot to say. Here is what I learned the hard way.
+tags:
+  - microservices
+  - architecture
+  - event-driven
+  - finops
+publish: true
+devto_url: 'https://dev.to/mock_user/going-event-driven-read-the-bill-first_711'
+medium_url: 'https://medium.com/@mock_user/going-event-driven-read-the-bill-first_705'
+isObsidian: true
+---
+<!-- GENERATED FROM OBSIDIAN VAULT. DO NOT EDIT DIRECTLY. -->
+
+<Image
+  src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzVnZzdwNjk4ZDhwcjl4dHB6Y2dyeHNra2w2eDYyaXE2bHJwaWdseSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TdwziQPhbNAzK/giphy.gif"
+  alt="GIF of dominoes falling in perfect, complex harmony"
+  style="border-radius: 10px; width: 100%; max-height: 400px; object-fit: cover;"
+/>
+
+Picture this. You ship a beautiful event-driven architecture. Everything is async, decoupled, and properly cloud-native. You are genuinely proud of it. Three weeks later, someone sends a Slack message with a screenshot of the AWS bill. That is how I learned that elegant architecture and cheap architecture are not always the same thing.
+
+Working closely with solution architects this past year, I saw teams jump into event-driven systems for all the right reasons and quietly get wrecked by costs they never saw coming. So let's talk about when EDA actually makes sense, and how to not let it drain your infrastructure budget while you are busy admiring how decoupled everything looks.
+
+## TL;DR
+
+Event-driven systems shine when your services genuinely do not need to wait on each other. Instead of Service A blocking on a response from Service B, it fires an event and moves on. The tradeoff? If you are not careful with fan-out, payload sizes, and infinite loops, the cloud costs will creep up fast and quietly. Build it when you need it, but build it with a cost mindset baked in from day one.
+
+## So what is actually broken with plain HTTP calls?
+
+When services call each other over REST, the whole chain is only as fast as the slowest link. Your `Checkout Service` calls `Payment Service`, which calls `Fraud Service`, which calls `Analytics Service`. If any one of those hangs, the entire user request hangs with it. One flaky downstream service and your p99 latency goes through the roof.
+
+This is the **distributed monolith** problem. Microservices in shape, monolith in behavior. You split the code but kept all the coupling.
+
+Event-Driven Architecture fixes this by removing the waiting. Service A publishes an event (say, "Order Placed") to a broker like Kafka or AWS EventBridge. Every other service that cares about that event listens and reacts on its own time. Service A is already done and responding to the next request. Nobody is waiting on anybody.
+
+## When does it actually make sense to go event-driven?
+
+Not every inter-service call deserves to be an event. Here is a practical rule I use.
+
+**If Service A can finish its job without knowing what Service B did with the information, make it an event.** When a user completes a purchase, writing the order to the database is synchronous (you need that to succeed right now). Sending a confirmation email, updating the analytics dashboard, or triggering a loyalty points calculation? All of those can happen asynchronously in the background. Turn them into event consumers and your checkout response time drops immediately.
+
+**If your traffic is unpredictable and spiky, events are your shock absorber.** Synchronous APIs under sudden load are fragile. An event broker lets your ingestion layer absorb the spike and lets your downstream workers process at a steady, sustainable pace without anything falling over.
+
+## The part nobody blogs about: the cost traps
+
+This is the section I wish someone had sent me before we shipped.
+
+**Fan-out gets expensive fast.** Cloud providers charge per event operation. If you publish one event to a topic that triggers 12 Lambda functions or downstream consumers, you just paid for 12 operations. Multiply that by millions of events per day and the math stops being fun. Be deliberate about who is listening to what.
+
+**Keep events skinny.** Pushing full JSON payloads with nested objects through a broker is a silent budget killer. Data transfer costs add up. Keep events minimal: just an ID and the state change that happened, like `{"order_id": "abc123", "status": "placed"}`. If a consumer needs the full entity, let it fetch from the database or a cache. This is called the Claim-Check pattern and it will save you real money.
+
+**Infinite loops will ruin your day.** A service that listens to an event, processes it, and accidentally emits the same event again will loop forever. Millions of serverless invocations in minutes. Set up Dead Letter Queues, max retry limits, and loop detection before you ship. Not after.
+
+## Final Thoughts
+
+My hot take? Most teams go event-driven too early and for the wrong reasons.
+
+Events are not a default communication pattern. They are a deliberate choice you make when your system genuinely needs async elasticity. If your services need each other's responses to finish their own jobs, a REST call is still the right tool and there is nothing wrong with that.
+
+But when you do make the jump, bring your FinOps mindset with you. The architecture decisions that look clean on a whiteboard are the same ones that show up on your cloud bill at the end of the month.
+
+✌️ Stay curious, Keep coding, Peace nerds!
