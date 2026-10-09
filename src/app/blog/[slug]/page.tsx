@@ -1,12 +1,11 @@
-import { getPost } from "@/data/blog";
+import { CopyCodeHandler } from "@/components/copy-code-handler";
+import { getAllBlogPosts, getPost } from "@/data/blog";
 import { DATA } from "@/data/resume";
 import { formatDate } from "@/lib/utils";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { Suspense } from "react";
-import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { ChevronLeft as ChevronLeftIcon } from "lucide-react";
+import { notFound } from "next/navigation";
 
 interface BlogParams {
   params: Promise<{
@@ -14,54 +13,58 @@ interface BlogParams {
   }>;
 }
 
+export async function generateStaticParams() {
+  const posts = await getAllBlogPosts();
+  return posts.map((post) => ({ slug: post.slug }));
+}
+
 export async function generateMetadata(props: BlogParams): Promise<Metadata | undefined> {
   const params = await props.params;
-  let post = await getPost(params.slug);
+  const post = await getPost(params.slug);
 
   if (!post) return undefined;
 
-  let {
-    title,
-    publishedAt: publishedTime,
-    summary: description,
-    image,
-  } = post.metadata;
-  let ogImage = image ? `${DATA.url}${image}` : `${DATA.url}/og?title=${title}`;
+  const { title, publishedAt: publishedTime, summary: description, image, tags } = post.metadata;
 
   return {
     title,
     description,
+    keywords: tags,
+    alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {
       title,
       description,
       type: "article",
       publishedTime,
-      url: `${DATA.url}/blog/${post.slug}`,
-      images: [
-        {
-          url: ogImage,
-        },
-      ],
+      authors: [DATA.name],
+      url: `/blog/${post.slug}`,
+      // Falls back to the generated opengraph-image for this route.
+      ...(image ? { images: [{ url: image }] } : {}),
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [ogImage],
     },
   };
 }
 
 export default async function BlogPost(props: BlogParams) {
   const params = await props.params;
-  let post = await getPost(params.slug);
+  const post = await getPost(params.slug);
 
   if (!post) {
     notFound();
   }
 
+  // Posts are sorted newest first, so "next" is the more recent one.
+  const posts = await getAllBlogPosts();
+  const index = posts.findIndex((p) => p.slug === post.slug);
+  const newer = index > 0 ? posts[index - 1] : null;
+  const older = index >= 0 && index < posts.length - 1 ? posts[index + 1] : null;
+
   return (
-    <section id="blog" className="mb-24 space-y-8">
+    <main>
       <script
         type="application/ld+json"
         suppressHydrationWarning
@@ -75,73 +78,75 @@ export default async function BlogPost(props: BlogParams) {
             description: post.metadata.summary,
             image: post.metadata.image
               ? `${DATA.url}${post.metadata.image}`
-              : `${DATA.url}/og?title=${post.metadata.title}`,
+              : `${DATA.url}/blog/${post.slug}/opengraph-image`,
             url: `${DATA.url}/blog/${post.slug}`,
             author: {
               "@type": "Person",
               name: DATA.name,
+              url: DATA.url,
             },
           }),
         }}
       />
 
-      {/* Navigation and Back button */}
-      <div>
-        <Link
-          href="/blog"
-          className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
-        >
-          <ChevronLeftIcon className="size-4 mr-1 group-hover:-translate-x-1 transition-transform" />
-          <span>Back to Blog</span>
-        </Link>
-      </div>
+      <Link
+        href="/blog"
+        className="group inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+      >
+        <ArrowLeft className="size-3.5 transition-transform group-hover:-translate-x-0.5" aria-hidden />
+        Blog
+      </Link>
 
-      {/* Article Specification Box */}
-      <div className="p-6 bg-muted/30 rounded-xl border border-border">
-        <div className="flex flex-col gap-3 text-sm">
-          <div>
-            <span className="text-muted-foreground font-medium mr-2">Title:</span>
-            <span className="font-semibold text-foreground">{post.metadata.title}</span>
-          </div>
-          {post.metadata.tags && post.metadata.tags.length > 0 && (
-            <div className="flex items-center flex-wrap gap-1.5">
-              <span className="text-muted-foreground font-medium mr-1">Categories:</span>
-              {post.metadata.tags.map((tag: string) => (
-                <Badge
-                  key={tag}
-                  className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-muted text-muted-foreground hover:bg-muted"
-                  variant="secondary"
-                >
-                  #{tag}
-                </Badge>
-              ))}
-            </div>
-          )}
-          <div>
-            <span className="text-muted-foreground font-medium mr-2">Published:</span>
-            <span className="font-semibold text-foreground">
-              <Suspense fallback={<span className="opacity-50">...</span>}>
-                {formatDate(post.metadata.publishedAt)}
-              </Suspense>
-            </span>
-          </div>
+      <header className="mt-8 space-y-4 border-b border-border pb-8">
+        <h1 className="text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl">
+          {post.metadata.title}
+        </h1>
+        <div className="meta flex flex-wrap items-center gap-x-4 gap-y-1">
+          <time dateTime={post.metadata.publishedAt}>
+            {formatDate(post.metadata.publishedAt)}
+          </time>
+          {post.metadata.readingTime && <span>{post.metadata.readingTime} min read</span>}
+          {post.metadata.tags?.map((tag: string) => <span key={tag}>#{tag}</span>)}
         </div>
-      </div>
+      </header>
 
-      {/* Article Title Header */}
-      <h1 className="font-bold text-3xl sm:text-5xl tracking-tight leading-tight text-foreground">
-        {post.metadata.title}
-      </h1>
-
-      {/* Article Body Content */}
       <article
-        className="prose prose-neutral dark:prose-invert text-base leading-relaxed max-w-none pt-6 pb-2
-                   prose-headings:font-semibold prose-headings:tracking-tight
-                   prose-h2:text-2xl prose-h3:text-xl
-                   prose-a:minimal-link prose-a:font-medium prose-a:no-underline
-                   prose-pre:border prose-pre:border-border"
+        className="prose prose-invert max-w-none pt-8 leading-relaxed prose-h2:text-2xl prose-h3:text-xl"
         dangerouslySetInnerHTML={{ __html: post.source }}
       />
-    </section>
+      <CopyCodeHandler />
+
+      {(newer || older) && (
+        <nav
+          aria-label="More posts"
+          className="mt-16 grid grid-cols-1 gap-4 border-t border-border pt-8 sm:grid-cols-2"
+        >
+          {older ? (
+            <Link href={`/blog/${older.slug}`} className="group rounded-lg">
+              <span className="meta flex items-center gap-1.5">
+                <ArrowLeft className="size-3" aria-hidden />
+                Older
+              </span>
+              <span className="mt-1 block font-medium text-foreground underline decoration-transparent decoration-1 underline-offset-4 transition-colors group-hover:decoration-foreground/60">
+                {older.metadata.title}
+              </span>
+            </Link>
+          ) : (
+            <span className="hidden sm:block" />
+          )}
+          {newer && (
+            <Link href={`/blog/${newer.slug}`} className="group rounded-lg sm:text-right">
+              <span className="meta flex items-center gap-1.5 sm:justify-end">
+                Newer
+                <ArrowRight className="size-3" aria-hidden />
+              </span>
+              <span className="mt-1 block font-medium text-foreground underline decoration-transparent decoration-1 underline-offset-4 transition-colors group-hover:decoration-foreground/60">
+                {newer.metadata.title}
+              </span>
+            </Link>
+          )}
+        </nav>
+      )}
+    </main>
   );
 }

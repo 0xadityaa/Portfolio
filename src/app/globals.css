@@ -2,67 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+  Dark only. Radius rule: surfaces and media 8px (rounded-lg), chips and
+  inputs 6px (rounded-md), the dock and avatar are full pills.
+*/
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
-
-    --primary: 0 0% 0%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 0%;
-
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
-
-    --accent: 0 0% 96%;
-    --accent-foreground: 0 0% 0%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 0 0% 0%;
-
-    --radius: 0.5rem;
-  }
-
-  .dark {
     --background: 0 0% 4%;
-    --foreground: 0 0% 98%;
+    --foreground: 0 0% 93%;
 
-    --card: 0 0% 4%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 93%;
 
-    --popover: 0 0% 4%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 93%;
 
-    --primary: 0 0% 98%;
+    --primary: 0 0% 93%;
     --primary-foreground: 0 0% 4%;
 
     --secondary: 0 0% 10%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary-foreground: 0 0% 93%;
 
     --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 65%;
+    --muted-foreground: 0 0% 63%;
 
     --accent: 0 0% 10%;
-    --accent-foreground: 0 0% 98%;
+    --accent-foreground: 0 0% 93%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
     --ring: 0 0% 83.1%;
+
+    --radius: 0.5rem;
   }
 }
 
@@ -70,72 +44,132 @@
   * {
     @apply border-border;
   }
+  html {
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
   body {
-    @apply bg-background text-foreground transition-colors duration-300;
+    @apply bg-background text-foreground;
+    font-feature-settings: "ss01", "cv11";
+    text-rendering: optimizeLegibility;
   }
   ::selection {
     @apply bg-primary text-primary-foreground;
   }
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background rounded-sm;
+  }
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
 }
 
+@layer components {
+  /* Inline text link: quiet underline that firms up on hover. */
+  .link {
+    @apply text-foreground underline decoration-foreground/25 decoration-1 underline-offset-4 transition-colors hover:decoration-foreground/80;
+  }
+  .section-title {
+    @apply text-sm font-medium text-muted-foreground;
+  }
+  .meta {
+    @apply font-mono text-xs tabular-nums text-muted-foreground;
+  }
+}
 
-/* Callouts - Minimal Style */
+/* Long-form content (blog posts, project READMEs) */
+.prose {
+  --tw-prose-body: hsl(0 0% 80%);
+  --tw-prose-invert-body: hsl(0 0% 80%);
+  --tw-prose-invert-headings: hsl(var(--foreground));
+  --tw-prose-invert-bold: hsl(var(--foreground));
+  --tw-prose-invert-links: hsl(var(--foreground));
+  --tw-prose-invert-quotes: hsl(0 0% 80%);
+  --tw-prose-invert-quote-borders: hsl(var(--border));
+  --tw-prose-invert-hr: hsl(var(--border));
+  --tw-prose-invert-bullets: hsl(0 0% 40%);
+  --tw-prose-invert-counters: hsl(var(--muted-foreground));
+  --tw-prose-invert-th-borders: hsl(var(--border));
+  --tw-prose-invert-td-borders: hsl(var(--border));
+  --tw-prose-invert-captions: hsl(var(--muted-foreground));
+}
+.prose :where(h2, h3, h4) {
+  @apply font-semibold tracking-tight scroll-mt-8;
+}
+.prose :where(a) {
+  @apply font-normal underline decoration-foreground/25 decoration-1 underline-offset-4 transition-colors hover:decoration-foreground/80;
+}
+.prose :where(img, video) {
+  @apply rounded-lg border border-border;
+}
+.prose :where(blockquote) {
+  @apply font-normal not-italic;
+}
+.prose :where(blockquote p)::before,
+.prose :where(blockquote p)::after {
+  content: none;
+}
+.prose :where(table) {
+  @apply block overflow-x-auto;
+}
+
+/* Callouts */
 blockquote[data-callout] {
-  @apply border-l-2 border-primary/20 bg-muted/50 p-4 my-6 text-sm leading-relaxed rounded-r-md;
+  @apply border-l-2 border-foreground/20 bg-card p-4 my-6 text-sm leading-relaxed rounded-r-lg;
 }
 blockquote[data-callout]::before {
   content: attr(data-callout-type);
-  @apply block font-medium uppercase tracking-wider text-xs mb-1 text-muted-foreground;
+  @apply block font-mono text-xs mb-1 text-muted-foreground;
 }
 
-/* Code highlights */
+/* Code */
+.prose pre,
 pre {
-  @apply bg-muted p-4 my-6 overflow-x-auto rounded-lg border border-border;
+  @apply p-4 my-6 overflow-x-auto rounded-lg border border-border;
+  background: hsl(var(--card)) !important;
 }
-
 pre code {
-  @apply font-mono text-sm leading-relaxed p-0 bg-transparent text-foreground;
+  @apply font-mono text-[13px] leading-relaxed p-0 bg-transparent;
 }
-
 pre [data-line] {
   @apply px-0;
 }
-
-code {
-  @apply font-mono text-sm bg-muted px-1.5 py-0.5 rounded-md text-foreground;
+:not(pre) > code {
+  @apply font-mono text-[0.875em] bg-muted px-1.5 py-0.5 rounded-md text-foreground font-normal;
 }
-
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after {
+  content: none;
+}
 pre > code {
   counter-reset: line;
-  @apply bg-transparent p-0;
 }
-
 code[data-line-numbers] > [data-line]::before {
   counter-increment: line;
   content: counter(line);
   @apply inline-block w-4 mr-4 text-right text-muted-foreground font-mono;
 }
-
 [data-rehype-pretty-code-title] {
-  @apply px-4 py-2 text-xs font-mono border border-b-0 border-border rounded-t-lg text-foreground bg-muted font-medium tracking-wide;
+  @apply px-4 py-2 text-xs font-mono border border-b-0 border-border rounded-t-lg text-muted-foreground bg-card;
 }
-
 [data-rehype-pretty-code-fragment] {
   @apply mb-6;
 }
-
 .highlighted {
   @apply bg-foreground/5 border-l-2 border-foreground pl-3;
 }
 
-/* Hover links */
-.minimal-link {
-  @apply relative inline-block transition-colors hover:text-primary/80 font-medium;
-}
-.minimal-link::after {
-  content: '';
-  @apply absolute w-full h-[1.5px] bg-primary/30 bottom-0 left-0 transition-all duration-300 origin-bottom-right scale-x-0;
-}
-.minimal-link:hover::after {
-  @apply scale-x-100 origin-bottom-left bg-primary/80;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

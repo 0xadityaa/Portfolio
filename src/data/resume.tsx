@@ -1,66 +1,46 @@
 import { Icons } from "@/components/icons";
-import { Code as CodeIcon, Home as HomeIcon, Notebook as NotebookIcon, FileDown as FileDownIcon } from "lucide-react";
+import { Code as CodeIcon, Home as HomeIcon, Notebook as NotebookIcon, Rss as RssIcon } from "lucide-react";
 
 export const DATA = {
   name: "Aditya Negandhi",
   initials: "AN",
-  url: "https://0xadityaa.xyz",
+  url: "https://www.0xadityaa.dev",
+  role: "Full stack engineer",
   location: "Toronto, ON",
   locationLink: "https://www.google.com/maps/place/toronto",
   description:
-    "full stack engineer and aspiring solutions architect, building stuff with 🧠 & ❤️",
-  summary:
-    "I have always been driven by a need to understand how things are built from the ground up. I view engineering as a form of digital architecture. That curiosity doesn't stop at the keyboard. Whether I am figuring out a new progression while making music, exploring outdoors, or deconstructing a new idea, I just genuinely enjoy the process of figuring out how pieces fit together.",
+    "Full stack engineer in Toronto, working toward solutions architecture. I build event-driven systems and write about what I learn.",
+  about: [
+    "I have always been driven by a need to understand how things are built from the ground up. I view engineering as a form of digital architecture: understanding the problem at hand, and seeing how it shapes the system around it.",
+    "I'm curious how people interact with everyday apps, what makes them stick, and how a codebase evolves as it scales. That curiosity drives me to look under the hood of everything I touch, from modern frontiers to the legacy systems built on decades of industry groundwork.",
+    "It doesn't stop at the keyboard. Whether I am figuring out a new progression while making music or exploring outdoors, I just enjoy working out how pieces fit together.",
+  ],
   avatarUrl: "/images/profile/PixelArt.png",
-  skills: [
-    "React",
-    "Nest.js",
-    "Tanstack",
-    "Next.js",
-    "React Native",
-    "Node",
-    "Bun",
-    "Deno",
-    "Javascript",
-    "Typescript",
-    "React Query",
-    "Redux",
-    "Tailwind",
-    "Jest",
-    "Playwright",
-    "Sentry",
-    "Storybook",
-    "Spring Boot",
-    "Docker",
-    "MS SQL",
-    "MySQL",
-    "PostgreSQL",
-    "MongoDB",
-    "Firebase",
-    "FastAPI",
-    "Supabase",
-    "Convex",
-    "Redis",
-    "Kafka",
-    "WebSockets",
-    "Prisma",
-    "TypeORM",
-    "Git",
-    "GitHub Actions",
-    "Bash",
-    "Azure",
-    "Azure DevOps",
-    "GCP",
-    "Dapr",
-    "Vercel",
-    "TensorFlow",
-    "Vercel AI SDK",
-    "Claude",
-    "LangChain",
-    "Vertex AI",
-    "MCP",
-    "Opentelemetry",
-    "Datadog",
+  stack: [
+    {
+      label: "Frontend",
+      items: ["TypeScript", "JavaScript", "React", "Next.js", "React Native", "TanStack Query", "Redux", "Tailwind", "Storybook"],
+    },
+    {
+      label: "Backend",
+      items: ["Node", "Nest.js", "Bun", "Deno", "Spring Boot", "FastAPI", "Kafka", "WebSockets", "Dapr", "Prisma", "TypeORM"],
+    },
+    {
+      label: "Data",
+      items: ["PostgreSQL", "MySQL", "MS SQL", "MongoDB", "Redis", "Firebase", "Supabase", "Convex"],
+    },
+    {
+      label: "Cloud",
+      items: ["Azure", "Azure DevOps", "GCP", "Vercel", "Docker", "GitHub Actions", "Bash", "OpenTelemetry", "Datadog", "Sentry"],
+    },
+    {
+      label: "AI",
+      items: ["Claude", "Vercel AI SDK", "LangChain", "Vertex AI", "MCP", "TensorFlow"],
+    },
+    {
+      label: "Testing",
+      items: ["Jest", "Playwright"],
+    },
   ],
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
@@ -90,6 +70,12 @@ export const DATA = {
         icon: Icons.x,
 
         navbar: true,
+      },
+      RSS: {
+        name: "RSS",
+        url: "/rss.xml",
+        icon: RssIcon,
+        navbar: false,
       },
       email: {
         name: "Send Email",
@@ -274,7 +260,7 @@ export const DATA = {
       links: [
         {
           type: "Devlog",
-          href: "https://www.0xadityaa.xyz/blog/what-are-llms-and-how-to-build-apps-using-it",
+          href: "/blog/what-are-llms-and-how-to-build-apps-using-it",
           icon: <Icons.notion className="size-3" />,
         },
         {
@@ -287,7 +273,7 @@ export const DATA = {
     },
     {
       title: "React Rooks",
-      href: "https://chess-against-ai.vercel.app/",
+      href: "https://github.com/0xadityaa/React-Rooks",
       dates: "Jun - Jul 2024",
       active: true,
       description:
@@ -309,7 +295,7 @@ export const DATA = {
         },
         {
           type: "Source",
-          href: "https://chess-against-ai.vercel.app/",
+          href: "https://github.com/0xadityaa/React-Rooks",
           icon: <Icons.github className="size-3" />,
         },
       ],
@@ -334,7 +320,7 @@ export const DATA = {
       links: [
         {
           type: "Devlog",
-          href: "https://www.0xadityaa.xyz/blog/implementing-a-json-parser",
+          href: "/blog/implementing-a-json-parser",
           icon: <Icons.notion className="size-3" />,
         },
         {
