@@ -20,7 +20,7 @@ Free APIs that could be added next: Bluesky, Mastodon, LinkedIn.
 
 After publishing it writes the URL into the post's frontmatter and commits to `main`. That field is the record: a platform with a URL is never posted to again. Platforms that cannot be automated go into one issue per run, labelled `crosspost`, with the exact steps for each post; `crosspost_issue` in the frontmatter stops it being opened twice.
 
-A backlog drains slowly on purpose: at most `CROSSPOST_MAX` API publishes per run (default 3), oldest post first, so platforms see a steady trickle instead of a burst.
+A backlog drains slowly on purpose: at most `CROSSPOST_MAX` API publishes per run (default 1), oldest post first, and a platform that answers with an error is left alone until the next run. dev.to rate-limits after two posts in quick succession, so twelve posts take about three hours.
 
 To try it safely: Actions, Cross-post, Run workflow, leave "dry run" ticked. Locally: `npm run crosspost -- --dry-run`.
 
@@ -54,6 +54,7 @@ gh secret set DEVTO_API_KEY
 The run log names the platform and prints its response. A failed platform is retried on the next run; the ones that succeeded are already recorded and are skipped.
 
 - 401 or 403: the secret is wrong or expired. Regenerate and set it again.
+- 429 from dev.to: rate limited. Expected while a backlog drains; the run still passes and the post goes out on a later run.
 - 422 from dev.to: usually a duplicate title or canonical URL, meaning the article exists. Find it on dev.to and add its URL to the frontmatter by hand.
 - The post is "not live on the site yet": the page has not re-rendered. It resolves itself within 10 minutes.
 

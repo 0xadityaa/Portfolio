@@ -65,10 +65,11 @@ async function openChecklistIssue(entries) {
   return (await res.json()).html_url;
 }
 
-// Platforms rate-limit bursts and a wall of posts reads as spam, so a backlog
-// drains a few posts per run. Oldest first keeps each platform's feed in order.
-const maxPerRun = Number(process.env.CROSSPOST_MAX || 3);
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+// Platforms rate-limit bursts (dev.to allowed two posts, then asked for a
+// pause) and a wall of posts reads as spam, so a backlog drains one post per run. Oldest first keeps each platform's feed in order.
+const maxPerRun = Number(process.env.CROSSPOST_MAX || 1);
+// A platform that fails once is left alone for the rest of the run.
+const blocked = new Set();
 let published = 0;
 const checklist = [];
 
@@ -112,8 +113,8 @@ for (const post of posts) {
       else console.log(`  ${platform.name}: ${platform.secret} is not set, skipping`);
       continue;
     }
-    if (published >= maxPerRun) {
-      console.log(`  ${platform.name}: waiting for the next run (limit of ${maxPerRun} per run)`);
+    if (published >= maxPerRun || blocked.has(platform.name)) {
+      console.log(`  ${platform.name}: waiting for the next run`);
       continue;
     }
     if (dryRun) {
@@ -126,10 +127,11 @@ for (const post of posts) {
       published++;
       saveFrontmatter(post, { [platform.field]: url });
       console.log(`  ${platform.name}: ${url}`);
-      await sleep(5000);
     } catch (error) {
-      failures++;
-      console.error(`  ${platform.name}: failed, will retry next run. ${error.message}`);
+      blocked.add(platform.name);
+      // Being asked to slow down is expected with a backlog, not a failure.
+      if (!/\b429\b/.test(error.message)) failures++;
+      console.error(`  ${platform.name}: not published, will retry next run. ${error.message}`);
     }
   }
 
