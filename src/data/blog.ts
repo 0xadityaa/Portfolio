@@ -3,6 +3,7 @@ import matter from "gray-matter";
 import path from "path";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeStringify from "rehype-stringify";
+import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
@@ -79,6 +80,8 @@ function readPost(slug: string) {
 export async function markdownToHTML(markdown: string) {
   const p = await unified()
     .use(remarkParse)
+    // Tables, strikethrough, and autolinks, as on GitHub and dev.to.
+    .use(remarkGfm)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypePrettyCode, {
       theme: "github-dark",
