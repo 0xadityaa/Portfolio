@@ -113,7 +113,13 @@
   content: none;
 }
 .prose :where(table) {
-  @apply block overflow-x-auto;
+  @apply block overflow-x-auto text-sm;
+}
+.prose :where(th) {
+  @apply whitespace-nowrap text-left font-medium text-foreground;
+}
+.prose :where(td) {
+  @apply tabular-nums;
 }
 
 /* Callouts */
