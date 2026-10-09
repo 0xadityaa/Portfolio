@@ -12,6 +12,7 @@ tags:
   - langgraph
 updated: '2026-10-09'
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
+devto_url: 'https://dev.to/0xadityaa/what-are-llms-and-how-to-build-stuff-using-it-4l68'
 ---
 
 ![GIF of south park characters on chat-gpt](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExd25mcDI0OG90emFocHphbHpianJ4OGgydDJueXlldTB5NzFsbXh0OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qAtZM2gvjWhPjmclZE/giphy.gif)
