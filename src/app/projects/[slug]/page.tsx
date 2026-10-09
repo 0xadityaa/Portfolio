@@ -1,7 +1,9 @@
 import { CopyCodeHandler } from "@/components/copy-code-handler";
 import { markdownToHTML } from "@/data/blog";
 import { DATA } from "@/data/resume";
+import { fetchProjectReadme } from "@/lib/markdown-pages";
 import { findProject, projectSlug } from "@/lib/projects";
+import { pageAlternates } from "@/lib/seo";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -25,28 +27,9 @@ export async function generateMetadata(props: ProjectDetailParams): Promise<Meta
   return {
     title: project?.title ?? slug,
     description: project?.description ?? `Notes and documentation for ${slug}.`,
-    alternates: { canonical: `/projects/${slug}` },
+    alternates: pageAlternates(`/projects/${slug}`),
     ...(project?.image ? { openGraph: { images: [{ url: project.image }] } } : {}),
   };
-}
-
-async function fetchProjectReadme(slug: string): Promise<string | null> {
-  // Repo names only, so the slug cannot point the fetch anywhere else.
-  if (!/^[\w.-]+$/.test(slug)) return null;
-
-  for (const branch of ["main", "master"]) {
-    try {
-      const res = await fetch(
-        `https://raw.githubusercontent.com/0xadityaa/${slug}/${branch}/README.md`,
-        { next: { revalidate: 3600 } }
-      );
-      if (res.ok) return await res.text();
-    } catch (err) {
-      console.error(`Error fetching README for ${slug}:`, err);
-      return null;
-    }
-  }
-  return null;
 }
 
 export default async function ProjectDetailPage(props: ProjectDetailParams) {

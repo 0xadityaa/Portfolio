@@ -1,7 +1,7 @@
-import { getAllBlogPosts, getPost } from "@/data/blog";
+import { getAllBlogPosts, getPost, publishTime } from "@/data/blog";
 import { DATA } from "@/data/resume";
 
-export const dynamic = "force-static";
+export const revalidate = 3600;
 
 const escapeXml = (value: string) =>
   value
@@ -30,7 +30,7 @@ export async function GET() {
       <title>${escapeXml(metadata.title)}</title>
       <link>${url}</link>
       <guid isPermaLink="true">${url}</guid>
-      <pubDate>${new Date(`${metadata.publishedAt}T12:00:00Z`).toUTCString()}</pubDate>
+      <pubDate>${publishTime(metadata.publishedAt).toUTCString()}</pubDate>
       <dc:creator>${escapeXml(DATA.name)}</dc:creator>
       <description>${escapeXml(metadata.summary ?? "")}</description>
       ${(metadata.tags ?? []).map((tag) => `<category>${escapeXml(tag)}</category>`).join("")}

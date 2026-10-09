@@ -162,7 +162,20 @@ code[data-line-numbers] > [data-line]::before {
   @apply bg-foreground/5 border-l-2 border-foreground pl-3;
 }
 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+.fade-in {
+  animation: fade-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    animation: none;
+  }
   html {
     scroll-behavior: auto !important;
   }

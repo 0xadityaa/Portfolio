@@ -1,20 +1,25 @@
 import { BlogList } from "@/components/blog-list";
-import BlurFade from "@/components/magicui/blur-fade";
+import { FadeIn } from "@/components/fade-in";
 import { getAllBlogPosts } from "@/data/blog";
+import { pageAlternates } from "@/lib/seo";
 
 export const metadata = {
   title: "Blog",
   description:
     "Notes on building software and the systems behind it: full-stack engineering, architecture, and AI.",
-  alternates: { canonical: "/blog" },
+  alternates: pageAlternates("/blog"),
 };
 
+// Re-rendered hourly so scheduled posts appear when their publish time passes.
+export const revalidate = 3600;
+
 export default async function BlogPage() {
-  const posts = await getAllBlogPosts();
+  // The list is a client component: send it metadata only, not every post body.
+  const posts = (await getAllBlogPosts()).map(({ slug, metadata }) => ({ slug, metadata }));
 
   return (
     <main className="space-y-10">
-      <BlurFade>
+      <FadeIn>
         <header className="space-y-3">
           <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
             Blog
@@ -24,11 +29,11 @@ export default async function BlogPage() {
             engineering, architecture, and anything else that sparks my curiosity.
           </p>
         </header>
-      </BlurFade>
+      </FadeIn>
 
-      <BlurFade delay={0.08}>
+      <FadeIn delay={0.08}>
         <BlogList initialPosts={posts} />
-      </BlurFade>
+      </FadeIn>
     </main>
   );
 }

@@ -1,6 +1,7 @@
 import Navbar from "@/components/navbar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
+import { pageAlternates } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -31,12 +32,7 @@ export const metadata: Metadata = {
     template: `%s | ${DATA.name}`,
   },
   description: DATA.description,
-  alternates: {
-    canonical: "/",
-    types: {
-      "application/rss+xml": [{ url: "/rss.xml", title: `${DATA.name}'s blog` }],
-    },
-  },
+  alternates: pageAlternates("/"),
   openGraph: {
     title: DATA.name,
     description: DATA.description,
@@ -85,8 +81,11 @@ export default function RootLayout({
                 {DATA.name}, {new Date().getFullYear()}
               </span>
               <nav aria-label="Footer" className="flex items-center gap-5">
-                <Link href="/rss.xml" className="transition-colors hover:text-foreground">
+                <Link href="/rss.xml" prefetch={false} className="transition-colors hover:text-foreground">
                   RSS
+                </Link>
+                <Link href="/llms.txt" prefetch={false} className="transition-colors hover:text-foreground">
+                  llms.txt
                 </Link>
                 <a href={DATA.contact.social.GitHub.url} className="transition-colors hover:text-foreground">
                   GitHub

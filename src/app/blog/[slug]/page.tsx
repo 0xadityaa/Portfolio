@@ -1,6 +1,7 @@
 import { CopyCodeHandler } from "@/components/copy-code-handler";
 import { getAllBlogPosts, getPost } from "@/data/blog";
 import { DATA } from "@/data/resume";
+import { pageAlternates } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
@@ -12,6 +13,9 @@ interface BlogParams {
     slug: string;
   }>;
 }
+
+// Scheduled posts are rendered on first request once their publish time passes.
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const posts = await getAllBlogPosts();
@@ -30,7 +34,7 @@ export async function generateMetadata(props: BlogParams): Promise<Metadata | un
     title,
     description,
     keywords: tags,
-    alternates: { canonical: `/blog/${post.slug}` },
+    alternates: pageAlternates(`/blog/${post.slug}`),
     openGraph: {
       title,
       description,
