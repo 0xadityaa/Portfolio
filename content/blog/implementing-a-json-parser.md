@@ -8,6 +8,7 @@ tags:
   - computer science
 updated: '2026-10-09'
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
+devto_url: 'https://dev.to/0xadityaa/implementing-a-json-parser-2od8'
 ---
 
 Ever wondered how applications understand and process data from APIs? The magic often lies in a data format called JSON. This human-readable format is widely used to transmit data over the internet. But how do computers interpret this data? That's where JSON parsers come in.
