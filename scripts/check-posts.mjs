@@ -5,9 +5,20 @@
  */
 import { loadPosts } from "./lib/posts.mjs";
 
-const SIGN_OFF = "✌️ Stay curious, Keep coding, Peace nerds!";
 // Posts from before the style guide keep their original shape.
 const STYLE_GUIDE_SINCE = "2026-10-01";
+// Stock phrases the style guide asks to be replaced with the specific thing meant.
+const STOCK_PHRASES = [
+  "hot take",
+  "the hard way",
+  "nobody talks about",
+  "nobody blogs about",
+  "game changer",
+  "game-changer",
+  "everyone and their dog",
+  "let's dive in",
+  "in today's",
+];
 
 const problems = [];
 
@@ -27,7 +38,7 @@ for (const post of loadPosts()) {
     fail("body must not contain an H1; the title comes from frontmatter");
   }
 
-  if (String(data.publishedAt) < STYLE_GUIDE_SINCE) continue;
+  if (new Date(String(data.publishedAt)).toISOString() < STYLE_GUIDE_SINCE) continue;
 
   if (String(data.title).length > 60) fail("title is over 60 characters");
   if (String(data.summary).length > 160) fail("summary is over 160 characters");
@@ -35,11 +46,26 @@ for (const post of loadPosts()) {
   if (/[—–]/.test(content) || /[—–]/.test(`${data.title}${data.summary}`)) {
     fail("contains an em or en dash; use a comma, colon, or period");
   }
-  if (!/^## TL;DR$/m.test(content)) fail('missing the "## TL;DR" section');
-  if (!/^## Final Thoughts$/m.test(content)) fail('missing the "## Final Thoughts" section');
-  if (!content.trim().endsWith(SIGN_OFF)) fail(`must end with the sign-off line: ${SIGN_OFF}`);
-  const words = content.split(/\s+/).length;
-  if (words < 500 || words > 1600) fail(`is ${words} words; aim for 700 to 1,200`);
+  const prose = content.replace(/```[\s\S]*?```/g, "");
+  for (const phrase of STOCK_PHRASES) {
+    if (prose.toLowerCase().includes(phrase)) fail(`stock phrase "${phrase}"; write the specific thing instead`);
+  }
+  const words = prose.split(/\s+/).filter(Boolean).length;
+  if (words < 400 || words > 3000) {
+    fail(`is ${words} words; a note is 400 to 900 and an essay 1,500 to 3,000`);
+  }
+  // Links are the evidence trail: five external links per 1,000 words.
+  const links = new Set(prose.match(/\]\(https?:\/\/[^)\s]+/g) ?? []).size;
+  const expected = Math.max(3, Math.floor((words / 1000) * 5));
+  if (links < expected) {
+    fail(`has ${links} external links; expected at least ${expected} for ${words} words`);
+  }
+  if (!/!\[[^\]]+\]\(|```|^\|.*\|$/m.test(content)) {
+    fail("has no diagram, code block, or table; where is the artifact?");
+  }
+  if (data.updated && Number.isNaN(new Date(String(data.updated)).getTime())) {
+    fail(`updated "${data.updated}" is not a date`);
+  }
 }
 
 if (problems.length > 0) {

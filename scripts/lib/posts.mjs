@@ -18,6 +18,8 @@ export function loadPosts() {
     .map((file) => {
       const filePath = path.join(POSTS_DIR, file);
       const { data, content } = matter(fs.readFileSync(filePath, "utf-8"));
+      // An unquoted YAML date arrives as a Date. Posts use strings everywhere.
+      if (data.publishedAt instanceof Date) data.publishedAt = data.publishedAt.toISOString();
       const slug = path.basename(file, ".md");
       return { slug, filePath, data, content, url: `${SITE_URL}/blog/${slug}` };
     });

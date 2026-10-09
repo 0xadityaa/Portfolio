@@ -2,7 +2,7 @@ import { getAllBlogPosts } from "@/data/blog";
 import { DATA } from "@/data/resume";
 import { projectSlug } from "@/lib/projects";
 
-export const revalidate = 3600;
+export const revalidate = 600;
 
 /** Index of the site for agents, following the llms.txt convention. */
 export async function GET() {
@@ -19,7 +19,8 @@ Every page on this site has a Markdown version: add \`.md\` to its URL
 
 ## Pages
 
-- [Home](${url("/index.md")}): About, experience, stack, education, and contact details
+- [Home](${url("/index.md")}): Who Aditya is, latest writing, projects, and experience
+- [About](${url("/about.md")}): Background, experience, stack, education, and contact details
 - [Blog](${url("/blog.md")}): All posts with summaries
 - [Projects](${url("/projects.md")}): All projects with descriptions and tech
 

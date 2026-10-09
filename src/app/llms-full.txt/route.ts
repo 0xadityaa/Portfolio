@@ -1,6 +1,6 @@
 import { markdownPagePaths, renderMarkdownPage } from "@/lib/markdown-pages";
 
-export const revalidate = 3600;
+export const revalidate = 600;
 
 /** The whole site as one Markdown document. */
 export async function GET() {

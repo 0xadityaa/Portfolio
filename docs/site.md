@@ -11,9 +11,13 @@ The look is minimal, dark, single column. Changes extend it; they do not restyle
 - Tokens are CSS variables in `src/app/globals.css`. Use them through Tailwind (`bg-card`, `text-muted-foreground`), never raw hex.
 - Copy is plain and specific, with commas and periods where an em dash would go, and no emoji in the interface.
 
+## What goes where
+
+The home page is a short introduction followed by writing, then projects, then experience. Writing leads because it is the freshest proof of how he thinks. Stack and education live on `/about`. Why: `docs/research/frontier-sites.md`, section 4.
+
 ## Performance budget
 
-Every page is rendered to HTML on the server and served from Vercel's CDN, refreshed hourly (`revalidate = 3600`). Keep it that way:
+Every page is rendered to HTML on the server and served from Vercel's CDN, refreshed every 10 minutes (`revalidate = 600`) so a scheduled post appears on time. Keep it that way:
 
 - A page stays a Server Component. `"use client"` is for a leaf that needs state or a browser API (the dock, the filters, copy buttons).
 - Reading `cookies()`, `headers()`, or `searchParams` in a page makes it render per request and breaks the budget. Filter on the client instead.

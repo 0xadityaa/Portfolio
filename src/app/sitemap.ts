@@ -3,13 +3,14 @@ import { DATA } from "@/data/resume";
 import { projectSlug } from "@/lib/projects";
 import type { MetadataRoute } from "next";
 
-export const revalidate = 3600;
+export const revalidate = 600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await getAllBlogPosts();
 
   return [
     { url: DATA.url, changeFrequency: "monthly", priority: 1 },
+    { url: `${DATA.url}/about`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${DATA.url}/blog`, changeFrequency: "weekly", priority: 0.8 },
     { url: `${DATA.url}/projects`, changeFrequency: "monthly", priority: 0.8 },
     ...posts.map((post) => ({

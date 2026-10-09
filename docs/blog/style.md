@@ -1,39 +1,59 @@
 # Blog style
 
-How posts on 0xadityaa.dev read. The reference posts are `going-event-driven-read-the-bill-first` and `microservices-do-you-really-need-them`; read both before writing. Posts dated before October 2026 predate this guide and are not models for format.
+How posts on 0xadityaa.dev are written. The bar is set by engineers whose posts get passed around: each post is built on something the author made or measured, and says so in the first screen. The study behind these rules, with examples to read, is `docs/research/frontier-sites.md`; sections 3 and 5 are the short version.
+
+## What every post has
+
+A reviewer should be able to point at each of these.
+
+1. **A thesis in the first 150 words.** One sentence a competent engineer could disagree with. When the title is a question, one sentence answers it directly.
+2. **An artifact.** Something that did not exist before the post: a measurement, runnable code, a cost calculation with its inputs, a table he compiled, a diagram of his system. The post is the write-up of the artifact. A topic with no artifact becomes a note (see Formats) or waits until it has one.
+3. **Numbers with their papers.** Every cost, speed, or scale claim carries a number, a unit, a link to its source, and the date it was checked. A post about cost shows the arithmetic at three volumes (small, medium, large) so the reader can find themselves on it.
+4. **Links as the evidence trail.** Each named service, pattern, spec, and price links to its primary source at first mention. Expect five or more per 1,000 words.
+5. **Limits.** A section that states the strongest objection in its strongest form, linked to someone who holds it; says where the advice stops applying; and names what he did not test.
+6. **An ending that adds.** The last paragraph gives the decision rule, what would change his mind, or what he will measure next.
 
 ## Voice
 
-Aditya explaining something to a teammate over coffee: first person, conversational, a little cheeky, and sure of his opinion.
+Aditya explaining something to a teammate over coffee: first person, conversational, a little cheeky, sure of his opinion and exact about how far it reaches.
 
-- **Take a side.** Every post argues one position and says when the opposite advice is right.
-- **Start from what happened.** What he saw at work, what broke, what the bill said. The experience comes first and the theory explains it.
-- **Short sentences, plain words, contractions.** One idea per paragraph, four sentences at most.
-- **Say it once.** Cut the sentence that restates the one before it.
-- **Define a term in one clause the first time it appears**, then use it without ceremony.
+- **Open on what happened.** A real moment with a rough date ("In March our queue bill tripled"), from him. A thought experiment is fine when it is called one.
+- **Size the claim to the evidence.** "I have seen this in one system." "I have not load-tested this." A threshold is either sourced or marked as his rule of thumb.
+- **Short sentences, plain words, contractions.** One idea per paragraph, four sentences at most. Say it once.
+- **Concrete over grand.** "Twelve Lambda invocations per order" beats "significant fan-out".
+- **Fresh phrasing.** Where a stock phrase comes to mind ("hot take", "the hard way", "nobody talks about", "game changer", "everyone and their dog"), write the specific thing it was standing in for. `npm run posts:check` flags these.
 - **Commas, colons, and periods** do the work an em dash would.
-- **Concrete over grand.** "Twelve Lambda invocations per order" beats "significant fan-out". Verbs that describe what the system does beat verbs that sell it.
-- **Talk to "you".** Rhetorical questions are welcome as section headings and rare in body text.
-- Light humour and a meme up top are part of the voice. One joke per section is plenty.
+- **Define a term in one clause** the first time it appears.
+- **Humour is welcome** when it is his and it is quick. Visuals earn their place by carrying a point: a diagram, a chart, real output. A meme he chose himself can open a post; it never stands in for the diagram.
+- **Sequels say so.** Link the earlier post in the first paragraph with one sentence on what changed.
+
+## Formats
+
+- **Note**, 400 to 900 words. One observation, sharply made. Headings optional. Use this when there is a clear point and a small artifact, or a strong link with his commentary.
+- **Essay**, 1,500 to 3,000 words. Only when an artifact justifies the length: an experiment, a cost model, a build log.
+
+Between 900 and 1,500 words is usually an essay missing its artifact or a note that has not been cut yet. Decide which.
 
 ## Structure
 
-In this order:
+No fixed template. A shape that works for an essay:
 
-1. **Opening image.** A meme or GIF as a Markdown image with real alt text: `![what it shows](url)`.
-2. **Hook.** Two short paragraphs. A concrete scene ("Picture this."), then why he is writing about it.
-3. **`## TL;DR`** One paragraph, the whole argument in three or four sentences.
-4. **Body.** Three to five `##` sections. Headings are questions or plain statements in sentence case ("So what is actually broken with plain HTTP calls?"). Within a section, open each key point with a bold sentence, then explain it. A code block, table, or diagram earns its place by carrying a point prose cannot.
-5. **`## Final Thoughts`** The hot take stated plainly, then the case where the reader should ignore it.
-6. **Sign-off**, always the last line: `✌️ Stay curious, Keep coding, Peace nerds!`
+1. Opening: what happened, then the thesis.
+2. The artifact: what he built or measured, how, and the result, with the diagram or table.
+3. What it means: two to four `##` sections. Headings are questions or plain statements in sentence case.
+4. Limits.
+5. The ending.
 
-## Format
+A `TL;DR` is optional and belongs only on a long essay. His sign-off line, `✌️ Stay curious, Keep coding, Peace nerds!`, is optional and goes after the real ending, never in place of it.
 
-- 700 to 1,200 words, a four to six minute read.
-- The title is a question or a punchy claim, 60 characters at most. The file name is the title in kebab-case.
-- The summary says what the reader walks away with, in 160 characters at most. It is the search snippet and the social card text.
-- No H1 in the body; the title renders from frontmatter.
-- Inline code for identifiers, service names, and config keys. Fenced blocks carry a language.
-- Link the primary source the first time a claim leans on it.
+## Format details
 
-`npm run posts:check` enforces the mechanical parts. The voice is yours to get right: read the draft aloud once, and rewrite any sentence he would not say.
+- The title is a claim or a question, 60 characters at most. The file name is the title in kebab-case.
+- The summary says what the reader walks away with, in 160 characters at most, stated as fact ("Fan-out, payload size, and retry loops are what make event-driven systems expensive"), never as a promise to teach.
+- No H1 in the body. Inline code for identifiers, service names, and config keys. Fenced blocks carry a language.
+- Diagrams and charts go in `public/images/blog/` with alt text that says what the picture shows.
+- When a published post changes in substance, set `updated: YYYY-MM-DD` in frontmatter and add a dated line at the point of the change saying what changed. Thank by name anyone whose correction it was.
+
+## Before the pull request
+
+Read the draft aloud once and rewrite any sentence he would not say. Then check the six things in "What every post has" one by one and write, in the pull request, where each one is.

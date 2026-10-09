@@ -1,7 +1,7 @@
 import { getAllBlogPosts, getPost, publishTime } from "@/data/blog";
 import { DATA } from "@/data/resume";
 
-export const revalidate = 3600;
+export const revalidate = 600;
 
 const escapeXml = (value: string) =>
   value

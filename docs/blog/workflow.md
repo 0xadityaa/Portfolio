@@ -1,9 +1,9 @@
 # Blog workflow
 
-One post a week, from topic to syndication. Aditya decides at two **gates**; an agent does the work between them. Nothing reaches production or another platform without passing both.
+One post a week, from topic to syndication. Aditya decides at three **gates**; an agent does the work between them. Nothing reaches production or another platform without passing all three.
 
 ```
-topic issue ──▶ [gate 1: topic] ──▶ research ──▶ draft ──▶ pull request ──▶ [gate 2: merge] ──▶ live on publishedAt ──▶ cross-post
+topic issue ─▶ [gate 1: topic] ─▶ research ─▶ [gate 2: angle] ─▶ draft ─▶ pull request ─▶ [gate 3: /publish <date>] ─▶ live at that time ─▶ cross-post
 ```
 
 ## 1. Topic (gate 1)
@@ -14,51 +14,61 @@ If he asks for suggestions, propose three using the selection rules in `research
 
 Done when: the issue states the topic and whatever he wants the post built around.
 
-## 2. Research
+## 2. Research and angle (gate 2)
 
-Follow `research.md`. The output is `content/research/<slug>.md`: the thesis, the outline, every factual claim with its source, and the questions only Aditya can answer.
+Follow `research.md` in its order of work. The output is `content/research/<slug>.md`.
 
-If the post depends on something only he knows (what happened at work, a number, his opinion), ask in the issue and wait for the answer. A post built around an invented experience is worse than a late post.
+Then post the angle on the topic issue for him to confirm, in a few lines: the thesis, the artifact, the format (note or essay), the strongest counter-argument, and the open questions only he can answer. A post built around an invented experience is worse than a late post, so wait for his answers.
 
-Done when: every claim the outline needs is sourced or marked as his, and the open-questions list is empty.
+Done when: he has confirmed the angle, the open-questions list is empty, and every claim the outline needs is sourced or marked as his.
 
 ## 3. Draft
 
-Write `content/blog/<slug>.md` to `style.md`. If he supplied a draft, keep his ideas and his wording where it works, and restructure to the format.
+Write `content/blog/<slug>.md` to `style.md`. If he supplied a draft, keep his ideas and his wording where it works.
 
-Set `publishedAt` to the date it should go live. Default: the coming Thursday. A post is hidden in production until that date and until `draft: true` is removed, so both are safe to merge early.
+Set `draft: true` and a placeholder `publishedAt` of today. The real publish time is set at approval, in stage 4.
 
-Done when: `npm run posts:check` passes and you have reread the post once against each section of `style.md`.
+Done when: `npm run posts:check` passes and you can point to each of the six things `style.md` says every post has.
 
-## 4. Pull request (gate 2)
+## 4. Pull request (gate 3)
 
-Branch `post/<slug>`, one pull request holding the post and its research note. Fill in the post section of the pull request template, link the topic issue with `Closes #N`, and list anything you want him to check. The Vercel preview on the pull request shows the post exactly as it will appear, including scheduled posts and drafts.
+Branch `post/<slug>`, one pull request holding the post and its research note. Fill in the post section of the pull request template, link the topic issue with `Closes #N`, say where each of the six required things is in the post, and list anything you want him to check. The Vercel preview on the pull request shows the post exactly as it will appear, including scheduled posts and drafts.
 
-Then stop. Review comments come back as changes on the same branch. **The merge is the approval and Aditya makes it.**
+Then stop. Review comments come back as changes on the same branch. **Approval is Aditya's and he gives it with a comment on the pull request:**
+
+```
+/publish                     the next default slot
+/publish 2026-10-15          that day at the default time, Toronto
+/publish 2026-10-15 14:30    that day and time, Toronto
+/publish now
+```
+
+The `Publish` action writes that time into `publishedAt`, removes `draft`, merges, and replies with the exact go-live time. If he gives you a date in chat instead, post that comment for him only when he has said the draft is final. The default slot and the reason for it are in `scripts/lib/schedule.mjs` and `docs/research/distribution.md`.
 
 ## 5. Publish
 
-Nothing to do. After the merge the site re-renders hourly, so the post appears on the blog, in `/rss.xml`, in `/llms.txt`, and at `<url>.md` within an hour of its `publishedAt` time (a date alone means 12:00 UTC, 8am Toronto).
+Nothing to do. Pages re-render every 10 minutes, so the post appears on the blog, in `/rss.xml`, in `/llms.txt`, and at `<url>.md` within 10 minutes of its `publishedAt`.
 
-To change the date after merging, edit `publishedAt` in a new pull request. To pull a live post, set `draft: true`.
+To change the time after merging, edit `publishedAt` in a new pull request. To pull a live post, set `draft: true`.
 
 ## 6. Cross-post
 
-The `Cross-post` action runs hourly. Once the post is live it publishes to every platform that has a secret, records each URL in the post's frontmatter, and opens one `crosspost` issue listing the manual platforms. Details and failure handling: `docs/publishing.md`.
+The `Cross-post` action runs every 15 minutes. Once the post is live it publishes to every platform that has a secret, records each URL in the post's frontmatter, and opens one `crosspost` issue with a ready-made link for each manual platform. Details and failure handling: `docs/publishing.md`.
 
 ## Frontmatter
 
 ```yaml
 ---
-title: A question or a claim, 60 characters at most
-publishedAt: '2026-10-15'        # or a full ISO time: '2026-10-15T14:00:00Z'
+title: A claim or a question, 60 characters at most
+publishedAt: '2026-10-15T13:00:00Z' # set by /publish; a bare date means 12:00 UTC
 summary: >-
-  One or two sentences, 160 characters at most, saying what the reader gets.
+  160 characters at most, stating what the reader walks away with.
 tags:                            # 1 to 5, lowercase
   - architecture
-draft: true                      # optional; remove to release
+draft: true                      # optional; cleared by /publish
+updated: '2026-11-02'            # optional; date of the last substantive edit
 image: /images/blog/cover.png    # optional social card override
 ---
 ```
 
-`devto_url`, `medium_url`, `substack_url`, and `crosspost_issue` are written by the Cross-post action. Images for a post go in `public/images/blog/` and are referenced as `/images/blog/<file>`.
+`devto_url`, `medium_url`, `substack_url`, `hackernews_url`, and `crosspost_issue` are written by the Cross-post action. Images for a post go in `public/images/blog/` and are referenced as `/images/blog/<file>`.

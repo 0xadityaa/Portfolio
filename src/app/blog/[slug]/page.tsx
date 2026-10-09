@@ -15,7 +15,7 @@ interface BlogParams {
 }
 
 // Scheduled posts are rendered on first request once their publish time passes.
-export const revalidate = 3600;
+export const revalidate = 600;
 
 export async function generateStaticParams() {
   const posts = await getAllBlogPosts();
@@ -78,7 +78,7 @@ export default async function BlogPost(props: BlogParams) {
             "@type": "BlogPosting",
             headline: post.metadata.title,
             datePublished: post.metadata.publishedAt,
-            dateModified: post.metadata.publishedAt,
+            dateModified: post.metadata.updated ?? post.metadata.publishedAt,
             description: post.metadata.summary,
             image: post.metadata.image
               ? `${DATA.url}${post.metadata.image}`
@@ -109,6 +109,11 @@ export default async function BlogPost(props: BlogParams) {
           <time dateTime={post.metadata.publishedAt}>
             {formatDate(post.metadata.publishedAt)}
           </time>
+          {post.metadata.updated && (
+            <span>
+              Updated <time dateTime={post.metadata.updated}>{formatDate(post.metadata.updated)}</time>
+            </span>
+          )}
           {post.metadata.readingTime && <span>{post.metadata.readingTime} min read</span>}
           {post.metadata.tags?.map((tag: string) => <span key={tag}>#{tag}</span>)}
         </div>
@@ -120,10 +125,36 @@ export default async function BlogPost(props: BlogParams) {
       />
       <CopyCodeHandler />
 
+      <footer className="mt-16 space-y-3 border-t border-border pt-8 text-sm leading-relaxed text-muted-foreground">
+        <p>
+          Written by{" "}
+          <Link href="/about" className="link">
+            {DATA.name}
+          </Link>
+          , a full stack engineer in Toronto. New posts land in the{" "}
+          <Link href="/rss.xml" prefetch={false} className="link">
+            RSS feed
+          </Link>
+          .
+        </p>
+        <p>
+          Found a mistake?{" "}
+          <a
+            href={`${DATA.repo}/blob/main/content/blog/${post.slug}.md`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link"
+          >
+            This post is a Markdown file on GitHub
+          </a>
+          , and corrections are welcome.
+        </p>
+      </footer>
+
       {(newer || older) && (
         <nav
           aria-label="More posts"
-          className="mt-16 grid grid-cols-1 gap-4 border-t border-border pt-8 sm:grid-cols-2"
+          className="mt-8 grid grid-cols-1 gap-4 border-t border-border pt-8 sm:grid-cols-2"
         >
           {older ? (
             <Link href={`/blog/${older.slug}`} className="group rounded-lg">

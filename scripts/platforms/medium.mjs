@@ -1,7 +1,9 @@
 /**
- * Medium. Its API is frozen and Medium stopped issuing integration tokens to
- * new users, so this only runs for accounts that still have one. Without a
- * token Medium falls back to the manual checklist in crosspost.mjs.
+ * Medium. The API was archived in March 2023 and Medium no longer issues
+ * integration tokens, so `publish` only runs for an account that already has
+ * one. Everyone else gets the manual import step. Automating Medium's website
+ * instead would break the Medium Rules, so it is not an option here.
+ * Sources: docs/research/distribution.md.
  */
 export const medium = {
   name: "Medium",
@@ -9,7 +11,7 @@ export const medium = {
   secret: "MEDIUM_INTEGRATION_TOKEN",
   /** Shown in the manual checklist when there is no token. */
   manual: (post) =>
-    `Open https://medium.com/p/import and paste ${post.url}. Medium sets the canonical link for you.`,
+    `Open [Import a story](https://medium.com/p/import), paste \`${post.url}\`, then publish the draft it creates. Medium sets the canonical link for you.`,
 
   async publish(post, token) {
     const headers = {

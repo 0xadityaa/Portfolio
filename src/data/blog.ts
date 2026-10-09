@@ -16,6 +16,8 @@ export type BlogPostMetadata = {
   /** YYYY-MM-DD (goes live at 12:00 UTC that day) or a full ISO timestamp. */
   publishedAt: string;
   summary: string;
+  /** YYYY-MM-DD of the last substantive edit. Shown on the post. */
+  updated?: string;
   image?: string;
   tags?: string[];
   /** Merged but not approved for release. Hidden in production. */
@@ -35,7 +37,7 @@ export type BlogPost = {
 };
 
 export function publishTime(publishedAt: string) {
-  return new Date(publishedAt.includes("T") ? publishedAt : `${publishedAt}T12:00:00Z`);
+  return new Date(String(publishedAt).includes("T") ? publishedAt : `${publishedAt}T12:00:00Z`);
 }
 
 /**
@@ -63,6 +65,9 @@ function readPost(slug: string) {
   if (!fs.existsSync(filePath)) return null;
 
   const { content, data } = matter(fs.readFileSync(filePath, "utf-8"));
+  // An unquoted YAML date arrives as a Date. Posts use strings everywhere.
+  if (data.publishedAt instanceof Date) data.publishedAt = data.publishedAt.toISOString();
+  if (data.updated instanceof Date) data.updated = data.updated.toISOString().slice(0, 10);
   const metadata = {
     ...data,
     readingTime: calculateReadingTime(content),

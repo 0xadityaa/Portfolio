@@ -2,7 +2,7 @@ import { DATA } from "@/data/resume";
 import { markdownPagePaths, renderMarkdownPage } from "@/lib/markdown-pages";
 
 // Reached through the rewrites in next.config.mjs, never linked directly.
-export const revalidate = 3600;
+export const revalidate = 600;
 
 export async function generateStaticParams() {
   return (await markdownPagePaths()).map((path) => ({ path }));
