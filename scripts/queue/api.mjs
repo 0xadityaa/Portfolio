@@ -35,7 +35,10 @@ export async function publishToDevto(article, apiKey) {
         title: article.title,
         body_markdown: article.body,
         published: true,
-        tags: article.tags || [],
+        // Dev.to allows at most 4 tags, alphanumeric only.
+        tags: (article.tags || []).map((t) => t.replace(/[^a-z0-9]/gi, "").toLowerCase()).filter(Boolean).slice(0, 4),
+        // Points search engines back at the original post on the site.
+        canonical_url: article.canonicalUrl,
       },
     }),
   });
@@ -103,7 +106,8 @@ export async function publishToMedium(article, integrationToken) {
       contentFormat: "markdown",
       content: `# ${article.title}\n\n${article.body}`,
       publishStatus: "public",
-      tags: article.tags || [],
+      canonicalUrl: article.canonicalUrl,
+      tags: (article.tags || []).slice(0, 5),
     }),
   });
 

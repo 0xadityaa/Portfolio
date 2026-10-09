@@ -20,8 +20,14 @@ export async function handleBlogPublish(payload) {
 
   // Load API keys from environment variables
   // (In local development/Next.js context, these can be set in .env files)
-  const devtoApiKey = process.env.DEVTO_API_KEY || "mock";
-  const mediumToken = process.env.MEDIUM_INTEGRATION_TOKEN || "mock";
+  const devtoApiKey = process.env.DEVTO_API_KEY;
+  const mediumToken = process.env.MEDIUM_INTEGRATION_TOKEN;
+
+  // Without a real key there is nothing to publish to. Skip instead of writing
+  // a placeholder URL, which would mark the post as published forever.
+  const hasKey = (key) => Boolean(key) && !/^(mock|your_)/i.test(key);
+  // Older runs saved placeholder URLs in mock mode. Those never went live.
+  const isLive = (url) => Boolean(url) && !url.includes("mock_user");
 
   // 1. Read original file and parse frontmatter
   const originalContent = fs.readFileSync(filePath, "utf-8");
@@ -33,7 +39,9 @@ export async function handleBlogPublish(payload) {
   let mediumError = null;
 
   // 2. Publish to Dev.to if not already done
-  if (!data.devto_url) {
+  if (!hasKey(devtoApiKey)) {
+    console.log("⏭️ DEVTO_API_KEY not set. Skipping Dev.to.");
+  } else if (!isLive(data.devto_url)) {
     try {
       console.log(`📤 Publishing "${data.title || payload.title}" to Dev.to...`);
       const devtoUrl = await publishToDevto(
@@ -41,6 +49,7 @@ export async function handleBlogPublish(payload) {
           title: data.title || payload.title,
           body: parsed.content,
           tags: data.tags || payload.tags || [],
+          canonicalUrl: payload.canonicalUrl,
         },
         devtoApiKey
       );
@@ -56,7 +65,9 @@ export async function handleBlogPublish(payload) {
   }
 
   // 3. Publish to Medium if not already done
-  if (!data.medium_url) {
+  if (!hasKey(mediumToken)) {
+    console.log("⏭️ MEDIUM_INTEGRATION_TOKEN not set. Skipping Medium.");
+  } else if (!isLive(data.medium_url)) {
     try {
       console.log(`📤 Publishing "${data.title || payload.title}" to Medium...`);
       const mediumUrl = await publishToMedium(
@@ -64,6 +75,7 @@ export async function handleBlogPublish(payload) {
           title: data.title || payload.title,
           body: parsed.content,
           tags: data.tags || payload.tags || [],
+          canonicalUrl: payload.canonicalUrl,
         },
         mediumToken
       );

@@ -228,6 +228,7 @@ async function syncObsidianVault() {
         if (process.env.VERCEL !== "1" && (!data.devto_url || !data.medium_url)) {
           queue.addJob("blogPublish", {
             filePath,
+            canonicalUrl: `https://www.0xadityaa.dev/blog/${slug}`,
             title: newMetadata.title,
             tags: newMetadata.tags || [],
           });
