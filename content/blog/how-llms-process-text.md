@@ -2,17 +2,18 @@
 title: How LLMs Process Text
 publishedAt: '2025-09-28'
 summary: >-
-  Understand how LLMs transform text into tokens, process them numerically, and
-  why efficient tokenization matters for performance and cost.
+  LLMs read and write tokens, not text. What a tokenizer does, with code, and
+  why token counts set both your bill and your context limit.
 tags:
   - llm
   - ai
   - text processing
+updated: '2026-10-09'
 ---
 
 ![GIF of search icon rotating around computer screen](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExamdhaWx4dTZkOGVuNzJ6anZ1cTlybGNhbnFmaXVhZ2RpeW1nMGlvOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/9CffOPMLx0Hf2/giphy.gif)
 
-Have you ever typed a prompt into ChatGPT or Claude and wondered, *"How does this thing even understand me?"* Well, spoiler alert: it doesn't *read* text like we do. I was just as curious when I started digging into Large Language Models (LLMs), and what I found blew my mind. Let's unpack how LLMs process text in under a few minutes, and trust me, it's gonna be a fun ride!
+Have you ever typed a prompt into ChatGPT or Claude and wondered, *"How does this thing even understand me?"* Well, spoiler alert: it doesn't *read* text like we do. I was just as curious when I started digging into Large Language Models (LLMs), and what I found changed how I write prompts. The whole post in one sentence: **a model never sees your text, it sees a list of integers called tokens, and that list is what you are billed for and what your context limit counts.**
 
 ## TL;DR
 
@@ -22,11 +23,11 @@ LLMs don't deal with raw text, they convert it into something called *tokens*, w
 
 If you've ever checked your OpenAI bill (or winced at it), you've probably noticed you're charged by *tokens*, not words or characters. So, what's a token? Imagine breaking down a sentence into bite-sized pieces, sometimes a word, sometimes part of a word, or even punctuation. That's a token. It's how LLMs like GPT-4o or Llama make sense of text, and it's the key to everything they do.
 
-Why care? Because the more tokens you feed or get back, the more you pay. Plus, understanding tokens helps you optimize prompts and get better results. Let's dive into how this works.
+Why care? Because the more tokens you feed or get back, the more you pay. Plus, understanding tokens helps you optimize prompts and get better results. Here is how it works.
 
 ## Step 1: Text to Tokens (The Magic Conversion)
 
-LLMs don't *read* text, they work with numbers. Every piece of text you send gets chopped up into tokens using a *tokenizer*. I played around with a JavaScript implementation of GPT-4o's tokenizer called `js-tiktoken` to see this in action. Check this out:
+LLMs don't *read* text, they work with numbers. Every piece of text you send gets chopped up into tokens using a *tokenizer*. I played around with `js-tiktoken`, a JavaScript port of OpenAI's [tiktoken](https://github.com/openai/tiktoken) and the tokenizer GPT-4o uses, to see this in action. Check this out:
 
 ```typescript
    import { Tiktoken } from 'js-tiktoken/lite';
@@ -62,7 +63,7 @@ I ran this on a markdown file with about 2,294 characters. Guess how many tokens
   Number of tokens: 484
 ```
 
-That's because tokens aren't individual letters, they're chunks of text. A single token might represent a whole word like “hello” or part of a complex word. This compression is why token counts are way lower than character counts, but it's still what you're billed for.
+That is about 4.7 characters per token for this file. Tokens aren't individual letters, they're chunks of text. A single token might represent a whole word like “hello” or part of a complex word. This compression is why token counts are way lower than character counts, but it's still what you're billed for.
 
 ## Step 2: What LLMs Actually Process
 
@@ -94,8 +95,18 @@ Tokens aren't just about cost, they're how LLMs *think*. The more text you send,
 
 When I started optimizing prompts for my AI projects, understanding tokens changed the game. Shorter prompts didn't just save money, they made responses faster and often **more accurate** since the model wasn't drowning in irrelevant context. If you're building with LLMs, play around with a tokenizer yourself. Seeing a paragraph shrink into a list of numbers is oddly satisfying!
 
+## Where this stops applying
+
+**The numbers are for one tokenizer and one file.** `o200k_base` is OpenAI's encoding. Claude, Gemini, and Llama each use their own, so the same text gives a different count on each; for Claude you ask the API through its [token counting endpoint](https://docs.anthropic.com/en/docs/build-with-claude/token-counting). My 4.7 characters per token came from English Markdown. Code, JSON, and non-English text usually split into more tokens per character.
+
+**"Shorter prompts are more accurate" is what I saw, not a law.** Cutting irrelevant context helped my projects. Cutting context the model needed would have hurt. The useful habit is measuring, not trimming.
+
+**Tokens are not the whole bill.** Output tokens cost more than input tokens on most price lists, and cached input is billed differently again, so a count alone will not predict a cost.
+
 ## Final Thoughts
 
-LLMs don't speak text, they speak tokens. It's a weird, wonderful world of numbers behind the scenes, and knowing this gives you a superpower for working with AI. Whether you're tweaking prompts or just geeking out like I did, tokens are the key to unlocking how these models tick.
+LLMs don't speak text, they speak tokens. It's a weird, wonderful world of numbers behind the scenes, and knowing this gives you a superpower for working with AI. Before you ship a prompt, run it through the tokenizer for the model you are actually calling. It takes ten lines of code and it replaces guessing with a number.
 
 ✌️ Stay curious, Keep coding, Peace nerds!
+
+*Updated 9 October 2026: stated the thesis up front, linked the tokenizer, and added the section on where this stops applying.*

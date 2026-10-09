@@ -6,7 +6,8 @@
 import { loadPosts } from "./lib/posts.mjs";
 
 // Posts from before the style guide keep their original shape.
-const STYLE_GUIDE_SINCE = "2026-10-01";
+// Set POSTS_CHECK_SINCE=2000-01-01 to hold the whole archive to the guide.
+const STYLE_GUIDE_SINCE = process.env.POSTS_CHECK_SINCE ?? "2026-10-01";
 // Stock phrases the style guide asks to be replaced with the specific thing meant.
 const STOCK_PHRASES = [
   "hot take",

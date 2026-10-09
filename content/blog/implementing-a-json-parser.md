@@ -2,15 +2,16 @@
 title: Implementing a JSON Parser
 publishedAt: '2024-11-15'
 summary: >-
-  Learn to build a robust JSON parser from scratch in TypeScript, understanding
-  tokenization, AST construction, and recursive descent parsing.
+  A JSON parser is two small programs: a tokenizer and a recursive descent
+  parser. Both built in TypeScript on Deno and tested against the JSON grammar.
 tags:
   - computer science
+updated: '2026-10-09'
 ---
 
 Ever wondered how applications understand and process data from APIs? The magic often lies in a data format called JSON. This human-readable format is widely used to transmit data over the internet. But how do computers interpret this data? That's where JSON parsers come in.
 
-In this devlog, we'll dive into the world of parser's and Implementing a JSON parser using **Deno** and **Typescript** which could parse local JSON files as well as JSON responses from an API.
+In this devlog, we'll implement a JSON parser using **Deno** and **Typescript** which can parse local JSON files as well as JSON responses from an API. The thing I want you to take away: **a parser is two small programs. A tokenizer turns characters into tokens, and a recursive function per grammar rule turns tokens into a tree.** JSON's grammar is small enough to see the whole idea in one sitting.
 
 ## What is JSON and why is it everywhere? 🤔
 
@@ -33,7 +34,7 @@ Its use cases range from transmitting API responses to saving application settin
 
 ## What is a Parser? 🧐
 
-At its core, a parser is a program that converts text into a structured format and ensure nothing . For JSON, the parser's job is to transform raw strings into usable objects or data structures. The process typically involves two steps:
+At its core, a parser is a program that converts text into a structured format and rejects anything that does not follow the grammar. For JSON, the parser's job is to transform raw strings into usable objects or data structures. The process typically involves two steps:
 
 1. **Tokenizing (Lexical Analysis):** Breaking the input into meaningful chunks called tokens (e.g. `{`, `"name"`, `:`, `"Alice"`).
 2. **Parsing (Constructing AST's):** Arranging these tokens into a hierarchical structure, known as an Abstract Syntax Tree (AST), that represents the JSON data.
@@ -107,7 +108,7 @@ Tokenizing is always the first step when writing your own interpreter or compile
 
 Tokenizing helps us understand the structure of the code or input being processed. By breaking it down into tokens, such as keywords, symbols, and literals, we gain insight into the underlying components. Additionally, tokenizing plays a crucial role in error handling. By identifying and categorizing tokens, we can detect and handle syntax errors more effectively.
 
-It is important to _only use the grammar provided in [ECMA-404](https://www.json.org/json-en.html) for tokenizing JSON._ This ensures that the tokenizer can correctly identify and categorize JSON tokens.
+It is important to _only use the grammar provided in [ECMA-404](https://ecma-international.org/publications-and-standards/standards/ecma-404/) for tokenizing JSON_ (the diagrams on [json.org](https://www.json.org/json-en.html) are the same grammar drawn out). This ensures that the tokenizer can correctly identify and categorize JSON tokens.
 
 Here's an example of how `tokenizer.ts` file looks:
 
@@ -212,8 +213,20 @@ Moving on to the parser, we built an Abstract Syntax Tree (AST) that neatly orga
 
 So, with our tokenizer and parser working hand in hand, we can confidently say that we've successfully crafted our very own JSON parser!
 
+## Where this stops applying
+
+**Passing my tests is not the same as being correct.** The tests above cover the cases I thought of. [JSONTestSuite](https://github.com/nst/JSONTestSuite) has hundreds of files that real parsers disagree on, and it is the honest benchmark for any parser that claims to follow the standard.
+
+**The standards leave things open.** ECMA-404 defines the syntax only. [RFC 8259](https://datatracker.ietf.org/doc/html/rfc8259) adds interoperability advice and still leaves choices to the implementer: what to do with duplicate keys, how large a number may be, how deep nesting can go. This parser makes those choices implicitly.
+
+**Recursive descent has a depth limit.** Each nested array or object is another function call, so a document nested deeply enough will overflow the call stack. Production parsers either cap the depth or use an explicit stack.
+
+**Do not use this in production.** `JSON.parse` is implemented in native code and heavily optimised. The reason to write your own is to understand the one you already have.
+
 ---
 
 If you are curious to check out full code, here's the [GitHub Repo](https://github.com/0xadityaa/json-parser).
 
 ✌️ Stay curious, Keep coding, Peace nerds!
+
+*Updated 9 October 2026: fixed a broken sentence, pointed the ECMA-404 link at the standard itself, and added the section on where this stops applying.*

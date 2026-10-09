@@ -36,7 +36,20 @@ jobs:
           MEDIUM_INTEGRATION_TOKEN: ${{ secrets.MEDIUM_INTEGRATION_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}
           CROSSPOST_SINCE: ${{ inputs.since || vars.CROSSPOST_SINCE }}
+          CROSSPOST_MAX: ${{ vars.CROSSPOST_MAX }}
         run: node scripts/crosspost.mjs ${{ (github.event_name == 'workflow_dispatch' && inputs.dry_run) && '--dry-run' || '' }}
+      # The profile repository refreshes its own list every hour. With a token
+      # that can reach it, do it right away instead. See docs/publishing.md.
+      - name: Refresh the GitHub profile README
+        if: env.PROFILE_REPO_TOKEN != ''
+        env:
+          PROFILE_REPO_TOKEN: ${{ secrets.PROFILE_REPO_TOKEN }}
+        run: |
+          curl -fsS -X POST \
+            -H "Authorization: Bearer $PROFILE_REPO_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/${{ github.repository_owner }}/${{ github.repository_owner }}/dispatches \
+            -d '{"event_type":"posts-updated"}'
       - name: Record published URLs
         if: always()
         run: |

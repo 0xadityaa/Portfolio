@@ -2,15 +2,16 @@
 title: Hoisting in Javascript
 publishedAt: '2024-09-30'
 summary: >-
-  Master JavaScript hoisting, understanding variable and function declarations,
-  execution context, and how to avoid common temporal dead zone pitfalls.
+  JavaScript registers every declaration before running any code. That one fact
+  explains undefined from var, callable functions, and the temporal dead zone.
 tags:
   - javascript
+updated: '2026-10-09'
 ---
 
 ## What is Hoisting?
 
-Hoisting is a unique behavior in JavaScript where variable and function declarations are moved to the top of their containing scope during the compile phase. This means that you can use variables and functions before they are declared in the code. Understanding hoisting is crucial for mastering JavaScript, as it can lead to unexpected results if not properly understood.
+[Hoisting](https://developer.mozilla.org/en-US/docs/Glossary/Hoisting) is the name for a JavaScript behavior where variable and function declarations act as if they were moved to the top of their containing scope. Nothing is physically moved: **the engine registers every declaration in a scope before it runs any code in that scope**, and the rest of this post is consequences of that one fact. This means that you can use variables and functions before they are declared in the code. Understanding hoisting is crucial for mastering JavaScript, as it can lead to unexpected results if not properly understood.
 
 ## How Hoisting Works
 
@@ -63,14 +64,14 @@ console.log(myConst);
 const myConst = 20;
 ```
 
-In this example, both `myLet` and `myConst` throw a `ReferenceError` because they are in a "temporal dead zone" from the start of the block until their declaration.
+In this example, both `myLet` and `myConst` throw a `ReferenceError` because they are in a ["temporal dead zone"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) from the start of the block until their declaration.
 
 ## Implications of Hoisting
 
 Understanding hoisting is essential for avoiding common pitfalls in JavaScript. Here are a few key takeaways:
 
 1. **Always Declare Variables**: To avoid confusion, always declare your variables at the top of their scope.
-2. **Function Declarations vs. Expressions**: Remember that function declarations are hoisted, but function expressions (including arrow functions) are not.
+2. **Function Declarations vs. Expressions**: Remember that function declarations are hoisted with their body, but for a [function expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function) (including arrow functions) only the variable is hoisted, not the function assigned to it.
 
 ```js
 // returns TypeError: square is not a function
@@ -85,6 +86,18 @@ In this case, the `square` variable is hoisted, but since it is a function expre
 
 ## Wrapping Up
 
-If you are wondering why the functions with `function` declaration are hoisted and why `var func = function() {}` or `func() => {}` are not hoisted, you can check out [this](https://www.0xadityaa.xyz/blog/how-js-works) post where I have discussed how JS execution engine reserves memory for the code. In short, if declaration is made using the `function` keyword, the engine stores entire chunk of that function definition along with the reference which allows us to call the function before definition at runtime while in other cases, memory is initially `undefined` until execution context reaches its definition.
+If you are wondering why the functions with `function` declaration are hoisted and why `var func = function() {}` or `func() => {}` are not hoisted, you can check out [this](/blog/how-js-works) post where I have discussed how JS execution engine reserves memory for the code. In short, if declaration is made using the `function` keyword, the engine stores entire chunk of that function definition along with the reference which allows us to call the function before definition at runtime while in other cases, memory is initially `undefined` until execution context reaches its definition.
+
+## Where this stops applying
+
+**In modern code hoisting rarely bites.** With `let`, `const`, and ES modules, using a name too early throws immediately instead of quietly giving you `undefined`. The confusing cases above are mostly `var` cases, and most codebases have stopped writing `var`.
+
+**"Moved to the top" is a teaching model.** The specification never moves code. It describes environment records that are filled in before execution starts. The model predicts the right output, but it will mislead you if you take it literally, for example about where a `let` variable "is" during its dead zone.
+
+**Classes behave like `let`.** A `class` declaration is hoisted but uninitialized, so using it before its definition is a `ReferenceError`. This post does not cover that case.
+
+The rule that makes all of this a non-issue: declare before use, prefer `const`, and let a linter flag the rest.
 
 ✌️ Stay curious, Keep coding, Peace nerds!
+
+*Updated 9 October 2026: reworded the definition to match the specification, fixed a dead link, added sources, and added the section on where this stops applying.*

@@ -2,17 +2,20 @@
 title: How Javascript Works
 publishedAt: '2024-09-26'
 summary: >-
-  Deep dive into the JavaScript execution engine, call stack, event loop, and
-  memory management to understand how code runs.
+  A mental model of how a JavaScript engine runs code: execution contexts,
+  the memory and execution phases, and the call stack, traced through an example.
 tags:
   - javascript
+updated: '2026-10-09'
 ---
 
 Javascript is a **Synchronous** and **Single Threaded** language. Meaning that it executes one line of code at a time and in the order that it is written. It cannot run in parallel.
 
+The model this post builds: **every piece of JavaScript runs inside an execution context, which is created in two passes. First the engine sets aside memory for every declaration, then it runs the code.** Once you can trace those two passes by hand, hoisting, scope, and the call stack stop being surprising.
+
 ## Execution Context
 
-Everything in Javascript happens inside an **execution context**.
+Everything in Javascript happens inside an [**execution context**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model).
 
 Execution context consists of 2 main parts - **Variable Environment** and **Execution Stack**.
 ![Execution Context in JS](/images/blog/js-execution-context.png)
@@ -29,7 +32,7 @@ Execution Stack is a data structure that keeps track of the order in which the c
 
 ## Let's look at how JS is executed under the hood
 
-Now that we have a basic understanding of how Javascript works, let's dive into its execution engine with an example.
+Now that we have a basic understanding of how Javascript works, here is its execution engine at work on an example.
 
 lets take this JS code as an example and look how it is executed by JS engine:
 
@@ -81,7 +84,7 @@ After the execution of a function is complete, the context created for it will b
 
 Now that we have an understanding of the brute force way fo JS execution, lets look at how it is executed in a more practical way by the JS engine.
 
-The JS engine is a complex system that is responsible for executing the code. It is written in C++ and is called V8. It is the most popular Javascript engine and is used by Google, Facebook, and many other companies.
+The JS engine is a complex system that is responsible for executing the code. The most widely used one is [V8](https://v8.dev/), written in C++, which powers Chrome and Node.js. Firefox and Safari ship their own engines, SpiderMonkey and JavaScriptCore, and all of them follow the same [ECMAScript specification](https://tc39.es/ecma262/).
 
 ![Execution Cycle in JS](/images/blog/js-execution-in-engine.png)
 
@@ -91,8 +94,18 @@ The call stack also has a core component called `Global Execution Context`. This
 
 ---
 
+## Where this stops applying
+
+**This is a mental model, not how V8 is built.** Real engines parse lazily, start in an interpreter, and compile hot functions to machine code while the program runs. The two-pass picture predicts what your code will output. It does not describe what the engine is doing internally.
+
+**Garbage collection is not a phase after each function.** I drew it as phase 3 to keep the cycle simple. In practice [memory is reclaimed](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Memory_management) by a collector that runs on its own schedule, whenever values are no longer reachable. A closure can keep a function's variables alive long after the function has returned.
+
+**Asynchronous code is missing.** "Single threaded" is true of the call stack, but timers, promises, and network calls are handled by the event loop and its queues, which this post does not cover. That is the natural next thing to read about.
+
 ## Wrapping Up
 
-And there you have it, folks! We've journeyed through the intricate world of JavaScript's execution engine, from the creation of the execution context to the final garbage collection phase. Understanding these inner workings not only makes us better developers but also gives us a deeper appreciation for the magic happening under the hood every time we run our code.
+The habit worth keeping: when a piece of JavaScript surprises you, trace it by hand. Write down what is in memory after the first pass, then step through the second pass one line at a time. Most "weird" behaviour stops being weird by line three.
 
 ✌️ Stay curious, Keep coding, Peace nerds!
+
+*Updated 9 October 2026: corrected the description of JavaScript engines, added sources, and added the section on where this stops applying.*
