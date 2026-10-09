@@ -1,22 +1,67 @@
-import React from "react";
-import { getGitHubBuilderProfile } from "@/lib/github";
+import BlurFade from "@/components/magicui/blur-fade";
+import {
+  ProjectsClient,
+  type FeaturedProject,
+  type RepoSummary,
+} from "@/components/projects-client";
 import { DATA } from "@/data/resume";
-import { ProjectsClient } from "@/components/projects-client";
+import { getGitHubBuilderProfile } from "@/lib/github";
+import { projectSlug } from "@/lib/projects";
+
+export const metadata = {
+  title: "Projects",
+  description:
+    "Open source work and side projects: AI agents, RAG systems, developer tools, and experiments.",
+  alternates: { canonical: "/projects" },
+};
 
 export default async function ProjectsPage() {
-  let githubData;
-  try {
-    githubData = await getGitHubBuilderProfile("0xadityaa");
-  } catch (err) {
-    console.error("Failed to fetch github builder profile inside projects page:", err);
-    githubData = {
-      repos: [],
-    };
-  }
+  const github = await getGitHubBuilderProfile("0xadityaa").catch(() => null);
+
+  const featured: FeaturedProject[] = DATA.projects.map((project) => ({
+    title: project.title,
+    slug: projectSlug(project),
+    description: project.description,
+    dates: project.dates,
+    image: project.image,
+    technologies: project.technologies,
+  }));
+
+  // The rest of GitHub, minus what is already featured, placeholder data,
+  // and repos with nothing to say about themselves.
+  const featuredSlugs = new Set(featured.map((p) => p.slug.toLowerCase()));
+  const repos: RepoSummary[] =
+    github && !github.isMock
+      ? github.repos
+          .filter((repo) => repo.description && !featuredSlugs.has(repo.name.toLowerCase()))
+          .map((repo) => ({
+            name: repo.name,
+            url: repo.url,
+            description: repo.description,
+            stargazerCount: repo.stargazerCount,
+            pushedAt: repo.pushedAt,
+            primaryLanguage: repo.primaryLanguage,
+            tags: [...repo.topics, ...repo.languages],
+          }))
+      : [];
 
   return (
-    <section id="projects" className="py-8">
-      <ProjectsClient projects={DATA.projects} githubRepos={githubData?.repos || []} />
-    </section>
+    <main className="space-y-10">
+      <BlurFade>
+        <header className="space-y-3">
+          <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+            Projects
+          </h1>
+          <p className="max-w-[58ch] text-lg leading-relaxed text-muted-foreground">
+            From random experiments to full-blown web apps, here&apos;s a
+            collection of things I&apos;ve built with code and caffeine.
+          </p>
+        </header>
+      </BlurFade>
+
+      <BlurFade delay={0.08}>
+        <ProjectsClient featured={featured} repos={repos} />
+      </BlurFade>
+    </main>
   );
 }

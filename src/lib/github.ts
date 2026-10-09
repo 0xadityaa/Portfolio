@@ -28,6 +28,8 @@ export interface GitHubBuilderProfile {
   contributionsCount: number;
   pinnedRepos: GitHubPinnedRepo[];
   repos: GitHubPinnedRepo[];
+  /** True when the numbers are placeholders (no token or the API failed). */
+  isMock?: boolean;
 }
 
 const GITHUB_GRAPHQL_API = "https://api.github.com/graphql";
@@ -43,7 +45,7 @@ query ($username: String!) {
     followers {
       totalCount
     }
-    repositories(first: 100, ownerAffiliations: OWNER, privacy: PUBLIC) {
+    repositories(first: 100, ownerAffiliations: OWNER, privacy: PUBLIC, isFork: false, orderBy: {field: PUSHED_AT, direction: DESC}) {
       totalCount
       nodes {
         name
@@ -179,7 +181,7 @@ Returning mock GitHub data.
 
     const mapRepoNode = (node: any): GitHubPinnedRepo => ({
       name: node.name,
-      description: node.description || "No description provided.",
+      description: node.description || "",
       url: node.url,
       homepageUrl: node.homepageUrl || null,
       stargazerCount: node.stargazerCount || 0,
@@ -330,5 +332,6 @@ function getMockProfile(): GitHubBuilderProfile {
     contributionsCount: 890,
     pinnedRepos: mockRepos.slice(0, 4),
     repos: mockRepos,
+    isMock: true,
   };
 }

@@ -1,9 +1,4 @@
-"use client";
-
-import { Badge } from "@/components/ui/badge";
-import { ChevronRight as ChevronRightIcon } from "lucide-react";
-import Link from "next/link";
-import React from "react";
+import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 
 interface ResumeCardProps {
@@ -12,7 +7,6 @@ interface ResumeCardProps {
   title: string;
   subtitle?: string;
   href?: string;
-  badges?: readonly string[];
   period: string;
   description?: string;
 }
@@ -23,49 +17,40 @@ export const ResumeCard = ({
   title,
   subtitle,
   href,
-  badges,
   period,
   description,
 }: ResumeCardProps) => {
   return (
-    <Link href={href || "#"} className="block cursor-pointer group">
-      <div className="flex gap-4 p-4 -mx-4 rounded-xl transition-colors hover:bg-muted/50" suppressHydrationWarning>
-        <div className="flex-none mt-1" suppressHydrationWarning>
-          <div className="size-12 sm:size-14 rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0 relative" suppressHydrationWarning>
-            {logoUrl ? (
-              <Image src={logoUrl} alt={altText} fill className="object-cover" />
-            ) : (
-              <span className="text-xs bg-muted text-muted-foreground font-medium flex h-full w-full items-center justify-center">{altText[0]}</span>
-            )}
-          </div>
-        </div>
-        <div className="flex-grow flex flex-col" suppressHydrationWarning>
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-y-1 mb-1 text-sm sm:text-base" suppressHydrationWarning>
-            <h3 className="inline-flex items-center gap-2 font-semibold leading-none text-foreground">
-              {title}
-              {badges && (
-                <span className="inline-flex gap-x-1">
-                  {badges.map((badge, index) => (
-                    <Badge variant="secondary" className="text-[10px] rounded-md px-1.5 py-0.5" key={index}>
-                      {badge}
-                    </Badge>
-                  ))}
-                </span>
-              )}
-              <ChevronRightIcon className="size-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-muted-foreground" />
-            </h3>
-            <div className="text-xs sm:text-sm tabular-nums text-muted-foreground sm:text-right" suppressHydrationWarning>
-              {period}
-            </div>
-          </div>
-          {subtitle && <div className="text-sm font-medium text-muted-foreground" suppressHydrationWarning>{subtitle}</div>}
-          {description && (
-            <div className="mt-2 text-sm text-foreground/80 leading-relaxed" suppressHydrationWarning>
-              {description}
-            </div>
-          )}
-        </div>
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group -mx-3 flex gap-4 rounded-lg p-3 transition-colors hover:bg-card"
+    >
+      <div className="relative mt-0.5 size-10 flex-none overflow-hidden rounded-lg border border-border bg-muted">
+        <Image src={logoUrl} alt="" fill sizes="40px" className="object-cover" />
       </div>
-    </Link>
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-col justify-between gap-x-4 gap-y-0.5 sm:flex-row sm:items-baseline">
+          <h3 className="inline-flex items-center gap-1 font-medium text-foreground">
+            {title}
+            <ArrowUpRight
+              className="size-3.5 text-muted-foreground opacity-0 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100 group-focus-visible:opacity-100"
+              aria-hidden
+            />
+            <span className="sr-only">, {altText} website</span>
+          </h3>
+          <span className="meta flex-none">{period}</span>
+        </div>
+        {subtitle && (
+          <p className="text-sm text-muted-foreground">{subtitle}</p>
+        )}
+        {description && (
+          <p className="mt-2 text-sm leading-relaxed text-foreground/75">
+            {description}
+          </p>
+        )}
+      </div>
+    </a>
   );
 };

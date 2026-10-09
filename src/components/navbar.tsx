@@ -1,6 +1,5 @@
 "use client";
 
-
 import { Separator } from "@/components/ui/separator";
 import {
   Tooltip,
@@ -12,64 +11,72 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+const item =
+  "flex size-10 items-center justify-center rounded-full transition-colors active:scale-95";
+
 export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 pointer-events-none">
-      <div className="pointer-events-auto rounded-full border border-border bg-background/70 backdrop-blur-lg shadow-sm flex items-center p-1.5 gap-1.5">
-        {/* Navigation Routes */}
-        <div className="flex items-center gap-1">
-          {DATA.navbar.map((item) => {
-            const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
-            return (
-              <Tooltip key={item.href}>
-                <TooltipTrigger asChild>
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      "flex items-center justify-center size-10 rounded-full transition-colors",
-                      isActive
-                        ? "bg-primary text-primary-foreground"
-                        : "hover:bg-muted text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    <item.icon className="size-4" />
-                  </Link>
-                </TooltipTrigger>
-                <TooltipContent className="bg-foreground text-background border-none rounded-md px-3 py-1.5 text-xs">
-                  <p>{item.label}</p>
-                </TooltipContent>
-              </Tooltip>
-            );
-          })}
-        </div>
+    <div className="pointer-events-none fixed inset-x-0 bottom-6 z-50 flex justify-center pb-[env(safe-area-inset-bottom)]">
+      <nav
+        aria-label="Main"
+        className="pointer-events-auto flex items-center gap-1 rounded-full border border-border bg-background/80 p-1.5 shadow-[0_8px_30px_rgb(0_0_0/0.5),inset_0_1px_0_rgb(255_255_255/0.04)] backdrop-blur-lg"
+      >
+        {DATA.navbar.map((route) => {
+          const isActive =
+            pathname === route.href ||
+            (route.href !== "/" && pathname.startsWith(route.href));
+          return (
+            <Tooltip key={route.href}>
+              <TooltipTrigger asChild>
+                <Link
+                  href={route.href}
+                  aria-label={route.label}
+                  aria-current={isActive ? "page" : undefined}
+                  className={cn(
+                    item,
+                    isActive
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  )}
+                >
+                  <route.icon className="size-4" aria-hidden />
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent className="rounded-md border-none bg-foreground px-2.5 py-1 text-xs text-background">
+                {route.label}
+              </TooltipContent>
+            </Tooltip>
+          );
+        })}
 
-        <Separator orientation="vertical" className="h-6 w-[1px] bg-border mx-1" />
+        <Separator orientation="vertical" className="mx-1 h-6 w-px bg-border" />
 
-        {/* Social Links */}
-        <div className="flex items-center gap-1">
-          {Object.entries(DATA.contact.social)
-            .filter(([_, social]) => social.navbar)
-            .map(([name, social]) => (
-              <Tooltip key={name}>
-                <TooltipTrigger asChild>
-                  <Link
-                    href={social.url}
-                    target="_blank"
-                    className="flex items-center justify-center size-10 rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                  >
-                    <social.icon className="size-4" />
-                  </Link>
-                </TooltipTrigger>
-                <TooltipContent className="bg-foreground text-background border-none rounded-md px-3 py-1.5 text-xs">
-                  <p>{name}</p>
-                </TooltipContent>
-              </Tooltip>
-            ))}
-
-        </div>
-      </div>
+        {Object.entries(DATA.contact.social)
+          .filter(([, social]) => social.navbar)
+          .map(([name, social]) => (
+            <Tooltip key={name}>
+              <TooltipTrigger asChild>
+                <a
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={name}
+                  className={cn(
+                    item,
+                    "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  )}
+                >
+                  <social.icon className="size-4" aria-hidden />
+                </a>
+              </TooltipTrigger>
+              <TooltipContent className="rounded-md border-none bg-foreground px-2.5 py-1 text-xs text-background">
+                {name}
+              </TooltipContent>
+            </Tooltip>
+          ))}
+      </nav>
     </div>
   );
 }
