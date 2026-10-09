@@ -18,15 +18,23 @@ Free APIs that could be added next: Bluesky, Mastodon, LinkedIn.
 
 `scripts/crosspost.mjs` runs every 15 minutes. A post is due on a platform when it is not a draft, its `publishedAt` has passed, it returns 200 on the site, it was published on or after `CROSSPOST_SINCE` (default 2026-10-01, so the older archive is left alone), and its frontmatter has no URL for that platform.
 
-After publishing it writes the URL into the post's frontmatter and commits to `main`. That field is the record: a platform with a URL is never posted to again. Platforms that cannot be automated go into one issue per post, labelled `crosspost`, with the exact steps; `crosspost_issue` in the frontmatter stops it being opened twice.
+After publishing it writes the URL into the post's frontmatter and commits to `main`. That field is the record: a platform with a URL is never posted to again. Platforms that cannot be automated go into one issue per run, labelled `crosspost`, with the exact steps for each post; `crosspost_issue` in the frontmatter stops it being opened twice.
+
+A backlog drains slowly on purpose: at most `CROSSPOST_MAX` API publishes per run (default 3), oldest post first, so platforms see a steady trickle instead of a burst.
 
 To try it safely: Actions, Cross-post, Run workflow, leave "dry run" ticked. Locally: `npm run crosspost -- --dry-run`.
 
-To syndicate older posts, run the workflow with `since` set to an earlier date. To keep one post off a platform, put any placeholder in its field, for example `devto_url: skip`.
+`CROSSPOST_SINCE` and `CROSSPOST_MAX` are repository variables (Settings, Secrets and variables, Actions, Variables). `CROSSPOST_SINCE` is set to 2024-01-01 so the whole archive is syndicated. To keep one post off a platform, put any placeholder in its field, for example `devto_url: skip`.
 
 ## When posts go out
 
 Aditya sets the time when he approves: `/publish <date>` on the pull request (`docs/blog/workflow.md`, stage 4). With no date it takes the default slot, Tuesday 09:00 Toronto time, defined in `scripts/lib/schedule.mjs`. The evidence for that slot is weak and says so; revisit it against the site's own analytics after a dozen posts.
+
+## The GitHub profile README
+
+The "Writing" list on github.com/0xadityaa is rewritten from `/rss.xml` by a workflow in the profile repository (`0xadityaa/0xadityaa`, `.github/workflows/latest-posts.yml`). It runs hourly, so a new post shows up there within the hour with nothing to configure.
+
+A workflow in this repository cannot write to another repository with its built-in token. To refresh the profile the moment a post is cross-posted, add a `PROFILE_REPO_TOKEN` secret here: a fine-grained personal access token limited to the `0xadityaa/0xadityaa` repository with "Contents: read and write". The Cross-post action then triggers the profile workflow directly.
 
 ## Secrets
 

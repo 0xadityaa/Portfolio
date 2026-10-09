@@ -2,18 +2,21 @@
 title: What is semantic search & how to implement it?
 publishedAt: '2025-04-06'
 summary: >-
-  Implement semantic search using vector embeddings and efficient indexing to
-  enhance LLM accuracy, speed, and relevance in your applications.
+  How I added semantic search to an LLM pipeline: embeddings, why I cut them
+  to 2,000 dimensions, picking an ANN index, and what the benchmarks showed.
 tags:
   - vector embeddings
   - semantic search
   - llm
   - db
+updated: '2026-10-09'
 ---
 
 ![GIF of search icon rotating around computer screen](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWM5NmM0aWRueDkzNnh5endseWYwenhldzAzb2g3dmdxd21wc2dmciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT9IgFLfWUZigjoem4/giphy.gif)
 
 Last week, I was assigned an interesting task at work to implement semantic search in our API pipeline so that our LLM could answer customer queries more accurately and in real-time. I had a rough idea of how semantic search worked _shoutout to my ML professor, that class finally paid off_, but I didn't really know how to get started with implementing it. Here's how I did it.
+
+What I learned, in one sentence: **most of the work in semantic search is not the embedding model, it is choosing a vector size and an index your database can actually serve quickly.**
 
 ## TL;DR
 
@@ -33,13 +36,13 @@ So even if the user doesn't use the exact keyword in the dataset, the search eng
 #### 1. Choose a model and generate embeddings
 
 - The first step is to convert your data into embeddings, which are high-dimensional vector representations that encode semantic meaning.
-- I used OpenAI's `text-embedding-3-large` model. You send it text, and it gives you a vector. My initial output was a 3075 dimensional vector. That's a lot, which is great for accuracy, but not so great for performance so I trimmed it down to 2000 dimensions (why? more on that next).
+- I used OpenAI's [`text-embedding-3-large`](https://platform.openai.com/docs/guides/embeddings) model. You send it text, and it gives you a vector. My initial output was a 3,072 dimensional vector. That's a lot, which is great for accuracy, but not so great for performance so I trimmed it down to 2000 dimensions (why? more on that next).
 - You don't need multimodal embeddings unless you're dealing with images or videos. For me text-only works fine.
 
 #### 2. Choose the right dimensionality
 
 - More dimensions = better semantics = better results... but unless you have a supercomputer, it also means higher compute and slower queries.
-- Larger vectors slow down queries and add pressure on your database, especially at scale. This is why it's important to experiment and find the right balance. For me, trimming the dimensions from 3,075 to 2,000 gave a good trade-off between speed and relevance.
+- Larger vectors slow down queries and add pressure on your database, especially at scale. This is why it's important to experiment and find the right balance. For me, trimming the dimensions from 3,072 to 2,000 gave a good trade-off between speed and relevance. Two facts make that number less arbitrary than it looks: the `text-embedding-3` models are built to be shortened through the API's `dimensions` parameter, and [pgvector](https://github.com/pgvector/pgvector) can only index its `vector` type up to 2,000 dimensions.
 - The right number will depend on your specific use case, data, and performance requirements.
 
 #### 3. Index Your Embeddings
@@ -50,7 +53,7 @@ So even if the user doesn't use the exact keyword in the dataset, the search eng
   1. [IVFFlat](https://docs.oracle.com/en/database/oracle/oracle-database/23/vecse/understand-inverted-file-flat-vector-indexes.html)
      - This method uses k-means clustering to partition your data into lists. During a search, only a subset of those lists are scanned. You can control how many lists to probe, which allows you to adjust the balance between speed and accuracy.
      - This method requires training and works well when you want more control over performance tuning.
-  2. [HNSW](https://www.pinecone.io/learn/series/faiss/hnsw/)
+  2. [HNSW](https://www.pinecone.io/learn/series/faiss/hnsw/) ([original paper](https://arxiv.org/abs/1603.09320))
      - The HNSW algorithm builds a multi-layered graph of vectors. It starts the search at the top layer and narrows down as it gets closer to the best matches.
      - HNSW usually has a better speed-to-recall tradeoff than IVFFlat and does not require training. You can create an HNSW index even if your table is currently empty.
   3. [DiskANN](https://www.timescale.com/blog/understanding-diskann)
@@ -70,9 +73,21 @@ So even if the user doesn't use the exact keyword in the dataset, the search eng
 Incase you are wondering if it's worth the effort, here are some performance benchmarks I ran:
 ![semantic search performance benchmarks](/images/blog/semantic-search-benchmarks.png)
 
+## Where this stops applying
+
+**The benchmarks are one dataset on one system.** They show what happened for our data and our queries. Treat the direction as the finding, not the exact numbers, and rerun them on your own data before you believe them.
+
+**Semantic search is bad at exact matches.** Embeddings blur a product code, an error ID, or a rare name into its neighbours. Keyword search finds those instantly. Production systems usually run both and merge the results (hybrid search); Postgres already ships [full-text search](https://www.postgresql.org/docs/current/textsearch.html) for the keyword half.
+
+**ANN indexes trade recall for speed, silently.** An approximate index can miss the true best match and nothing will tell you. Measure recall against an exact scan on a sample before you trust it.
+
+**Fewer dimensions is a lossy choice.** Shortening the vector kept quality good enough here. On a different corpus the cut-off that works may be higher or lower.
+
 ## Final Thoughts
 
 - Semantic Search + LLMs = 🔥
 - Semantic search is a perfect complement to LLMs. Instead of passing all your data to the model, you can first use semantic search to narrow it down to only the most relevant parts.
 - This leads to faster responses, lower token usage, and better accuracy. It also reduces hallucinations because the model receives focused, relevant information rather than having to reason over a massive context.
 - In short, semantic search _filters_ and the LLM _interprets_, creating much better user experiences together.
+
+*Updated 9 October 2026: corrected the embedding size (3,072 dimensions, not 3,075), explained the 2,000 dimension limit with sources, and added the section on where this stops applying.*

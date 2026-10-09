@@ -2,17 +2,20 @@
 title: What exactly is MCP?
 publishedAt: '2025-03-08'
 summary: >-
-  Explore Model Context Protocol (MCP), the new standard for standardized
-  context injection, bridging data silos and enhancing AI tool use.
+  MCP is a protocol that lets any AI app discover and call tools through one
+  standard interface, replacing per-app glue code. What it fixes and what it costs.
 tags:
   - llm
   - ai
   - mcp
+updated: '2026-10-09'
 ---
 
 ![GIF of a robot furiously pressing buttons](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2U0am5hb2J4aTA5dGFyYzA5bHN4bG1hbWltcjJrcjQyM2M2Z3FjciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/mBpthYTk5rfbZvdtIy/giphy.gif)
 
-If you are active in tech communities on socials like LinkedIn, YouTube and X, there's a high chance that your feed is flooded with posts about MCP too. This was my state as well a few days ago, so I decided to dive in. Here, I'm going to summarize everything I could find and understand until now.
+If you are active in tech communities on socials like LinkedIn, YouTube and X, there's a high chance that your feed is flooded with posts about MCP too. This was my state as well a few days ago, so I decided to dig in. Here, I'm going to summarize everything I could find and understand until now.
+
+My one-line take: **MCP is to AI tools what a common plug is to hardware. It does not make a model smarter; it makes a tool written once usable from every app that speaks the protocol.**
 
 ## TL;DR
 
@@ -41,7 +44,7 @@ MCP changes this by providing structured context upfront, so models can make mor
 
 ### The Problem with Current AI Tool Use
 
-![AI tool use without MCP](http://res.cloudinary.com/total-typescript/image/upload/v1741365059/posts/post_hmxpo/ig9sx9vzc5oxzaywlff0.png)
+![AI tool use without MCP](https://res.cloudinary.com/total-typescript/image/upload/v1741365059/posts/post_hmxpo/ig9sx9vzc5oxzaywlff0.png)
 
 <cite>Image credit: Matt Pocock</cite>
 
@@ -58,7 +61,7 @@ But this method has some serious downsides:
 ### How MCP propose a better way to fix this?
 
 ![AI tool use with
-  MCP](http://res.cloudinary.com/total-typescript/image/upload/v1741365059/posts/post_hmxpo/k36sjzjwkv1bimytecqe.png)
+  MCP](https://res.cloudinary.com/total-typescript/image/upload/v1741365059/posts/post_hmxpo/k36sjzjwkv1bimytecqe.png)
 
 <cite>Image credit: Matt Pocock</cite>
 
@@ -81,14 +84,26 @@ With MCP, AI models get structured context upfront, eliminating ambiguity and re
 
 MCP is still new, but since it's an open standard, you can already start experimenting with it. Here are a few resources to dive in:
 
-**Read the official Docs:** Check out Anthropic's [documentation](https://modelcontextprotocol.io/introduction) for a deep dive into MCP's architecture.
+**Read the official docs:** The [architecture overview](https://modelcontextprotocol.io/docs/learn/architecture) and the [specification](https://modelcontextprotocol.io/specification/latest) are the primary sources. The [reference servers](https://github.com/modelcontextprotocol/servers) are the best code to read.
 
 **Try Out Pre-Built MCP Servers:** Since MCP is open-source, npm-like registries are emerging with pre-built MCP servers for many of the tools we use daily. Here are some of the most useful ones I've come across so far: [smithery](https://smithery.ai/), [mcp-get](https://mcp-get.com/), [glama](https://glama.ai/mcp/servers), [mcp.so](https://mcp.so/).
 
 **Build Your Own MCP Server:** Follow the [quick start guide](https://modelcontextprotocol.io/tutorials/building-mcp-with-llms) to create custom MCP servers tailored to your needs.
+
+## Where this stops applying
+
+**You do not need MCP for one app with a few tools.** Plain function calling does the same job with less machinery. The protocol pays off when the same tool has to work across several clients, or when you want to use servers other people wrote.
+
+**The strongest objection is security.** An MCP server is code and instructions from someone else, running with your credentials and feeding text straight into your model. The specification's own [security section](https://modelcontextprotocol.io/specification/latest) says descriptions of tool behaviour should be considered untrusted unless they come from a trusted server, and that users must explicitly consent to data access and tool use. Installing a server from a registry deserves the same care as installing a package.
+
+**More tools is not more capability.** Every connected server adds its tool definitions to the context window. Connect ten and the model spends tokens, and attention, reading menus.
+
+**This is a summary of reading.** Nothing here is a measurement or a production report, so weigh it as an explainer.
 
 ## Final Thoughts
 
 MCP is still in its early days, and while it promises a smarter way to connect AI with real-world data sources, it's too soon to say how much of an impact it will have. On the innovation side, MCP's approach to standardizing context for AI is a major step forward it could lead to better model accuracy, easier integrations, and more seamless automation. The pre-built connectors and modular framework make it appealing for developers looking to streamline workflows.
 
 But there are still open questions. Will companies widely adopt it? Can it scale efficiently across different AI models and enterprise systems? Right now, it's an interesting idea with a lot of potential, but we'll have to see how it evolves. If you're in the AI space, it's worth keeping an eye on and experimenting with, but whether it will _truly change_ the agentic ai game? Guess we'll just have to twiddle our thumbs and see.
+
+*Updated 9 October 2026: added the one-line take, primary sources, and the section on where this stops applying. Image links now use HTTPS.*
