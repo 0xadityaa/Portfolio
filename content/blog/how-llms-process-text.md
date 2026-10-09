@@ -1,0 +1,101 @@
+---
+title: How LLMs Process Text
+publishedAt: '2025-09-28'
+summary: >-
+  Understand how LLMs transform text into tokens, process them numerically, and
+  why efficient tokenization matters for performance and cost.
+tags:
+  - llm
+  - ai
+  - text processing
+---
+
+![GIF of search icon rotating around computer screen](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExamdhaWx4dTZkOGVuNzJ6anZ1cTlybGNhbnFmaXVhZ2RpeW1nMGlvOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/9CffOPMLx0Hf2/giphy.gif)
+
+Have you ever typed a prompt into ChatGPT or Claude and wondered, *"How does this thing even understand me?"* Well, spoiler alert: it doesn't *read* text like we do. I was just as curious when I started digging into Large Language Models (LLMs), and what I found blew my mind. Let's unpack how LLMs process text in under a few minutes, and trust me, it's gonna be a fun ride!
+
+## TL;DR
+
+LLMs don't deal with raw text, they convert it into something called *tokens*, which are basically numbers, using algorithms like [byte-pair-encoding](https://en.wikipedia.org/wiki/Byte_pair_encoding). These tokens are the currency of AI: you're billed for them, not characters. I'll show you how text becomes tokens, how LLMs crunch these numbers, and why it matters for performance and cost. Stick around for some code to see it in action!
+
+## What's a Token, and Why Should You Care?
+
+If you've ever checked your OpenAI bill (or winced at it), you've probably noticed you're charged by *tokens*, not words or characters. So, what's a token? Imagine breaking down a sentence into bite-sized pieces, sometimes a word, sometimes part of a word, or even punctuation. That's a token. It's how LLMs like GPT-4o or Llama make sense of text, and it's the key to everything they do.
+
+Why care? Because the more tokens you feed or get back, the more you pay. Plus, understanding tokens helps you optimize prompts and get better results. Let's dive into how this works.
+
+## Step 1: Text to Tokens (The Magic Conversion)
+
+LLMs don't *read* text, they work with numbers. Every piece of text you send gets chopped up into tokens using a *tokenizer*. I played around with a JavaScript implementation of GPT-4o's tokenizer called `js-tiktoken` to see this in action. Check this out:
+
+```typescript
+   import { Tiktoken } from 'js-tiktoken/lite';
+   import o200k_base from 'js-tiktoken/ranks/o200k_base';
+   import { readFileSync } from 'node:fs';
+   import path from 'node:path';
+
+   const tokenizer = new Tiktoken(
+     // NOTE: o200k_base is the tokenizer for GPT-4o
+     o200k_base,
+   );
+
+   const textToTokens = (text: string) => {
+     return tokenizer.encode(text);
+   };
+
+   const input = readFileSync(
+     path.join(import.meta.dirname, 'input.md'),
+     'utf-8',
+   );
+
+   const output = textToTokens(input);
+
+   console.log('Content length in characters:', input.length);
+   console.log(`Number of tokens:`, output.length);
+   console.dir(output, { depth: null, maxArrayLength: 20 });
+```
+
+I ran this on a markdown file with about 2,294 characters. Guess how many tokens it turned into? Just 484. Here's the output:
+
+```
+  Content length in characters: 2294
+  Number of tokens: 484
+```
+
+That's because tokens aren't individual letters, they're chunks of text. A single token might represent a whole word like “hello” or part of a complex word. This compression is why token counts are way lower than character counts, but it's still what you're billed for.
+
+## Step 2: What LLMs Actually Process
+
+Here's the kicker: LLMs are trained on tokens, not text. All that massive data they're fed? It's tokenized first. When an LLM generates a response, it's predicting the next token (a number) based on patterns in its training data. It's not writing words, it's spitting out numbers that get turned back into words later.
+
+Think of it like this: you send a prompt, it becomes a list of numbers, the LLM crunches those numbers to predict more numbers, and then those numbers are decoded into text. Mind-blowing, right?
+
+## Step 3: Tokens Back to Text (The Reverse Magic)
+
+Let's flip the process. After the LLM outputs tokens, the tokenizer decodes them into readable text. I tried decoding a random token to see what happens:
+
+```typescript
+  const tokensToText = (tokens: number[]) => {
+     return tokenizer.decode(tokens);
+   };
+
+  const tokens = [13984];
+  const decoded = tokensToText(tokens);
+  console.log(decoded);
+```
+
+Turns out, token `13984` decodes to “VC”. Random, but kinda funny! This decoding step is how you get human-readable responses from an LLM's numerical output.
+
+## Why Tokens Matter (Beyond Just Billing)
+
+Tokens aren't just about cost, they're how LLMs *think*. The more text you send, the more tokens it becomes, and the more processing power (and money) it takes. Same goes for the response. Want to save tokens? Keep prompts concise and avoid unnecessary fluff. Plus, knowing tokenization helps you understand context limits. Most models can only handle a fixed number of tokens at once (like 8k or 128k), so long conversations might get cut off.
+
+## Real-World Implications
+
+When I started optimizing prompts for my AI projects, understanding tokens changed the game. Shorter prompts didn't just save money, they made responses faster and often **more accurate** since the model wasn't drowning in irrelevant context. If you're building with LLMs, play around with a tokenizer yourself. Seeing a paragraph shrink into a list of numbers is oddly satisfying!
+
+## Final Thoughts
+
+LLMs don't speak text, they speak tokens. It's a weird, wonderful world of numbers behind the scenes, and knowing this gives you a superpower for working with AI. Whether you're tweaking prompts or just geeking out like I did, tokens are the key to unlocking how these models tick.
+
+✌️ Stay curious, Keep coding, Peace nerds!

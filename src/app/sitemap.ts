@@ -1,7 +1,9 @@
-import { getAllBlogPosts } from "@/data/blog";
+import { getAllBlogPosts, publishTime } from "@/data/blog";
 import { DATA } from "@/data/resume";
 import { projectSlug } from "@/lib/projects";
 import type { MetadataRoute } from "next";
+
+export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await getAllBlogPosts();
@@ -12,7 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${DATA.url}/projects`, changeFrequency: "monthly", priority: 0.8 },
     ...posts.map((post) => ({
       url: `${DATA.url}/blog/${post.slug}`,
-      lastModified: new Date(post.metadata.publishedAt),
+      lastModified: publishTime(post.metadata.publishedAt),
       priority: 0.7,
     })),
     ...DATA.projects.map((project) => ({

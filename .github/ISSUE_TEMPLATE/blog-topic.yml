@@ -1,0 +1,21 @@
+name: Blog topic
+description: Park an idea for a future post
+labels: ["blog:topic"]
+body:
+  - type: input
+    id: idea
+    attributes:
+      label: The idea in one line
+      placeholder: Why our retry policy doubled the queue bill
+    validations:
+      required: true
+  - type: textarea
+    id: angle
+    attributes:
+      label: Your angle
+      description: What do you think about it, and what happened that made you care?
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources
+      description: Links, videos, docs, or notes to work from.

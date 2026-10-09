@@ -1,4 +1,4 @@
-import BlurFade from "@/components/magicui/blur-fade";
+import { FadeIn } from "@/components/fade-in";
 import {
   ProjectsClient,
   type FeaturedProject,
@@ -7,13 +7,16 @@ import {
 import { DATA } from "@/data/resume";
 import { getGitHubBuilderProfile } from "@/lib/github";
 import { projectSlug } from "@/lib/projects";
+import { pageAlternates } from "@/lib/seo";
 
 export const metadata = {
   title: "Projects",
   description:
     "Open source work and side projects: AI agents, RAG systems, developer tools, and experiments.",
-  alternates: { canonical: "/projects" },
+  alternates: pageAlternates("/projects"),
 };
+
+export const revalidate = 3600;
 
 export default async function ProjectsPage() {
   const github = await getGitHubBuilderProfile("0xadityaa").catch(() => null);
@@ -47,7 +50,7 @@ export default async function ProjectsPage() {
 
   return (
     <main className="space-y-10">
-      <BlurFade>
+      <FadeIn>
         <header className="space-y-3">
           <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
             Projects
@@ -57,11 +60,11 @@ export default async function ProjectsPage() {
             collection of things I&apos;ve built with code and caffeine.
           </p>
         </header>
-      </BlurFade>
+      </FadeIn>
 
-      <BlurFade delay={0.08}>
+      <FadeIn delay={0.08}>
         <ProjectsClient featured={featured} repos={repos} />
-      </BlurFade>
+      </FadeIn>
     </main>
   );
 }

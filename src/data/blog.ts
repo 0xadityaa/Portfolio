@@ -8,18 +8,67 @@ import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 import { calculateReadingTime } from "@/lib/blog-utils";
 
+/** Posts are plain Markdown files: content/blog/<slug>.md. See docs/blog/workflow.md. */
+const POSTS_DIR = path.join(process.cwd(), "content", "blog");
+
 export type BlogPostMetadata = {
   title: string;
+  /** YYYY-MM-DD (goes live at 12:00 UTC that day) or a full ISO timestamp. */
   publishedAt: string;
   summary: string;
   image?: string;
   tags?: string[];
-  isObsidian?: boolean;
+  /** Merged but not approved for release. Hidden in production. */
+  draft?: boolean;
   readingTime?: number;
+  devto_url?: string;
+  medium_url?: string;
 };
 
-function getMDXFiles(dir: string) {
-  return fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx");
+export type BlogPost = {
+  slug: string;
+  metadata: BlogPostMetadata;
+  /** Rendered HTML. */
+  source: string;
+  /** The Markdown body as written, without frontmatter. */
+  markdown: string;
+};
+
+export function publishTime(publishedAt: string) {
+  return new Date(publishedAt.includes("T") ? publishedAt : `${publishedAt}T12:00:00Z`);
+}
+
+/**
+ * Production shows a post once it is approved (not a draft) and its publish
+ * time has passed. Local dev and Vercel preview deployments show everything,
+ * so a post can be reviewed on its pull request before it is live.
+ */
+function isVisible(metadata: BlogPostMetadata) {
+  if (process.env.VERCEL_ENV !== "production") return true;
+  return !metadata.draft && publishTime(metadata.publishedAt).getTime() <= Date.now();
+}
+
+function getSlugs() {
+  if (!fs.existsSync(POSTS_DIR)) return [];
+  return fs
+    .readdirSync(POSTS_DIR)
+    .filter((file) => path.extname(file) === ".md")
+    .map((file) => path.basename(file, ".md"));
+}
+
+function readPost(slug: string) {
+  // Slugs come from the URL, so keep lookups inside the posts directory.
+  if (!/^[a-z0-9-]+$/.test(slug)) return null;
+  const filePath = path.join(POSTS_DIR, `${slug}.md`);
+  if (!fs.existsSync(filePath)) return null;
+
+  const { content, data } = matter(fs.readFileSync(filePath, "utf-8"));
+  const metadata = {
+    ...data,
+    readingTime: calculateReadingTime(content),
+  } as BlogPostMetadata;
+
+  return isVisible(metadata) ? { slug, metadata, markdown: content.trim() } : null;
 }
 
 export async function markdownToHTML(markdown: string) {
@@ -44,15 +93,18 @@ export async function markdownToHTML(markdown: string) {
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(markdown);
 
-  // Add copy buttons to code blocks
-  let html = p.toString();
-  html = html.replace(
-    /<pre([^>]*)><code([^>]*)>([\s\S]*?)<\/code><\/pre>/g,
-    (match, preAttrs, codeAttrs, content) => {
-      const id = Math.random().toString(36).substr(2, 9);
-      return `
+  // Add copy buttons to code blocks, and keep images from blocking render.
+  let index = 0;
+  return p
+    .toString()
+    .replace(/<img /g, '<img loading="lazy" decoding="async" ')
+    .replace(
+      /<pre([^>]*)><code([^>]*)>([\s\S]*?)<\/code><\/pre>/g,
+      (_match, preAttrs, codeAttrs, content) => {
+        const id = `code-${index++}`;
+        return `
         <div class="relative group code-block-wrapper">
-          <button 
+          <button
             type="button" aria-label="Copy code" class="copy-btn absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity duration-200 bg-background/80 backdrop-blur-sm border border-border hover:bg-background rounded-md p-2 text-muted-foreground hover:text-foreground"
             data-copy-target="${id}"
           >
@@ -67,106 +119,24 @@ export async function markdownToHTML(markdown: string) {
           <pre${preAttrs} id="${id}"><code${codeAttrs}>${content}</code></pre>
         </div>
       `;
-    }
-  );
-
-  return html;
+      }
+    );
 }
 
-export async function getPost(slug: string): Promise<{ source: string; metadata: BlogPostMetadata; slug: string } | null> {
-  const filePath = path.join(process.cwd(), "content", `${slug}.mdx`);
-  // Slugs come from the URL, so keep lookups inside /content.
-  if (!/^[a-z0-9-]+$/i.test(slug) || !fs.existsSync(filePath)) return null;
-  let source = fs.readFileSync(filePath, "utf-8");
-  const { content: rawContent, data: metadata } = matter(source);
-  const content = await markdownToHTML(rawContent);
-  const readingTime = calculateReadingTime(rawContent);
-  return {
-    source: content,
-    metadata: {
-      ...metadata,
-      readingTime,
-    } as BlogPostMetadata,
-    slug,
-  };
+export async function getPost(slug: string): Promise<BlogPost | null> {
+  const post = readPost(slug);
+  if (!post) return null;
+  return { ...post, source: await markdownToHTML(post.markdown) };
 }
 
-export function getPostMetadata(slug: string): { metadata: BlogPostMetadata; slug: string } {
-  const filePath = path.join(process.cwd(), "content", `${slug}.mdx`);
-  let source = fs.readFileSync(filePath, "utf-8");
-  const { content: rawContent, data: metadata } = matter(source);
-  const readingTime = calculateReadingTime(rawContent);
-  return {
-    metadata: {
-      ...metadata,
-      readingTime,
-    } as BlogPostMetadata,
-    slug,
-  };
-}
-
-async function getAllPosts(dir: string, page: number = 1, perPage: number = 4) {
-  let mdxFiles = getMDXFiles(dir);
-
-  // Add this sort before pagination
-  mdxFiles.sort((a, b) => {
-    const aDate = matter(fs.readFileSync(path.join(dir, a), "utf-8")).data
-      .publishedAt;
-    const bDate = matter(fs.readFileSync(path.join(dir, b), "utf-8")).data
-      .publishedAt;
-    return new Date(bDate).getTime() - new Date(aDate).getTime();
-  });
-
-  const startIndex = (page - 1) * perPage;
-  const endIndex = startIndex + perPage;
-
-  const paginatedFiles = mdxFiles.slice(startIndex, endIndex);
-
-  const posts = paginatedFiles.map((file) => {
-    let slug = path.basename(file, path.extname(file));
-    let { metadata } = getPostMetadata(slug);
-    return {
-      metadata,
-      slug,
-      source: "", // Providing empty source to maintain structural compatibility if needed, though not used in listing
-    };
-  });
-
-  return {
-    posts,
-    pagination: {
-      total: mdxFiles.length,
-      pages: Math.ceil(mdxFiles.length / perPage),
-      current: page,
-      perPage,
-    },
-  };
-}
-
-export async function getBlogPosts(page: number = 1) {
-  return getAllPosts(path.join(process.cwd(), "content"), page);
-}
-
+/** Visible posts, newest first. Metadata and Markdown only: nothing is rendered. */
 export async function getAllBlogPosts() {
-  const dir = path.join(process.cwd(), "content");
-  if (!fs.existsSync(dir)) return [];
-  
-  const mdxFiles = getMDXFiles(dir);
-
-  const posts = mdxFiles.map((file) => {
-    const slug = path.basename(file, path.extname(file));
-    const { metadata } = getPostMetadata(slug);
-    return {
-      metadata,
-      slug,
-    };
-  });
-
-  // Sort by date descending
-  return posts.sort((a, b) => {
-    const dateA = new Date(a.metadata.publishedAt || "").getTime();
-    const dateB = new Date(b.metadata.publishedAt || "").getTime();
-    return dateB - dateA;
-  });
+  return getSlugs()
+    .map(readPost)
+    .filter((post) => post !== null)
+    .sort(
+      (a, b) =>
+        publishTime(b.metadata.publishedAt).getTime() -
+        publishTime(a.metadata.publishedAt).getTime()
+    );
 }
-

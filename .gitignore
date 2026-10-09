@@ -35,6 +35,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# generated obsidian assets
-/public/obsidian/
-/obsidian/.queue.json
+# local agent state
+.claude/settings.local.json
+.claude/worktrees/

@@ -1,0 +1,28 @@
+name: Weekly blog topic
+# Opens the issue that starts each week's post. See docs/blog/workflow.md.
+on:
+  schedule:
+    - cron: "0 13 * * 1" # Mondays, 9am Toronto (EDT)
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  ask:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Open this week's topic issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -n "$(gh issue list --label blog:topic-needed --state open --json number --jq '.[].number')" ]; then
+            echo "Last week's topic issue is still open. Not opening another."
+            exit 0
+          fi
+          gh issue create \
+            --title "Blog post for the week of $(date -u +%Y-%m-%d)" \
+            --label blog:topic-needed \
+            --assignee "${{ github.repository_owner }}" \
+            --body-file .github/weekly-topic.md
