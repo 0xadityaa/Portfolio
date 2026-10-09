@@ -9,6 +9,7 @@ tags:
   - ai
   - text processing
 updated: '2026-10-09'
+crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
 ---
 
 ![GIF of search icon rotating around computer screen](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExamdhaWx4dTZkOGVuNzJ6anZ1cTlybGNhbnFmaXVhZ2RpeW1nMGlvOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/9CffOPMLx0Hf2/giphy.gif)

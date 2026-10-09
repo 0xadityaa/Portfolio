@@ -2,11 +2,13 @@
 title: How Javascript Works
 publishedAt: '2024-09-26'
 summary: >-
-  A mental model of how a JavaScript engine runs code: execution contexts,
-  the memory and execution phases, and the call stack, traced through an example.
+  A mental model of how a JavaScript engine runs code: execution contexts, the
+  memory and execution phases, and the call stack, traced through an example.
 tags:
   - javascript
 updated: '2026-10-09'
+devto_url: 'https://dev.to/0xadityaa/how-javascript-works-2fel'
+crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
 ---
 
 Javascript is a **Synchronous** and **Single Threaded** language. Meaning that it executes one line of code at a time and in the order that it is written. It cannot run in parallel.

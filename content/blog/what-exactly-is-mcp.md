@@ -3,12 +3,14 @@ title: What exactly is MCP?
 publishedAt: '2025-03-08'
 summary: >-
   MCP is a protocol that lets any AI app discover and call tools through one
-  standard interface, replacing per-app glue code. What it fixes and what it costs.
+  standard interface, replacing per-app glue code. What it fixes and what it
+  costs.
 tags:
   - llm
   - ai
   - mcp
 updated: '2026-10-09'
+crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
 ---
 
 ![GIF of a robot furiously pressing buttons](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2U0am5hb2J4aTA5dGFyYzA5bHN4bG1hbWltcjJrcjQyM2M2Z3FjciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/mBpthYTk5rfbZvdtIy/giphy.gif)

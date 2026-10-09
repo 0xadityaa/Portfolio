@@ -7,6 +7,7 @@ summary: >-
 tags:
   - javascript
 updated: '2026-10-09'
+crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
 ---
 
 ## What is Hoisting?

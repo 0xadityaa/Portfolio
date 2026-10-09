@@ -2,14 +2,15 @@
 title: What is semantic search & how to implement it?
 publishedAt: '2025-04-06'
 summary: >-
-  How I added semantic search to an LLM pipeline: embeddings, why I cut them
-  to 2,000 dimensions, picking an ANN index, and what the benchmarks showed.
+  How I added semantic search to an LLM pipeline: embeddings, why I cut them to
+  2,000 dimensions, picking an ANN index, and what the benchmarks showed.
 tags:
   - vector embeddings
   - semantic search
   - llm
   - db
 updated: '2026-10-09'
+crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
 ---
 
 ![GIF of search icon rotating around computer screen](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWM5NmM0aWRueDkzNnh5endseWYwenhldzAzb2g3dmdxd21wc2dmciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT9IgFLfWUZigjoem4/giphy.gif)

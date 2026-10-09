@@ -10,6 +10,7 @@ tags:
   - event-driven
   - finops
 updated: '2026-10-09'
+crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
 ---
 
 ![GIF of dominoes falling in perfect, complex harmony](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzVnZzdwNjk4ZDhwcjl4dHB6Y2dyeHNra2w2eDYyaXE2bHJwaWdseSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TdwziQPhbNAzK/giphy.gif)

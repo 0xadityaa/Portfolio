@@ -3,13 +3,15 @@ title: What are LLMs and How to Build Stuff Using it?
 publishedAt: '2025-02-18'
 summary: >-
   An LLM predicts the next token. Everything useful is built around that:
-  context, tools, and memory. A map of the concepts, using LangChain and LangGraph.
+  context, tools, and memory. A map of the concepts, using LangChain and
+  LangGraph.
 tags:
   - llm
   - ai
   - langchain
   - langgraph
 updated: '2026-10-09'
+crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
 ---
 
 ![GIF of south park characters on chat-gpt](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExd25mcDI0OG90emFocHphbHpianJ4OGgydDJueXlldTB5NzFsbXh0OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qAtZM2gvjWhPjmclZE/giphy.gif)

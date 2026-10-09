@@ -10,6 +10,7 @@ tags:
   - saga
   - distributed-systems
 updated: '2026-10-09'
+crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
 ---
 
 ![GIF of a chaotic network of connected nodes](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOTg3cXJieTRzeWh1enVvNndqbndwc25zdThoM2ZsMXZ3cmxpOTh6ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/PPvY7HQkmuyGfgmFUa/giphy.gif)

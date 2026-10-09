@@ -2,14 +2,15 @@
 title: Do you really need AI Agents?
 publishedAt: '2025-03-30'
 summary: >-
-  Most LLM features are better built as a fixed workflow than as an agent.
-  When an agent earns its extra cost and latency, and when it does not.
+  Most LLM features are better built as a fixed workflow than as an agent. When
+  an agent earns its extra cost and latency, and when it does not.
 tags:
   - llm
   - ai
   - agents
   - workflows
 updated: '2026-10-09'
+crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
 ---
 
 ![GIF of a robot looking at a screen with a confused expression](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzhramtrcGVvMzRnZG15dzBhYW5vMzI1eDl2NjJwc25hdzV1djU1ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1BdJd24oEwvuSvXYb0/giphy.gif)

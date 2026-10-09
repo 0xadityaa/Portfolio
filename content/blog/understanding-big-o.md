@@ -7,6 +7,8 @@ summary: >-
 tags:
   - dsa
 updated: '2026-10-09'
+devto_url: 'https://dev.to/0xadityaa/understanding-big-o-5foa'
+crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
 ---
 
 
