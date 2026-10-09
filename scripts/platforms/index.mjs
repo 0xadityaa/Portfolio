@@ -1,4 +1,5 @@
 import { devto } from "./devto.mjs";
+import { hackernews } from "./hackernews.mjs";
 import { medium } from "./medium.mjs";
 import { substack } from "./substack.mjs";
 
@@ -7,4 +8,4 @@ import { substack } from "./substack.mjs";
  * { name, field, secret?, publish?, manual? } and list it here.
  * See docs/publishing.md.
  */
-export const platforms = [devto, medium, substack];
+export const platforms = [devto, medium, substack, hackernews];

@@ -13,8 +13,8 @@ import Image from "next/image";
 
 const STEP = 0.05;
 
-// Re-rendered hourly: GitHub numbers refresh and scheduled posts appear.
-export const revalidate = 3600;
+// Re-rendered every 10 minutes: GitHub numbers refresh and scheduled posts appear.
+export const revalidate = 600;
 
 export default async function Page() {
   const [github, posts] = await Promise.all([
@@ -76,35 +76,22 @@ export default async function Page() {
       </section>
 
       <FadeIn delay={STEP * 3}>
-        <Section id="about" title="About">
-          <div className="space-y-4 leading-relaxed text-foreground/85">
-            {DATA.about.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </div>
-        </Section>
-      </FadeIn>
-
-      <FadeIn delay={STEP * 4}>
-        <Section id="work" title="Experience">
-          <div className="space-y-1">
-            {DATA.work.map((work) => (
-              <ResumeCard
-                key={work.company}
-                logoUrl={work.logoUrl}
-                altText={work.company}
-                title={work.company}
-                subtitle={work.title}
-                href={work.href}
-                period={`${work.start} - ${work.end ?? "Present"}`}
-                description={work.description}
+        <Section id="writing" title="Writing" more={{ href: "/blog", label: "All posts" }}>
+          <div>
+            {posts.slice(0, 5).map((post) => (
+              <PostRow
+                key={post.slug}
+                slug={post.slug}
+                title={post.metadata.title}
+                publishedAt={post.metadata.publishedAt}
+                showYear
               />
             ))}
           </div>
         </Section>
       </FadeIn>
 
-      <FadeIn delay={STEP * 5}>
+      <FadeIn delay={STEP * 4}>
         <Section id="projects" title="Projects" more={{ href: "/projects", label: "All projects" }}>
           <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
             {DATA.projects.slice(0, 4).map((project) => (
@@ -122,48 +109,18 @@ export default async function Page() {
       </FadeIn>
 
       <FadeIn delay={STEP * 5}>
-        <Section id="writing" title="Writing" more={{ href: "/blog", label: "All posts" }}>
-          <div>
-            {posts.slice(0, 5).map((post) => (
-              <PostRow
-                key={post.slug}
-                slug={post.slug}
-                title={post.metadata.title}
-                publishedAt={post.metadata.publishedAt}
-                showYear
-              />
-            ))}
-          </div>
-        </Section>
-      </FadeIn>
-
-      <FadeIn delay={STEP * 5}>
-        <Section id="skills" title="Stack">
-          <dl className="grid grid-cols-[5.5rem_1fr] gap-x-4 gap-y-3 text-sm">
-            {DATA.stack.map((group) => (
-              <div key={group.label} className="contents">
-                <dt className="meta pt-0.5">{group.label}</dt>
-                <dd className="leading-relaxed text-foreground/85">
-                  {group.items.join(", ")}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </Section>
-      </FadeIn>
-
-      <FadeIn delay={STEP * 5}>
-        <Section id="education" title="Education">
+        <Section id="work" title="Experience" more={{ href: "/about", label: "More about me" }}>
           <div className="space-y-1">
-            {DATA.education.map((education) => (
+            {DATA.work.map((work) => (
               <ResumeCard
-                key={education.school}
-                href={education.href}
-                logoUrl={education.logoUrl}
-                altText={education.school}
-                title={education.school}
-                subtitle={education.degree}
-                period={`${education.start} - ${education.end}`}
+                key={work.company}
+                logoUrl={work.logoUrl}
+                altText={work.company}
+                title={work.company}
+                subtitle={work.title}
+                href={work.href}
+                period={`${work.start} - ${work.end ?? "Present"}`}
+                description={work.description}
               />
             ))}
           </div>

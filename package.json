@@ -11,7 +11,8 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "posts:check": "node scripts/check-posts.mjs",
-    "crosspost": "node scripts/crosspost.mjs"
+    "crosspost": "node scripts/crosspost.mjs",
+    "posts:schedule": "node scripts/schedule-post.mjs"
   },
   "dependencies": {
     "@radix-ui/react-separator": "^1.1.0",

@@ -1,10 +1,11 @@
 import { Icons } from "@/components/icons";
-import { Code as CodeIcon, Home as HomeIcon, Notebook as NotebookIcon, Rss as RssIcon } from "lucide-react";
+import { Code as CodeIcon, Home as HomeIcon, Notebook as NotebookIcon, Rss as RssIcon, User as UserIcon } from "lucide-react";
 
 export const DATA = {
   name: "Aditya Negandhi",
   initials: "AN",
   url: "https://www.0xadityaa.dev",
+  repo: "https://github.com/0xadityaa/Portfolio",
   role: "Full stack engineer",
   location: "Toronto, ON",
   locationLink: "https://www.google.com/maps/place/toronto",
@@ -46,6 +47,7 @@ export const DATA = {
     { href: "/", icon: HomeIcon, label: "Home" },
     { href: "/projects", icon: CodeIcon, label: "Projects" },
     { href: "/blog", icon: NotebookIcon, label: "Blog" },
+    { href: "/about", icon: UserIcon, label: "About" },
   ],
   contact: {
     email: "negandhi.aditya@gmail.com",

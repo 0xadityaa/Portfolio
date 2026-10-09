@@ -2,6 +2,7 @@ import { BlogList } from "@/components/blog-list";
 import { FadeIn } from "@/components/fade-in";
 import { getAllBlogPosts } from "@/data/blog";
 import { pageAlternates } from "@/lib/seo";
+import Link from "next/link";
 
 export const metadata = {
   title: "Blog",
@@ -10,8 +11,8 @@ export const metadata = {
   alternates: pageAlternates("/blog"),
 };
 
-// Re-rendered hourly so scheduled posts appear when their publish time passes.
-export const revalidate = 3600;
+// Re-rendered every 10 minutes so scheduled posts appear when their publish time passes.
+export const revalidate = 600;
 
 export default async function BlogPage() {
   // The list is a client component: send it metadata only, not every post body.
@@ -26,7 +27,11 @@ export default async function BlogPage() {
           </h1>
           <p className="max-w-[58ch] text-lg leading-relaxed text-muted-foreground">
             I write about building software and the systems behind it. Full-stack
-            engineering, architecture, and anything else that sparks my curiosity.
+            engineering, architecture, and anything else that sparks my curiosity.{" "}
+            <Link href="/rss.xml" prefetch={false} className="link">
+              Subscribe by RSS
+            </Link>
+            .
           </p>
         </header>
       </FadeIn>

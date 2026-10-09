@@ -8,7 +8,7 @@ GitHub is the whole platform. Content is Markdown in the repo, review happens in
 
 - Install with `npm install --force` (the React 19 peer ranges need it; Vercel does the same).
 - Before opening a pull request, run `npm run posts:check && npm run typecheck && npm run build`. CI runs the same three.
-- Work on a branch and open a pull request. Merging is Aditya's call: a merge is a production deploy, and for a blog post it is his approval to publish.
+- Work on a branch and open a pull request. Merging is Aditya's call: a merge is a production deploy. A blog post is approved by his `/publish` comment on its pull request, never by an agent.
 - Secrets live in GitHub Actions secrets and Vercel env vars. Refer to them by name only.
 
 ## Where things are
@@ -24,5 +24,6 @@ GitHub is the whole platform. Content is Markdown in the repo, review happens in
 - Writing, editing, or scheduling a blog post: `docs/blog/workflow.md`. It is the process, with the approval gates.
 - Researching a post, or picking topics: `docs/blog/research.md`.
 - Any prose that will be published under Aditya's name: `docs/blog/style.md`.
+- Why the writing rules and the publish slot are what they are: `docs/research/`.
 - Cross-posting, secrets, adding a platform, or a failed Cross-post run: `docs/publishing.md`.
 - Changing how the site looks or renders: `docs/site.md` for the design rules and the performance budget.

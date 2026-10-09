@@ -1,0 +1,89 @@
+name: Publish
+# Aditya's approval step. Comment `/publish` on a post's pull request, with an
+# optional date, and this sets the publish time, merges, and confirms.
+#   /publish                     next default slot
+#   /publish 2026-10-15          that day at the default time (Toronto)
+#   /publish 2026-10-15 14:30    that day and time (Toronto)
+#   /publish now
+# See docs/blog/workflow.md.
+on:
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: Pull request number of the post
+        required: true
+        type: number
+      when:
+        description: 'Publish time: YYYY-MM-DD, "YYYY-MM-DD HH:MM" (Toronto), "now", or empty for the next default slot'
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: publish-${{ github.event.issue.number || inputs.pr }}
+
+jobs:
+  publish:
+    # Only the repository owner can approve a post.
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.issue.pull_request &&
+       github.event.comment.author_association == 'OWNER' &&
+       startsWith(github.event.comment.body, '/publish'))
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PR: ${{ github.event.issue.number || inputs.pr }}
+      # Passed through the environment, never interpolated into a script.
+      COMMENT: ${{ github.event.comment.body }}
+      WHEN_INPUT: ${{ inputs.when }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - run: npm install --no-save --no-audit --no-fund gray-matter
+      - name: Check out the post's branch
+        run: gh pr checkout "$PR"
+      - name: Set the publish time
+        id: schedule
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            when="$WHEN_INPUT"
+          else
+            # First line of the comment, minus the command.
+            when="$(printf '%s' "$COMMENT" | head -n 1 | sed -e 's#^/publish##' -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+          fi
+          files="$(git diff --name-only --diff-filter=AM origin/main...HEAD -- 'content/blog/*.md')"
+          if [ -z "$files" ]; then
+            gh pr comment "$PR" --body "This pull request does not add or change a post in \`content/blog/\`, so there is nothing to publish."
+            exit 1
+          fi
+          if ! slot="$(node scripts/schedule-post.mjs --when "$when" $files 2>error.txt)"; then
+            gh pr comment "$PR" --body "$(cat error.txt)"
+            exit 1
+          fi
+          node scripts/check-posts.mjs
+          echo "slot=$slot" >> "$GITHUB_OUTPUT"
+          echo "files<<EOF" >> "$GITHUB_OUTPUT"; echo "$files" >> "$GITHUB_OUTPUT"; echo "EOF" >> "$GITHUB_OUTPUT"
+      - name: Commit and merge
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain content/blog)" ]; then
+            git add content/blog
+            git commit -m "chore(post): schedule for ${{ steps.schedule.outputs.slot }}"
+            git push
+          fi
+          gh pr merge "$PR" --merge
+      - name: Confirm
+        run: |
+          gh pr comment "$PR" --body "Approved and merged. Goes live **${{ steps.schedule.outputs.slot }}**.
+
+          At that time it appears on the site, in the RSS feed and in Markdown mode, and the Cross-post action syndicates it within about 15 minutes. To change the time, edit \`publishedAt\` in the post. To pull it, set \`draft: true\`."

@@ -18,31 +18,43 @@ const absolutize = (markdown: string) =>
 const footer = `
 ---
 
-More: [Home](${abs("/index.md")}) | [Blog](${abs("/blog.md")}) | [Projects](${abs("/projects.md")}) | [Index of every page](${abs("/llms.txt")})
+More: [Home](${abs("/index.md")}) | [About](${abs("/about.md")}) | [Blog](${abs("/blog.md")}) | [Projects](${abs("/projects.md")}) | [Index of every page](${abs("/llms.txt")})
 `;
+
+const experience = () =>
+  DATA.work
+    .map(
+      (job) =>
+        `### ${job.title}, [${job.company}](${job.href})\n\n${job.start} - ${job.end ?? "Present"}, ${job.location}\n\n${job.description}`
+    )
+    .join("\n\n");
+
+const contact = () => {
+  const social = DATA.contact.social;
+  return `- Email: ${DATA.contact.email}
+- GitHub: ${social.GitHub.url}
+- LinkedIn: ${social.LinkedIn.url}
+- X: ${social.X.url}
+- RSS: ${abs("/rss.xml")}`;
+};
 
 async function home() {
   const posts = await getAllBlogPosts();
-  const social = DATA.contact.social;
 
   return `# ${DATA.name}
 
 ${DATA.description}
 
-Location: Toronto, Canada
+Location: Toronto, Canada. More about me: ${abs("/about.md")}
 
-## About
+## Writing
 
-${DATA.about.join("\n\n")}
-
-## Experience
-
-${DATA.work
+${posts
   .map(
-    (job) =>
-      `### ${job.title}, [${job.company}](${job.href})\n\n${job.start} - ${job.end ?? "Present"}, ${job.location}\n\n${job.description}`
+    (post) =>
+      `- [${post.metadata.title}](${abs(`/blog/${post.slug}.md`)}) (${post.metadata.publishedAt.slice(0, 10)})`
   )
-  .join("\n\n")}
+  .join("\n")}
 
 ## Projects
 
@@ -53,14 +65,24 @@ ${DATA.projects
   )
   .join("\n")}
 
-## Writing
+## Experience
 
-${posts
-  .map(
-    (post) =>
-      `- [${post.metadata.title}](${abs(`/blog/${post.slug}.md`)}) (${post.metadata.publishedAt})`
-  )
-  .join("\n")}
+${experience()}
+
+## Contact
+
+${contact()}
+${footer}`;
+}
+
+function about() {
+  return `# About ${DATA.name}
+
+${DATA.about.join("\n\n")}
+
+## Experience
+
+${experience()}
 
 ## Stack
 
@@ -74,11 +96,7 @@ ${DATA.education
 
 ## Contact
 
-- Email: ${DATA.contact.email}
-- GitHub: ${social.GitHub.url}
-- LinkedIn: ${social.LinkedIn.url}
-- X: ${social.X.url}
-- RSS: ${abs("/rss.xml")}
+${contact()}
 ${footer}`;
 }
 
@@ -92,7 +110,7 @@ Notes by ${DATA.name} on building software and the systems behind it.
 ${posts
   .map(
     (post) =>
-      `## [${post.metadata.title}](${abs(`/blog/${post.slug}.md`)})\n\n${post.metadata.publishedAt}${
+      `## [${post.metadata.title}](${abs(`/blog/${post.slug}.md`)})\n\n${post.metadata.publishedAt.slice(0, 10)}${
         post.metadata.tags?.length ? `, tags: ${post.metadata.tags.join(", ")}` : ""
       }\n\n${post.metadata.summary}`
   )
@@ -176,6 +194,7 @@ export async function markdownPagePaths(): Promise<string[][]> {
   const posts = await getAllBlogPosts();
   return [
     [],
+    ["about"],
     ["blog"],
     ["projects"],
     ...posts.map((post) => ["blog", post.slug]),
@@ -188,6 +207,7 @@ export async function renderMarkdownPage(segments: string[]): Promise<string | n
   if (rest.length > 0) return null;
 
   if (!section || (section === "index" && !slug)) return home();
+  if (section === "about" && !slug) return about();
   if (section === "blog") return slug ? blogPost(slug) : blogIndex();
   if (section === "projects") return slug ? projectPage(slug) : projectsIndex();
   return null;

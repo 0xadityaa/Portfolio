@@ -2,7 +2,7 @@ name: Cross-post
 # Syndicates posts once they are live on the site. See docs/publishing.md.
 on:
   schedule:
-    - cron: "23 * * * *"
+    - cron: "7,22,37,52 * * * *"
   workflow_dispatch:
     inputs:
       dry_run:
