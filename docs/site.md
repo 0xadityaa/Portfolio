@@ -12,7 +12,7 @@ Warm charcoal and clay, in the spirit of Claude's dark interface, with custom-dr
 - A title stands alone: no kicker, number or label above it. Dates and other metadata go below.
 - Artwork is code, not image files:
   - `PostCover`: a pattern generated from a seed on a tinted background. Every post gets one automatically from its slug.
-  - `HeroArt`: the home page artwork, woven ribbons in the same hand as the covers.
+  - `HeroArt`: the home page illustration, an isometric structure going up block by block with one clay block still being placed. The shape is a hand-set height map.
   - `ProjectArt`: one line drawing per project, keyed by repo name. A new featured project needs a drawing added there (it falls back to a generated pattern).
   Draw in ink (`stroke-foreground`) on a `--tint-N` background, 2.5px round strokes, no gradients.
 - Screenshots appear only on a project's own page.
