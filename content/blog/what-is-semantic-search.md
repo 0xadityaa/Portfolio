@@ -1,7 +1,10 @@
 ---
 title: 'Semantic Search: What It Is and How I Built It'
 publishedAt: '2025-04-06'
-summary: 'Semantic search matches meaning, not keywords. The embedding model was the easy bit. Picking a vector size and an index my database could serve was the job.'
+summary: >-
+  Semantic search matches meaning, not keywords. The embedding model was the
+  easy bit. Picking a vector size and an index my database could serve was the
+  job.
 tags:
   - vector embeddings
   - semantic search
@@ -9,6 +12,7 @@ tags:
   - db
 updated: '2026-10-10'
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
+devto_url: 'https://dev.to/0xadityaa/semantic-search-what-it-is-and-how-i-built-it-52bg'
 ---
 
 A while back I got a fun one at work: add semantic search to our API pipeline so our LLM could answer customer questions more accurately, in real time. I had a rough idea of how semantic search worked (shoutout to my ML professor, that class finally paid off), but I had no clue where to start building it. So here's how it went.
