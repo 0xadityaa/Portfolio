@@ -11,11 +11,10 @@ interface SectionProps {
 export function Section({ id, title, more, children }: SectionProps) {
   return (
     <section id={id} aria-labelledby={`${id}-title`} className="scroll-mt-16">
-      <div className="mb-8 flex items-center gap-4">
+      <div className="mb-8 flex items-baseline justify-between gap-4">
         <h2 id={`${id}-title`} className="font-serif text-2xl font-medium tracking-tight text-foreground">
           {title}
         </h2>
-        <span aria-hidden className="h-px flex-1 bg-border" />
         {more && (
           <Link
             href={more.href}

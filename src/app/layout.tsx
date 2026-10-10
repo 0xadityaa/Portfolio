@@ -81,7 +81,7 @@ export default function RootLayout({
         <div className="mx-auto w-full max-w-5xl px-6 pb-16 pt-8 sm:pt-12">
           <SiteHeader />
           <div id="content">{children}</div>
-          <footer className="mt-24 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-border pt-6 text-sm text-muted-foreground">
+          <footer className="mt-24 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 text-sm text-muted-foreground">
             <span>
               &copy; {new Date().getFullYear()} {DATA.name}
             </span>
