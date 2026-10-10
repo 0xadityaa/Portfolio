@@ -4,12 +4,14 @@ import { cn } from "@/lib/utils";
 interface PostCoverProps {
   /** The post slug seeds the pattern, so every post gets its own cover. */
   seed: string;
+  /** Background tint 0 to 5. Defaults to one picked from the seed. */
+  tint?: number;
   cols?: number;
   rows?: number;
   className?: string;
 }
 
-export function PostCover({ seed, cols = 6, rows = 6, className }: PostCoverProps) {
+export function PostCover({ seed, tint, cols = 6, rows = 6, className }: PostCoverProps) {
   const art = truchet(seed, cols, rows);
   return (
     <svg
@@ -17,7 +19,7 @@ export function PostCover({ seed, cols = 6, rows = 6, className }: PostCoverProp
       preserveAspectRatio="xMidYMid slice"
       aria-hidden
       className={cn("block", className)}
-      style={{ backgroundColor: `hsl(var(--tint-${art.tint}))` }}
+      style={{ backgroundColor: `hsl(var(--tint-${tint ?? art.tint}))` }}
       fill="none"
       strokeWidth={1.5}
       strokeLinecap="round"
