@@ -1,13 +1,16 @@
 ---
-title: 'LLMs Don''t Read Your Prompt. They Count It.'
+title: LLMs Don't Read Your Prompt. They Count It.
 publishedAt: '2025-09-28'
-summary: 'A model never sees your text. It sees a list of integers called tokens, and that list is what you pay for and what your context limit counts.'
+summary: >-
+  A model never sees your text. It sees a list of integers called tokens, and
+  that list is what you pay for and what your context limit counts.
 tags:
   - llm
   - ai
   - tokens
 updated: '2026-10-10'
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
+devto_url: 'https://dev.to/0xadityaa/llms-dont-read-your-prompt-they-count-it-2j0e'
 ---
 
 Ever typed a prompt into ChatGPT or Claude and wondered how this thing actually understands you? Spoiler: it doesn't read text the way we do. I got curious, went digging into how Large Language Models (LLMs) handle input, and it changed how I write prompts.
