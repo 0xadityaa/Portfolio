@@ -1,6 +1,7 @@
 /**
- * Logo for each technology named on the site, from svgl.app (dark variants).
- * Files live in public/icons. A name with no entry is shown as text.
+ * Logo for each technology named on the site: svgl.app first (dark variants),
+ * Simple Icons where svgl has none. Files live in public/icons. Every name used
+ * in src/data/resume.tsx must have an entry; a name with none is shown as text.
  */
 export const TECH_ICONS: Record<string, string> = {
   "TypeScript": "typescript.svg",
@@ -50,7 +51,7 @@ export const TECH_ICONS: Record<string, string> = {
   "Sentry": "sentry.svg",
   "AWS": "amazon-web-services.svg",
   "AWS S3": "amazon-web-services.svg",
-  "GCP": "google.svg",
+  "GCP": "si-googlecloud.svg",
   "Claude": "claude-ai.svg",
   "Vercel AI SDK": "vercel.svg",
   "LangChain": "langchain.svg",
@@ -72,7 +73,28 @@ export const TECH_ICONS: Record<string, string> = {
   "GitHub": "github.svg",
   "LinkedIn": "linkedin.svg",
   "X": "x-formerly-twitter.svg",
+  // From Simple Icons (si-*), and hand-drawn glyphs for things that are concepts, not brands.
+  "Dapr": "si-dapr.svg",
+  "OpenTelemetry": "si-opentelemetry.svg",
+  "Pandas": "si-pandas.svg",
+  "FFMPEG": "si-ffmpeg.svg",
+  "WASM": "si-webassembly.svg",
+  "Serverless": "si-serverless.svg",
+  "Vertex AI": "si-googlecloud.svg",
+  "Spanner Graph DB": "si-googlecloudspanner.svg",
+  "WebSockets": "glyph-websockets.svg",
+  "AST": "glyph-ast.svg",
+  "Parser": "glyph-parser.svg",
+  "Tokenizer": "glyph-tokenizer.svg",
+  "ECMA-404": "glyph-standard.svg",
 };
 
 /** Logos whose brand colour is too dark for the site's background; drawn in white instead. */
-export const LIGHTEN_ICONS = new Set(["datadog.svg", "sentry.svg"]);
+export const LIGHTEN_ICONS = new Set([
+  "datadog.svg",
+  "sentry.svg",
+  "si-dapr.svg",
+  "si-opentelemetry.svg",
+  "si-pandas.svg",
+  "si-ffmpeg.svg",
+]);
