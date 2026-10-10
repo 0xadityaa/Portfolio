@@ -55,20 +55,16 @@ export default async function Page() {
               <p key={paragraph}>{paragraph}</p>
             ))}
           </div>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Link
-              href="/projects"
-              className="rounded-lg bg-foreground px-4 py-2.5 text-sm font-medium text-background transition-colors hover:bg-foreground/90 active:scale-[0.98]"
-            >
-              See what I&apos;ve built
-            </Link>
-            <Link
-              href="/blog"
-              className="rounded-lg border border-border bg-background px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-foreground/30 active:scale-[0.98]"
-            >
-              Read my writing
-            </Link>
-            <a href={DATA.contact.social.email.url} className="link ml-1 text-sm">
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2">
+            {[
+              { label: "LinkedIn", href: DATA.contact.social.LinkedIn.url },
+              { label: "GitHub", href: DATA.contact.social.GitHub.url },
+            ].map((item) => (
+              <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" className="link">
+                {item.label}
+              </a>
+            ))}
+            <a href={DATA.contact.social.email.url} className="link">
               Chat
             </a>
           </div>
