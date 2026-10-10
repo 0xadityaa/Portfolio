@@ -47,10 +47,6 @@ ${DATA.about.join("\n\n")}
 
 Location: Toronto, Canada.
 
-## Experience
-
-${experience()}
-
 ## Writing
 
 ${posts
@@ -68,6 +64,10 @@ ${DATA.projects
       `- [${project.title}](${abs(`/projects/${projectSlug(project)}.md`)}): ${project.description}`
   )
   .join("\n")}
+
+## Experience
+
+${experience()}
 
 ## Stack
 
