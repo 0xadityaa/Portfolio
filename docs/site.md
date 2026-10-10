@@ -16,7 +16,7 @@ Warm charcoal and clay, in the spirit of Claude's dark interface, with custom-dr
   - `ProjectArt`: one line drawing per project, keyed by repo name. A new featured project needs a drawing added there (it falls back to a generated pattern).
   Draw in ink (`stroke-foreground`) on a `--tint-N` background, 2.5px round strokes, no gradients.
 - Screenshots appear only on a project's own page.
-- Technologies and social links are shown as logos (`TechList`, `src/lib/tech-icons.ts`, files in `public/icons`, from svgl.app). A name with no logo falls back to a text chip; add the logo and the map entry together.
+- Technologies and social links are shown as logos (`TechList`, `src/lib/tech-icons.ts`, files in `public/icons`, Every technology named in `src/data/resume.tsx` has a logo: svgl first, Simple Icons (`si-*`) where svgl has none, and a hand-drawn `glyph-*` for concepts that are not brands. Adding a technology means adding its logo and map entry in the same change.
 - Copy is casual and a little cheeky, first person, like Aditya talking to a friend who codes. Jokes never replace the fact: every line still says what the thing is. Commas and periods where an em dash would go, and no emoji in the interface.
 
 ## What goes where
