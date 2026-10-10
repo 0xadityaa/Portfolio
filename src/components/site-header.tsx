@@ -6,8 +6,8 @@ import Link from "next/link";
 export function SiteHeader() {
   return (
     <header className="mb-14 flex items-center justify-between sm:mb-20">
-      <Link href="/" aria-label={`${DATA.name}, home`} className="rounded-full">
-        <span className="relative size-8 flex-none overflow-hidden rounded-full">
+      <Link href="/" aria-label={`${DATA.name}, home`} className="block rounded-full">
+        <span className="relative block size-8 overflow-hidden rounded-full">
           <Image
             src={DATA.avatarUrl}
             alt=""
