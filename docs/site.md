@@ -16,7 +16,7 @@ Warm charcoal and clay, in the spirit of Claude's dark interface, with custom-dr
   - `ProjectArt`: one line drawing per project, keyed by repo name. A new featured project needs a drawing added there (it falls back to a generated pattern).
   Draw in ink (`stroke-foreground`) on a `--tint-N` background, 2.5px round strokes, no gradients.
 - Screenshots appear only on a project's own page.
-- Copy is plain and specific, with commas and periods where an em dash would go, and no emoji in the interface.
+- Copy is casual and a little cheeky, first person, like Aditya talking to a friend who codes. Jokes never replace the fact: every line still says what the thing is. Commas and periods where an em dash would go, and no emoji in the interface.
 
 ## What goes where
 

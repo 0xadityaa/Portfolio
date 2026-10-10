@@ -7,9 +7,9 @@ export const DATA = {
   location: "Toronto, ON",
   locationLink: "https://www.google.com/maps/place/toronto",
   description:
-    "Full stack engineer and aspiring solutions architect in Toronto, building things with equal parts brain and heart, and writing about what I learn along the way.",
+    "Full stack engineer in Toronto who can't leave things alone until I know how they work. I build stuff and write about what I figure out.",
   about: [
-    "I'm a full stack engineer and aspiring solutions architect, building things with equal parts brain and heart. I've always been driven by a need to understand how things are built from the ground up, and I see engineering as a form of digital architecture.",
+    "I'm a full stack engineer and wannabe solutions architect who can't leave things alone until I know how they work. I build stuff with equal parts brain and heart, and I think of engineering as architecture, just with fewer hard hats.",
     "To me, building is more than making code work. It's about exploring systems, understanding the problem at hand, and seeing how it shapes the architecture around it. I'm endlessly curious about how people use everyday apps, what makes them stick, and how a codebase evolves as it scales.",
   ],
   avatarUrl: "/images/profile/avatar.png",
@@ -80,7 +80,7 @@ export const DATA = {
       start: "Jul 2025",
       end: "Present",
       description:
-        "I'm working across the stack with TypeScript, Nest.js, Azure, and React, helping modernize legacy systems into a reliable, event-driven architecture.",
+        "Full stack, all the way down: TypeScript, Nest.js, Azure, React. Mostly I'm dragging legacy systems into a reliable, event-driven future.",
     },
     {
       company: "Architech",
@@ -90,7 +90,7 @@ export const DATA = {
       start: "Jan 2025",
       end: "May 2025",
       description:
-        "I built AI-powered customer support automation with LangGraph and ReAct, made the LLM's answers sharper with semantic search (OpenAI embeddings, pgvector, HNSW), and automated CI/CD for our Python and React apps.",
+        "Built AI customer support automation with LangGraph and ReAct, got the LLM giving sharper answers with semantic search (OpenAI embeddings, pgvector, HNSW), and set up CI/CD so our Python and React apps stopped needing a babysitter.",
     },
     {
       company: "J&M Group",
@@ -100,7 +100,7 @@ export const DATA = {
       start: "Apr 2024",
       end: "Aug 2024",
       description:
-        "I designed a location-aware hiring system with PostGIS, pitched in on a Next.js PWA job board, and helped look after our self-hosted Docker Swarm infrastructure.",
+        "Designed a location-aware hiring system with PostGIS, shipped pieces of a Next.js PWA job board, and kept our self-hosted Docker Swarm alive and mostly happy.",
     },
   ],
   education: [
@@ -126,7 +126,7 @@ export const DATA = {
       dates: "Jul 2025",
       active: true,
       description:
-        "AI agent that repurposes long videos into social media clips using Gemini 2.5 Pro and FFMPEG.",
+        "An AI agent that chops long videos into social-ready clips. Gemini 2.5 Pro does the watching, FFMPEG does the cutting.",
       technologies: [
         "Next.js",
         "PostgreSQL",
@@ -159,7 +159,7 @@ export const DATA = {
       dates: "Jun 2025",
       active: true,
       description:
-        "Multi-agent tool that automates repository tasks like documentation, Dockerization, and commit history.",
+        "A crew of agents that handles the repo chores nobody wants: docs, Dockerfiles, and commit history.",
       technologies: [
         "Next.js",
         "Supabase",
@@ -189,7 +189,7 @@ export const DATA = {
       dates: "May - Jun 2025",
       active: true,
       description:
-        "A scalable chatbot that builds knowledge graphs from scraped data to answer complex questions with citations. Built with a serverless architecture on GCP.",
+        "A chatbot that scrapes the web, builds a knowledge graph, and answers the hard questions with receipts. Serverless on GCP.",
       technologies: [
         "Next.js",
         "FastAPI",
@@ -218,7 +218,7 @@ export const DATA = {
       dates: "Jan - Feb 2025",
       active: true,
       description:
-        "Real-time financial chatbot for stock analysis and market trends with interactive charts. Built using RAG and GPT-4o.",
+        "Ask it about a stock and it answers in real time, charts included. RAG and GPT-4o under the hood.",
       technologies: [
         "Python",
         "Fast API",
@@ -247,7 +247,7 @@ export const DATA = {
       dates: "Jun - Jul 2024",
       active: true,
       description:
-        "A local-first chess game where you can play against AI. Features real-time gameplay analysis and scalable difficulty levels.",
+        "Local-first chess against an AI that analyzes your game as you play. Crank the difficulty when you're feeling brave.",
       technologies: [
         "Next.js",
         "Typescript",
@@ -275,7 +275,7 @@ export const DATA = {
       dates: "Dec 2024 - Jan 2025",
       active: true,
       description:
-        "TypeScript-based JSON parser that validates against ECMA-404 and supports local files or APIs.",
+        "A JSON parser I wrote from scratch in TypeScript. Validates against ECMA-404 and eats local files or APIs.",
       technologies: [
         "Deno",
         "Typescript",
@@ -303,7 +303,7 @@ export const DATA = {
       dates: "March 2024",
       active: true,
       description:
-        "A browser-based streaming tool that lets you stream to platforms like YouTube and Twitch without needing OBS. Handles encoding with FFMPEG on the fly.",
+        "Stream to YouTube and Twitch straight from the browser, no OBS required. FFMPEG handles the encoding on the fly.",
       technologies: [
         "Node.js",
         "FFMPEG",
@@ -327,7 +327,7 @@ export const DATA = {
       dates: "Jul 2021 - Jan 2022",
       active: true,
       description:
-        "A mobile app for crypto paper trading using live market data. Allows you to track portfolios and set alerts without financial risk.",
+        "Paper-trade crypto with live market data. Track a portfolio, set alerts, lose zero real dollars.",
       technologies: [
         "Flutter",
         "Firebase",

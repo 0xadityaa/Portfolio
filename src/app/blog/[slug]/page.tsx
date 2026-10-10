@@ -126,27 +126,27 @@ export default async function BlogPost(props: BlogParams) {
 
       <footer className="mt-16 space-y-3 border-t border-border pt-8 text-sm leading-relaxed text-muted-foreground">
         <p>
-          Thanks for reading. I&apos;m{" "}
+          That&apos;s a wrap. I&apos;m{" "}
           <Link href="/" className="link">
             {DATA.name}
           </Link>
-          , a full stack engineer in Toronto, and new posts land in the{" "}
+          , a full stack engineer in Toronto. New posts show up in the{" "}
           <Link href="/rss.xml" prefetch={false} className="link">
             RSS feed
           </Link>
           .
         </p>
         <p>
-          Spot a mistake?{" "}
+          Caught a mistake?{" "}
           <a
             href={`${DATA.repo}/blob/main/content/blog/${post.slug}.md`}
             target="_blank"
             rel="noopener noreferrer"
             className="link"
           >
-            This post is a Markdown file on GitHub
+            This post is just a Markdown file on GitHub
           </a>
-          , and corrections are always welcome.
+          , so go ahead and call me out.
         </p>
       </footer>
 

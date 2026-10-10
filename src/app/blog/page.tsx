@@ -26,11 +26,10 @@ export default async function BlogPage() {
             Blog
           </h1>
           <p className="max-w-[58ch] text-muted-foreground">
-            This is where I think out loud about building software and the systems
-            behind it: full-stack engineering, architecture, and anything else that
-            sparks my curiosity.{" "}
+            Me thinking out loud about building software: full-stack stuff,
+            architecture, AI, and whatever rabbit hole I fell into this week.{" "}
             <Link href="/rss.xml" prefetch={false} className="link">
-              Subscribe by RSS
+              Grab the RSS feed
             </Link>
             .
           </p>
