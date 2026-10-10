@@ -76,26 +76,23 @@ const tiles = [
 export function HeroMosaic() {
   return (
     <div className="mosaic grid aspect-[4/3] grid-cols-4 grid-rows-3 gap-2.5 sm:gap-3">
-      <div className="relative col-span-2 row-span-2 overflow-hidden rounded-full border border-border">
+      <div className="relative col-span-2 row-span-2 overflow-hidden rounded-full">
         <Image
           src={DATA.avatarUrl}
           alt={`Pixel art portrait of ${DATA.name}`}
           fill
           priority
           sizes="(min-width: 1024px) 224px, 50vw"
-          className="scale-[1.06] object-cover"
+          className="object-cover"
         />
       </div>
       {tiles.map((tile) => (
         <div
           key={tile.label}
-          className={`relative overflow-hidden rounded-2xl ${tile.area}`}
+          className={`overflow-hidden rounded-2xl ${tile.area}`}
           style={{ backgroundColor: `hsl(var(--tint-${tile.tint}))` }}
         >
-          <div className="h-full w-full px-2 pb-1 pt-5">{tile.art}</div>
-          <span className="absolute left-3 top-2 font-mono text-[10px] uppercase tracking-[0.14em] text-foreground/70">
-            {tile.label}
-          </span>
+          {tile.art}
         </div>
       ))}
     </div>

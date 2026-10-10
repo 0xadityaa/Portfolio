@@ -22,7 +22,6 @@ export default async function BlogPage() {
     <main className="mx-auto max-w-3xl space-y-10">
       <FadeIn>
         <header className="space-y-3">
-          <p className="font-mono text-xs uppercase tracking-[0.16em] text-brand">Writing</p>
           <h1 className="font-serif text-5xl font-medium tracking-tight text-foreground">
             Blog
           </h1>

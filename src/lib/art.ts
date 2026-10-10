@@ -43,28 +43,3 @@ export function truchet(seed: string, cols: number, rows: number) {
   }
   return { base, accent, dots, tint: hash(seed) % 6, width: cols * CELL, height: rows * CELL };
 }
-
-/** Contour rings around two peaks, like a trail map. */
-export function contours(seed: string, rings = 9) {
-  const random = rng(hash(seed));
-  const peaks = [
-    { x: 110, y: 95, size: 1 },
-    { x: 235, y: 150, size: 0.7 },
-  ];
-  return peaks.flatMap((peak) => {
-    const a = random() * 6.28;
-    const b = random() * 6.28;
-    return Array.from({ length: Math.round(rings * peak.size) }, (_, ring) => {
-      const radius = 10 + ring * 13;
-      const points: string[] = [];
-      for (let step = 0; step <= 72; step++) {
-        const t = (step / 72) * Math.PI * 2;
-        const wobble = 1 + 0.14 * Math.sin(3 * t + a) + 0.09 * Math.sin(5 * t + b + ring * 0.25);
-        points.push(
-          `${(peak.x + Math.cos(t) * radius * wobble * 1.25).toFixed(1)} ${(peak.y + Math.sin(t) * radius * wobble).toFixed(1)}`
-        );
-      }
-      return `M${points.join("L")}Z`;
-    });
-  });
-}
