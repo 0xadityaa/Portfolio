@@ -126,18 +126,18 @@ export default async function BlogPost(props: BlogParams) {
 
       <footer className="mt-16 space-y-3 border-t border-border pt-8 text-sm leading-relaxed text-muted-foreground">
         <p>
-          Written by{" "}
+          Thanks for reading. I&apos;m{" "}
           <Link href="/" className="link">
             {DATA.name}
           </Link>
-          , a full stack engineer in Toronto. New posts land in the{" "}
+          , a full stack engineer in Toronto, and new posts land in the{" "}
           <Link href="/rss.xml" prefetch={false} className="link">
             RSS feed
           </Link>
           .
         </p>
         <p>
-          Found a mistake?{" "}
+          Spot a mistake?{" "}
           <a
             href={`${DATA.repo}/blob/main/content/blog/${post.slug}.md`}
             target="_blank"
@@ -146,7 +146,7 @@ export default async function BlogPost(props: BlogParams) {
           >
             This post is a Markdown file on GitHub
           </a>
-          , and corrections are welcome.
+          , and corrections are always welcome.
         </p>
       </footer>
 

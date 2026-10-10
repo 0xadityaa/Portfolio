@@ -7,10 +7,10 @@ export const DATA = {
   location: "Toronto, ON",
   locationLink: "https://www.google.com/maps/place/toronto",
   description:
-    "Full stack engineer in Toronto, working toward solutions architecture. I build event-driven systems and write about what I learn.",
+    "Full stack engineer and aspiring solutions architect in Toronto, building things with equal parts brain and heart, and writing about what I learn along the way.",
   about: [
-    "I'm a full stack engineer in Toronto, working toward solutions architecture. At Enercare I help move legacy systems to an event-driven architecture, and I write about what I learn along the way.",
-    "I like understanding how things are built from the ground up: how people use everyday apps, what makes them stick, and how a codebase changes as it scales. Away from the keyboard, the same curiosity goes into making music and exploring outdoors.",
+    "I'm a full stack engineer and aspiring solutions architect, building things with equal parts brain and heart. Right now that means helping Enercare move legacy systems to an event-driven architecture.",
+    "To me, building is more than making code work. It's about exploring systems, understanding the problem at hand, and seeing how it shapes the architecture around it. I'm endlessly curious about how people use everyday apps, what makes them stick, and how a codebase evolves as it scales.",
   ],
   avatarUrl: "/images/profile/PixelArt.png",
   stack: [
@@ -80,7 +80,7 @@ export const DATA = {
       start: "Jul 2025",
       end: "Present",
       description:
-        "I work across the stack with TypeScript, Nest.js, Azure, and React, helping modernize legacy systems into a reliable, event-driven architecture.",
+        "I'm working across the stack with TypeScript, Nest.js, Azure, and React, helping modernize legacy systems into a reliable, event-driven architecture.",
     },
     {
       company: "Architech",
@@ -90,7 +90,7 @@ export const DATA = {
       start: "Jan 2025",
       end: "May 2025",
       description:
-        "Built AI customer support automation with LangGraph and ReAct agents, improved LLM answers with semantic search (OpenAI embeddings, pgvector, HNSW), and automated CI/CD for Python and React apps.",
+        "I built AI-powered customer support automation with LangGraph and ReAct, made the LLM's answers sharper with semantic search (OpenAI embeddings, pgvector, HNSW), and automated CI/CD for our Python and React apps.",
     },
     {
       company: "J&M Group",
@@ -100,7 +100,7 @@ export const DATA = {
       start: "Apr 2024",
       end: "Aug 2024",
       description:
-        "Designed a location-aware hiring system with PostGIS, contributed to a Next.js PWA job board, and helped run self-hosted Docker Swarm infrastructure.",
+        "I designed a location-aware hiring system with PostGIS, pitched in on a Next.js PWA job board, and helped look after our self-hosted Docker Swarm infrastructure.",
     },
   ],
   education: [

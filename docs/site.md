@@ -11,7 +11,7 @@ Warm charcoal and clay, in the spirit of Claude's dark interface, with custom-dr
 - Radius: cards `rounded-2xl`, buttons and thumbnails `rounded-lg`, chips `rounded-md`.
 - Home sections are numbered in hex (`Section` takes an `index`), a nod to the 0xadityaa handle.
 - Artwork is code, not image files:
-  - `SystemDiagram`: the hero. The site drawn as an event-driven system; topics are links.
+  - `HeroMosaic`: the hero. The pixel portrait fitted together with tiles for what he builds, plays, explores, connects and writes. It settles into place once; nothing loops.
   - `PostCover`: a pattern generated from the post slug on a tinted background. Every post gets one automatically.
   - `ProjectArt`: one line drawing per project, keyed by repo name. A new featured project needs a drawing added there (it falls back to a generated pattern).
   - `ProgressionPlayer` and the contour map: the music and outdoors side of the bio.
@@ -29,7 +29,7 @@ Every page is rendered to HTML on the server and served from Vercel's CDN, refre
 
 - A page stays a Server Component. `"use client"` is for a leaf that needs state or a browser API (the filters, the chord player, copy buttons).
 - Reading `cookies()`, `headers()`, or `searchParams` in a page makes it render per request and breaks the budget. Filter on the client instead.
-- Animation is CSS (`.fade-in`, `.event-dot`) and stops for reduced motion. The site ships no animation library.
+- Animation is CSS (`.fade-in`, `.mosaic`) and stops for reduced motion. The site ships no animation library.
 - Images go through `next/image` with real `sizes`. Only the first screen gets `priority`.
 - Budget: HTML response under 200ms from the CDN, Lighthouse accessibility and SEO at 100. Check with `curl -w '%{time_starttransfer}\n' -o /dev/null -s <url>` after a deploy.
 
