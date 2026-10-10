@@ -1,7 +1,9 @@
 ---
-title: 'Do You Really Need AI Agents?'
+title: Do You Really Need AI Agents?
 publishedAt: '2025-03-30'
-summary: 'Usually not. Most LLM features are cheaper, faster, and easier to trust as a fixed workflow. Here''s when an agent earns its keep.'
+summary: >-
+  Usually not. Most LLM features are cheaper, faster, and easier to trust as a
+  fixed workflow. Here's when an agent earns its keep.
 tags:
   - llm
   - ai
@@ -9,6 +11,7 @@ tags:
   - workflows
 updated: '2026-10-10'
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
+devto_url: 'https://dev.to/0xadityaa/do-you-really-need-ai-agents-3gp2'
 ---
 
 Whether you work with LLMs or not, you've heard "agent" and "agentic AI" about four thousand times by now. After months of building projects (hobby ones and production ones), eating a ton of content, and working daily with agentic frameworks like [LangGraph](https://langchain-ai.github.io/langgraph/) and [Google Vertex AI](https://cloud.google.com/vertex-ai?hl=en), I have some thoughts.
