@@ -15,16 +15,16 @@ export const DATA = {
   // What Aditya is building now. Facts come from gethivemind.xyz and its docs.
   building: {
     name: "Hivemind",
-    tagline: "One memory for every AI you use.",
+    tagline: "A context engine for your agents. One memory for every AI you use.",
     href: "https://gethivemind.xyz",
     docs: "https://gethivemind.xyz/docs",
     npm: "https://www.npmjs.com/package/@get-hivemind/cli",
     intro:
-      "Your AI tools are brilliant, and every one of them has amnesia. Hivemind is my fix: part research project, part SaaS, and one memory that Claude Code, Cursor, ChatGPT and the rest all read and write.",
+      "LLMs are stateless, and your agents have the memory of a goldfish. Hivemind is the context engine I'm building to fix that: a memory layer built on SOTA retrieval techniques that sits under Claude Code, Cursor, ChatGPT and your own agents, and feeds each one exactly the context it needs. Agentic infra, shipped as a SaaS.",
     points: [
-      "Say it once. Every tool already knows.",
-      "It sends only what matters: two searches fused, packed into a token budget. Or nothing at all.",
-      "One command sets up 13 AI clients. A browser extension covers the chat sites.",
+      "The engine: hybrid search (BM25 plus embeddings), RRF fusion, a cross-encoder rerank, then knapsack-packed into your token budget. If nothing's relevant, it sends nothing.",
+      "The interface: a dashboard that shows exactly what got sent to the model and what got cut. No black box.",
+      "The connectors: MCP for 13 coding tools, a browser extension for chat sites, GitHub and Notion sync, and an SDK for your own agents.",
     ],
     // Measured figures from Hivemind's benchmark record. Each label carries its conditions.
     stats: [
@@ -41,8 +41,8 @@ export const DATA = {
         label: "fewer tokens than pasting the whole conversation: 465 a question against 18,853 on LoCoMo",
       },
       {
-        value: "9 ms",
-        label: "for a chat message to send with memory on, down from 1,310 ms, measured on a test page",
+        value: "20/20",
+        label: "facts told to one tool were found from another, across chat, MCP and CLI, in a 20-task cross-tool test",
       },
     ],
     stack: ["TypeScript", "Cloudflare", "Bun", "React", "MCP"],
