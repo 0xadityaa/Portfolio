@@ -1,4 +1,4 @@
-import { getAllBlogPosts, getPost, publishTime } from "@/data/blog";
+import { getReleasedBlogPosts, getPost, publishTime } from "@/data/blog";
 import { DATA } from "@/data/resume";
 
 export const revalidate = 600;
@@ -19,7 +19,7 @@ function toFeedHtml(html: string) {
 }
 
 export async function GET() {
-  const posts = await getAllBlogPosts();
+  const posts = await getReleasedBlogPosts();
 
   const items = await Promise.all(
     posts.map(async ({ slug, metadata }) => {
