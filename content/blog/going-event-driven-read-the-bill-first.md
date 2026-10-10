@@ -1,7 +1,9 @@
 ---
-title: 'Going Event-Driven? Read the Bill First.'
+title: Going Event-Driven? Read the Bill First.
 publishedAt: '2026-06-19'
-summary: 'Events are billed per event, per consumer, and per kilobyte. I did the math at three volumes so your AWS invoice doesn''t have to surprise you.'
+summary: >-
+  Events are billed per event, per consumer, and per kilobyte. I did the math at
+  three volumes so your AWS invoice doesn't have to surprise you.
 tags:
   - microservices
   - architecture
@@ -9,6 +11,7 @@ tags:
   - finops
 updated: '2026-10-10'
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
+devto_url: 'https://dev.to/0xadityaa/going-event-driven-read-the-bill-first-10f8'
 ---
 
 Picture this. You ship a gorgeous event-driven architecture. Everything is async, decoupled, cloud-native, the works. You're proud of it. Three weeks later someone drops a screenshot of the AWS bill in Slack, and suddenly nobody's talking about how elegant it is.
