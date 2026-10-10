@@ -1,6 +1,3 @@
-import { Icons } from "@/components/icons";
-import { Rss as RssIcon } from "lucide-react";
-
 export const DATA = {
   name: "Aditya Negandhi",
   initials: "AN",
@@ -12,9 +9,8 @@ export const DATA = {
   description:
     "Full stack engineer in Toronto, working toward solutions architecture. I build event-driven systems and write about what I learn.",
   about: [
-    "I have always been driven by a need to understand how things are built from the ground up. I view engineering as a form of digital architecture: understanding the problem at hand, and seeing how it shapes the system around it.",
-    "I'm curious how people interact with everyday apps, what makes them stick, and how a codebase evolves as it scales. That curiosity drives me to look under the hood of everything I touch, from modern frontiers to the legacy systems built on decades of industry groundwork.",
-    "It doesn't stop at the keyboard. Whether I am figuring out a new progression while making music or exploring outdoors, I just enjoy working out how pieces fit together.",
+    "I'm a full stack engineer in Toronto, working toward solutions architecture. At Enercare I help move legacy systems to an event-driven architecture, and I write about what I learn along the way.",
+    "I like understanding how things are built from the ground up: how people use everyday apps, what makes them stick, and how a codebase changes as it scales. Away from the keyboard, the same curiosity goes into making music and exploring outdoors.",
   ],
   avatarUrl: "/images/profile/PixelArt.png",
   stack: [
@@ -55,34 +51,22 @@ export const DATA = {
       GitHub: {
         name: "GitHub",
         url: "https://github.com/0xadityaa",
-        icon: Icons.github,
-
-        navbar: true,
       },
       LinkedIn: {
         name: "LinkedIn",
         url: "https://www.linkedin.com/in/aditya-negandhi",
-        icon: Icons.linkedin,
-        navbar: true,
       },
       X: {
         name: "X",
         url: "https://x.com/0xadityaa",
-        icon: Icons.x,
-
-        navbar: true,
       },
       RSS: {
         name: "RSS",
         url: "/rss.xml",
-        icon: RssIcon,
-        navbar: false,
       },
       email: {
         name: "Send Email",
         url: "mailto:negandhi.aditya@gmail.com",
-        icon: Icons.email,
-        navbar: false,
       },
     },
   },
@@ -93,33 +77,30 @@ export const DATA = {
       href: "https://www.enercare.ca/",
       location: "Markham, ON",
       title: "Associate Software Engineer",
-      logoUrl: "/images/projects/enercare.png",
       start: "Jul 2025",
       end: "Present",
       description:
-        "I'm working across the stack with TypeScript, Nest.js, Azure, and React. I help modernize legacy systems into a reliable, event-driven architecture.",
+        "I work across the stack with TypeScript, Nest.js, Azure, and React, helping modernize legacy systems into a reliable, event-driven architecture.",
     },
     {
       company: "Architech",
       href: "https://www.architech.ca/",
       location: "Toronto, ON",
       title: "Software Development Mentee",
-      logoUrl: "/images/projects/architech.png",
       start: "Jan 2025",
       end: "May 2025",
       description:
-        "Developed AI-powered customer support automation using LangGraph/ReAct. Improved LLM performance via Semantic Search with OpenAI embeddings/pgvector/HNSW and automated CI/CD pipelines for Python/React apps.",
+        "Built AI customer support automation with LangGraph and ReAct agents, improved LLM answers with semantic search (OpenAI embeddings, pgvector, HNSW), and automated CI/CD for Python and React apps.",
     },
     {
       company: "J&M Group",
       href: "http://www.jm-group.ca",
       location: "Toronto, ON",
       title: "Software Development Intern",
-      logoUrl: "/images/projects/j&m.png",
       start: "Apr 2024",
       end: "Aug 2024",
       description:
-        "Designed a location-aware hiring system with PostGIS, contributed to a Next.js-based PWA job board, and helped manage our self-hosted Docker Swarm infrastructure.",
+        "Designed a location-aware hiring system with PostGIS, contributed to a Next.js PWA job board, and helped run self-hosted Docker Swarm infrastructure.",
     },
   ],
   education: [
@@ -127,7 +108,6 @@ export const DATA = {
       school: "Humber Polytechnic",
       href: "https://humber.ca/",
       degree: "MS Information Technology",
-      logoUrl: "/images/projects/humber.png",
       start: "Jan 2023",
       end: "Aug 2024",
     },
@@ -135,7 +115,6 @@ export const DATA = {
       school: "GLS University",
       href: "https://www.glsuniversity.ac.in/",
       degree: "BS Computer Applications",
-      logoUrl: "/images/projects/gls.png",
       start: "Apr 2019",
       end: "Aug 2022",
     },
@@ -162,17 +141,14 @@ export const DATA = {
         {
           type: "Devlog",
           href: "https://devpost.com/software/clipper-ndiy1m",
-          icon: <Icons.notion className="size-3" />,
         },
         {
           type: "Website",
           href: "https://clipper-ai-omega.vercel.app/",
-          icon: <Icons.globe className="size-3" />,
         },
         {
           type: "Source",
           href: "https://github.com/0xadityaa/clipper",
-          icon: <Icons.github className="size-3" />,
         },
       ],
       image: "/images/projects/clipper.png",
@@ -195,17 +171,14 @@ export const DATA = {
         {
           type: "Devlog",
           href: "https://devpost.com/software/gitbuddy-8feigv",
-          icon: <Icons.notion className="size-3" />,
         },
         {
           type: "Website",
           href: "https://gitbuddy-dev.lovable.app/",
-          icon: <Icons.globe className="size-3" />,
         },
         {
           type: "Source",
           href: "https://github.com/0xadityaa/Gitbuddy",
-          icon: <Icons.github className="size-3" />,
         },
       ],
       image: "/images/projects/gitbuddy.png",
@@ -231,12 +204,10 @@ export const DATA = {
         {
           type: "Website",
           href: "https://frontend-471866182091.us-central1.run.app",
-          icon: <Icons.globe className="size-3" />,
         },
         {
           type: "Source",
           href: "https://github.com/0xadityaa/GraphRAGChat",
-          icon: <Icons.github className="size-3" />,
         },
       ],
       image: "/images/projects/graphrag-chat.png",
@@ -262,12 +233,10 @@ export const DATA = {
         {
           type: "Devlog",
           href: "/blog/what-are-llms-and-how-to-build-apps-using-it",
-          icon: <Icons.notion className="size-3" />,
         },
         {
           type: "Source",
           href: "https://github.com/0xadityaa/Finchat",
-          icon: <Icons.github className="size-3" />,
         },
       ],
       image: "/images/projects/Finchat.png",
@@ -292,12 +261,10 @@ export const DATA = {
         {
           type: "Website",
           href: "https://chess-against-ai.vercel.app/",
-          icon: <Icons.globe className="size-3" />,
         },
         {
           type: "Source",
           href: "https://github.com/0xadityaa/React-Rooks",
-          icon: <Icons.github className="size-3" />,
         },
       ],
       image: "/images/projects/ReactRooks.png",
@@ -322,12 +289,10 @@ export const DATA = {
         {
           type: "Devlog",
           href: "/blog/implementing-a-json-parser",
-          icon: <Icons.notion className="size-3" />,
         },
         {
           type: "Source",
           href: "https://github.com/0xadityaa/json-parser",
-          icon: <Icons.github className="size-3" />,
         },
       ],
       image: "/images/projects/json-parser.png",
@@ -352,7 +317,6 @@ export const DATA = {
         {
           type: "Source",
           href: "https://github.com/0xadityaa/Byte-Cast",
-          icon: <Icons.github className="size-3" />,
         },
       ],
       image: "/images/projects/Bytecast.png",
@@ -377,12 +341,10 @@ export const DATA = {
         {
           type: "Devlog",
           href: "https://docs.google.com/document/d/11gGMB3EVEGWfyBg2vHAreBNJFQk7ecJCeQyt98Mv0Vs/edit?usp=sharing",
-          icon: <Icons.notion className="size-3" />,
         },
         {
           type: "Source",
           href: "https://github.com/0xadityaa/Crypto-Maniac",
-          icon: <Icons.github className="size-3" />,
         },
       ],
       image: "/images/projects/Crypto-Maniac.png",

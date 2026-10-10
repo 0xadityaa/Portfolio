@@ -1,5 +1,5 @@
 ---
-title: What exactly is MCP?
+title: What Exactly Is MCP?
 publishedAt: '2025-03-08'
 summary: >-
   MCP is a protocol that lets any AI app discover and call tools through one

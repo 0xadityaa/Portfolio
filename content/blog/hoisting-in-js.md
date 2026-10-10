@@ -1,5 +1,5 @@
 ---
-title: Hoisting in Javascript
+title: Hoisting in JavaScript
 publishedAt: '2024-09-30'
 summary: >-
   JavaScript registers every declaration before running any code. That one fact

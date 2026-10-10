@@ -1,5 +1,5 @@
 ---
-title: Do you really need AI Agents?
+title: Do You Really Need AI Agents?
 publishedAt: '2025-03-30'
 summary: >-
   Most LLM features are better built as a fixed workflow than as an agent. When

@@ -1,5 +1,5 @@
 ---
-title: Building a spell checker
+title: Building a Spell Checker
 publishedAt: '2024-11-11'
 summary: >-
   A spell checker is edit distance plus a dictionary. How Levenshtein distance
