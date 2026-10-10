@@ -6,7 +6,7 @@ import Link from "next/link";
 export function SiteHeader() {
   return (
     <header className="mb-14 flex items-center justify-between sm:mb-20">
-      <Link href="/" className="group flex items-center gap-3 rounded-sm">
+      <Link href="/" aria-label={`${DATA.name}, home`} className="rounded-full">
         <span className="relative size-8 flex-none overflow-hidden rounded-full">
           <Image
             src={DATA.avatarUrl}
@@ -17,7 +17,6 @@ export function SiteHeader() {
             className="object-cover"
           />
         </span>
-        <span className="font-medium text-foreground">{DATA.name}</span>
       </Link>
       <nav aria-label="Main" className="flex items-center gap-5">
         {DATA.navbar.map((route) => (
