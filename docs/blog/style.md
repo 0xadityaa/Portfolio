@@ -15,7 +15,7 @@ A reviewer should be able to point at each of these.
 
 ## Voice
 
-Aditya explaining something to a teammate over coffee: first person, conversational, a little cheeky, sure of his opinion and exact about how far it reaches.
+Aditya explaining something to a friend who codes: first person, casual, a little cheeky, sure of his opinion and exact about how far it reaches. It should sound like a person talking, never like documentation. Section headings can be loose too ("The short version", "Where I'd stop trusting this post", "The takeaway").
 
 - **Open on what happened.** A real moment with a rough date ("In March our queue bill tripled"), from him. A thought experiment is fine when it is called one.
 - **Size the claim to the evidence.** "I have seen this in one system." "I have not load-tested this." A threshold is either sourced or marked as his rule of thumb.
@@ -24,7 +24,7 @@ Aditya explaining something to a teammate over coffee: first person, conversatio
 - **Fresh phrasing.** Where a stock phrase comes to mind ("hot take", "the hard way", "nobody talks about", "game changer", "everyone and their dog"), write the specific thing it was standing in for. `npm run posts:check` flags these.
 - **Commas, colons, and periods** do the work an em dash would.
 - **Define a term in one clause** the first time it appears.
-- **Humour is welcome** when it is his and it is quick. Visuals earn their place by carrying a point: a diagram, a chart, real output. A meme he chose himself can open a post; it never stands in for the diagram.
+- **Humour is welcome** when it is his and it is quick. Visuals earn their place by carrying a point: a diagram, a chart, real output. No GIFs or memes: he had them all removed in October 2026.
 - **Sequels say so.** Link the earlier post in the first paragraph with one sentence on what changed.
 
 ## Formats

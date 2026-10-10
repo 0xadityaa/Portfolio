@@ -1,22 +1,21 @@
 ---
-title: Understanding Big O
+title: 'Big O, Minus the Scary Math'
 publishedAt: '2024-09-23'
-summary: >-
-  Big O describes how an algorithm's work grows as its input grows. Four common
-  classes with JavaScript examples, and a table of what they mean at real sizes.
+summary: 'Big O is just how much more work your code does when the input grows. Four common shapes, JavaScript examples, and what they cost at real sizes.'
 tags:
   - dsa
-updated: '2026-10-09'
+  - algorithms
+  - javascript
+updated: '2026-10-10'
 devto_url: 'https://dev.to/0xadityaa/understanding-big-o-5foa'
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
 ---
 
+[Big O notation](https://en.wikipedia.org/wiki/Big_O_notation) sounds scarier than it is. It answers one question: **when the input gets bigger, how much more work does the algorithm do?** It doesn't care how fast your laptop is. It only cares about the shape of the growth. Here are the four shapes you'll run into most, each with a JavaScript example.
 
-[Big O notation](https://en.wikipedia.org/wiki/Big_O_notation) answers one question: **when the input gets bigger, how much more work does the algorithm do?** It ignores how fast your machine is and looks only at the shape of the growth. Here are the four shapes you will meet most often, each with a JavaScript example.
+## O(n): the linear path
 
-## O(n): The Linear Path
-
-Imagine you have a list of numbers and you need to find a specific number. You check each number one by one until you find the target. This is O(n), where the execution time of an algorithm grows linearly with the size of the input data.
+You have a list of numbers and you're hunting for one of them. You check each number, one by one, until you find it. That's O(n): the time grows in a straight line with the size of the input.
 
 ```js
 let nums = [1, 2, 3, 4, 5];
@@ -28,11 +27,11 @@ for (let i = 0; i < nums.length; i++) {
 }
 ```
 
-In this example, your search time increases directly with the number of elements in the array. Simple and straightforward!
+More elements, more checking. Twice the list, twice the work. Simple.
 
-## O(1): The Constant Time
+## O(1): constant time
 
-Now, imagine you need to access a specific element in an array by its index. This is O(1), where the execution time remains constant regardless of the input size.
+Now say you want one specific element and you already know its index. That's O(1). The time stays the same no matter how big the array is.
 
 ```js
 let nums = [1, 2, 3, 4, 5];
@@ -40,11 +39,11 @@ let index = 2;
 let value = nums[index]; // Should return '3'
 ```
 
-Here, you instantly access the element without any extra effort. Efficient and swift!
+You go straight to it. A list of five or five million, same effort. Lovely.
 
-## O(n^2): The Quadratic Time
+## O(n^2): quadratic time
 
-Picture yourself needing to compare every pair of elements in a list to find a specific condition. This is O(n^2), where the execution time grows quadratically with the input size.
+Now picture comparing every pair of elements in a list to check some condition. That's O(n^2). The time grows with the square of the input.
 
 ```js
 let nums = [1, 2, 3, 4, 5];
@@ -59,11 +58,11 @@ for (let i = 0; i < nums.length; i++) {
 }
 ```
 
-The inner loop runs for every step of the outer loop, so the number of comparisons grows with the square of the input. Double the array and the work roughly quadruples.
+The inner loop runs once for every step of the outer loop, so the comparisons pile up fast. Double the array and the work roughly quadruples. This is the one that gets you in trouble.
 
-## O(n log n): The Log-Linear Path
+## O(n log n): the log-linear path
 
-Consider the scenario where you need to sort a list of numbers. Many efficient sorting algorithms, like Merge Sort and Quick Sort, have an average time complexity of O(n log n). JavaScript's own [`Array.prototype.sort`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) is in this class too; V8 implements it with [TimSort](https://v8.dev/blog/array-sort). This means the execution time grows in a log-linear fashion with the size of the input data.
+Sorting time. Most efficient sorting algorithms, like Merge Sort and Quick Sort, average out at O(n log n). JavaScript's own [`Array.prototype.sort`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) is in this class too, and V8 implements it with [TimSort](https://v8.dev/blog/array-sort).
 
 ```js
 let nums = [5, 3, 8, 4, 2];
@@ -71,11 +70,11 @@ nums.sort((a, b) => a - b);
 // Should return [2, 3, 4, 5, 8]
 ```
 
-In this example, the sorting operation involves dividing the list and merging it back, resulting in a log-linear time complexity. It's more efficient than O(n^2) but more complex than O(n).
+Sorting like this means splitting the list up and merging it back together, which is where the log comes from. It's a lot better than O(n^2) and a bit worse than O(n).
 
-## What the classes mean at real sizes
+## What this means at real sizes
 
-The names are abstract until you put numbers in. This is the count of basic steps for each class as the input grows:
+The names stay abstract until you plug in numbers. Here's the count of basic steps for each class as the input grows:
 
 | Input size (n) | O(1) | O(n) | O(n log n) | O(n^2) |
 | --- | --- | --- | --- | --- |
@@ -83,22 +82,22 @@ The names are abstract until you put numbers in. This is the count of basic step
 | 1,000 | 1 | 1,000 | 9,966 | 1,000,000 |
 | 1,000,000 | 1 | 1,000,000 | 19,931,569 | 1,000,000,000,000 |
 
-At ten items nothing matters. At a million, the quadratic algorithm does a million times more work than the linear one. That gap is the whole reason the notation exists.
+At ten items, nothing matters. Write whatever you want. At a million, the quadratic algorithm does a million times more work than the linear one. That gap is the entire reason this notation exists.
 
-## Where this stops applying
+## Where I'd stop trusting this post
 
-**Big O hides constants.** An O(n) algorithm with a slow step can lose to an O(n^2) one on small inputs. For arrays of a few dozen items, the simple nested loop is often the faster and clearer choice.
+**Big O hides constants.** An O(n) algorithm with a slow step can lose to an O(n^2) one on small inputs. For an array of a few dozen items, the simple nested loop is often faster and easier to read.
 
-**It describes growth, not time.** Cache behaviour, memory allocation, and the engine's optimiser decide real speed. When performance matters, measure with real data instead of reasoning from the notation alone.
+**It describes growth, not time.** Cache behaviour, memory allocation, and the engine's optimiser decide how fast something really runs. When performance matters, measure with real data. Don't just reason from the notation.
 
-**This post covers four classes and only time.** O(log n) (binary search), exponential time, and space complexity are missing, and worst case versus average case is only mentioned in passing.
+**I only covered four classes, and only time.** O(log n) (binary search), exponential time, and space complexity aren't here, and worst case versus average case only gets a passing mention.
 
-The rule I use: look at the loops. One loop over the input is O(n), a loop inside a loop is O(n^2), and anything that halves the problem each step earns a log.
+The rule I use: look at the loops. One loop over the input is O(n). A loop inside a loop is O(n^2). Anything that cuts the problem in half each step earns a log.
 
 ---
 
-If you want to learn more about Data Structures and Algorithms, check out my [GitHub Repo](https://github.com/0xadityaa/dsa-in-js) where I'm diving into Neetcode's blind 75 problems using JS.
+Want more data structures and algorithms? Check out my [GitHub repo](https://github.com/0xadityaa/dsa-in-js), where I'm working through Neetcode's Blind 75 in JS.
 
 ✌️ Stay curious, Keep coding, Peace nerds!
 
-*Updated 9 October 2026: corrected the explanation of quadratic growth, added the table of step counts and sources, and added the section on where this stops applying.*
+*Updated 10 October 2026: rewrote this in plainer language and gave it a new title. The fix to quadratic growth, the table of step counts, and the limits section were added on 9 October 2026.*

@@ -1,42 +1,39 @@
 ---
-title: How JavaScript Works
+title: 'How JavaScript Actually Runs Your Code'
 publishedAt: '2024-09-26'
-summary: >-
-  A mental model of how a JavaScript engine runs code: execution contexts, the
-  memory and execution phases, and the call stack, traced through an example.
+summary: 'Every bit of JavaScript runs in an execution context built in two passes: memory first, then code. Trace that by hand and the weird stuff stops being weird.'
 tags:
   - javascript
-updated: '2026-10-09'
+updated: '2026-10-10'
 devto_url: 'https://dev.to/0xadityaa/how-javascript-works-2fel'
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
 ---
 
-Javascript is a **Synchronous** and **Single Threaded** language. Meaning that it executes one line of code at a time and in the order that it is written. It cannot run in parallel.
+JavaScript is a **synchronous**, **single-threaded** language. It runs one line at a time, in the order you wrote it. No running things in parallel.
 
-The model this post builds: **every piece of JavaScript runs inside an execution context, which is created in two passes. First the engine sets aside memory for every declaration, then it runs the code.** Once you can trace those two passes by hand, hoisting, scope, and the call stack stop being surprising.
+Here's the model this post builds: **every piece of JavaScript runs inside an execution context, and that context gets created in two passes. First the engine sets aside memory for every declaration. Then it runs the code.** Once you can trace those two passes by hand, hoisting, scope, and the call stack stop being surprising.
 
-## Execution Context
+## Execution context
 
-Everything in Javascript happens inside an [**execution context**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model).
+Everything in JavaScript happens inside an [**execution context**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model).
 
-Execution context consists of 2 main parts - **Variable Environment** and **Execution Stack**.
+An execution context has two main parts: the **variable environment** and the **execution stack**.
+
 ![Execution Context in JS](/images/blog/js-execution-context.png)
 
-## Variable Environment
+## Variable environment
 
-Variable Environment is a collection of variables that are available to the code. It is created when the code is executed and destroyed when the execution is finished.
+This is the collection of variables your code can use. It's created when the code runs and destroyed when the code is done.
 
-## Execution Stack
+## Execution stack
 
-Execution Stack is a data structure that keeps track of the order in which the code is executed. It is a stack of functions that are called when the code is executed.
+This is the data structure that tracks what's running and in what order. It's a stack of the functions that get called as your code executes.
 
 ---
 
-## Let's look at how JS is executed under the hood
+## OK, let's watch some code run
 
-Now that we have a basic understanding of how Javascript works, here is its execution engine at work on an example.
-
-lets take this JS code as an example and look how it is executed by JS engine:
+Enough definitions. Let's take this code and follow what the JS engine does with it:
 
 ```js
 var n = 2;
@@ -49,65 +46,62 @@ function square(num) {
 var squareOfN = square(n); // returns 4
 ```
 
-Remember that we said everything in JS happens inside an execution context. So, the first step JS engine takes is to create an execution context of the code.
+Remember, everything happens inside an execution context. So the very first thing the engine does is create one for this code. And we know it has two parts, the **variable environment** and the **execution stack**.
 
-Now we know that the execution context consists of 2 main parts - **Variable Environment** and **Execution Stack**.
+From there, the code runs in **3 phases**.
 
-There are **3 phases** in the execution of JS code:
+### Phase 1: memory creation
 
-### Phase 1 - Memory Creation Phase
+The engine reserves memory for every variable and function in the code. It doesn't store the real values yet. Every variable just gets `undefined` to start with.
 
-In this phase, JS engine reserves the memory for all the variables and functions in the code. It does not store the actual values inside that variable just yet. Instead, it initializes the defined variable with `undefined` value initially.
-
-at this point our execution context looks like this:
+At this point our execution context looks like this:
 
 ![JS Memory Creation](/images/blog/js-memory-creation.png)
 
-Now that the required memory is reserved, the next phase is called **Execution Phase**.
+Memory's reserved. Next up, the **execution phase**.
 
-### Phase 2 - Execution Phase
+### Phase 2: execution
 
 ![JS Code Execution](/images/blog/js-code-execution.png)
 
-In this phase, JS engine executes the code line by line. It starts with the first line of code and executes it one by one. It now updates the initially reserved memory which was set to `undefined` with the actual value of the variable.
+Now the engine runs the code line by line, top to bottom. As it goes, it swaps those `undefined` placeholders for the real values.
 
-When the code execution reaches to the function call, a new execution context is created inside of current context.
-Now, after creating new execution context and computing the square, the `ans` variable is returned to the parent context which will then store that value in the `squareOfN` variable.
+When it hits a function call, it creates a brand new execution context inside the current one. That new context computes the square, then returns `ans` to the parent context, which stores it in `squareOfN`.
 
-### Phase 3 - Garbage Collection Phase
+### Phase 3: garbage collection
 
-After the execution of a function is complete, the context created for it will be destroyed and if we call same function again, entire execution cycle repeats. Execution cycle looks like this:
+When a function finishes, the context created for it gets destroyed. Call the same function again and the whole cycle starts over. It looks like this:
 
 ![Execution Cycle in JS](/images/blog/js-execution-cycle.png)
 
 ---
 
-## How JS engine handles the code execution
+## How the engine keeps track of all this
 
-Now that we have an understanding of the brute force way fo JS execution, lets look at how it is executed in a more practical way by the JS engine.
+That was the by-hand version. Here's how the engine manages it in practice.
 
-The JS engine is a complex system that is responsible for executing the code. The most widely used one is [V8](https://v8.dev/), written in C++, which powers Chrome and Node.js. Firefox and Safari ship their own engines, SpiderMonkey and JavaScriptCore, and all of them follow the same [ECMAScript specification](https://tc39.es/ecma262/).
+The JS engine is the complex bit of software that runs your code. The most widely used one is [V8](https://v8.dev/), written in C++, which powers Chrome and Node.js. Firefox and Safari ship their own, SpiderMonkey and JavaScriptCore, and they all follow the same [ECMAScript specification](https://tc39.es/ecma262/).
 
 ![Execution Cycle in JS](/images/blog/js-execution-in-engine.png)
 
-JS engine uses a stack to keep track of the order in which the code is executed. It is a data structure that stores the execution context of each function call. When a function is called, it is pushed onto the stack. When the function returns, the context is popped off the stack.
+The engine uses a stack to track the order things run in. Each function call gets its own execution context. When a function is called, its context gets pushed onto the stack. When it returns, the context gets popped off.
 
-The call stack also has a core component called `Global Execution Context`. This is the context that is used to execute the code outside of any function. It is the initial context that is created when the code is executed first. After completion of every function call in the stack, control of execution returns to the Global Execution Context which then runs further code.
+At the bottom of the call stack sits the `Global Execution Context`. That's the context for code that isn't inside any function, and it's the first one created when your code starts. Every time a function call finishes, control comes back to the Global Execution Context, which carries on with the rest of the code.
 
 ---
 
-## Where this stops applying
+## Where I'd stop trusting this post
 
-**This is a mental model, not how V8 is built.** Real engines parse lazily, start in an interpreter, and compile hot functions to machine code while the program runs. The two-pass picture predicts what your code will output. It does not describe what the engine is doing internally.
+**This is a mental model, not how V8 is built.** Real engines parse lazily, start in an interpreter, and compile hot functions to machine code while the program runs. The two-pass picture predicts what your code will output. It doesn't describe what the engine is doing inside.
 
-**Garbage collection is not a phase after each function.** I drew it as phase 3 to keep the cycle simple. In practice [memory is reclaimed](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Memory_management) by a collector that runs on its own schedule, whenever values are no longer reachable. A closure can keep a function's variables alive long after the function has returned.
+**Garbage collection isn't a phase after each function.** I drew it as phase 3 to keep the cycle simple. In reality [memory is reclaimed](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Memory_management) by a collector that runs on its own schedule, whenever values can no longer be reached. A closure can keep a function's variables alive long after the function has returned.
 
-**Asynchronous code is missing.** "Single threaded" is true of the call stack, but timers, promises, and network calls are handled by the event loop and its queues, which this post does not cover. That is the natural next thing to read about.
+**Async code is missing.** "Single-threaded" is true of the call stack. But timers, promises, and network calls are handled by the event loop and its queues, and I didn't cover those here. That's the next thing to go read about.
 
-## Wrapping Up
+## The takeaway
 
-The habit worth keeping: when a piece of JavaScript surprises you, trace it by hand. Write down what is in memory after the first pass, then step through the second pass one line at a time. Most "weird" behaviour stops being weird by line three.
+Here's the habit worth keeping. When a piece of JavaScript surprises you, trace it by hand. Write down what's in memory after the first pass, then step through the second pass one line at a time. Most "weird" behaviour stops being weird by line three.
 
 ✌️ Stay curious, Keep coding, Peace nerds!
 
-*Updated 9 October 2026: corrected the description of JavaScript engines, added sources, and added the section on where this stops applying.*
+*Updated 10 October 2026: rewrote this in plainer language and gave it a new title. The description of JavaScript engines, sources, and limits section were fixed or added on 9 October 2026.*

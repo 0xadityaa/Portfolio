@@ -1,48 +1,47 @@
 ---
-title: Building a Spell Checker
+title: 'I Built a Spell Checker to Watch an Algorithm Think'
 publishedAt: '2024-11-11'
-summary: >-
-  A spell checker is edit distance plus a dictionary. How Levenshtein distance
-  works, with code and a visualizer that shows the matrix filling in.
+summary: 'A spell checker is edit distance plus a dictionary. Here''s how Levenshtein distance works, with code and a visualizer that shows the matrix filling in.'
 tags:
   - algorithms
-updated: '2026-10-09'
+  - typescript
+updated: '2026-10-10'
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
 devto_url: 'https://dev.to/0xadityaa/building-a-spell-checker-3i19'
 ---
 
-Hey fellow devs! 👋 Let me tell you about my recent adventure with the [Levenshtein's Distance algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance). You know those moments when you discover something that makes you go _"Wow, that's actually pretty cool?"_ This was one of those moments.
+Hey fellow devs! 👋 Let me tell you about my little adventure with the [Levenshtein distance algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance). You know those moments when you find something that makes you go *"wait, that's actually pretty cool"*? This was one of those.
 
-The idea in one line: **a spell checker is an edit-distance function plus a dictionary. Measure how many single-character edits separate the typed word from each known word, and suggest the closest ones.**
+The idea in one line: **a spell checker is an edit-distance function plus a dictionary. Count how many single-character edits separate the typed word from each known word, and suggest the closest ones.**
 
-## The Discovery 🔍
+## The discovery
 
-There I was, grinding through DSA problems (like we all do), when I encountered the Levenshtein Distance algorithm. At first glance, it seemed like just another dynamic programming problem to add to my interview prep arsenal. But as I dug deeper, I discovered something fascinating: this algorithm is actually the backbone of spell checkers! You know, that thing that saves us from embarrassing typos in MS Word?
+There I was, grinding through DSA problems (like we all do), when I ran into Levenshtein distance. At first it looked like one more dynamic programming problem to stuff into my interview prep. Then I dug a little deeper and found out this algorithm is the backbone of spell checkers. You know, the thing that saves us from embarrassing typos in MS Word.
 
-## The Lightbulb Moment 💡
+## The lightbulb moment
 
-I immediately thought, "What if I could actually *see* this algorithm in action?" Not just the input and output, but the whole process. That's when I decided to build a spell checker visualizer. Nothing fancy, just something to help me (and maybe others) understand how this algorithm thinks. You can check out the live demo [here](https://levenshtein-spell-checker.vercel.app/) or explore the [source code on GitHub](https://github.com/0xadityaa/levenshtein-spell-checker).
+My first thought was, "What if I could actually *see* this algorithm work?" Not just input and output, but the whole process. So I built a spell checker visualizer. Nothing fancy, just something to help me (and maybe you) understand how the algorithm thinks. There's a [live demo](https://levenshtein-spell-checker.vercel.app/), and the [source is on GitHub](https://github.com/0xadityaa/levenshtein-spell-checker).
 
-## The Algorithm: Understanding Levenshtein Distance
+## The algorithm: Levenshtein distance
 
-### How It Works (Time Complexity: O(m*n))
+### How it works (time complexity: O(m*n))
 
-Imagine you're comparing two words and want to know how many changes it takes to turn one word into another. Let's break it down using "wrld" and "world" as an example:
+Say you're comparing two words and you want to know how many changes it takes to turn one into the other. Let's use "wrld" and "world".
 
-1. First, we create a grid (matrix) where:
-   - The first row represents the letters of the first word (plus an empty space)
-   - The first column represents the letters of the second word (plus an empty space)
-2. We fill the first row and column with counting numbers (0,1,2,3...). This represents how many changes it would take to transform an empty string into each letter sequence.
-3. Then comes the interesting part. For each cell in the grid, we look at the corresponding letters and ask: **"Are these letters the same?"**
-    - If they are **SAME**:
-        - We copy the number from the diagonal upper-left cell
-    - If they are **DIFFERENT**:
-        - We look at three nearby cells (up, left, and diagonal upper-left)
-        - Take the smallest number among them
-        - Add 1 to it
-4. The number in the bottom-right cell gives us our final answer - the minimum number of changes needed.
+1. Make a grid (a matrix) where:
+   - The first row is the letters of the first word, plus an empty slot.
+   - The first column is the letters of the second word, plus an empty slot.
+2. Fill the first row and first column with 0, 1, 2, 3 and so on. That's how many changes it takes to get from an empty string to each prefix.
+3. Now the fun part. For each cell, look at the two letters it lines up with and ask: **"Are these the same?"**
+    - If they're the **SAME**:
+        - Copy the number from the diagonal upper-left cell.
+    - If they're **DIFFERENT**:
+        - Look at three neighbours (up, left, and diagonal upper-left).
+        - Take the smallest number.
+        - Add 1.
+4. The number in the bottom-right cell is your answer: the minimum number of changes.
 
-### Basic implementation of the algorithm:
+### A basic implementation
 
 ```typescript
 function levenshteinDistance(str1: string, str2: string): number {
@@ -76,9 +75,9 @@ function levenshteinDistance(str1: string, str2: string): number {
 }
 ```
 
-### Dictionary Implementation
+### The dictionary
 
-Here's a simple example of how the dictionary structure works:
+Here's a simple example of how the dictionary is set up:
 
 ```typescript
 interface Dictionary {
@@ -95,51 +94,48 @@ const dictionary: Dictionary = {
 };
 ```
 
-## Building the Visualizer 🛠️
+## Building the visualizer
 
-I grabbed my favorite tools for the job:
+I grabbed my favourite tools for the job:
 
-- **Vite + React**: (because who doesn't love a speedy DX?)
-- **TypeScript**: (to keep my errors honest)
-- **Tailwind CSS + ShadCn UI**: (for that clean, modern look, yes with a dark mode!)
+- **Vite + React** (because who doesn't love a speedy dev experience?)
+- **TypeScript** (to keep my errors honest)
+- **Tailwind CSS + shadcn/ui** (for a clean look, and yes, there's dark mode)
 
-The core functionality is pretty straightforward:
+What it does is pretty simple:
 
-1. User types some text
-2. The app spots the misspelled words
-3. Here's the cool part, it shows the Levenshtein matrix for each suggestion!
+1. You type some text.
+2. The app spots the misspelled words.
+3. And the cool part: it shows the Levenshtein matrix for each suggestion.
 
-### Visualization of the algorithm:
+### What it looks like
+
 ![Interactive matrix visualization showing the Levenshtein distance calculation between 'wrld' and 'world'](/images/blog/matrix.jpeg "Levenshtein Distance Matrix")
 
-## Alternative Approaches
+## Other ways to do it
 
-While Levenshtein Distance is great, there are other spell-checking algorithms worth mentioning:
+Levenshtein is great, but it's not the only game in town:
 
-- [**Damerau-Levenshtein Distance**](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance): Handles transposition of adjacent characters
-- **Soundex**: Matches words that sound similar
-- **N-gram similarity**: Useful for handling larger texts and finding similar phrases
+- [**Damerau-Levenshtein distance**](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance): also handles two adjacent letters being swapped.
+- **Soundex**: matches words that sound alike.
+- **N-gram similarity**: useful for longer text and for finding similar phrases.
 
-## Where this stops applying
+## Where I'd stop trusting this post
 
-**Comparing against every word does not scale.** The matrix costs O(m*n) per pair, and a naive checker runs it against the whole dictionary for every typo. That is fine for a hardcoded word list and far too slow for a real one. The standard fix is to index the dictionary so most words are never compared, for example with a [BK-tree](https://en.wikipedia.org/wiki/BK-tree).
+**Comparing against every word doesn't scale.** The matrix costs O(m*n) per pair, and a naive checker runs it against the entire dictionary for every typo. Fine for a hardcoded word list, way too slow for a real one. The usual fix is to index the dictionary so most words never get compared, for example with a [BK-tree](https://en.wikipedia.org/wiki/BK-tree).
 
-**Plain Levenshtein gets common typos wrong.** Swapping two adjacent letters ("teh") counts as two edits, so it can rank a worse suggestion first. It also knows nothing about which words are common. Peter Norvig's [spelling corrector](https://norvig.com/spell-correct.html) shows how much word frequency matters, in about twenty lines of Python.
+**Plain Levenshtein gets common typos wrong.** Swapping two adjacent letters ("teh") counts as two edits, so it can rank a worse suggestion first. It also has no idea which words are common. Peter Norvig's [spelling corrector](https://norvig.com/spell-correct.html) shows how much word frequency matters, in about twenty lines of Python.
 
-**It checks words, not sentences.** "Their" for "there" is spelled correctly and will never be flagged. Context needs a language model, which is a different tool.
+**It checks words, not sentences.** "Their" when you meant "there" is spelled correctly and will never get flagged. Context needs a language model, and that's a different tool.
 
-## The Final Thoughts 💭
+## The takeaway
 
-Is it basic? Absolutely! The dictionary is hardcoded, and it won't be replacing Grammarly anytime soon. But that was never the goal. I wanted to see the algorithm in action, to understand how it transforms "wrld" into "world" one edit at a time. And you know what? It works!
+Is it basic? Absolutely. The dictionary is hardcoded and it won't be replacing Grammarly any time soon. But that was never the goal. I wanted to watch the algorithm turn "wrld" into "world" one edit at a time. And you know what? It works.
 
-## Learnings from this project 📚
+Sometimes the simplest projects are the most satisfying. This wasn't about building the next big thing. It was about taking an algorithm out of interview prep and watching it solve a real problem.
 
-Sometimes the simplest projects are the most satisfying. This wasn't about building the next big thing; it was about taking an algorithm from the realm of interview prep and watching it solve real problems.
-
-Remember: Not every project needs to change the world. Sometimes, just understanding how things work is rewarding enough!
-
-So here's to the small wins, the *"aha"* moments, and the joy of seeing algorithms come to life! 
+Not every project has to change the world. Sometimes just understanding how a thing works is reward enough. So here's to the small wins, the *"aha"* moments, and the joy of seeing an algorithm come to life.
 
 ✌️ Stay curious, Keep coding, Peace nerds!
 
-*Updated 9 October 2026: stated the core idea up front, added sources, and added the section on where this stops applying.*
+*Updated 10 October 2026: rewrote this in plainer language and gave it a new title. The core idea, sources, and limits section were added on 9 October 2026.*
