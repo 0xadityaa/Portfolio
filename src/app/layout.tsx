@@ -3,20 +3,21 @@ import { DATA } from "@/data/resume";
 import { pageAlternates } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Newsreader } from "next/font/google";
+import { DM_Mono, DM_Sans, Newsreader } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-const geistSans = Geist({
+const sans = DM_Sans({
   subsets: ["latin"],
-  variable: "--font-geist-sans",
+  variable: "--font-sans",
 });
 
-const geistMono = Geist_Mono({
+const mono = DM_Mono({
   subsets: ["latin"],
-  variable: "--font-geist-mono",
+  weight: ["400", "500"],
+  variable: "--font-mono",
 });
 
 const serif = Newsreader({
@@ -70,7 +71,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("scroll-smooth", geistSans.variable, geistMono.variable, serif.variable)}>
+    <html lang="en" className={cn("scroll-smooth", sans.variable, mono.variable, serif.variable)}>
       <body className="min-h-[100dvh] bg-background font-sans text-[15px] leading-7 antialiased">
         <a
           href="#content"
