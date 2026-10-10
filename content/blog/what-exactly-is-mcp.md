@@ -1,13 +1,16 @@
 ---
-title: 'What Exactly Is MCP?'
+title: What Exactly Is MCP?
 publishedAt: '2025-03-08'
-summary: 'MCP is a standard plug for AI tools. Write a tool once and any app that speaks the protocol can use it. What it fixes, and what it costs you.'
+summary: >-
+  MCP is a standard plug for AI tools. Write a tool once and any app that speaks
+  the protocol can use it. What it fixes, and what it costs you.
 tags:
   - llm
   - ai
   - mcp
 updated: '2026-10-10'
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
+devto_url: 'https://dev.to/0xadityaa/what-exactly-is-mcp-47j7'
 ---
 
 If you hang out in tech corners of LinkedIn, YouTube, or X, your feed has probably been buried in MCP posts. Mine was. So a few days into the noise I decided to actually dig in, and this post is everything I managed to find and understand so far.
