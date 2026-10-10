@@ -1,13 +1,10 @@
-import { FadeIn } from "@/components/fade-in";
-import { Row } from "@/components/row";
+import { Row, TermRow } from "@/components/row";
 import { Section } from "@/components/section";
 import { getAllBlogPosts } from "@/data/blog";
 import { DATA } from "@/data/resume";
 import { projectSlug } from "@/lib/projects";
 import { formatMonthYear, yearRange } from "@/lib/utils";
 import Link from "next/link";
-
-const STEP = 0.05;
 
 // Re-rendered every 10 minutes so scheduled posts appear when their publish time passes.
 export const revalidate = 600;
@@ -23,20 +20,15 @@ export default async function Page() {
   const posts = await getAllBlogPosts();
 
   return (
-    <main className="flex flex-col gap-16">
-      <FadeIn>
+    <main className="fade-in flex flex-col gap-16">
         <section id="about" className="space-y-4">
           <h1 className="sr-only">{DATA.name}</h1>
-          <p className="text-foreground">{DATA.description}</p>
-          {DATA.about.map((paragraph) => (
-            <p key={paragraph} className="text-muted-foreground">
+          {DATA.about.map((paragraph, index) => (
+            <p key={paragraph} className={index === 0 ? "text-foreground" : "text-muted-foreground"}>
               {paragraph}
             </p>
           ))}
         </section>
-      </FadeIn>
-
-      <FadeIn delay={STEP}>
         <Section id="work" title="Experience">
           <div className="space-y-6">
             {DATA.work.map((work) => (
@@ -52,9 +44,6 @@ export default async function Page() {
             ))}
           </div>
         </Section>
-      </FadeIn>
-
-      <FadeIn delay={STEP * 2}>
         <Section id="projects" title="Projects" more={{ href: "/projects", label: "All projects" }}>
           <ul className="rows">
             {DATA.projects.slice(0, 4).map((project) => (
@@ -69,9 +58,6 @@ export default async function Page() {
             ))}
           </ul>
         </Section>
-      </FadeIn>
-
-      <FadeIn delay={STEP * 3}>
         <Section id="writing" title="Writing" more={{ href: "/blog", label: "All posts" }}>
           <ul className="rows">
             {posts.slice(0, 5).map((post) => (
@@ -91,21 +77,15 @@ export default async function Page() {
             ))}
           </ul>
         </Section>
-      </FadeIn>
-
-      <FadeIn delay={STEP * 4}>
         <Section id="stack" title="Stack">
           <dl className="space-y-3">
             {DATA.stack.map((group) => (
-              <Row key={group.label} meta={<dt>{group.label}</dt>}>
-                <dd className="text-muted-foreground">{group.items.join(", ")}</dd>
-              </Row>
+              <TermRow key={group.label} term={group.label} className="text-muted-foreground">
+                {group.items.join(", ")}
+              </TermRow>
             ))}
           </dl>
         </Section>
-      </FadeIn>
-
-      <FadeIn delay={STEP * 4}>
         <Section id="education" title="Education">
           <div className="space-y-3">
             {DATA.education.map((education) => (
@@ -120,28 +100,43 @@ export default async function Page() {
             ))}
           </div>
         </Section>
-      </FadeIn>
-
-      <FadeIn delay={STEP * 4}>
         <Section id="contact" title="Contact">
           <dl className="space-y-3">
             {contact.map((item) => (
-              <Row key={item.label} meta={<dt>{item.label}</dt>}>
-                <dd>
-                  <a
+              <TermRow key={item.label} term={item.label}>
+                <a
                     href={item.href}
                     target={item.href.startsWith("mailto:") ? undefined : "_blank"}
                     rel="noopener noreferrer"
                     className="link"
                   >
                     {item.text}
-                  </a>
-                </dd>
-              </Row>
+                </a>
+              </TermRow>
             ))}
           </dl>
         </Section>
-      </FadeIn>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: DATA.name,
+            url: DATA.url,
+            image: `${DATA.url}${DATA.avatarUrl}`,
+            jobTitle: DATA.work[0].title,
+            worksFor: { "@type": "Organization", name: DATA.work[0].company, url: DATA.work[0].href },
+            address: { "@type": "PostalAddress", addressLocality: "Toronto", addressCountry: "CA" },
+            sameAs: [
+              DATA.contact.social.GitHub.url,
+              DATA.contact.social.LinkedIn.url,
+              DATA.contact.social.X.url,
+            ],
+          }),
+        }}
+      />
     </main>
   );
 }

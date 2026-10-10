@@ -1,5 +1,5 @@
 ---
-title: What are LLMs and How to Build Stuff Using it?
+title: What Are LLMs and How to Build Apps With Them
 publishedAt: '2025-02-18'
 summary: >-
   An LLM predicts the next token. Everything useful is built around that:

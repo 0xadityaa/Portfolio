@@ -43,8 +43,6 @@ async function home() {
 
   return `# ${DATA.name}
 
-${DATA.description}
-
 ${DATA.about.join("\n\n")}
 
 Location: Toronto, Canada.

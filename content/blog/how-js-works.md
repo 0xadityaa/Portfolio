@@ -1,5 +1,5 @@
 ---
-title: How Javascript Works
+title: How JavaScript Works
 publishedAt: '2024-09-26'
 summary: >-
   A mental model of how a JavaScript engine runs code: execution contexts, the

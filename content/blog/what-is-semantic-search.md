@@ -1,5 +1,5 @@
 ---
-title: What is semantic search & how to implement it?
+title: What Is Semantic Search and How Do You Implement It?
 publishedAt: '2025-04-06'
 summary: >-
   How I added semantic search to an LLM pipeline: embeddings, why I cut them to

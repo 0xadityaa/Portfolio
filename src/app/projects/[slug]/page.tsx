@@ -40,7 +40,12 @@ export default async function ProjectDetailPage(props: ProjectDetailParams) {
     notFound();
   }
 
-  const compiledContent = rawReadme ? await markdownToHTML(rawReadme) : null;
+  // The page already shows the project title, so drop the README's own,
+  // and the emoji READMEs like to put in front of headings.
+  const readme = rawReadme
+    ?.replace(/^\s*#\s[^\n]*\n/, "")
+    .replace(/^(#{1,6}\s+)(?:\p{Extended_Pictographic}\uFE0F?\s*)+/gmu, "$1");
+  const compiledContent = readme ? await markdownToHTML(readme) : null;
   const sourceUrl = project?.href ?? `https://github.com/0xadityaa/${slug}`;
   // Lead with the thing a visitor can try, then the code, then the write-up.
   const linkOrder = ["Website", "Source", "Devlog"];
