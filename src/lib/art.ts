@@ -43,3 +43,41 @@ export function truchet(seed: string, cols: number, rows: number) {
   }
   return { base, accent, dots, tint: hash(seed) % 6, width: cols * CELL, height: rows * CELL };
 }
+
+const WEAVE_CELL = 40;
+
+/**
+ * Woven ribbons: each cell fans three concentric quarter arcs out of one
+ * corner and a single arc out of the opposite one. Arc ends always land on
+ * the same points of a cell edge, so ribbons run on from cell to cell.
+ */
+export function weave(seed: string, cols: number, rows: number) {
+  const random = rng(hash(seed));
+  let base = "";
+  let accent = "";
+  const dots: { cx: number; cy: number }[] = [];
+
+  const arc = (cx: number, cy: number, sx: number, sy: number, r: number) =>
+    `M${cx + sx * r} ${cy}A${r} ${r} 0 0 ${sx * sy > 0 ? 1 : 0} ${cx} ${cy + sy * r}`;
+
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
+      const right = random() < 0.5;
+      const bottom = random() < 0.5;
+      const cx = (col + (right ? 1 : 0)) * WEAVE_CELL;
+      const cy = (row + (bottom ? 1 : 0)) * WEAVE_CELL;
+      const sx = right ? -1 : 1;
+      const sy = bottom ? -1 : 1;
+
+      const highlight = random() < 0.2;
+      for (const r of [10, 20, 30]) {
+        if (highlight && r === 20) accent += arc(cx, cy, sx, sy, r);
+        else base += arc(cx, cy, sx, sy, r);
+      }
+      // The lone arc in the opposite corner.
+      base += arc(cx + sx * WEAVE_CELL, cy + sy * WEAVE_CELL, -sx, -sy, 10);
+      if (random() < 0.07) dots.push({ cx: cx + sx * WEAVE_CELL, cy: cy + sy * WEAVE_CELL });
+    }
+  }
+  return { base, accent, dots, width: cols * WEAVE_CELL, height: rows * WEAVE_CELL };
+}
