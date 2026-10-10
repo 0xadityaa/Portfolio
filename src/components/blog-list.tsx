@@ -90,7 +90,6 @@ export function BlogList({ initialPosts }: { initialPosts: Post[] }) {
           <section key={year} aria-labelledby={`posts-${year}`}>
             <h2 id={`posts-${year}`} className="meta mb-3 flex items-center gap-4">
               {year}
-              <span aria-hidden className="h-px flex-1 bg-border" />
             </h2>
             <ul>
               {posts.map((post) => (

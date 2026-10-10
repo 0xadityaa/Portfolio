@@ -23,6 +23,11 @@ export type BlogPostMetadata = {
   tags?: string[];
   /** Merged but not approved for release. Hidden in production. */
   draft?: boolean;
+  /**
+   * Show the post on the site before its publish time. It still stays out of
+   * the RSS feed, the sitemap, llms.txt and cross-posting until that time.
+   */
+  preview?: boolean;
   readingTime?: number;
   devto_url?: string;
   medium_url?: string;
@@ -48,6 +53,12 @@ export function publishTime(publishedAt: string) {
  */
 function isVisible(metadata: BlogPostMetadata) {
   if (process.env.VERCEL_ENV !== "production") return true;
+  if (metadata.draft) return false;
+  return metadata.preview === true || isReleased(metadata);
+}
+
+/** True once a post's publish time has passed. Feeds and syndication wait for this. */
+export function isReleased(metadata: BlogPostMetadata) {
   return !metadata.draft && publishTime(metadata.publishedAt).getTime() <= Date.now();
 }
 
@@ -135,6 +146,11 @@ export async function getPost(slug: string): Promise<BlogPost | null> {
   const post = readPost(slug);
   if (!post) return null;
   return { ...post, source: await markdownToHTML(post.markdown) };
+}
+
+/** Posts whose publish time has passed: what the RSS feed, sitemap and llms.txt list. */
+export async function getReleasedBlogPosts() {
+  return (await getAllBlogPosts()).filter((post) => isReleased(post.metadata));
 }
 
 /** Visible posts, newest first. Metadata and Markdown only: nothing is rendered. */
