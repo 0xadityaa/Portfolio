@@ -1,4 +1,3 @@
-import { HeroMosaic } from "@/components/hero-mosaic";
 import { PostCover } from "@/components/post-cover";
 import { ProjectCard } from "@/components/project-card";
 import { Section } from "@/components/section";
@@ -48,7 +47,7 @@ export default async function Page() {
       <section id="about" className="grid items-center gap-x-12 gap-y-10 lg:grid-cols-[1fr_28rem]">
         <div>
           <h1 className="font-serif text-[2.75rem] font-medium leading-[1.05] tracking-tight text-foreground [text-wrap:pretty] sm:text-[3.5rem]">
-            Hi, I&apos;m Aditya. I love figuring out how things fit together.
+            Hi, I&apos;m Aditya.
           </h1>
           <div className="mt-6 max-w-[52ch] space-y-3 text-muted-foreground">
             {DATA.about.map((paragraph) => (
@@ -69,11 +68,17 @@ export default async function Page() {
               Read my writing
             </Link>
             <a href={DATA.contact.social.email.url} className="link ml-1 text-sm">
-              Say hello
+              Chat
             </a>
           </div>
         </div>
-        <HeroMosaic />
+        <PostCover
+          seed="aditya-negandhi"
+          tint={5}
+          cols={18}
+          rows={13}
+          className="aspect-[18/13] w-full rounded-2xl border border-border"
+        />
       </section>
 
       <Section id="writing" title="Writing" more={{ href: "/blog", label: "All posts" }}>

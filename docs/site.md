@@ -11,8 +11,7 @@ Warm charcoal and clay, in the spirit of Claude's dark interface, with custom-dr
 - Radius: cards `rounded-2xl`, buttons and thumbnails `rounded-lg`, chips `rounded-md`.
 - A title stands alone: no kicker, number or label above it. Dates and other metadata go below.
 - Artwork is code, not image files:
-  - `HeroMosaic`: the hero. The pixel portrait fitted together with tiles for what he builds, plays, explores, connects and writes. It settles into place once; nothing loops.
-  - `PostCover`: a pattern generated from the post slug on a tinted background. Every post gets one automatically.
+  - `PostCover`: a pattern generated from a seed on a tinted background. Every post gets one automatically from its slug, and the home hero is a large one.
   - `ProjectArt`: one line drawing per project, keyed by repo name. A new featured project needs a drawing added there (it falls back to a generated pattern).
   Draw in ink (`stroke-foreground`) on a `--tint-N` background, 2.5px round strokes, no gradients.
 - Screenshots appear only on a project's own page.
@@ -28,7 +27,7 @@ Every page is rendered to HTML on the server and served from Vercel's CDN, refre
 
 - A page stays a Server Component. `"use client"` is for a leaf that needs state or a browser API (the filters, copy buttons).
 - Reading `cookies()`, `headers()`, or `searchParams` in a page makes it render per request and breaks the budget. Filter on the client instead.
-- Animation is CSS (`.fade-in`, `.mosaic`) and stops for reduced motion. The site ships no animation library.
+- Animation is CSS (`.fade-in`) and stops for reduced motion. The site ships no animation library.
 - Images go through `next/image` with real `sizes`. Only the first screen gets `priority`.
 - Budget: HTML response under 200ms from the CDN, Lighthouse accessibility and SEO at 100. Check with `curl -w '%{time_starttransfer}\n' -o /dev/null -s <url>` after a deploy.
 
