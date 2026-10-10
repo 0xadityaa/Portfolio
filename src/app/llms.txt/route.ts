@@ -19,7 +19,7 @@ Every page on this site has a Markdown version: add \`.md\` to its URL
 
 ## Pages
 
-- [Home](${url("/index.md")}): Who Aditya is, experience, projects, latest writing, stack, education, and contact details
+- [Home](${url("/index.md")}): Who Aditya is, what he is building (Hivemind), latest writing, projects, experience, stack, education, and contact links
 - [Blog](${url("/blog.md")}): All posts with summaries
 - [Projects](${url("/projects.md")}): All projects with descriptions and tech
 

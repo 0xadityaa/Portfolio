@@ -47,6 +47,18 @@ ${DATA.about.join("\n\n")}
 
 Location: Toronto, Canada.
 
+## Building
+
+### [${DATA.building.name}](${DATA.building.href})
+
+${DATA.building.tagline}
+
+${DATA.building.paragraphs.join("\n\n")}
+
+${DATA.building.stats.map((stat) => `- ${stat.value}: ${stat.label}`).join("\n")}
+- Built with: ${DATA.building.stack.join(", ")}
+- Docs: ${DATA.building.docs}
+
 ## Writing
 
 ${posts

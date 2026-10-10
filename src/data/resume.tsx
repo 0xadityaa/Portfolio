@@ -12,6 +12,24 @@ export const DATA = {
     "I'm a full stack engineer and aspiring solutions architect who can't leave things alone until I know how they work. I build stuff with equal parts brain and heart, and I think of engineering as architecture, just with fewer hard hats.",
     "To me, building is more than making code work. It's about exploring systems, understanding the problem at hand, and seeing how it shapes the architecture around it. I'm endlessly curious about how people use everyday apps, what makes them stick, and how a codebase evolves as it scales.",
   ],
+  // What Aditya is building now. Facts come from gethivemind.xyz and its docs.
+  building: {
+    name: "Hivemind",
+    tagline: "One memory for every AI you use.",
+    href: "https://gethivemind.xyz",
+    docs: "https://gethivemind.xyz/docs",
+    paragraphs: [
+      "Every AI tool I use starts from zero. I explain my project to Claude Code, then to Cursor, then to ChatGPT, and by Friday I've said the same thing five times. Hivemind is my fix: one memory that all of them read and write. Tell one tool something once, and the others already know.",
+      "Where I'm taking it: a context layer that sits under everything you do with AI. Not a dump of your chat history. It picks what matters for the question, packs it into a token budget, and hands it over in the shape that tool expects. Switch tools mid-task and the next one gets what you decided, what's next, and what to watch out for.",
+      "It plugs into coding tools over MCP, into chat sites through a browser extension, and into your own agents through an SDK. It's live, and free to start.",
+    ],
+    stats: [
+      { value: "13", label: "AI clients set up by one command" },
+      { value: "78.2%", label: "of answers found on a public memory benchmark, measured on the live service" },
+      { value: "1,500", label: "tokens is the default ceiling on what a recall adds to your context" },
+    ],
+    stack: ["TypeScript", "Cloudflare", "Bun", "React", "MCP"],
+  },
   avatarUrl: "/images/profile/avatar.png",
   stack: [
     {
