@@ -112,7 +112,7 @@
   --tw-prose-links: hsl(var(--foreground));
   --tw-prose-quotes: hsl(var(--foreground) / 0.86);
   --tw-prose-quote-borders: hsl(var(--brand));
-  --tw-prose-hr: hsl(var(--border));
+  --tw-prose-hr: transparent;
   --tw-prose-bullets: hsl(var(--brand));
   --tw-prose-counters: hsl(var(--muted-foreground));
   --tw-prose-th-borders: hsl(var(--border));

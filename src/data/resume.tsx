@@ -19,14 +19,28 @@ export const DATA = {
     href: "https://gethivemind.xyz",
     docs: "https://gethivemind.xyz/docs",
     paragraphs: [
-      "Every AI tool I use starts from zero. I explain my project to Claude Code, then to Cursor, then to ChatGPT, and by Friday I've said the same thing five times. Hivemind is my fix: one memory that all of them read and write. Tell one tool something once, and the others already know.",
-      "Where I'm taking it: a context layer that sits under everything you do with AI. Not a dump of your chat history. It picks what matters for the question, packs it into a token budget, and hands it over in the shape that tool expects. Switch tools mid-task and the next one gets what you decided, what's next, and what to watch out for.",
-      "It plugs into coding tools over MCP, into chat sites through a browser extension, and into your own agents through an SDK. It's live, and free to start.",
+      "Your AI tools are brilliant, and every one of them has amnesia. Tell Claude Code how your project works and Cursor has no idea. ChatGPT, same story. Hivemind is the fix I'm building: one memory that all of them read and write. Say it once. Every tool already knows.",
+      "Storing things is the easy part. The hard part is deciding what to send back. Hivemind runs a keyword search and a meaning search side by side, drops whatever isn't close, packs the rest into a token budget, and puts the best bits where the model actually reads them. If your memory has nothing to say about a question, it sends nothing.",
+      "One command sets up every AI client on your machine, and a browser extension covers the chat sites. Switch tools mid-task and the next one picks up what you decided, what's next, and what to watch out for. Where I'm taking it: the context layer under everything you do with AI, owned by you and not by whichever app you happened to type into.",
     ],
+    // Measured figures from Hivemind's benchmark record. Keep each one with its conditions.
     stats: [
-      { value: "13", label: "AI clients set up by one command" },
-      { value: "78.2%", label: "of answers found on a public memory benchmark, measured on the live service" },
-      { value: "1,500", label: "tokens is the default ceiling on what a recall adds to your context" },
+      {
+        value: "98.4%",
+        label: "of answers correct on LongMemEval's single-session questions (oracle split), a benchmark it was never tuned on",
+      },
+      {
+        value: "40x",
+        label: "fewer tokens than pasting the whole conversation: 465 a question against 18,853 on LoCoMo",
+      },
+      {
+        value: "+15.6",
+        label: "points of recall over keyword search on LoCoMo, across 1,536 questions",
+      },
+      {
+        value: "9 ms",
+        label: "for a chat message to send with memory switched on. It was 1,310 ms before I rebuilt that path",
+      },
     ],
     stack: ["TypeScript", "Cloudflare", "Bun", "React", "MCP"],
   },
