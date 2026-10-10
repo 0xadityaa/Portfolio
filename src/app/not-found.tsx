@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <main className="space-y-4 py-16">
+    <main className="mx-auto max-w-2xl space-y-4 py-16">
       <p className="meta">404</p>
       <h1 className="text-xl font-medium tracking-tight text-foreground">
         This page does not exist

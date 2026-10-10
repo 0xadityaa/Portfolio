@@ -54,10 +54,10 @@ export default async function ProjectDetailPage(props: ProjectDetailParams) {
   );
 
   return (
-    <main>
+    <main className="mx-auto max-w-2xl">
       <header className="space-y-4">
         <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-          <h1 className="text-[1.75rem] font-semibold leading-[1.2] tracking-tight text-foreground sm:text-[2rem]">
+          <h1 className="font-serif text-4xl font-medium leading-[1.12] tracking-tight text-foreground sm:text-[2.75rem]">
             {project?.title ?? slug}
           </h1>
           {project?.dates && <span className="meta">{project.dates}</span>}
@@ -112,7 +112,7 @@ export default async function ProjectDetailPage(props: ProjectDetailParams) {
       {compiledContent ? (
         <>
           <article
-            className="prose prose-invert max-w-none pt-8 leading-relaxed prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg"
+            className="prose max-w-none pt-8 leading-relaxed prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg"
             dangerouslySetInnerHTML={{ __html: compiledContent }}
           />
           <CopyCodeHandler />

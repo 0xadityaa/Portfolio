@@ -3,7 +3,7 @@ import { DATA } from "@/data/resume";
 import { pageAlternates } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
@@ -19,9 +19,18 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
 });
 
+const serif = Newsreader({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  style: ["normal", "italic"],
+});
+
 export const viewport: Viewport = {
-  themeColor: "#0a0a0a",
-  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#faf9f5" },
+    { media: "(prefers-color-scheme: dark)", color: "#262624" },
+  ],
+  colorScheme: "light dark",
 };
 
 export const metadata: Metadata = {
@@ -64,7 +73,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("dark scroll-smooth", geistSans.variable, geistMono.variable)}>
+    <html lang="en" className={cn("scroll-smooth", geistSans.variable, geistMono.variable, serif.variable)}>
       <body className="min-h-[100dvh] bg-background font-sans text-[15px] leading-7 antialiased">
         <a
           href="#content"
@@ -72,7 +81,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <div className="mx-auto w-full max-w-[42rem] px-6 pb-16 pt-10 sm:pt-20">
+        <div className="mx-auto w-full max-w-5xl px-6 pb-16 pt-8 sm:pt-12">
           <SiteHeader />
           <div id="content">{children}</div>
           <footer className="mt-24 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-border pt-6 text-sm text-muted-foreground">
