@@ -102,7 +102,7 @@ export default async function ProjectDetailPage(props: ProjectDetailParams) {
       )}
 
       {project && project.technologies.length > 0 && (
-        <dl className="mt-8 grid grid-cols-1 gap-y-0.5 border-y border-border py-4 sm:grid-cols-[7rem_1fr] sm:gap-x-6">
+        <dl className="mt-8 grid grid-cols-1 gap-y-0.5 sm:grid-cols-[7rem_1fr] sm:gap-x-6">
           <dt className="meta sm:pt-2.5">Built with</dt>
           <dd>
             <TechList items={project.technologies} />

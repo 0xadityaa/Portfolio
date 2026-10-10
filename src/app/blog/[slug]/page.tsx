@@ -101,7 +101,7 @@ export default async function BlogPost(props: BlogParams) {
         }}
       />
 
-      <header className="space-y-4 border-b border-border pb-8">
+      <header className="space-y-4">
         <h1 className="font-serif text-4xl font-medium leading-[1.12] tracking-tight text-foreground sm:text-[2.75rem]">
           {post.metadata.title}
         </h1>
@@ -126,7 +126,7 @@ export default async function BlogPost(props: BlogParams) {
       <CopyCodeHandler />
       <Signature />
 
-      <footer className="mt-16 space-y-3 border-t border-border pt-8 text-sm leading-relaxed text-muted-foreground">
+      <footer className="mt-16 space-y-3 text-sm leading-relaxed text-muted-foreground">
         <p>
           That&apos;s a wrap. I&apos;m{" "}
           <Link href="/" className="link">
@@ -155,7 +155,7 @@ export default async function BlogPost(props: BlogParams) {
       {(newer || older) && (
         <nav
           aria-label="More posts"
-          className="mt-8 grid grid-cols-1 gap-4 border-t border-border pt-8 sm:grid-cols-2"
+          className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2"
         >
           {older ? (
             <Link href={`/blog/${older.slug}`} className="group rounded-lg">

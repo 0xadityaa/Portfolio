@@ -1,4 +1,4 @@
-import { getAllBlogPosts } from "@/data/blog";
+import { getReleasedBlogPosts } from "@/data/blog";
 import { DATA } from "@/data/resume";
 import { projectSlug } from "@/lib/projects";
 
@@ -6,7 +6,7 @@ export const revalidate = 600;
 
 /** Index of the site for agents, following the llms.txt convention. */
 export async function GET() {
-  const posts = await getAllBlogPosts();
+  const posts = await getReleasedBlogPosts();
   const url = (pathname: string) => `${DATA.url}${pathname}`;
 
   const body = `# ${DATA.name}
