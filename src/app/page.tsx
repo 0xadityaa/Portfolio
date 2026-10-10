@@ -1,3 +1,4 @@
+import { HeroArt } from "@/components/hero-art";
 import { PostCover } from "@/components/post-cover";
 import { ProjectCard } from "@/components/project-card";
 import { Section } from "@/components/section";
@@ -72,13 +73,7 @@ export default async function Page() {
             </a>
           </div>
         </div>
-        <PostCover
-          seed="aditya-negandhi"
-          tint={5}
-          cols={18}
-          rows={13}
-          className="aspect-[18/13] w-full rounded-2xl border border-border"
-        />
+        <HeroArt className="aspect-[9/7] w-full rounded-2xl border border-border" />
       </section>
 
       <Section id="writing" title="Writing" more={{ href: "/blog", label: "All posts" }}>
