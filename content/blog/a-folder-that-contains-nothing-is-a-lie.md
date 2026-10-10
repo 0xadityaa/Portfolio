@@ -10,6 +10,7 @@ tags:
   - data-modeling
   - ai
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/122'
+devto_url: 'https://dev.to/0xadityaa/a-folder-that-contains-nothing-is-a-lie-5gnp'
 ---
 
 Have you ever noticed that Gmail doesn't have folders?
