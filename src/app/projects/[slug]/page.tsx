@@ -1,5 +1,6 @@
 import { CopyCodeHandler } from "@/components/copy-code-handler";
 import { markdownToHTML } from "@/data/blog";
+import { TechList } from "@/components/tech-list";
 import { DATA } from "@/data/resume";
 import { fetchProjectReadme } from "@/lib/markdown-pages";
 import { findProject, projectSlug } from "@/lib/projects";
@@ -102,9 +103,9 @@ export default async function ProjectDetailPage(props: ProjectDetailParams) {
 
       {project && project.technologies.length > 0 && (
         <dl className="mt-8 grid grid-cols-1 gap-y-0.5 border-y border-border py-4 sm:grid-cols-[7rem_1fr] sm:gap-x-6">
-          <dt className="meta sm:pt-[0.3rem]">Built with</dt>
-          <dd className="text-muted-foreground">
-            {project.technologies.join(", ")}
+          <dt className="meta sm:pt-2.5">Built with</dt>
+          <dd>
+            <TechList items={project.technologies} />
           </dd>
         </dl>
       )}
