@@ -101,7 +101,3 @@ At the bottom of the call stack sits the `Global Execution Context`. That's the 
 ## The takeaway
 
 Here's the habit worth keeping. When a piece of JavaScript surprises you, trace it by hand. Write down what's in memory after the first pass, then step through the second pass one line at a time. Most "weird" behaviour stops being weird by line three.
-
-✌️ Stay curious, Keep coding, Peace nerds!
-
-*Updated 10 October 2026: rewrote this in plainer language and gave it a new title. The description of JavaScript engines, sources, and limits section were fixed or added on 9 October 2026.*

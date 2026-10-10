@@ -87,7 +87,3 @@ Three things jump out.
 Most teams go event-driven too early and for the wrong reasons. Events aren't the default way for services to talk. They're what you reach for when you need things to happen async and at scale. If a service needs another service's answer to finish its own job, a REST call is still the right tool, and there's zero shame in that.
 
 When you do make the jump, do the multiplication first: events per month, times consumers per event, times 64 KB chunks per payload. If that number scares you on a whiteboard, wait until it shows up on an invoice.
-
-✌️ Stay curious, Keep coding, Peace nerds!
-
-*Updated 10 October 2026: rewrote this in plainer language and dropped the GIF. The cost model, sources, and limits section were added on 9 October 2026.*

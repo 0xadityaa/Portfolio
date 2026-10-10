@@ -97,7 +97,3 @@ The rule I use: look at the loops. One loop over the input is O(n). A loop insid
 ---
 
 Want more data structures and algorithms? Check out my [GitHub repo](https://github.com/0xadityaa/dsa-in-js), where I'm working through Neetcode's Blind 75 in JS.
-
-✌️ Stay curious, Keep coding, Peace nerds!
-
-*Updated 10 October 2026: rewrote this in plainer language and gave it a new title. The fix to quadratic growth, the table of step counts, and the limits section were added on 9 October 2026.*

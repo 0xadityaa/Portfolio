@@ -167,36 +167,23 @@ export default async function Page() {
         </div>
       </Section>
 
-      <Section id="contact" title="Say hi">
-        <div className="flex flex-col items-start justify-between gap-6 rounded-2xl border border-border bg-card p-6 sm:flex-row sm:items-center sm:p-8">
-          <div>
-            <p className="font-serif text-3xl font-medium tracking-tight text-foreground">Let&apos;s talk</p>
-            <ul className="mt-4 flex items-center gap-2">
-              {contact.map((item) => (
-                <li key={item.label}>
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={item.label}
-                    title={item.label}
-                    className="flex size-10 items-center justify-center rounded-lg border border-border bg-background transition-colors hover:border-foreground/30 active:scale-[0.97]"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`/icons/${TECH_ICONS[item.label]}`} alt="" width={18} height={18} className="size-[18px] object-contain" />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <a
-            href={DATA.contact.social.email.url}
-            className="flex-none rounded-lg bg-foreground px-4 py-2.5 text-sm font-medium text-background transition-colors hover:bg-foreground/90 active:scale-[0.98]"
-          >
-            {DATA.contact.email}
-          </a>
-        </div>
-      </Section>
+      <ul id="contact" aria-label="Find me elsewhere" className="-mt-8 flex items-center gap-2">
+        {contact.map((item) => (
+          <li key={item.label}>
+            <a
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={item.label}
+              title={item.label}
+              className="flex size-10 items-center justify-center rounded-lg border border-border bg-card transition-colors hover:border-foreground/30 active:scale-[0.97]"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={`/icons/${TECH_ICONS[item.label]}`} alt="" width={18} height={18} className="size-[18px] object-contain" />
+            </a>
+          </li>
+        ))}
+      </ul>
 
       <script
         type="application/ld+json"
