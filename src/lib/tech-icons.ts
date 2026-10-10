@@ -73,6 +73,11 @@ export const TECH_ICONS: Record<string, string> = {
   "GitHub": "github.svg",
   "LinkedIn": "linkedin.svg",
   "X": "x-formerly-twitter.svg",
+  "Codex": "codex.svg",
+  "OpenCode": "opencode.svg",
+  "Ollama": "ollama.svg",
+  "Cloudflare": "cloudflare.svg",
+  "Oracle": "oracle.svg",
   // From Simple Icons (si-*), and hand-drawn glyphs for things that are concepts, not brands.
   "Dapr": "si-dapr.svg",
   "OpenTelemetry": "si-opentelemetry.svg",

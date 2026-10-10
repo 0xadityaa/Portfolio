@@ -28,11 +28,11 @@ export const DATA = {
     },
     {
       label: "Cloud",
-      items: ["Azure", "Azure DevOps", "GCP", "Vercel", "Docker", "GitHub Actions", "Bash", "OpenTelemetry", "Datadog", "Sentry"],
+      items: ["Azure", "Azure DevOps", "GCP", "Cloudflare", "Oracle", "Vercel", "Docker", "GitHub Actions", "Bash", "OpenTelemetry", "Datadog", "Sentry"],
     },
     {
       label: "AI",
-      items: ["Claude", "Vercel AI SDK", "LangChain", "Vertex AI", "MCP", "TensorFlow"],
+      items: ["Claude", "Codex", "OpenCode", "Ollama", "Vercel AI SDK", "LangChain", "Vertex AI", "MCP", "TensorFlow"],
     },
     {
       label: "Testing",
