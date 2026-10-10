@@ -25,9 +25,9 @@ const NORMALS: Vec[] = [
 ];
 
 const ink = (percent: number) =>
-  `color-mix(in srgb, hsl(var(--foreground)) ${percent}%, hsl(var(--card)))`;
+  `color-mix(in srgb, hsl(var(--foreground)) ${percent}%, hsl(var(--background)))`;
 const clay = (percent: number) =>
-  `color-mix(in srgb, hsl(var(--brand)) ${percent}%, hsl(var(--card)))`;
+  `color-mix(in srgb, hsl(var(--brand)) ${percent}%, hsl(var(--background)))`;
 
 // One colour per side of the cube, in the order of NORMALS: clay on top, ink elsewhere.
 const TONES = [clay(88), ink(20), ink(8), clay(46), ink(34), ink(48)];
@@ -199,26 +199,15 @@ export function HeroArt({ className }: { className?: string }) {
     };
   }, []);
 
-  const ground = (a: number, b: number): Vec => [a, -1.5, b];
-
   return (
     <svg
       ref={svg}
-      viewBox="-162 -118 324 252"
+      viewBox="-150 -117 300 234"
       aria-hidden
-      className={cn("block bg-card", className)}
+      className={cn("block overflow-visible", className)}
       strokeLinejoin="round"
       strokeLinecap="round"
     >
-      {/* The plot grid on the ground. */}
-      <g fill="none" stroke={ink(14)} strokeWidth={1}>
-        {[-2.5, -1.5, -0.5, 0.5, 1.5, 2.5].map((n) => (
-          <path
-            key={n}
-            d={`M${project(ground(n, -2.5))}L${project(ground(n, 2.5))}M${project(ground(-2.5, n))}L${project(ground(2.5, n))}`}
-          />
-        ))}
-      </g>
       <g stroke={ink(60)} strokeWidth={1.2}>
         {polygons(cube.current, turning.current).map((polygon) => (
           <polygon key={polygon.key} points={polygon.points} fill={polygon.fill} />

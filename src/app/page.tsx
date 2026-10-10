@@ -59,7 +59,6 @@ export default async function Page() {
             {[
               { label: "LinkedIn", href: DATA.contact.social.LinkedIn.url },
               { label: "GitHub", href: DATA.contact.social.GitHub.url },
-              { label: "dev.to", href: "https://dev.to/0xadityaa" },
             ].map((item) => (
               <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" className="link">
                 {item.label}
@@ -67,7 +66,7 @@ export default async function Page() {
             ))}
           </div>
         </div>
-        <HeroArt className="aspect-[9/7] w-full rounded-2xl border border-border" />
+        <HeroArt className="aspect-[9/7] w-full" />
       </section>
 
       <Section id="writing" title="Writing" more={{ href: "/blog", label: "All posts" }}>
