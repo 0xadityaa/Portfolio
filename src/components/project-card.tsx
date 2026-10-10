@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { ProjectArt } from "@/components/project-art";
 import Link from "next/link";
 
 interface ProjectCardProps {
@@ -6,9 +6,9 @@ interface ProjectCardProps {
   href: string;
   description: string;
   dates?: string;
-  image?: string;
-  /** Set on above-the-fold cards so the screenshot is not lazy loaded. */
-  priority?: boolean;
+  /** Repo name: picks the illustration. */
+  slug: string;
+  technologies?: readonly string[];
 }
 
 export function ProjectCard({
@@ -16,32 +16,36 @@ export function ProjectCard({
   href,
   description,
   dates,
-  image,
-  priority,
+  slug,
+  technologies = [],
 }: ProjectCardProps) {
   return (
-    <Link href={href} className="group block rounded-lg">
-      <div className="relative aspect-[16/10] overflow-hidden rounded-lg border border-border bg-card">
-        {image && (
-          <Image
-            src={image}
-            alt={`Screenshot of ${title}`}
-            fill
-            priority={priority}
-            sizes="(min-width: 640px) 312px, 100vw"
-            className="object-cover object-top brightness-90 transition-[transform,filter] duration-500 ease-out group-hover:scale-[1.03] group-hover:brightness-100"
-          />
+    <Link
+      href={href}
+      className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-foreground/25"
+    >
+      <div className="overflow-hidden border-b border-border">
+        <ProjectArt
+          slug={slug}
+          className="aspect-[16/10] w-full transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+        />
+      </div>
+      <div className="flex flex-1 flex-col p-5">
+        <div className="flex items-baseline justify-between gap-4">
+          <h3 className="font-medium text-foreground">{title}</h3>
+          {dates && <span className="meta flex-none">{dates}</span>}
+        </div>
+        <p className="mt-1.5 text-muted-foreground">{description}</p>
+        {technologies.length > 0 && (
+          <ul className="mt-auto flex flex-wrap gap-1.5 pt-4">
+            {technologies.slice(0, 4).map((tech) => (
+              <li key={tech} className="chip">
+                {tech}
+              </li>
+            ))}
+          </ul>
         )}
       </div>
-      <div className="mt-3 flex items-baseline justify-between gap-4">
-        <h3 className="text-foreground underline decoration-transparent decoration-1 underline-offset-4 transition-colors group-hover:decoration-foreground/60">
-          {title}
-        </h3>
-        {dates && <span className="meta flex-none">{dates}</span>}
-      </div>
-      <p className="mt-0.5 text-muted-foreground">
-        {description}
-      </p>
     </Link>
   );
 }

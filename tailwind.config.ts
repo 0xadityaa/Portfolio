@@ -22,11 +22,13 @@ const config = {
       fontFamily: {
         sans: ["var(--font-geist-sans)", ...fontFamily.sans],
         mono: ["var(--font-geist-mono)", ...fontFamily.mono],
+        serif: ["var(--font-serif)", ...fontFamily.serif],
       },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
+        brand: "hsl(var(--brand) / <alpha-value>)",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {

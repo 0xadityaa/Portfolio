@@ -51,8 +51,9 @@ export default async function ProjectsPage() {
   return (
     <main className="space-y-10">
       <FadeIn>
-        <header className="space-y-2">
-          <h1 className="text-xl font-medium tracking-tight text-foreground">
+        <header className="space-y-3">
+          <p className="font-mono text-xs uppercase tracking-[0.16em] text-brand">Work</p>
+          <h1 className="font-serif text-5xl font-medium tracking-tight text-foreground">
             Projects
           </h1>
           <p className="max-w-[58ch] text-muted-foreground">

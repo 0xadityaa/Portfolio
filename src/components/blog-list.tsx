@@ -1,7 +1,7 @@
 "use client";
 
 import { FilterChips } from "@/components/filter-chips";
-import { Row } from "@/components/row";
+import { PostCover } from "@/components/post-cover";
 import { formatShortDate, getYear } from "@/lib/utils";
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -85,27 +85,32 @@ export function BlogList({ initialPosts }: { initialPosts: Post[] }) {
         {filteredPosts.length} {filteredPosts.length === 1 ? "post" : "posts"}
       </p>
 
-      <div className="rows space-y-8">
+      <div className="rows space-y-10">
         {postsByYear.map(([year, posts]) => (
           <section key={year} aria-labelledby={`posts-${year}`}>
-            <h2 id={`posts-${year}`} className="sr-only">
+            <h2 id={`posts-${year}`} className="meta mb-3 flex items-center gap-4">
               {year}
+              <span aria-hidden className="h-px flex-1 bg-border" />
             </h2>
             <ul>
-              {posts.map((post, index) => (
+              {posts.map((post) => (
                 <li key={post.slug}>
-                  <Link href={`/blog/${post.slug}`} className="row-link">
-                    <Row meta={index === 0 ? <span aria-hidden>{year}</span> : null}>
+                  <Link href={`/blog/${post.slug}`} className="row-link flex items-start gap-5 !py-3.5">
+                    <PostCover
+                      seed={post.slug}
+                      cols={4}
+                      rows={4}
+                      className="size-16 flex-none rounded-lg border border-border sm:size-20"
+                    />
+                    <div className="min-w-0 flex-1">
                       <div className="flex items-baseline justify-between gap-6">
-                        <h3 className="text-foreground">{post.metadata.title}</h3>
+                        <h3 className="font-medium text-foreground">{post.metadata.title}</h3>
                         <time dateTime={post.metadata.publishedAt} className="meta hidden flex-none sm:block">
                           {formatShortDate(post.metadata.publishedAt)}
                         </time>
                       </div>
-                      <p className="mt-0.5 line-clamp-2 text-muted-foreground">
-                        {post.metadata.summary}
-                      </p>
-                    </Row>
+                      <p className="mt-1 line-clamp-2 text-muted-foreground">{post.metadata.summary}</p>
+                    </div>
                   </Link>
                 </li>
               ))}

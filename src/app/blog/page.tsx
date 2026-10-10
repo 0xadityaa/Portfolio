@@ -19,10 +19,11 @@ export default async function BlogPage() {
   const posts = (await getAllBlogPosts()).map(({ slug, metadata }) => ({ slug, metadata }));
 
   return (
-    <main className="space-y-10">
+    <main className="mx-auto max-w-3xl space-y-10">
       <FadeIn>
-        <header className="space-y-2">
-          <h1 className="text-xl font-medium tracking-tight text-foreground">
+        <header className="space-y-3">
+          <p className="font-mono text-xs uppercase tracking-[0.16em] text-brand">Writing</p>
+          <h1 className="font-serif text-5xl font-medium tracking-tight text-foreground">
             Blog
           </h1>
           <p className="max-w-[58ch] text-muted-foreground">

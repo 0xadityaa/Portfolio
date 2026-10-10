@@ -15,12 +15,12 @@ export function renderOgImage({ title, kicker }: { title: string; kicker?: strin
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 72,
-          background: "#0a0a0a",
-          color: "#ededed",
+          background: "#262624",
+          color: "#faf9f5",
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", fontSize: 28, color: "#a1a1a1" }}>
+        <div style={{ display: "flex", fontSize: 28, color: "#d97757" }}>
           {kicker ?? DATA.role}
         </div>
         <div
@@ -38,10 +38,10 @@ export function renderOgImage({ title, kicker }: { title: string; kicker?: strin
           style={{
             display: "flex",
             justifyContent: "space-between",
-            borderTop: "1px solid #262626",
+            borderTop: "1px solid #45453f",
             paddingTop: 28,
             fontSize: 28,
-            color: "#a1a1a1",
+            color: "#b0aea5",
           }}
         >
           <span>{DATA.name}</span>

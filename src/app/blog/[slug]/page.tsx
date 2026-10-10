@@ -1,4 +1,5 @@
 import { CopyCodeHandler } from "@/components/copy-code-handler";
+import { PostCover } from "@/components/post-cover";
 import { getAllBlogPosts, getPost } from "@/data/blog";
 import { DATA } from "@/data/resume";
 import { pageAlternates } from "@/lib/seo";
@@ -68,7 +69,13 @@ export default async function BlogPost(props: BlogParams) {
   const older = index >= 0 && index < posts.length - 1 ? posts[index + 1] : null;
 
   return (
-    <main>
+    <main className="mx-auto max-w-2xl">
+      <PostCover
+        seed={post.slug}
+        cols={34}
+        rows={7}
+        className="mb-10 aspect-[34/7] w-full rounded-2xl border border-border"
+      />
       <script
         type="application/ld+json"
         suppressHydrationWarning
@@ -94,7 +101,7 @@ export default async function BlogPost(props: BlogParams) {
       />
 
       <header className="space-y-4 border-b border-border pb-8">
-        <h1 className="text-[1.75rem] font-semibold leading-[1.2] tracking-tight text-foreground sm:text-[2rem]">
+        <h1 className="font-serif text-4xl font-medium leading-[1.12] tracking-tight text-foreground sm:text-[2.75rem]">
           {post.metadata.title}
         </h1>
         <div className="meta flex flex-wrap items-center gap-x-4 gap-y-1">
@@ -112,7 +119,7 @@ export default async function BlogPost(props: BlogParams) {
       </header>
 
       <article
-        className="prose prose-invert max-w-none pt-8 leading-[1.75] prose-h2:text-2xl prose-h3:text-xl"
+        className="prose max-w-none pt-8 leading-[1.75] prose-h2:text-2xl prose-h3:text-xl"
         dangerouslySetInnerHTML={{ __html: post.source }}
       />
       <CopyCodeHandler />

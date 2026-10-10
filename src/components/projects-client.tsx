@@ -121,16 +121,16 @@ export function ProjectsClient({ featured, repos }: ProjectsClientProps) {
       />
 
       {filteredFeatured.length > 0 && (
-        <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2">
-          {filteredFeatured.map((project, index) => (
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          {filteredFeatured.map((project) => (
             <ProjectCard
               key={project.slug}
               title={project.title}
               href={`/projects/${project.slug}`}
               description={project.description}
               dates={project.dates}
-              image={project.image}
-              priority={index < 2}
+              slug={project.slug}
+              technologies={project.technologies}
             />
           ))}
         </div>
@@ -141,7 +141,7 @@ export function ProjectsClient({ featured, repos }: ProjectsClientProps) {
           <h2 id="more-repos" className="section-title mb-5">
             More on GitHub
           </h2>
-          <ul className="rows">
+          <ul className="rows max-w-3xl">
             {filteredRepos.slice(0, visibleRepos).map((repo) => (
               <li key={repo.url}>
                 <a href={repo.url} target="_blank" rel="noopener noreferrer" className="row-link">
