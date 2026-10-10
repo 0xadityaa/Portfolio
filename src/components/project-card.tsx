@@ -1,3 +1,4 @@
+import { TechList } from "@/components/tech-list";
 import { ProjectArt } from "@/components/project-art";
 import Link from "next/link";
 
@@ -37,13 +38,7 @@ export function ProjectCard({
         </div>
         <p className="mt-1.5 text-muted-foreground">{description}</p>
         {technologies.length > 0 && (
-          <ul className="mt-auto flex flex-wrap gap-1.5 pt-4">
-            {technologies.slice(0, 4).map((tech) => (
-              <li key={tech} className="chip">
-                {tech}
-              </li>
-            ))}
-          </ul>
+          <TechList items={technologies} max={5} className="mt-auto pt-4" />
         )}
       </div>
     </Link>
