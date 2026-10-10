@@ -4,10 +4,9 @@ import { DATA } from "@/data/resume";
 import { fetchProjectReadme } from "@/lib/markdown-pages";
 import { findProject, projectSlug } from "@/lib/projects";
 import { pageAlternates } from "@/lib/seo";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 interface ProjectDetailParams {
@@ -51,23 +50,15 @@ export default async function ProjectDetailPage(props: ProjectDetailParams) {
 
   return (
     <main>
-      <Link
-        href="/projects"
-        className="group inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-      >
-        <ArrowLeft className="size-3.5 transition-transform group-hover:-translate-x-0.5" aria-hidden />
-        Projects
-      </Link>
-
-      <header className="mt-8 space-y-4">
+      <header className="space-y-4">
         <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-          <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+          <h1 className="text-[1.75rem] font-semibold leading-[1.2] tracking-tight text-foreground sm:text-[2rem]">
             {project?.title ?? slug}
           </h1>
           {project?.dates && <span className="meta">{project.dates}</span>}
         </div>
         {project?.description && (
-          <p className="max-w-[58ch] text-lg leading-relaxed text-muted-foreground">
+          <p className="max-w-[58ch] text-muted-foreground">
             {project.description}
           </p>
         )}
@@ -105,9 +96,9 @@ export default async function ProjectDetailPage(props: ProjectDetailParams) {
       )}
 
       {project && project.technologies.length > 0 && (
-        <dl className="mt-8 grid grid-cols-[5.5rem_1fr] gap-x-4 border-y border-border py-4 text-sm">
-          <dt className="meta pt-0.5">Built with</dt>
-          <dd className="leading-relaxed text-foreground/85">
+        <dl className="mt-8 grid grid-cols-1 gap-y-0.5 border-y border-border py-4 sm:grid-cols-[7rem_1fr] sm:gap-x-6">
+          <dt className="meta sm:pt-[0.3rem]">Built with</dt>
+          <dd className="text-muted-foreground">
             {project.technologies.join(", ")}
           </dd>
         </dl>

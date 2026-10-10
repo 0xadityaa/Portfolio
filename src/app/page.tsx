@@ -1,150 +1,145 @@
-import { Icons } from "@/components/icons";
 import { FadeIn } from "@/components/fade-in";
-import { PostRow } from "@/components/post-row";
-import { ProjectCard } from "@/components/project-card";
-import { ResumeCard } from "@/components/resume-card";
+import { Row } from "@/components/row";
 import { Section } from "@/components/section";
 import { getAllBlogPosts } from "@/data/blog";
 import { DATA } from "@/data/resume";
-import { getGitHubBuilderProfile } from "@/lib/github";
 import { projectSlug } from "@/lib/projects";
-import { BookMarked, MapPin } from "lucide-react";
-import Image from "next/image";
+import { formatMonthYear, yearRange } from "@/lib/utils";
+import Link from "next/link";
 
 const STEP = 0.05;
 
-// Re-rendered every 10 minutes: GitHub numbers refresh and scheduled posts appear.
+// Re-rendered every 10 minutes so scheduled posts appear when their publish time passes.
 export const revalidate = 600;
 
+const contact = [
+  { label: "Email", text: DATA.contact.email, href: DATA.contact.social.email.url },
+  { label: "GitHub", text: "0xadityaa", href: DATA.contact.social.GitHub.url },
+  { label: "LinkedIn", text: "aditya-negandhi", href: DATA.contact.social.LinkedIn.url },
+  { label: "X", text: "@0xadityaa", href: DATA.contact.social.X.url },
+];
+
 export default async function Page() {
-  const [github, posts] = await Promise.all([
-    getGitHubBuilderProfile("0xadityaa").catch(() => null),
-    getAllBlogPosts(),
-  ]);
-  // Only show GitHub numbers when they are real.
-  const stats = github && !github.isMock ? github : null;
+  const posts = await getAllBlogPosts();
 
   return (
     <main className="flex flex-col gap-16">
-      <section id="hero" className="flex flex-col-reverse items-start justify-between gap-6 sm:flex-row sm:items-center">
-        <div className="space-y-4">
-          <FadeIn>
-            <h1 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
-              {DATA.name}
-            </h1>
-          </FadeIn>
-          <FadeIn delay={STEP}>
-            <p className="max-w-[46ch] text-lg leading-relaxed text-muted-foreground">
-              {DATA.description}
+      <FadeIn>
+        <section id="about" className="space-y-4">
+          <h1 className="sr-only">{DATA.name}</h1>
+          <p className="text-foreground">{DATA.description}</p>
+          {DATA.about.map((paragraph) => (
+            <p key={paragraph} className="text-muted-foreground">
+              {paragraph}
             </p>
-          </FadeIn>
-          <FadeIn delay={STEP * 2}>
-            <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
-              <li className="flex items-center gap-1.5">
-                <MapPin className="size-4" aria-hidden />
-                Toronto, Canada
-              </li>
-              {stats && (
-                <>
-                  <li className="flex items-center gap-1.5">
-                    <Icons.github className="size-4" aria-hidden />
-                    <span className="tabular-nums">
-                      {stats.contributionsCount.toLocaleString("en-US")} commits
-                    </span>
-                  </li>
-                  <li className="flex items-center gap-1.5">
-                    <BookMarked className="size-4" aria-hidden />
-                    <span className="tabular-nums">{stats.publicReposCount} repos</span>
-                  </li>
-                </>
-              )}
-            </ul>
-          </FadeIn>
-        </div>
-        <FadeIn delay={STEP} className="flex-none">
-          <div className="relative size-24 overflow-hidden rounded-full border border-border bg-muted sm:size-28">
-            <Image
-              src={DATA.avatarUrl}
-              alt={`Pixel art portrait of ${DATA.name}`}
-              fill
-              priority
-              sizes="112px"
-              className="scale-[1.06] object-cover"
-            />
+          ))}
+        </section>
+      </FadeIn>
+
+      <FadeIn delay={STEP}>
+        <Section id="work" title="Experience">
+          <div className="space-y-6">
+            {DATA.work.map((work) => (
+              <Row key={work.company} meta={yearRange(work.start, work.end)}>
+                <h3 className="text-foreground">
+                  {work.title} at{" "}
+                  <a href={work.href} target="_blank" rel="noopener noreferrer" className="link">
+                    {work.company}
+                  </a>
+                </h3>
+                <p className="mt-1 text-muted-foreground">{work.description}</p>
+              </Row>
+            ))}
           </div>
-        </FadeIn>
-      </section>
+        </Section>
+      </FadeIn>
+
+      <FadeIn delay={STEP * 2}>
+        <Section id="projects" title="Projects" more={{ href: "/projects", label: "All projects" }}>
+          <ul className="rows">
+            {DATA.projects.slice(0, 4).map((project) => (
+              <li key={project.title}>
+                <Link href={`/projects/${projectSlug(project)}`} className="row-link">
+                  <Row meta={yearRange(project.dates, project.dates)}>
+                    <h3 className="text-foreground">{project.title}</h3>
+                    <p className="mt-0.5 text-muted-foreground">{project.description}</p>
+                  </Row>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Section>
+      </FadeIn>
 
       <FadeIn delay={STEP * 3}>
         <Section id="writing" title="Writing" more={{ href: "/blog", label: "All posts" }}>
-          <div>
+          <ul className="rows">
             {posts.slice(0, 5).map((post) => (
-              <PostRow
-                key={post.slug}
-                slug={post.slug}
-                title={post.metadata.title}
-                publishedAt={post.metadata.publishedAt}
-                showYear
-              />
+              <li key={post.slug}>
+                <Link href={`/blog/${post.slug}`} className="row-link">
+                  <Row
+                    meta={
+                      <time dateTime={post.metadata.publishedAt}>
+                        {formatMonthYear(post.metadata.publishedAt)}
+                      </time>
+                    }
+                  >
+                    <h3 className="text-foreground">{post.metadata.title}</h3>
+                  </Row>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </Section>
+      </FadeIn>
+
+      <FadeIn delay={STEP * 4}>
+        <Section id="stack" title="Stack">
+          <dl className="space-y-3">
+            {DATA.stack.map((group) => (
+              <Row key={group.label} meta={<dt>{group.label}</dt>}>
+                <dd className="text-muted-foreground">{group.items.join(", ")}</dd>
+              </Row>
+            ))}
+          </dl>
+        </Section>
+      </FadeIn>
+
+      <FadeIn delay={STEP * 4}>
+        <Section id="education" title="Education">
+          <div className="space-y-3">
+            {DATA.education.map((education) => (
+              <Row key={education.school} meta={yearRange(education.start, education.end)}>
+                <h3 className="text-foreground">
+                  {education.degree},{" "}
+                  <a href={education.href} target="_blank" rel="noopener noreferrer" className="link">
+                    {education.school}
+                  </a>
+                </h3>
+              </Row>
             ))}
           </div>
         </Section>
       </FadeIn>
 
       <FadeIn delay={STEP * 4}>
-        <Section id="projects" title="Projects" more={{ href: "/projects", label: "All projects" }}>
-          <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
-            {DATA.projects.slice(0, 4).map((project) => (
-              <ProjectCard
-                key={project.title}
-                title={project.title}
-                href={`/projects/${projectSlug(project)}`}
-                description={project.description}
-                dates={project.dates}
-                image={project.image}
-              />
-            ))}
-          </div>
-        </Section>
-      </FadeIn>
-
-      <FadeIn delay={STEP * 5}>
-        <Section id="work" title="Experience" more={{ href: "/about", label: "More about me" }}>
-          <div className="space-y-1">
-            {DATA.work.map((work) => (
-              <ResumeCard
-                key={work.company}
-                logoUrl={work.logoUrl}
-                altText={work.company}
-                title={work.company}
-                subtitle={work.title}
-                href={work.href}
-                period={`${work.start} - ${work.end ?? "Present"}`}
-                description={work.description}
-              />
-            ))}
-          </div>
-        </Section>
-      </FadeIn>
-
-      <FadeIn delay={STEP * 5}>
         <Section id="contact" title="Contact">
-          <p className="text-lg leading-relaxed text-muted-foreground">
-            Want to chat? Send me an{" "}
-            <a href={DATA.contact.social.email.url} className="link">
-              email
-            </a>{" "}
-            or a DM on{" "}
-            <a
-              href={DATA.contact.social.X.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link"
-            >
-              X
-            </a>
-            .
-          </p>
+          <dl className="space-y-3">
+            {contact.map((item) => (
+              <Row key={item.label} meta={<dt>{item.label}</dt>}>
+                <dd>
+                  <a
+                    href={item.href}
+                    target={item.href.startsWith("mailto:") ? undefined : "_blank"}
+                    rel="noopener noreferrer"
+                    className="link"
+                  >
+                    {item.text}
+                  </a>
+                </dd>
+              </Row>
+            ))}
+          </dl>
         </Section>
       </FadeIn>
     </main>

@@ -18,7 +18,7 @@ const absolutize = (markdown: string) =>
 const footer = `
 ---
 
-More: [Home](${abs("/index.md")}) | [About](${abs("/about.md")}) | [Blog](${abs("/blog.md")}) | [Projects](${abs("/projects.md")}) | [Index of every page](${abs("/llms.txt")})
+More: [Home](${abs("/index.md")}) | [Blog](${abs("/blog.md")}) | [Projects](${abs("/projects.md")}) | [Index of every page](${abs("/llms.txt")})
 `;
 
 const experience = () =>
@@ -45,7 +45,13 @@ async function home() {
 
 ${DATA.description}
 
-Location: Toronto, Canada. More about me: ${abs("/about.md")}
+${DATA.about.join("\n\n")}
+
+Location: Toronto, Canada.
+
+## Experience
+
+${experience()}
 
 ## Writing
 
@@ -64,25 +70,6 @@ ${DATA.projects
       `- [${project.title}](${abs(`/projects/${projectSlug(project)}.md`)}): ${project.description}`
   )
   .join("\n")}
-
-## Experience
-
-${experience()}
-
-## Contact
-
-${contact()}
-${footer}`;
-}
-
-function about() {
-  return `# About ${DATA.name}
-
-${DATA.about.join("\n\n")}
-
-## Experience
-
-${experience()}
 
 ## Stack
 
@@ -194,7 +181,6 @@ export async function markdownPagePaths(): Promise<string[][]> {
   const posts = await getAllBlogPosts();
   return [
     [],
-    ["about"],
     ["blog"],
     ["projects"],
     ...posts.map((post) => ["blog", post.slug]),
@@ -207,7 +193,6 @@ export async function renderMarkdownPage(segments: string[]): Promise<string | n
   if (rest.length > 0) return null;
 
   if (!section || (section === "index" && !slug)) return home();
-  if (section === "about" && !slug) return about();
   if (section === "blog") return slug ? blogPost(slug) : blogIndex();
   if (section === "projects") return slug ? projectPage(slug) : projectsIndex();
   return null;

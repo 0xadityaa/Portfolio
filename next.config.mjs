@@ -10,6 +10,13 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
+  async redirects() {
+    // The about page was folded into the home page.
+    return [
+      { source: "/about", destination: "/", permanent: true },
+      { source: "/about.md", destination: "/index.md", permanent: true },
+    ];
+  },
   async rewrites() {
     return {
       // Markdown mode for agents: /blog/post.md, /index.md, or any page URL

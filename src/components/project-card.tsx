@@ -34,12 +34,12 @@ export function ProjectCard({
         )}
       </div>
       <div className="mt-3 flex items-baseline justify-between gap-4">
-        <h3 className="font-medium text-foreground underline decoration-transparent decoration-1 underline-offset-4 transition-colors group-hover:decoration-foreground/60">
+        <h3 className="text-foreground underline decoration-transparent decoration-1 underline-offset-4 transition-colors group-hover:decoration-foreground/60">
           {title}
         </h3>
         {dates && <span className="meta flex-none">{dates}</span>}
       </div>
-      <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+      <p className="mt-0.5 text-muted-foreground">
         {description}
       </p>
     </Link>

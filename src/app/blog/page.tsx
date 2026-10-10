@@ -21,11 +21,11 @@ export default async function BlogPage() {
   return (
     <main className="space-y-10">
       <FadeIn>
-        <header className="space-y-3">
-          <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+        <header className="space-y-2">
+          <h1 className="text-xl font-medium tracking-tight text-foreground">
             Blog
           </h1>
-          <p className="max-w-[58ch] text-lg leading-relaxed text-muted-foreground">
+          <p className="max-w-[58ch] text-muted-foreground">
             I write about building software and the systems behind it. Full-stack
             engineering, architecture, and anything else that sparks my curiosity.{" "}
             <Link href="/rss.xml" prefetch={false} className="link">

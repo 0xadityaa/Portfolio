@@ -19,14 +19,14 @@ export function FilterChips({
 }: FilterChipsProps) {
   const chip = (active: boolean) =>
     cn(
-      "rounded-md border px-2.5 py-1 text-xs font-medium transition-colors active:scale-[0.97]",
+      "rounded-sm text-sm transition-colors",
       active
-        ? "border-foreground bg-foreground text-background"
-        : "border-border text-muted-foreground hover:bg-card hover:text-foreground"
+        ? "text-foreground underline decoration-foreground/40 decoration-1 underline-offset-4"
+        : "text-muted-foreground hover:text-foreground"
     );
 
   return (
-    <div role="group" aria-label={label} className="flex flex-wrap gap-2">
+    <div role="group" aria-label={label} className="flex flex-wrap gap-x-4 gap-y-1">
       <button
         type="button"
         aria-pressed={value === null}

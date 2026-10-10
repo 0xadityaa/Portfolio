@@ -2,7 +2,7 @@
 
 import { FilterChips } from "@/components/filter-chips";
 import { ProjectCard } from "@/components/project-card";
-import { Star } from "lucide-react";
+import { Row } from "@/components/row";
 import { useMemo, useState } from "react";
 
 const REPOS_PER_PAGE = 8;
@@ -138,43 +138,24 @@ export function ProjectsClient({ featured, repos }: ProjectsClientProps) {
 
       {filteredRepos.length > 0 && (
         <section aria-labelledby="more-repos">
-          <h2 id="more-repos" className="section-title mb-3 border-b border-border pb-3">
+          <h2 id="more-repos" className="section-title mb-5">
             More on GitHub
           </h2>
-          <ul>
+          <ul className="rows">
             {filteredRepos.slice(0, visibleRepos).map((repo) => (
               <li key={repo.url}>
-                <a
-                  href={repo.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="-mx-3 flex items-baseline justify-between gap-6 rounded-lg px-3 py-2.5 transition-colors hover:bg-card"
-                >
-                  <div className="min-w-0">
-                    <h3 className="font-medium text-foreground">{repo.name}</h3>
-                    <p className="mt-0.5 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
-                      {repo.description}
-                    </p>
-                  </div>
-                  <div className="meta flex flex-none items-center gap-3">
-                    {repo.stargazerCount > 0 && (
-                      <span className="flex items-center gap-1">
-                        <Star className="size-3" aria-hidden />
-                        {repo.stargazerCount}
-                        <span className="sr-only">stars</span>
-                      </span>
-                    )}
-                    {repo.primaryLanguage && (
-                      <span className="hidden items-center gap-1.5 sm:flex">
-                        <span
-                          className="size-2 rounded-full"
-                          style={{ backgroundColor: repo.primaryLanguage.color }}
-                          aria-hidden
-                        />
-                        {repo.primaryLanguage.name}
-                      </span>
-                    )}
-                  </div>
+                <a href={repo.url} target="_blank" rel="noopener noreferrer" className="row-link">
+                  <Row meta={repo.primaryLanguage?.name}>
+                    <div className="flex items-baseline justify-between gap-6">
+                      <h3 className="text-foreground">{repo.name}</h3>
+                      {repo.stargazerCount > 0 && (
+                        <span className="meta flex-none">
+                          {repo.stargazerCount} {repo.stargazerCount === 1 ? "star" : "stars"}
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-0.5 line-clamp-2 text-muted-foreground">{repo.description}</p>
+                  </Row>
                 </a>
               </li>
             ))}
@@ -183,7 +164,7 @@ export function ProjectsClient({ featured, repos }: ProjectsClientProps) {
             <button
               type="button"
               onClick={() => setVisibleRepos((count) => count + REPOS_PER_PAGE)}
-              className="mt-4 rounded-md border border-border px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-card hover:text-foreground active:scale-[0.97]"
+              className="link mt-5 text-sm"
             >
               Show more
             </button>
@@ -192,19 +173,12 @@ export function ProjectsClient({ featured, repos }: ProjectsClientProps) {
       )}
 
       {isEmpty && (
-        <div className="rounded-lg border border-dashed border-border px-6 py-12 text-center">
-          <p className="font-medium text-foreground">Nothing in this area yet</p>
-          <p className="mx-auto mt-1 max-w-sm text-sm text-muted-foreground">
-            Try a different filter to see the rest of my work.
-          </p>
-          <button
-            type="button"
-            onClick={() => setSelectedTag(null)}
-            className="mt-5 rounded-md bg-foreground px-3 py-1.5 text-sm font-medium text-background transition-colors hover:bg-foreground/90 active:scale-[0.97]"
-          >
-            Reset filter
+        <p className="text-muted-foreground">
+          Nothing in this area yet.{" "}
+          <button type="button" onClick={() => setSelectedTag(null)} className="link">
+            Show everything
           </button>
-        </div>
+        </p>
       )}
     </div>
   );
