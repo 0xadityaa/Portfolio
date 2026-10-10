@@ -1,4 +1,5 @@
 import { HeroArt } from "@/components/hero-art";
+import { HivemindArt } from "@/components/hivemind-art";
 import { PostCover } from "@/components/post-cover";
 import { ProjectCard } from "@/components/project-card";
 import { Section } from "@/components/section";
@@ -70,6 +71,45 @@ export default async function Page() {
         </div>
         <HeroArt className="aspect-[9/7] w-full" />
       </section>
+
+      <Section id="building" title="What I&apos;m building">
+        <div className="overflow-hidden rounded-2xl border border-border bg-card">
+          <div className="grid lg:grid-cols-[1fr_24rem]">
+            <div className="p-6 sm:p-8">
+              <h3 className="font-serif text-3xl font-medium tracking-tight text-foreground">
+                {DATA.building.name}
+              </h3>
+              <p className="mt-1 text-foreground">{DATA.building.tagline}</p>
+              <div className="mt-5 space-y-3 text-muted-foreground">
+                {DATA.building.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+                <a href={DATA.building.href} target="_blank" rel="noopener noreferrer" className="link">
+                  gethivemind.xyz
+                </a>
+                <a href={DATA.building.docs} target="_blank" rel="noopener noreferrer" className="link">
+                  Docs
+                </a>
+                <TechList items={DATA.building.stack} />
+              </div>
+            </div>
+            <HivemindArt className="h-56 w-full border-t border-border lg:h-full lg:border-l lg:border-t-0" />
+          </div>
+          <dl className="grid border-t border-border sm:grid-cols-3">
+            {DATA.building.stats.map((stat) => (
+              <div key={stat.label} className="border-b border-border p-6 last:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0">
+                <dt className="sr-only">{stat.label}</dt>
+                <dd>
+                  <span className="block font-serif text-3xl font-medium tracking-tight text-foreground">{stat.value}</span>
+                  <span aria-hidden className="mt-1 block text-sm text-muted-foreground">{stat.label}</span>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </Section>
 
       <Section id="writing" title="Things I&apos;ve written" more={{ href: "/blog", label: "All posts" }}>
         <div className="grid gap-x-12 gap-y-10 lg:grid-cols-[26rem_1fr]">

@@ -22,7 +22,7 @@ Warm charcoal and clay, in the spirit of Claude's dark interface, with custom-dr
 
 ## What goes where
 
-The home page is the whole introduction, in this order: hero and bio, latest writing, selected projects, experience and education on one timeline beside the stack, then a bare row of social icons (no heading, no email button). Hobbies do not get a section. There is no about page; `/about` redirects home.
+The home page is the whole introduction, in this order: hero and bio, what he is building (`DATA.building`, one product at a time, with its own artwork), latest writing, selected projects, experience and education on one timeline beside the stack, then a bare row of social icons (no heading, no email button). Hobbies do not get a section. There is no about page; `/about` redirects home.
 
 ## Performance budget
 
