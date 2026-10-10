@@ -1,12 +1,15 @@
 ---
 title: 5% a Day Sounds Gentle. It Isn't.
 publishedAt: '2026-10-10T05:18:22Z'
-summary: 'I found a tiny age penalty in my ranking code: 5% a day. After six months it scored a perfect match at 0.0001. The maths, and why my tests never noticed.'
+summary: >-
+  I found a tiny age penalty in my ranking code: 5% a day. After six months it
+  scored a perfect match at 0.0001. The maths, and why my tests never noticed.
 tags:
   - algorithms
   - retrieval
   - debugging
   - ai
+crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/122'
 ---
 
 I found a bug recently that I can't stop thinking about, mostly because it was one innocent-looking line.

@@ -1,12 +1,16 @@
 ---
 title: Why Does Every AI Tool Forget You?
 publishedAt: '2026-10-10T05:08:22Z'
-summary: 'LLMs don''t remember anything. "Memory" is text an app quietly pastes into your prompt. How that works, why it stays stuck in one app, and what I measured.'
+summary: >-
+  LLMs don't remember anything. "Memory" is text an app quietly pastes into your
+  prompt. How that works, why it stays stuck in one app, and what I measured.
 tags:
   - ai
   - llm
   - memory
   - retrieval
+devto_url: 'https://dev.to/0xadityaa/why-does-every-ai-tool-forget-you-3i26'
+crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/122'
 ---
 
 Here's something that kept bugging me. I tell Claude Code how my project is set up. The next day I open Cursor and explain it again. Then I paste the same paragraph into ChatGPT, because of course it has no idea either.
