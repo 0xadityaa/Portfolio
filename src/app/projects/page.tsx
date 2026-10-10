@@ -56,8 +56,8 @@ export default async function ProjectsPage() {
             Projects
           </h1>
           <p className="max-w-[58ch] text-muted-foreground">
-            From random experiments to full-blown web apps, here&apos;s a collection
-            of things I&apos;ve built with code and caffeine.
+            Side quests, experiments, and the occasional real app. All built with
+            code and caffeine.
           </p>
         </header>
       </FadeIn>

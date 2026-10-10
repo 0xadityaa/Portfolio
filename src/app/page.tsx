@@ -69,7 +69,7 @@ export default async function Page() {
         <HeroArt className="aspect-[9/7] w-full" />
       </section>
 
-      <Section id="writing" title="Writing" more={{ href: "/blog", label: "All posts" }}>
+      <Section id="writing" title="Things I&apos;ve written" more={{ href: "/blog", label: "All posts" }}>
         <div className="grid gap-x-12 gap-y-10 lg:grid-cols-[26rem_1fr]">
           {latest && (
             <Link
@@ -106,7 +106,7 @@ export default async function Page() {
         </div>
       </Section>
 
-      <Section id="projects" title="Projects" more={{ href: "/projects", label: "All projects" }}>
+      <Section id="projects" title="Things I&apos;ve built" more={{ href: "/projects", label: "All projects" }}>
         <div className="grid gap-6 sm:grid-cols-2">
           {DATA.projects.slice(0, 4).map((project) => (
             <ProjectCard
@@ -122,7 +122,7 @@ export default async function Page() {
         </div>
       </Section>
 
-      <Section id="work" title="Experience">
+      <Section id="work" title="Where I&apos;ve been">
         <div className="grid gap-x-12 gap-y-12 lg:grid-cols-[1fr_24rem]">
           <ol className="relative ml-1.5 space-y-9 border-l border-border">
             {timeline.map((item, index) => (
@@ -150,7 +150,7 @@ export default async function Page() {
           </ol>
 
           <div>
-            <h3 className="mb-3 text-foreground">What I reach for</h3>
+            <h3 className="mb-3 text-foreground">My toolbox</h3>
             <dl className="overflow-hidden rounded-2xl border border-border bg-card">
               {DATA.stack.map((group) => (
                 <div key={group.label} className="border-b border-border p-4 last:border-b-0">
@@ -169,12 +169,12 @@ export default async function Page() {
         </div>
       </Section>
 
-      <Section id="contact" title="Contact">
+      <Section id="contact" title="Say hi">
         <div className="flex flex-col items-start justify-between gap-6 rounded-2xl border border-border bg-card p-6 sm:flex-row sm:items-center sm:p-8">
           <div>
-            <p className="font-serif text-3xl font-medium tracking-tight text-foreground">Want to chat?</p>
+            <p className="font-serif text-3xl font-medium tracking-tight text-foreground">Let&apos;s talk</p>
             <p className="mt-2 text-muted-foreground">
-              Whether it&apos;s a project, a question, or just hello, I&apos;d love to hear from you. Email works best, and you can also find me on{" "}
+              Got an idea, a question, or a hot take on microservices? My inbox is open. I&apos;m also on{" "}
               {contact.map((item, index) => (
                 <span key={item.label}>
                   {index > 0 && ", "}
