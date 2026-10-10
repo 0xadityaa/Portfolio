@@ -206,32 +206,21 @@ body::before {
   mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 20%, transparent 75%);
 }
 
-/* Events travelling along the wires of the system diagram. */
-@keyframes travel {
+/* The hero tiles settle into place once, one after another. */
+@keyframes settle {
   from {
-    offset-distance: 0%;
     opacity: 0;
-  }
-  8%,
-  88% {
-    opacity: 1;
-  }
-  to {
-    offset-distance: 100%;
-    opacity: 0;
+    transform: translateY(10px) scale(0.96);
   }
 }
-.event-dot {
-  offset-rotate: 0deg;
-  animation: travel 2.7s linear infinite backwards;
+.mosaic > * {
+  animation: settle 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
-.diagram-node:hover rect,
-.diagram-node:focus-visible rect {
-  stroke: hsl(var(--brand));
-}
-.diagram-node:hover path {
-  stroke: hsl(var(--brand));
-}
+.mosaic > :nth-child(2) { animation-delay: 0.06s; }
+.mosaic > :nth-child(3) { animation-delay: 0.12s; }
+.mosaic > :nth-child(4) { animation-delay: 0.18s; }
+.mosaic > :nth-child(5) { animation-delay: 0.24s; }
+.mosaic > :nth-child(6) { animation-delay: 0.3s; }
 
 @keyframes fade-in {
   from {
@@ -247,8 +236,8 @@ body::before {
   .fade-in {
     animation: none;
   }
-  .event-dot {
-    display: none;
+  .mosaic > * {
+    animation: none;
   }
   html {
     scroll-behavior: auto !important;

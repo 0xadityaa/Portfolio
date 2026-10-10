@@ -1,8 +1,8 @@
+import { HeroMosaic } from "@/components/hero-mosaic";
 import { PostCover } from "@/components/post-cover";
 import { ProgressionPlayer } from "@/components/progression-player";
 import { ProjectCard } from "@/components/project-card";
 import { Section } from "@/components/section";
-import { SystemDiagram } from "@/components/system-diagram";
 import { getAllBlogPosts } from "@/data/blog";
 import { DATA } from "@/data/resume";
 import { contours } from "@/lib/art";
@@ -54,7 +54,7 @@ export default async function Page() {
             {DATA.role}, Toronto
           </p>
           <h1 className="mt-4 font-serif text-[2.75rem] font-medium leading-[1.05] tracking-tight text-foreground [text-wrap:pretty] sm:text-[3.5rem]">
-            I turn legacy systems into event-driven ones.
+            Hi, I&apos;m Aditya. I love figuring out how things fit together.
           </h1>
           <div className="mt-6 max-w-[52ch] space-y-3 text-muted-foreground">
             {DATA.about.map((paragraph) => (
@@ -66,28 +66,20 @@ export default async function Page() {
               href="/projects"
               className="rounded-lg bg-foreground px-4 py-2.5 text-sm font-medium text-background transition-colors hover:bg-foreground/90 active:scale-[0.98]"
             >
-              See projects
+              See what I&apos;ve built
             </Link>
             <Link
               href="/blog"
               className="rounded-lg border border-border bg-background px-4 py-2.5 text-sm font-medium text-foreground transition-colors hover:border-foreground/30 active:scale-[0.98]"
             >
-              Read the blog
+              Read my writing
             </Link>
             <a href={DATA.contact.social.email.url} className="link ml-1 text-sm">
-              Email me
+              Say hello
             </a>
           </div>
         </div>
-        <div className="rounded-2xl border border-border bg-card/60 p-4 sm:p-6">
-          <SystemDiagram
-            topics={[
-              { name: "work.log", detail: `${DATA.work.length} roles since 2024`, href: "#work" },
-              { name: "projects.shipped", detail: `${DATA.projects.length} projects`, href: "/projects" },
-              { name: "posts.published", detail: `${posts.length} posts`, href: "/blog" },
-            ]}
-          />
-        </div>
+        <HeroMosaic />
       </section>
 
       <Section id="work" index={1} title="Experience">
@@ -118,7 +110,7 @@ export default async function Page() {
           </ol>
 
           <div>
-            <h3 className="meta mb-3 uppercase tracking-[0.14em]">The stack, top to bottom</h3>
+            <h3 className="meta mb-3 uppercase tracking-[0.14em]">What I reach for</h3>
             <dl className="overflow-hidden rounded-2xl border border-border bg-card">
               {DATA.stack.map((group) => (
                 <div key={group.label} className="border-b border-border p-4 last:border-b-0">
@@ -196,14 +188,14 @@ export default async function Page() {
           <div className="rounded-2xl border border-border bg-card p-5">
             <h3 className="text-foreground">Making music</h3>
             <p className="mb-5 mt-1 text-muted-foreground">
-              Working out a new progression scratches the same itch as working out a system. Here is one to play.
+              My curiosity doesn&apos;t stop at the keyboard. Figuring out a new chord progression feels a lot like figuring out a system. Here&apos;s one to play with.
             </p>
             <ProgressionPlayer />
           </div>
           <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-5">
             <h3 className="text-foreground">Exploring outdoors</h3>
             <p className="mt-1 max-w-[34ch] text-muted-foreground">
-              The same curiosity about how pieces fit together, pointed at a trail map.
+              Or I&apos;m outside somewhere, happily working out how the trail and the map fit together.
             </p>
             <svg
               viewBox="0 0 340 230"
@@ -229,9 +221,9 @@ export default async function Page() {
       <Section id="contact" index={5} title="Contact">
         <div className="flex flex-col items-start justify-between gap-6 rounded-2xl border border-border bg-card p-6 sm:flex-row sm:items-center sm:p-8">
           <div>
-            <p className="font-serif text-3xl font-medium tracking-tight text-foreground">Want to build something, or just talk shop?</p>
+            <p className="font-serif text-3xl font-medium tracking-tight text-foreground">Want to chat?</p>
             <p className="mt-2 text-muted-foreground">
-              Email is the fastest way to reach me.{" "}
+              Whether it&apos;s a project, a question, or just hello, I&apos;d love to hear from you. Email works best, and you can also find me on{" "}
               {contact.map((item, index) => (
                 <span key={item.label}>
                   {index > 0 && ", "}
@@ -239,8 +231,8 @@ export default async function Page() {
                     {item.label}
                   </a>
                 </span>
-              ))}{" "}
-              work too.
+              ))}
+              {"."}
             </p>
           </div>
           <a

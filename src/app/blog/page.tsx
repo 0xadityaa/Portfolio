@@ -27,8 +27,9 @@ export default async function BlogPage() {
             Blog
           </h1>
           <p className="max-w-[58ch] text-muted-foreground">
-            I write about building software and the systems behind it. Full-stack
-            engineering, architecture, and anything else that sparks my curiosity.{" "}
+            This is where I think out loud about building software and the systems
+            behind it: full-stack engineering, architecture, and anything else that
+            sparks my curiosity.{" "}
             <Link href="/rss.xml" prefetch={false} className="link">
               Subscribe by RSS
             </Link>
