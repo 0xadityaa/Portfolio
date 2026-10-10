@@ -10,6 +10,7 @@ tags:
   - debugging
   - ai
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/122'
+devto_url: 'https://dev.to/0xadityaa/5-a-day-sounds-gentle-it-isnt-1f9h'
 ---
 
 I found a bug recently that I can't stop thinking about, mostly because it was one innocent-looking line.
