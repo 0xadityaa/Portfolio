@@ -1,42 +1,33 @@
 # Research note: A Folder That Contains Nothing Is a Lie
 
-Written 10 October 2026 from the Hivemind repository (private) and its public docs.
+Written 10 October 2026, revised the same day after Aditya's review: the first draft read as marketing, so the post now leads with the question and mentions Hivemind once, as the side project the evidence came from.
 
 ## What this adds
 
-A design-decision story with a concrete failing scenario: why write-time folders made Hivemind's central promise structurally impossible, and what replaced them. The naming argument (a name that promises containment the system cannot deliver) is the part other engineers can reuse.
+A data-modelling lesson (decide at read time, not write time) told through his own wrong first design, opening on Gmail labels.
 
 ## Artifact
 
-The four-step failing trace (`acme/payments` in Claude Code, then `chatgpt.com` in the browser) and the `withOrigin` snippet.
+The four-step failing trace and the withOrigin snippet.
 
 ## Claims and sources
 
 | Claim | Source |
 | --- | --- |
-| Every memory had a folder chosen at write time; every retrieval was scoped to one | Hivemind ADR 0001 |
-| With silent capture the folder was inferred: repo root for MCP, page origin for the browser | ADR 0001, ADR 0002 |
-| The Stripe Checkout migration scenario and that the memory does not surface | ADR 0001 |
-| A company-wide convention stated in one repo is not a fact about that repo; page origin carries little folder signal | ADR 0001 |
-| Views are saved searches; a memory can be in several, one or none; deleting a view deletes nothing else | https://gethivemind.xyz/docs/concepts/views |
-| Origin is kept as ranking metadata, never a partition | ADR 0001; views docs ("Where results come from") |
-| `withOrigin` snippet | views docs |
-| "Folder" retired for "View"; "Space" not revived; "session" had come to mean two things | ADR 0001; `CONTEXT.md` |
-| One account's data is isolated from every other's | `CONTEXT.md` (Tenant) |
+| Write-time folders, one folder per search, inferred from repo or site; the Stripe Checkout scenario; the two smaller failures; the rename and why | Hivemind ADR 0001, 17 September 2026 |
+| Views as saved searches; origin as a ranking preference; `withOrigin` | https://gethivemind.xyz/docs/concepts/views |
+| "session" meant two things in the schema | Hivemind `CONTEXT.md` |
+| Gmail uses labels | https://support.google.com/mail/answer/118708 |
 
 ## From Aditya
 
-The decision and its reasoning are from ADR 0001, dated 17 September 2026. First-person phrasing ("I made capture silent", "never again") restates the record in his voice.
-
-## Outline
-
-Opening and thesis. The reasonable design. The failing trace. Views and origin as a weight. Why the rename mattered. Limits. Takeaway: decide at read time, keep write-time signals as hints.
+First-person lines restate what the Hivemind repository records (code comments, decision records, benchmark notes). Colour such as "kept bugging me" was added in drafting; he should change anything that is not true to him.
 
 ## Open questions
 
-- Is he comfortable describing an earlier internal design publicly?
-- The title is a line from his own glossary ("A folder that does not contain is a lie in the interface"). Keep it?
+- It describes an earlier internal design. Is he comfortable with that?
+- The title adapts a line from his own glossary. Keep it?
 
 ## Left out
 
-The scarcity and consolidation consequences (ADR 0004), storage column naming, and the shared full-text statistics issue between accounts, which is internal.
+Competitor names, launch status, pricing, calls to action, and any benchmark figure without its conditions.
