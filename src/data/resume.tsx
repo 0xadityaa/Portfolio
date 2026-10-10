@@ -1,5 +1,5 @@
 import { Icons } from "@/components/icons";
-import { Code as CodeIcon, Home as HomeIcon, Notebook as NotebookIcon, Rss as RssIcon, User as UserIcon } from "lucide-react";
+import { Rss as RssIcon } from "lucide-react";
 
 export const DATA = {
   name: "Aditya Negandhi",
@@ -43,11 +43,10 @@ export const DATA = {
       items: ["Jest", "Playwright"],
     },
   ],
+  // The name in the header links home, so the nav lists only the other two pages.
   navbar: [
-    { href: "/", icon: HomeIcon, label: "Home" },
-    { href: "/projects", icon: CodeIcon, label: "Projects" },
-    { href: "/blog", icon: NotebookIcon, label: "Blog" },
-    { href: "/about", icon: UserIcon, label: "About" },
+    { href: "/projects", label: "Projects" },
+    { href: "/blog", label: "Blog" },
   ],
   contact: {
     email: "negandhi.aditya@gmail.com",

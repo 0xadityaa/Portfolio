@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 /*
-  Dark only. Radius rule: surfaces and media 8px (rounded-lg), chips and
-  inputs 6px (rounded-md), the dock and avatar are full pills.
+  Dark only. Radius rule: surfaces and media 8px (rounded-lg), the avatar is a circle.
 */
 @layer base {
   :root {
@@ -24,7 +23,7 @@
     --secondary-foreground: 0 0% 93%;
 
     --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 63%;
+    --muted-foreground: 0 0% 62%;
 
     --accent: 0 0% 10%;
     --accent-foreground: 0 0% 93%;
@@ -76,7 +75,15 @@
     @apply text-sm font-medium text-muted-foreground;
   }
   .meta {
-    @apply font-mono text-xs tabular-nums text-muted-foreground;
+    @apply font-mono text-xs tabular-nums;
+    color: hsl(0 0% 52%);
+  }
+  /* A linked row. Hovering one row in a list dims the others. */
+  .row-link {
+    @apply -my-px block rounded-sm py-2 transition-opacity duration-200;
+  }
+  .rows:has(.row-link:hover) .row-link:not(:hover) {
+    opacity: 0.45;
   }
 }
 

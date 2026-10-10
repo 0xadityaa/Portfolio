@@ -1,4 +1,3 @@
-import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
 interface SectionProps {
@@ -19,13 +18,12 @@ export function Section({ id, title, more, children }: SectionProps) {
         {more && (
           <Link
             href={more.href}
-            className="group inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className="group text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
-            {more.label}
-            <ArrowUpRight
-              className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-              aria-hidden
-            />
+            {more.label}{" "}
+            <span aria-hidden className="inline-block transition-transform group-hover:translate-x-0.5">
+              &rarr;
+            </span>
           </Link>
         )}
       </div>

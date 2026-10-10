@@ -93,16 +93,8 @@ export default async function BlogPost(props: BlogParams) {
         }}
       />
 
-      <Link
-        href="/blog"
-        className="group inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-      >
-        <ArrowLeft className="size-3.5 transition-transform group-hover:-translate-x-0.5" aria-hidden />
-        Blog
-      </Link>
-
-      <header className="mt-8 space-y-4 border-b border-border pb-8">
-        <h1 className="text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-4xl">
+      <header className="space-y-4 border-b border-border pb-8">
+        <h1 className="text-[1.75rem] font-semibold leading-[1.2] tracking-tight text-foreground sm:text-[2rem]">
           {post.metadata.title}
         </h1>
         <div className="meta flex flex-wrap items-center gap-x-4 gap-y-1">
@@ -120,7 +112,7 @@ export default async function BlogPost(props: BlogParams) {
       </header>
 
       <article
-        className="prose prose-invert max-w-none pt-8 leading-relaxed prose-h2:text-2xl prose-h3:text-xl"
+        className="prose prose-invert max-w-none pt-8 leading-[1.75] prose-h2:text-2xl prose-h3:text-xl"
         dangerouslySetInnerHTML={{ __html: post.source }}
       />
       <CopyCodeHandler />
@@ -128,7 +120,7 @@ export default async function BlogPost(props: BlogParams) {
       <footer className="mt-16 space-y-3 border-t border-border pt-8 text-sm leading-relaxed text-muted-foreground">
         <p>
           Written by{" "}
-          <Link href="/about" className="link">
+          <Link href="/" className="link">
             {DATA.name}
           </Link>
           , a full stack engineer in Toronto. New posts land in the{" "}

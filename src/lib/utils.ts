@@ -38,3 +38,12 @@ export function formatMonthYear(date: string) {
 export function getYear(date: string) {
   return toDate(date).getUTCFullYear();
 }
+
+/** "Jul 2025" + "Present" -> "2025 – Now"; the same year twice -> "2025". */
+export function yearRange(start: string, end?: string) {
+  const year = (value?: string) => value?.match(/\d{4}/g)?.pop();
+  const from = start.match(/\d{4}/)?.[0];
+  const to = end && /present/i.test(end) ? "Now" : year(end);
+  if (!from) return to ?? "";
+  return !to || to === from ? from : `${from} \u2013 ${to}`;
+}

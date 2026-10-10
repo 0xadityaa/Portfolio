@@ -51,13 +51,13 @@ export default async function ProjectsPage() {
   return (
     <main className="space-y-10">
       <FadeIn>
-        <header className="space-y-3">
-          <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+        <header className="space-y-2">
+          <h1 className="text-xl font-medium tracking-tight text-foreground">
             Projects
           </h1>
-          <p className="max-w-[58ch] text-lg leading-relaxed text-muted-foreground">
-            From random experiments to full-blown web apps, here&apos;s a
-            collection of things I&apos;ve built with code and caffeine.
+          <p className="max-w-[58ch] text-muted-foreground">
+            Side projects and open source work: AI agents, retrieval systems,
+            developer tools, and experiments.
           </p>
         </header>
       </FadeIn>

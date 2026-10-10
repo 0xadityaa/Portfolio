@@ -2,18 +2,21 @@
 
 ## Design rules
 
-The look is minimal, dark, single column. Changes extend it; they do not restyle it.
+The look is minimal, dark, single column, mostly text. Changes extend it; they do not restyle it.
 
-- One 672px column (`max-w-2xl`). Dark only. Monochrome: no accent colour.
-- Geist for text, Geist Mono for dates and metadata (the `.meta` class).
-- Radius: surfaces and images `rounded-lg`, chips and inputs `rounded-md`, the dock and avatar are pills.
-- Section headings are small and quiet (`.section-title`). Group with space and hairlines before reaching for a card.
-- Tokens are CSS variables in `src/app/globals.css`. Use them through Tailwind (`bg-card`, `text-muted-foreground`), never raw hex.
+- Three pages: home, projects, blog. Posts and project write-ups hang off the last two. A new top-level page needs Aditya's say-so.
+- One 672px column. Dark only. Monochrome: the avatar is the only colour.
+- Body text is 15px Geist. Page titles are small (`text-xl font-medium`); only a post or project title is large.
+- The layout unit is `Row` (`src/components/row.tsx`): mono metadata (a year, a date, a label) in a left column, content on the right, stacked on phones. Lists of anything use it before inventing a new shape.
+- Navigation is text in the header: the name links home, then Projects and Blog. No icons, no floating dock.
+- Linked rows sit in a `.rows` list and use `.row-link`: hovering one dims the others. No hover backgrounds, no cards. Images appear only on the projects pages.
+- Section headings are small and quiet (`.section-title`). Group with space; a hairline only above the footer and around a post header.
+- Tokens are CSS variables in `src/app/globals.css`. Use them through Tailwind (`text-muted-foreground`), never raw hex.
 - Copy is plain and specific, with commas and periods where an em dash would go, and no emoji in the interface.
 
 ## What goes where
 
-The home page is a short introduction followed by writing, then projects, then experience. Writing leads because it is the freshest proof of how he thinks. Stack and education live on `/about`. Why: `docs/research/frontier-sites.md`, section 4.
+The home page is the whole introduction: bio, experience, selected projects, latest writing, stack, education, contact. There is no about page; `/about` redirects home.
 
 ## Performance budget
 

@@ -1,5 +1,4 @@
-import Navbar from "@/components/navbar";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { SiteHeader } from "@/components/site-header";
 import { DATA } from "@/data/resume";
 import { pageAlternates } from "@/lib/seo";
 import { cn } from "@/lib/utils";
@@ -66,38 +65,33 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={cn("dark scroll-smooth", geistSans.variable, geistMono.variable)}>
-      <body className="min-h-[100dvh] bg-background font-sans antialiased">
+      <body className="min-h-[100dvh] bg-background font-sans text-[15px] leading-7 antialiased">
         <a
           href="#content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-foreground focus:px-3 focus:py-2 focus:text-sm focus:text-background"
         >
           Skip to content
         </a>
-        <TooltipProvider delayDuration={0}>
-          <div className="mx-auto w-full max-w-2xl px-6 pt-16 sm:pt-24">
-            <div id="content">{children}</div>
-            <footer className="mt-24 flex items-center justify-between border-t border-border pb-32 pt-6 text-sm text-muted-foreground">
-              <span>
-                {DATA.name}, {new Date().getFullYear()}
-              </span>
-              <nav aria-label="Footer" className="flex items-center gap-5">
-                <Link href="/rss.xml" prefetch={false} className="transition-colors hover:text-foreground">
-                  RSS
-                </Link>
-                <Link href="/llms.txt" prefetch={false} className="transition-colors hover:text-foreground">
-                  llms.txt
-                </Link>
-                <a href={DATA.contact.social.GitHub.url} className="transition-colors hover:text-foreground">
-                  GitHub
-                </a>
-                <a href={DATA.contact.social.email.url} className="transition-colors hover:text-foreground">
-                  Email
-                </a>
-              </nav>
-            </footer>
-          </div>
-          <Navbar />
-        </TooltipProvider>
+        <div className="mx-auto w-full max-w-[42rem] px-6 pb-16 pt-10 sm:pt-20">
+          <SiteHeader />
+          <div id="content">{children}</div>
+          <footer className="mt-24 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-border pt-6 text-sm text-muted-foreground">
+            <span>
+              &copy; {new Date().getFullYear()} {DATA.name}
+            </span>
+            <nav aria-label="Footer" className="flex items-center gap-5">
+              <Link href="/rss.xml" prefetch={false} className="transition-colors hover:text-foreground">
+                RSS
+              </Link>
+              <Link href="/llms.txt" prefetch={false} className="transition-colors hover:text-foreground">
+                llms.txt
+              </Link>
+              <a href={DATA.repo} className="transition-colors hover:text-foreground">
+                Source
+              </a>
+            </nav>
+          </footer>
+        </div>
         <Analytics />
         <SpeedInsights />
       </body>
