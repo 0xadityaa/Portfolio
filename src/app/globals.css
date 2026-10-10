@@ -127,7 +127,7 @@
   @apply font-normal underline decoration-foreground/25 decoration-1 underline-offset-4 transition-colors hover:decoration-foreground/80;
 }
 .prose :where(img, video) {
-  @apply rounded-xl border border-border;
+  @apply mx-auto rounded-xl border border-border;
 }
 .prose :where(blockquote) {
   @apply font-normal not-italic;
