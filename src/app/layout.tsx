@@ -26,11 +26,8 @@ const serif = Newsreader({
 });
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#faf9f5" },
-    { media: "(prefers-color-scheme: dark)", color: "#262624" },
-  ],
-  colorScheme: "light dark",
+  themeColor: "#262624",
+  colorScheme: "dark",
 };
 
 export const metadata: Metadata = {

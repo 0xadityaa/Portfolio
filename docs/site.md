@@ -2,10 +2,10 @@
 
 ## Design rules
 
-Warm paper and clay, in the spirit of Claude's interface, with custom-drawn artwork in place of stock imagery. Changes extend this; they do not restyle it.
+Warm charcoal and clay, in the spirit of Claude's dark interface, with custom-drawn artwork in place of stock imagery. Changes extend this; they do not restyle it.
 
 - Three pages: home, projects, blog. Posts and project write-ups hang off the last two. A new top-level page needs Aditya's say-so.
-- Light by default (ivory background, near-black ink), with a warm dark theme chosen by the visitor's system. Every colour is a token in `src/app/globals.css` with a value for both themes; use them through Tailwind (`bg-card`, `text-muted-foreground`, `text-brand`), never raw hex.
+- Dark only: warm charcoal background, ivory ink. Every colour is a token in `src/app/globals.css`; use them through Tailwind (`bg-card`, `text-muted-foreground`, `text-brand`), never raw hex.
 - One accent, clay (`brand`): kickers, the hex section numbers, link underlines, the live parts of diagrams. Not for large fills.
 - Headings are Newsreader (`font-serif`, medium weight). Body is 15px Geist. Dates, labels and chips are Geist Mono (`.meta`, `.chip`).
 - Radius: cards `rounded-2xl`, buttons and thumbnails `rounded-lg`, chips `rounded-md`.
