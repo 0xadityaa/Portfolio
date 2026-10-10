@@ -7,7 +7,7 @@ Warm charcoal and clay, in the spirit of Claude's dark interface, with custom-dr
 - Three pages: home, projects, blog. Posts and project write-ups hang off the last two. A new top-level page needs Aditya's say-so.
 - Dark only: warm charcoal background, ivory ink. Every colour is a token in `src/app/globals.css`; use them through Tailwind (`bg-card`, `text-muted-foreground`, `text-brand`), never raw hex.
 - One accent, clay (`brand`): link underlines, the avatar background, the current job on the timeline. Not for large fills.
-- Headings are Newsreader (`font-serif`, medium weight). Body is 15px Geist. Dates, labels and chips are Geist Mono (`.meta`, `.chip`).
+- Headings are Newsreader (`font-serif`, medium weight). Body is 15px DM Sans. Dates, labels and chips are DM Mono (`.meta`, `.chip`).
 - Radius: cards `rounded-2xl`, buttons and thumbnails `rounded-lg`, chips `rounded-md`.
 - A title stands alone: no kicker, number or label above it. Dates and other metadata go below.
 - Artwork is code, not image files:
