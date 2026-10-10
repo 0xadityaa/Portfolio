@@ -30,6 +30,10 @@ To try it safely: Actions, Cross-post, Run workflow, leave "dry run" ticked. Loc
 
 Aditya sets the time when he approves: `/publish <date>` on the pull request (`docs/blog/workflow.md`, stage 4). With no date it takes the default slot, Tuesday 09:00 Toronto time, defined in `scripts/lib/schedule.mjs`. The evidence for that slot is weak and says so; revisit it against the site's own analytics after a dozen posts.
 
+## After rewriting a published post
+
+The Cross-post action only publishes; it never edits a copy that already exists. When a post that has a `devto_url` changes, run the **Update dev.to copies** workflow by hand (`gh workflow run update-devto.yml -f dry_run=false`). It pushes the current title, summary, tags and body to each existing dev.to article. Medium and Substack copies are edited by hand.
+
 ## The GitHub profile README
 
 The "Writing" list on github.com/0xadityaa is rewritten from `/rss.xml` by a workflow in the profile repository (`0xadityaa/0xadityaa`, `.github/workflows/latest-posts.yml`). It runs hourly, so a new post shows up there within the hour with nothing to configure.

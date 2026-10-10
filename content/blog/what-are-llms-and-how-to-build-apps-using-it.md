@@ -1,128 +1,131 @@
 ---
-title: What Are LLMs and How to Build Apps With Them
+title: 'What Are LLMs, and How Do You Build Stuff With Them?'
 publishedAt: '2025-02-18'
-summary: >-
-  An LLM predicts the next token. Everything useful is built around that:
-  context, tools, and memory. A map of the concepts, using LangChain and
-  LangGraph.
+summary: 'An LLM just predicts the next token. Everything useful is the scaffolding around it: context, tools, and memory. My map, via LangChain and LangGraph.'
 tags:
   - llm
   - ai
   - langchain
   - langgraph
-updated: '2026-10-09'
+updated: '2026-10-10'
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
 devto_url: 'https://dev.to/0xadityaa/what-are-llms-and-how-to-build-stuff-using-it-4l68'
 ---
 
-![GIF of south park characters on chat-gpt](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExd25mcDI0OG90emFocHphbHpianJ4OGgydDJueXlldTB5NzFsbXh0OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qAtZM2gvjWhPjmclZE/giphy.gif)
+Ever wondered how ChatGPT, Claude, Gemini, Deepseek, Llama and friends understand you and write back like a person? Here's the idea this whole post hangs on: **an LLM only predicts the next token. So every useful app is the scaffolding you build around it: what context it sees, which tools it can call, and what it remembers.**
 
-Ever wondered how AI models like ChatGPT, Claude, Gemini, Deepseek, Llama etc. understand and generate human-like text? The idea this whole post hangs on: **an LLM only predicts the next token, so every useful application is the scaffolding you build around it: what context it sees, which tools it can call, and what it remembers.** Large Language Models (LLMs) are advanced AI systems designed to process and generate human-like text. They leverage deep learning techniques, particularly the [Transformer architecture](<https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)>) (introduced in [Attention Is All You Need](https://arxiv.org/abs/1706.03762)), to analyze vast amounts of text data and generate coherent responses. These models are trained on massive datasets like [fineweb](https://huggingface.co/datasets/HuggingFaceFW/fineweb), allowing them to understand language patterns, context, and semantics, making them highly effective for tasks such as text generation, translation, summarization, and more.
+## So what is an LLM?
 
-Unlike traditional rule-based systems, LLMs rely on probabilistic modeling, meaning they predict the most likely next word in a sentence based on their training data. This makes them highly adaptable and capable of responding to a wide variety of queries with nuanced and contextually appropriate answers.
+A Large Language Model is an AI system built to process and generate human-like text. Under the hood it's deep learning, specifically the [Transformer architecture](<https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)>) from the paper [Attention Is All You Need](https://arxiv.org/abs/1706.03762). These models are trained on enormous piles of text like [fineweb](https://huggingface.co/datasets/HuggingFaceFW/fineweb), which is how they pick up language patterns, context, and meaning. That's what makes them good at generating text, translating, summarising, and a lot more.
 
-### Key Concepts in LLMs
+Old rule-based systems followed instructions someone wrote. LLMs are probabilistic. They predict the most likely next word based on what they saw in training. That's why they can handle such a wide range of questions and still give answers that fit the context.
 
-1. **Tokenization**: This is the process of breaking text into smaller units called tokens. Tokens can be words, subwords, or even individual characters, depending on the tokenizer used. LLMs process text in tokenized form to enable efficient computation.
-2. **Embeddings**: These are numerical vector representations of words or phrases, capturing semantic relationships between them. Embeddings allow LLMs to understand contextual similarities and relationships between different words, improving their ability to generate meaningful responses.
-3. **Context Window**: The context window refers to the maximum amount of text an LLM can process at a given time. A larger context window means the model can retain more information from previous text, resulting in more coherent responses. However, exceeding the context window can lead to loss of important information from earlier parts of the conversation.
-4. **Temperature**: This parameter controls the randomness of the model's responses. A high temperature results in more creative and diverse outputs, while a low temperature makes responses more deterministic and predictable.
-5. **Fine-Tuning**: Fine-tuning involves training an LLM on a specific dataset to improve its performance on specialized tasks. This process allows the model to become more domain-specific, enhancing its accuracy and reliability in targeted applications such as medical diagnosis, legal analysis, or financial forecasting.
+### The five words you'll keep hearing
 
-## Strengths and Weaknesses of LLMs
+1. **Tokenization.** Breaking text into smaller units called tokens. A token can be a word, part of a word, or a single character, depending on the tokenizer. Models work on tokens, not raw text.
+2. **Embeddings.** Lists of numbers (vectors) that represent words or phrases and capture how they relate to each other. They're how a model knows two different words mean similar things.
+3. **Context window.** The most text a model can handle at once. Bigger window, more it can keep in mind, more coherent the answers. Go past it and the early parts of the conversation fall off.
+4. **Temperature.** The randomness dial. Turn it up for creative, varied output. Turn it down for predictable, repeatable output.
+5. **Fine-tuning.** Training a model further on a specific dataset so it gets better at a specialised job, like medical, legal, or financial work.
 
-LLMs or AI in general is **_NOT a magic bullet_** that can do anything and everything, lets explore areas where LLMs are excelling and areas where they are not.
+## What LLMs are good and bad at
 
-### Where LLMs Are Awesome:
+LLMs, and AI in general, are ***NOT a magic bullet***. Here's where they shine and where they fall on their face.
 
-- Can generate human-like, coherent(contextually-relevant) text.
-- Can extract and summarize large amounts of information quickly.
-- Can work across multiple languages.
-- Can produce structured outputs.
+### Where they're awesome
 
-### Where They Struggle:
+- Writing human-like, coherent text that fits the context.
+- Pulling out and summarising big chunks of information fast.
+- Working across lots of languages.
+- Producing structured output.
 
-- Prone to hallucinations and can be confidently incorrect
-- They have a short memory and limited context-window.
-- Can be biased, depending on training data.
+### Where they struggle
+
+- They hallucinate, and they're confident about it.
+- Short memory and a limited context window.
+- They can be biased, depending on the training data.
 - Logical reasoning isn't their strong suit.
-- Running them can be expensive and energy-intensive.
+- They're expensive and energy-hungry to run.
 
-Now that we have an idea about LLM architecture and their strengths and weaknesses, here is how to build applications with them.
+OK, that's the model. Now, how do you actually build something with it?
 
-## How to Build with LLMs
+## How to build with LLMs
 
-LLMs on their own can only do so little, if you really want to solve a meaningful problems beyond human-like conversation bot, you need to empower these LLMs with resources like Internet Access, Tools to perform required tasks(calling API, DB) etc. and for that, you would need [LangChain](https://www.langchain.com/).
+On its own, an LLM can't do much. If you want to solve a real problem and not just ship one more chatbot, you have to give it resources: internet access, tools for the tasks you need (calling an API, hitting a database), and so on. For that, you want [LangChain](https://www.langchain.com/).
 
-### Using LangChain for LLM Applications
+### LangChain
 
-If you're serious about building applications with LLMs, then LangChain is an essential tool to have in your arsenal. This robust framework provides a structured way to interact with LLMs, simplifying integration with external data sources, databases, and APIs. LangChain enables developers to construct complex AI-driven workflows effortlessly, offering pre-built tools that handle memory management, chaining multiple LLM calls, and leveraging external tools like search APIs. Whether you're creating a chatbot, an automated research assistant, or an AI-powered knowledge base, Langchain streamlines the process, making AI development more scalable and efficient.
+If you're serious about building apps with LLMs, LangChain is worth having in your toolbox. It gives you a structured way to talk to models and makes it much easier to hook them up to outside data sources, databases, and APIs. It comes with pre-built pieces for memory, for chaining several LLM calls together, and for using external tools like search APIs. Chatbot, research assistant, AI-powered knowledge base, whatever you're making, it takes a lot of the plumbing off your plate.
 
-#### Why LangChain Rocks:
+#### Why LangChain rocks
 
-- **Integrations**: Plug into different AI models, databases, and external APIs effortlessly.
-- **Tools**: LLMs can use search APIs, calculators, and other tools for better responses.
-- **Chains**: Allows multiple LLM calls to be strung together like a conversation flow.
-- **Memory**: Helps maintain conversation context across multiple exchanges.
+- **Integrations.** Plug into different models, databases, and external APIs without much fuss.
+- **Tools.** The model can use search APIs, calculators, and other tools to give better answers.
+- **Chains.** String several LLM calls together like a conversation flow.
+- **Memory.** Keep conversation context across multiple exchanges.
 
-#### Keeping Your AI Chat on Track
+#### Keeping your AI chat on track
 
-LLMs have a limited attention span (context window), so conversations can get messy if they go on too long. Here’s how to keep things manageable:
+LLMs have a limited attention span (that context window again), so long conversations get messy. Three ways to keep them manageable:
 
-- **Trimming**: Cut out unnecessary parts of the conversation.
-- **Filtering**: Keep only the most relevant messages.
-- **Summarizing**: Turn long-winded chats into concise recaps.
+- **Trimming.** Cut the parts of the conversation you don't need.
+- **Filtering.** Keep only the most relevant messages.
+- **Summarising.** Turn a long-winded chat into a short recap.
 
-#### What Can You Build with LangChain?
+#### What can you build with it?
 
-LangChain enables a wide range of applications, including chatbots, intelligent search systems, AI-powered writing assistants, and automated research tools. It's great for creating applications that require interaction with databases, external APIs, and knowledge retrieval systems. However, LangChain has limitations: while it helps structure AI interactions and workflows, it still relies on an LLMs inherent constraints, such as its context window and lack of long-term memory. Additionally, LangChain alone does not provide advanced decision-making or complex multi-step task orchestration. This is where LangGraph steps in.
+Plenty: chatbots, smart search, writing assistants, automated research tools. It's great for anything that needs to talk to databases, external APIs, and knowledge retrieval systems.
 
-### Building Smart Workflows with LangGraph
+It has limits though. LangChain structures your AI interactions, but it's still stuck with the model's own constraints, like the context window and no long-term memory. And on its own it doesn't give you advanced decision-making or complex multi-step orchestration. That's where LangGraph comes in.
 
-[LangGraph](https://langchain-ai.github.io/langgraph/) is a powerful and flexible framework designed for creating dynamic, multi-step AI applications. Unlike simple prompt-based interactions, LangGraph enables developers to build complex workflows that involve multiple decision points, interactions between different AI agents, and even structured automation processes. It is particularly useful when an AI needs to engage in multiple interactions with users, manage different workflows dynamically, or maintain memory across sessions.
+### LangGraph
 
-With LangGraph, you can design AI-driven applications that intelligently route queries, break down complex tasks into smaller steps, and handle parallel processing scenarios. Whether you need a system to automate customer service workflows, guide users through step-by-step processes, or facilitate AI-driven content generation, LangGraph provides the necessary tools to orchestrate these sophisticated interactions seamlessly.
+[LangGraph](https://langchain-ai.github.io/langgraph/) is a flexible framework for building dynamic, multi-step AI apps. Where a simple app is prompt in, answer out, LangGraph lets you build workflows with multiple decision points, several agents talking to each other, and structured automation. It's especially handy when your AI needs to go back and forth with users, juggle different workflows, or remember things across sessions.
 
-#### Storing Conversation Data
+With it you can route queries, break a big task into smaller steps, and run things in parallel. Automating customer service flows, walking users through a process step by step, generating content with AI in the loop, it gives you the pieces to orchestrate all of that.
 
-Want your AI to “remember” things? LangGraph offers several options:
+#### Storing conversation data
 
-1. **Memory Saver**: Stores data locally for quick access.
-2. **Postgres Saver**: Uses PostgreSQL for external storage.
-3. **MongoDB**: Stores conversations in a NoSQL database.
-4. **Redis Saver**: Fast, efficient storage for AI memory.
+Want your AI to "remember" things? LangGraph gives you options:
 
-#### Best Practices for Production-Ready AI Apps
+1. **Memory Saver.** Stores data locally for quick access.
+2. **Postgres Saver.** Uses PostgreSQL for external storage.
+3. **MongoDB.** Stores conversations in a NoSQL database.
+4. **Redis Saver.** Fast, efficient storage for AI memory.
 
-- Use different thread IDs for separate conversations.
+#### Getting it production-ready
+
+- Use a different thread ID for each conversation.
 - Save conversation history with persistent checkpoints.
-- Avoid long user prompts that might overwhelm the model.
-- Stream responses for a smoother experience.
-- Implement error handling (e.g., rate limits, content moderation).
+- Avoid huge user prompts that overwhelm the model.
+- Stream responses so it feels smooth.
+- Handle errors (rate limits, content moderation, and so on).
 
-### Mastering Prompt Engineering
+### Prompt engineering
 
-To get the most accurate and relevant responses from an LLM, crafting effective prompts is crucial. [Prompt engineering](https://en.wikipedia.org/wiki/Prompt_engineering) is both an art and a science, where structuring queries correctly can greatly influence the output quality.
+To get accurate, relevant answers out of an LLM, the prompt matters a lot. [Prompt engineering](https://en.wikipedia.org/wiki/Prompt_engineering) is part art, part science, and how you structure the question changes the quality of the answer.
 
-#### Understanding AI Roles in a Conversation:
+#### Who's who in a conversation
 
-- **SystemMessage**: Defines the foundational rules, behavior, and personality of the AI. It provides additional context, such as setting a specific persona, defining the tone, or giving overarching guidelines.
-- **HumanMessage**: Represents the input from the user interacting with the AI model, typically containing textual input from a human.
-- **AIMessage**: Represents the responses generated by the AI model, including text responses or requests to invoke tools.
-- **ToolMessage**: Used to pass results from tool invocations back to the model, typically when external data or processing is retrieved.
+- **SystemMessage.** Sets the ground rules, behaviour, and personality of the AI. It's where you define a persona, a tone, or overall guidelines.
+- **HumanMessage.** What the user sends, usually text typed by a person.
+- **AIMessage.** What the model sends back: text, or a request to call a tool.
+- **ToolMessage.** Carries the result of a tool call back to the model, usually when outside data got fetched or processed.
 
-## Where this stops applying
+## Where I'd stop trusting this post
 
-**You may not need a framework.** The strongest counter-argument comes from Anthropic's [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents), which advises starting with direct API calls because frameworks add layers that hide the prompts and make debugging harder. If your app is one or two model calls, the plain SDK is less to learn and less to break.
+**You might not need a framework at all.** The best counter-argument comes from Anthropic's [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents), which says to start with direct API calls, because frameworks add layers that hide the prompts and make debugging harder. If your app is one or two model calls, the plain SDK is less to learn and less to break.
 
-**This is a map from February 2025.** Framework APIs in this space change every few months, and the list of things LLMs "struggle" with above has shrunk since. Check the current docs before copying a pattern from here.
+**This is a map from February 2025.** Framework APIs in this space change every few months, and my list of things LLMs "struggle" with has shrunk since. Check the current docs before you copy a pattern from here.
 
-**It is an overview, not a build log.** There is no code in this post and no measurements. For a worked example, [Finchat](/projects/Finchat) is the application these notes came from.
+**It's an overview, not a build log.** There's no code in this post and no measurements. For a worked example, [Finchat](/projects/Finchat) is the app these notes came out of.
 
-## Wrapping It Up
+## The takeaway
 
-Building with LLMs is easier than ever with frameworks like LangChain and LangGraph. Whether you're creating AI chatbots, smart assistants, or knowledge-searching tools, understanding prompt engineering, context management, and conversation workflows is key. If you take one thing away: decide what the model needs to see, what it is allowed to do, and what it should remember, in that order. The framework is whichever tool makes those three decisions easiest to read.
+Building with LLMs is easier than ever with frameworks like LangChain and LangGraph. Chatbots, smart assistants, knowledge-search tools, they all come down to prompt engineering, context management, and conversation workflows.
+
+If you remember one thing: decide what the model needs to see, what it's allowed to do, and what it should remember. In that order. The right framework is whichever one makes those three decisions easiest to read.
 
 ✌️ Stay curious, Keep coding, Peace nerds!
 
-*Updated 9 October 2026: stated the central idea up front, fixed two typos, added primary sources, and added the section on where this stops applying.*
+*Updated 10 October 2026: rewrote this in plainer language and dropped the GIF. The central idea, primary sources, and limits section were added on 9 October 2026.*

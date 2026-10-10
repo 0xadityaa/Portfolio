@@ -1,64 +1,76 @@
 ---
-title: Do You Really Need AI Agents?
+title: 'Do You Really Need AI Agents?'
 publishedAt: '2025-03-30'
-summary: >-
-  Most LLM features are better built as a fixed workflow than as an agent. When
-  an agent earns its extra cost and latency, and when it does not.
+summary: 'Usually not. Most LLM features are cheaper, faster, and easier to trust as a fixed workflow. Here''s when an agent earns its keep.'
 tags:
   - llm
   - ai
   - agents
   - workflows
-updated: '2026-10-09'
+updated: '2026-10-10'
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
 ---
 
-![GIF of a robot looking at a screen with a confused expression](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExbzhramtrcGVvMzRnZG15dzBhYW5vMzI1eDl2NjJwc25hdzV1djU1ciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1BdJd24oEwvuSvXYb0/giphy.gif)
+Whether you work with LLMs or not, you've heard "agent" and "agentic AI" about four thousand times by now. After months of building projects (hobby ones and production ones), eating a ton of content, and working daily with agentic frameworks like [LangGraph](https://langchain-ai.github.io/langgraph/) and [Google Vertex AI](https://cloud.google.com/vertex-ai?hl=en), I have some thoughts.
 
-Whether you've been working with LLMs or not, you've probably heard the terms _"Agent"_ or _"Agentic AI"_ thrown around a lot. After spending months building projects (both hobby and production), consuming a ton of content, and working daily with agentic frameworks like [LangGraph](https://langchain-ai.github.io/langgraph/) and [Google Vertex AI](https://cloud.google.com/vertex-ai?hl=en), I have some thoughts.
+The short answer to the title: **usually not. Most of what gets built as an agent would be cheaper, faster, and easier to trust as a fixed workflow. An agent should have to earn its spot with a measured result.**
 
-The short answer to the title: **usually not. Most of what gets built as an agent would be cheaper, faster, and easier to trust as a fixed workflow, and an agent should have to earn its place with a measured result.**
+## The short version
 
-## TL;DR
+Agents are great when a task needs adaptability: messy inputs, lots of steps you can't predict, automation at scale. They're also wildly overused. For simple, predictable jobs, a workflow or even a single LLM call is more efficient and more reliable. So start with the boring solution, measure it, and bring in an agent only when the extra complexity clearly pays for itself.
 
-AI agents are powerful tools for tasks requiring adaptability and large-scale automation, but they are often overused. They shine in scenarios where flexibility and dynamic decision-making are essential, such as automating complex workflows or handling unpredictable inputs. However, for simpler, more predictable tasks, workflows or single LLM calls are often more efficient and reliable. The key is to start with straightforward solutions, measure their effectiveness, and only introduce agentic systems when the added complexity delivers clear, measurable benefits.
+## Why is everyone so hyped about agents?
 
-## Why are AI Agents so hyped?
+LLMs opened up automation that old-school algorithms couldn't touch. They can reason through a problem on the fly, so naturally every dev and every company wants that in their product, automating the repetitive stuff like updating docs or reviewing PRs. Even coding is semi-automated now, which backs up what OpenAI, Anthropic, and Google have been saying about LLMs handling the small stuff.
 
-With rapid advancements in generative AI, LLMs are unlocking automation opportunities that were previously impossible with traditional algorithms. Their dynamic reasoning and problem-solving abilities have sparked excitement among developers and companies eager to integrate these capabilities into their software to automate repetitive tasks like updating documentation or reviewing PRs. Even coding has become semi-automated, validating claims from AI giants like OpenAI, Anthropic, and Google about LLMs' potential to assist with trivial tasks. Agentic AI takes this further by aiming to fully automate such processes, which, as a software engineer, I completely understand the urge to pursue. However, this enthusiasm has also led to widespread FOMO, causing AI agents to be applied to problems where simpler solutions would suffice it's _like using a bazooka to kill a fly_.
+Agentic AI wants to take that all the way and automate the whole process. As a software engineer, I get the urge. But the hype also brought a lot of FOMO, and now agents get thrown at problems a much simpler solution would handle. It's like using a bazooka to kill a fly.
 
-## Workflows vs Agents what's the difference?
+## Workflows vs agents: what's the difference?
 
-The split I use is the one Anthropic draws in [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents): in a workflow, your code decides the path; in an agent, the model does.
+I use the split Anthropic draws in [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents): in a workflow, your code decides the path. In an agent, the model does.
 
 ### Workflows
 
-Workflows are predefined sequences where LLMs follow strict code paths, making them predictable and structured. Each step is designed with a clear goal in mind, ensuring that the system operates in a controlled, deterministic way. For example, if a user submits a prompt, a workflow could categorize it into "query," "complaint," "feedback," or "information" and then return a predefined response accordingly. This approach is ideal for cases where consistency and reliability are more important than flexibility.
+A workflow is a predefined sequence. The LLM follows the code path you wrote, so it's predictable and structured. Every step has a clear goal.
+
+Say a user sends a message. A workflow could classify it as "query", "complaint", "feedback", or "information", then send back the matching predefined response. Perfect when consistency matters more than flexibility.
+
 ![ai workflow](/images/blog/ai-workflow.png)
 
 ### Agents
 
-Agents, on the other hand, take a more dynamic and flexible approach. Instead of following a predetermined path, they make real-time decisions about how to retrieve and use information iteratively. This makes them non-deterministic, allowing them to adapt based on context and available resources. For instance, rather than simply classifying a user's prompt, an agent might explore multiple data sources, combine relevant information, and construct a tailored response. This makes agents powerful for complex tasks but also introduces challenges in predictability and control.
+An agent is more free-range. It doesn't follow a set path. It decides, step by step, how to find and use information. That makes it non-deterministic: it adapts to the context and to whatever tools it has.
+
+So where the workflow just classifies the message, an agent might go poke around several data sources, combine what it finds, and write a tailored answer. Powerful for complex tasks, and also a lot harder to predict and control.
+
 ![ai agent](/images/blog/ai-agent.png)
 
-## When to use Agents?
+## When should you use an agent?
 
-Using agents make sense when even small time savings provide value, such as automating expense report processing where an AI agent can scan receipts, categorize expenses, and generate a report which is something that would take an employee several minutes per receipt. This automation accumulates over hundreds of reports, significantly reducing manual effort. They also excel when flexibility and large-scale decision-making are crucial, allowing them to adapt dynamically instead of following rigid paths. However, this comes at a cost of trading efficiency and latency for improved performance, so they should only be used when that tradeoff is justified.
+When small time savings add up. Take expense reports: an agent can scan receipts, categorise expenses, and build the report. A person spends several minutes per receipt on that. Multiply by hundreds of reports and the manual work mostly disappears.
 
-## When to NOT use Agents?
+Agents also shine when you need flexibility and lots of decisions that can't be scripted ahead of time. Just know the deal you're making: you pay in cost and latency to get better results on the task. Only take that deal when it's worth it.
 
-Agents are a poor choice when user inputs are too ambiguous, making it hard to verify their outputs, like automating a legal contract review where the nuances of language and intent require human expertise, or trying to generate personalized investment strategies where subjective judgment plays a critical role. In such cases, even minor misinterpretations can lead to costly errors. When tasks require strict reliability, workflows are the better option, predictability and consistency are also key factors to ensure that. For many applications, a well-optimized single LLM call with [retrieval](https://en.wikipedia.org/wiki/Retrieval-augmented_generation) and in-context learning is often sufficient to achieve the desired outcome without unnecessary complexity.
+## When should you NOT use an agent?
 
-## Where this stops applying
+When the inputs are so ambiguous that you can't verify the output. Think automated legal contract review, where the nuance of language and intent needs a human expert. Or generating personalised investment strategies, where subjective judgment is the whole game. In cases like that, a small misread turns into an expensive mistake.
 
-**This was written in March 2025 and models have moved since.** Tasks that needed a carefully scripted workflow then can be handed to a single capable model call now, and agents fail less often than they did. The boundary between "workflow" and "agent" moves every model generation, so treat the examples above as dated and the method as the durable part.
+If the task needs strict reliability, a workflow is the better pick, because predictability and consistency are what get you there. And for a lot of apps, one well-tuned LLM call with [retrieval](https://en.wikipedia.org/wiki/Retrieval-augmented_generation) and a few in-context examples gets the job done without any of the extra machinery.
 
-**The strongest case for agents first** is that workflows encode today's understanding of the task, and you pay to rewrite them every time the task shifts. For open-ended work such as coding or research, where you cannot list the steps in advance, starting with an agent is the honest design. Anthropic's guide makes the same carve-out.
+## Where I'd stop trusting this post
 
-**I have not put numbers on it here.** The cost and latency tradeoff is stated, not measured. A fair version of this post would run one task both ways and report tokens, seconds, and error rate.
+**I wrote this in March 2025, and models have moved since.** Things that needed a carefully scripted workflow back then can go to a single capable model call now, and agents fail less often than they used to. The line between "workflow" and "agent" shifts with every model generation. Treat my examples as dated and the method as the part that lasts.
 
-## Final Thoughts
+**The best case for going agent-first** is that a workflow encodes how you understand the task today, and you pay to rewrite it every time the task shifts. For open-ended work like coding or research, where you can't list the steps up front, starting with an agent is the honest design. Anthropic's guide carves out the same exception.
 
-My prediction when I wrote this: 2025 will be the year we move from _"agentic"_ to _"multi-agent"_ systems, where multiple specialized AI agents collaborate to handle complex workflows efficiently. As exciting as this shift is, it's crucial to measure results at every stage to avoid unnecessary complexity and cost. My decision rule: write the task as a single prompt first, then as a fixed workflow, and reach for an agent only when you can name the step where a fixed path fails and you have an eval that shows the agent doing better.
+**I didn't put numbers on any of this.** The cost and latency trade-off is stated, not measured. A fair version of this post would run one task both ways and report tokens, seconds, and error rate.
 
-*Updated 9 October 2026: added a direct answer to the title, the source for the workflow and agent definitions, and the section on where this stops applying.*
+## The takeaway
+
+My prediction when I wrote this: 2025 would be the year we go from "agentic" to "multi-agent" systems, with several specialised agents working together on complex workflows. Exciting stuff. It's also a great way to pile on complexity and cost if you're not measuring at every step.
+
+My rule: write the task as a single prompt first. Then as a fixed workflow. Reach for an agent only when you can point at the exact step where a fixed path fails, and you have an eval showing the agent does better.
+
+✌️ Stay curious, Keep coding, Peace nerds!
+
+*Updated 10 October 2026: rewrote this in plainer language and dropped the GIF. The direct answer, the source for the definitions, and the limits section were added on 9 October 2026.*

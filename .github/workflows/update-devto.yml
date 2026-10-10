@@ -1,0 +1,31 @@
+name: Update dev.to copies
+# Pushes the current text of already cross-posted posts to their dev.to copies.
+# Run by hand after rewriting published posts. See docs/publishing.md.
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Print what would be updated without updating
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: crosspost
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - run: npm install --no-save --no-audit --no-fund gray-matter
+      - name: Update dev.to articles
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+        run: node scripts/update-devto.mjs ${{ inputs.dry_run && '--dry-run' || '' }}
