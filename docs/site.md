@@ -2,7 +2,7 @@
 
 ## Design rules
 
-Warm charcoal and clay, in the spirit of Claude's dark interface, with custom-drawn artwork in place of stock imagery. Changes extend this; they do not restyle it.
+Warm charcoal and clay, in the spirit of Claude's dark interface, with custom-drawn artwork in place of stock imagery. Changes extend this; they do not restyle it. The portable version of these rules, with every token value and the list of what Aditya rejected, is `docs/design-system.md`.
 
 - Three pages: home, projects, blog. Posts and project write-ups hang off the last two. A new top-level page needs Aditya's say-so.
 - Dark only: warm charcoal background, ivory ink. Every colour is a token in `src/app/globals.css`; use them through Tailwind (`bg-card`, `text-muted-foreground`, `text-brand`), never raw hex.
@@ -17,7 +17,7 @@ Warm charcoal and clay, in the spirit of Claude's dark interface, with custom-dr
   - `ProjectArt`: one line drawing per project, keyed by repo name. A new featured project needs a drawing added there (it falls back to a generated pattern).
   Draw in ink (`stroke-foreground`) on a `--tint-N` background, 2.5px round strokes, no gradients.
 - Screenshots appear only on a project's own page.
-- Technologies and social links are shown as logos (`TechList`, `src/lib/tech-icons.ts`, files in `public/icons`, Every technology named in `src/data/resume.tsx` has a logo: svgl first, Simple Icons (`si-*`) where svgl has none, and a hand-drawn `glyph-*` for concepts that are not brands. Adding a technology means adding its logo and map entry in the same change.
+- Technologies and social links are shown as logos (`TechList`, `src/lib/tech-icons.ts`, files in `public/icons`). Every technology named in `src/data/resume.tsx` has a logo: svgl first, Simple Icons (`si-*`) where svgl has none, and a hand-drawn `glyph-*` for concepts that are not brands. Adding a technology means adding its logo and map entry in the same change.
 - Copy is casual and a little cheeky, first person, like Aditya talking to a friend who codes. Jokes never replace the fact: every line still says what the thing is. Commas and periods where an em dash would go, and no emoji in the interface.
 
 ## What goes where
