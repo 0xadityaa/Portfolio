@@ -1,7 +1,9 @@
 ---
-title: 'Microservices? Do You Really Need Them?'
+title: Microservices? Do You Really Need Them?
 publishedAt: '2026-06-17'
-summary: 'Split a monolith and every multi-step operation becomes a distributed transaction. Here''s why I''d hand that job to an orchestrator.'
+summary: >-
+  Split a monolith and every multi-step operation becomes a distributed
+  transaction. Here's why I'd hand that job to an orchestrator.
 tags:
   - microservices
   - architecture
@@ -9,6 +11,7 @@ tags:
   - distributed-systems
 updated: '2026-10-10'
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
+devto_url: 'https://dev.to/0xadityaa/microservices-do-you-really-need-them-4gfd'
 ---
 
 Feels like every team runs [microservices](https://martinfowler.com/articles/microservices.html) now. Split the monolith, they said. It'll scale better, they said. And honestly, they're not wrong. But chopping your app into a pile of independent services is the easy part. Keeping those services in sync when something blows up halfway through? That's the actual job.
