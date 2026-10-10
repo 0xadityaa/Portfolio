@@ -18,6 +18,13 @@ It was quietly destroying everything older than a month.
 
 The lesson I took, and the reason I'm writing this down: **compounding turns "a little" into "everything" much faster than your gut says, and a test can only catch a bug its data is able to express.**
 
+## The short version
+
+- A 5% daily penalty compounds. It halves a score every 13.5 days and leaves one ten-thousandth after six months.
+- In my ranking code that meant any note older than a couple of months could never win, however well it matched.
+- The benchmark missed it because every test note was the same age: zero.
+- The fix is a half-life in months with a floor underneath, and a test input where age actually varies.
+
 ## How bad can 5% be?
 
 Bad. The trick is that it's 5% of what's left, every single day. That's [exponential decay](https://en.wikipedia.org/wiki/Exponential_decay), the same maths as radioactive stuff.
@@ -88,6 +95,8 @@ Same ages, both curves:
 | 90 days | 0.0099 | 0.81 |
 | 180 days | 0.0001 | 0.68 |
 | 365 days | 0.00000001 | 0.51 |
+
+![Chart: with 5% daily decay a note's score is near zero within two months, while a 180-day half-life with a 0.35 floor still keeps 0.68 after six months](/images/blog/decay-curves.svg)
 
 A year-old note keeps about half its weight. If it's the best match, it still wins.
 

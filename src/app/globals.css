@@ -206,26 +206,31 @@ body::before {
   mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 20%, transparent 75%);
 }
 
-/* The signature under a post: the ink is a mask, revealed left to right like a pen stroke. */
+/* The signature under a post: each stroke is drawn in turn, like a pen. */
 .signature {
-  width: 11rem;
-  aspect-ratio: 502 / 170;
-  background-color: hsl(var(--foreground));
-  -webkit-mask: url("/images/profile/signature.png") center / contain no-repeat;
-  mask: url("/images/profile/signature.png") center / contain no-repeat;
+  width: 13rem;
+  height: auto;
+  overflow: visible;
+  stroke: hsl(var(--foreground));
 }
-.signature[data-state="waiting"] {
-  clip-path: inset(0 100% 0 0);
+.signature path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
 }
-.signature[data-state="signed"] {
-  animation: sign 2.4s cubic-bezier(0.65, 0, 0.35, 1) backwards;
+.signature[data-state="waiting"] path {
+  stroke-dashoffset: 1;
+}
+.signature[data-state="signed"] path {
+  animation-name: sign;
+  animation-timing-function: linear;
+  animation-fill-mode: backwards;
 }
 @keyframes sign {
   from {
-    clip-path: inset(0 100% 0 0);
+    stroke-dashoffset: 1;
   }
   to {
-    clip-path: inset(0 0 0 0);
+    stroke-dashoffset: 0;
   }
 }
 

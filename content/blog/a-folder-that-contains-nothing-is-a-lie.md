@@ -16,6 +16,13 @@ It has [labels](https://support.google.com/mail/answer/118708). An email can car
 
 Here's what I learned, and I learned it by getting it wrong: **a folder makes you decide where something belongs at the moment you save it. That's a bet on where you'll need it later, and for some kinds of data you lose that bet constantly.**
 
+## The short version
+
+- A folder is a decision made at write time about where you'll need something later.
+- I filed every note by where it was written. Ask from anywhere else and the note was invisible, which broke the one thing the project was for.
+- The fix: search everything, and treat "where it was written" as a ranking hint, not a wall.
+- If a name in your interface promises containment and the system doesn't contain, rename it.
+
 ## The design that looked totally fine
 
 I've been building a memory layer for AI tools called [Hivemind](https://gethivemind.xyz). The idea is that you tell one tool something and your other tools already know it.
@@ -24,7 +31,7 @@ My first data model was the obvious one. Every note gets a folder when it's writ
 
 Then I made saving automatic. Nobody wants a "where should I file this?" popup every time they say something worth keeping. So the folder had to be guessed from wherever you were:
 
-- In a coding tool: the repo you're in.
+- In a coding tool, connected over [MCP](https://modelcontextprotocol.io): the repo you're in.
 - In a browser chat: the site you're on.
 
 Still sounds reasonable, right?
@@ -51,6 +58,8 @@ Two smaller cracks pointed the same way. A company-wide convention you happen to
 The fix was to stop filing things.
 
 Notes don't go anywhere now. Every search looks at everything. What used to be a folder became a saved search, the same move as Gmail's labels or a [database view](https://en.wikipedia.org/wiki/View_(SQL)): a named way of looking at the data, not a box the data lives in.
+
+![Diagram: with folders the note sits behind a wall the search never crosses, and with views there is one store where the note's origin only adjusts its rank](/images/blog/wall-vs-weight.svg)
 
 The "where was this written" signal didn't get thrown away. It got demoted from a wall to a weight. Each note still remembers where it came from, and if you ask from that same place, notes from there rank a bit higher. They're just never the only thing you can get.
 

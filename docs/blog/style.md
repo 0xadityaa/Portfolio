@@ -44,14 +44,14 @@ No fixed template. A shape that works for an essay:
 4. Limits.
 5. The ending.
 
-A short summary section near the top is optional and belongs only on a longer post. Posts end on the real ending: no sign-off line. The site adds his animated signature under every post.
+Every post has a short version near the top, under the heading "The short version": three or four bullets a reader could stop at. Posts end on the real ending: no sign-off line. The site adds his animated signature under every post.
 
 ## Format details
 
 - The title is a claim or a question, 60 characters at most. The file name is the title in kebab-case.
 - The summary says what the reader walks away with, in 160 characters at most, stated as fact ("Fan-out, payload size, and retry loops are what make event-driven systems expensive"), never as a promise to teach.
 - No H1 in the body. Inline code for identifiers, service names, and config keys. Fenced blocks carry a language.
-- Diagrams and charts go in `public/images/blog/` with alt text that says what the picture shows.
+- Diagrams and charts go in `public/images/blog/` with alt text that says what the picture shows. Draw them as SVG with their own background, in the site's colours (`#30302E` background, `#FAF9F5` ink, `#D97757` for the one thing to notice), so they also read correctly on dev.to.
 - When a published post changes in substance, set `updated: YYYY-MM-DD` in frontmatter; the page shows it next to the date. No dated note in the body. If a correction came from a reader, thank them by name where the fix is.
 
 ## Before the pull request

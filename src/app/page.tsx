@@ -80,17 +80,24 @@ export default async function Page() {
                 {DATA.building.name}
               </h3>
               <p className="mt-1 text-foreground">{DATA.building.tagline}</p>
-              <div className="mt-5 space-y-3 text-muted-foreground">
-                {DATA.building.paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
+              <p className="mt-5 text-muted-foreground">{DATA.building.intro}</p>
+              <ul className="mt-4 space-y-2 text-muted-foreground">
+                {DATA.building.points.map((point) => (
+                  <li key={point} className="flex gap-3">
+                    <span aria-hidden className="mt-[0.7em] size-1.5 flex-none rounded-full bg-brand" />
+                    {point}
+                  </li>
                 ))}
-              </div>
+              </ul>
               <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
                 <a href={DATA.building.href} target="_blank" rel="noopener noreferrer" className="link">
                   gethivemind.xyz
                 </a>
                 <a href={DATA.building.docs} target="_blank" rel="noopener noreferrer" className="link">
                   Docs
+                </a>
+                <a href={DATA.building.npm} target="_blank" rel="noopener noreferrer" className="link">
+                  npm
                 </a>
                 <TechList items={DATA.building.stack} />
               </div>
@@ -111,7 +118,7 @@ export default async function Page() {
         </div>
       </Section>
 
-      <Section id="writing" title="Things I&apos;ve written" more={{ href: "/blog", label: "All posts" }}>
+      <Section id="writing" title="Writing" more={{ href: "/blog", label: "All posts" }}>
         <div className="grid gap-x-12 gap-y-10 lg:grid-cols-[26rem_1fr]">
           {latest && (
             <Link

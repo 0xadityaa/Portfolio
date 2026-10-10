@@ -16,6 +16,13 @@ These tools are scary smart. So why do they all have the memory of a goldfish?
 
 I went digging, and the answer is simpler than I expected: **a language model doesn't remember anything, ever. Every "memory" feature is an app pasting text into your prompt before the model sees it.** Once that clicks, a lot of weird behaviour starts to make sense.
 
+## The short version
+
+- A model keeps no state between calls. A chat only feels continuous because the app resends the conversation every time.
+- "Memory" is a search over saved notes, plus a paste into your prompt.
+- Those notes live inside each app, which is why your other tools know nothing.
+- I compared four ways of choosing what to paste. Fusing keyword and meaning search found the right note 79.5% of the time, at one fortieth the tokens of pasting everything.
+
 ## Wait, the model really remembers nothing?
 
 Nothing. A model is a function. Text goes in, text comes out, and it keeps no state between calls.
@@ -33,6 +40,8 @@ When a tool says it remembers you, here's what's actually happening:
 1. At some point it saved a few sentences about you somewhere. "Prefers TypeScript." "Deploys on Fridays, bravely."
 2. When you ask something, it searches those sentences for ones that look relevant.
 3. It pastes the winners into the prompt, above your question, where you can't see them.
+
+![Diagram: saved notes are searched, the relevant few are pasted into the prompt above your question, and a stateless model reads the result](/images/blog/memory-is-a-paste.svg)
 
 That's it. It's [retrieval-augmented generation](https://en.wikipedia.org/wiki/Retrieval-augmented_generation) pointed at your own notes. The model isn't remembering. It's reading a cheat sheet somebody slipped it.
 

@@ -13,7 +13,7 @@ Warm charcoal and clay, in the spirit of Claude's dark interface, with custom-dr
 - Artwork is code, not image files:
   - `PostCover`: a pattern generated from a seed on a tinted background. Every post gets one automatically from its slug.
   - `HeroArt`: the home page illustration, an isometric Rubik's cube that scrambles and then slowly solves itself. A client component; it stops off screen and for reduced motion.
-  - `Signature`: his handwritten signature under every post, revealed once when it scrolls into view.
+  - `Signature`: his signature under every post, drawn stroke by stroke in pen order the first time it scrolls into view. The strokes are in `src/lib/signature-strokes.ts`, traced from his signature image.
   - `ProjectArt`: one line drawing per project, keyed by repo name. A new featured project needs a drawing added there (it falls back to a generated pattern).
   Draw in ink (`stroke-foreground`) on a `--tint-N` background, 2.5px round strokes, no gradients.
 - Screenshots appear only on a project's own page.

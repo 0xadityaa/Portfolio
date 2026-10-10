@@ -18,28 +18,31 @@ export const DATA = {
     tagline: "One memory for every AI you use.",
     href: "https://gethivemind.xyz",
     docs: "https://gethivemind.xyz/docs",
-    paragraphs: [
-      "Your AI tools are brilliant, and every one of them has amnesia. Tell Claude Code how your project works and Cursor has no idea. ChatGPT, same story. Hivemind is the fix I'm building: one memory that all of them read and write. Say it once. Every tool already knows.",
-      "Storing things is the easy part. The hard part is deciding what to send back. Hivemind runs a keyword search and a meaning search side by side, drops whatever isn't close, packs the rest into a token budget, and puts the best bits where the model actually reads them. If your memory has nothing to say about a question, it sends nothing.",
-      "One command sets up every AI client on your machine, and a browser extension covers the chat sites. Switch tools mid-task and the next one picks up what you decided, what's next, and what to watch out for. Where I'm taking it: the context layer under everything you do with AI, owned by you and not by whichever app you happened to type into.",
+    npm: "https://www.npmjs.com/package/@get-hivemind/cli",
+    intro:
+      "Your AI tools are brilliant, and every one of them has amnesia. Hivemind is my fix: part research project, part SaaS, and one memory that Claude Code, Cursor, ChatGPT and the rest all read and write.",
+    points: [
+      "Say it once. Every tool already knows.",
+      "It sends only what matters: two searches fused, packed into a token budget. Or nothing at all.",
+      "One command sets up 13 AI clients. A browser extension covers the chat sites.",
     ],
-    // Measured figures from Hivemind's benchmark record. Keep each one with its conditions.
+    // Measured figures from Hivemind's benchmark record. Each label carries its conditions.
     stats: [
       {
         value: "98.4%",
-        label: "of answers correct on LongMemEval's single-session questions (oracle split), a benchmark it was never tuned on",
+        label: "of answers right on LongMemEval's single-session questions (oracle split), a benchmark it was never tuned on",
+      },
+      {
+        value: "1.7x",
+        label: "the best published score on MemoryAgentBench's conflicting-facts multi-hop split: 10% against 6%, on 100 questions",
       },
       {
         value: "40x",
         label: "fewer tokens than pasting the whole conversation: 465 a question against 18,853 on LoCoMo",
       },
       {
-        value: "+15.6",
-        label: "points of recall over keyword search on LoCoMo, across 1,536 questions",
-      },
-      {
         value: "9 ms",
-        label: "for a chat message to send with memory switched on. It was 1,310 ms before I rebuilt that path",
+        label: "for a chat message to send with memory on, down from 1,310 ms, measured on a test page",
       },
     ],
     stack: ["TypeScript", "Cloudflare", "Bun", "React", "MCP"],

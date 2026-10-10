@@ -53,11 +53,14 @@ Location: Toronto, Canada.
 
 ${DATA.building.tagline}
 
-${DATA.building.paragraphs.join("\n\n")}
+${DATA.building.intro}
+
+${DATA.building.points.map((point) => `- ${point}`).join("\n")}
 
 ${DATA.building.stats.map((stat) => `- ${stat.value}: ${stat.label}`).join("\n")}
 - Built with: ${DATA.building.stack.join(", ")}
 - Docs: ${DATA.building.docs}
+- npm: ${DATA.building.npm}
 
 ## Writing
 
