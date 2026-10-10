@@ -48,7 +48,7 @@ export default async function Page() {
       <section id="about" className="grid items-center gap-x-12 gap-y-10 lg:grid-cols-[1fr_28rem]">
         <div>
           <h1 className="font-serif text-[2.75rem] font-medium leading-[1.05] tracking-tight text-foreground [text-wrap:pretty] sm:text-[3.5rem]">
-            Hi, I&apos;m Aditya.
+            Hi, I&apos;m Aditya
           </h1>
           <div className="mt-6 max-w-[52ch] space-y-3 text-muted-foreground">
             {DATA.about.map((paragraph) => (
@@ -59,14 +59,12 @@ export default async function Page() {
             {[
               { label: "LinkedIn", href: DATA.contact.social.LinkedIn.url },
               { label: "GitHub", href: DATA.contact.social.GitHub.url },
+              { label: "dev.to", href: "https://dev.to/0xadityaa" },
             ].map((item) => (
               <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" className="link">
                 {item.label}
               </a>
             ))}
-            <a href={DATA.contact.social.email.url} className="link">
-              Chat
-            </a>
           </div>
         </div>
         <HeroArt className="aspect-[9/7] w-full rounded-2xl border border-border" />

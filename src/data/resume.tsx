@@ -9,7 +9,7 @@ export const DATA = {
   description:
     "Full stack engineer and aspiring solutions architect in Toronto, building things with equal parts brain and heart, and writing about what I learn along the way.",
   about: [
-    "I'm a full stack engineer and aspiring solutions architect, building things with equal parts brain and heart. Right now that means helping Enercare move legacy systems to an event-driven architecture.",
+    "I'm a full stack engineer and aspiring solutions architect, building things with equal parts brain and heart. I've always been driven by a need to understand how things are built from the ground up, and I see engineering as a form of digital architecture.",
     "To me, building is more than making code work. It's about exploring systems, understanding the problem at hand, and seeing how it shapes the architecture around it. I'm endlessly curious about how people use everyday apps, what makes them stick, and how a codebase evolves as it scales.",
   ],
   avatarUrl: "/images/profile/avatar.png",
