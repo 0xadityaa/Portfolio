@@ -88,7 +88,3 @@ Semantic search and LLMs are a great pair. Instead of shoving all your data at t
 That gets you faster responses, fewer tokens, and better answers. It also cuts down on hallucinations, because the model gets focused, relevant context and not a giant haystack to reason over.
 
 Short version: semantic search *filters*, the LLM *interprets*, and your users get something that feels a lot smarter.
-
-✌️ Stay curious, Keep coding, Peace nerds!
-
-*Updated 10 October 2026: rewrote this in plainer language, gave it a new title, and dropped the GIF. On 9 October 2026 I corrected the embedding size (3,072 dimensions, not 3,075), explained the 2,000 dimension limit, and added the limits section.*

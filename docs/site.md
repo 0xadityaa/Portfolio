@@ -13,6 +13,7 @@ Warm charcoal and clay, in the spirit of Claude's dark interface, with custom-dr
 - Artwork is code, not image files:
   - `PostCover`: a pattern generated from a seed on a tinted background. Every post gets one automatically from its slug.
   - `HeroArt`: the home page illustration, an isometric Rubik's cube that scrambles and then slowly solves itself. A client component; it stops off screen and for reduced motion.
+  - `Signature`: his handwritten signature under every post, revealed once when it scrolls into view.
   - `ProjectArt`: one line drawing per project, keyed by repo name. A new featured project needs a drawing added there (it falls back to a generated pattern).
   Draw in ink (`stroke-foreground`) on a `--tint-N` background, 2.5px round strokes, no gradients.
 - Screenshots appear only on a project's own page.
@@ -21,13 +22,13 @@ Warm charcoal and clay, in the spirit of Claude's dark interface, with custom-dr
 
 ## What goes where
 
-The home page is the whole introduction, in this order: hero and bio, latest writing, selected projects, experience and education on one timeline beside the stack, contact. Hobbies do not get a section. There is no about page; `/about` redirects home.
+The home page is the whole introduction, in this order: hero and bio, latest writing, selected projects, experience and education on one timeline beside the stack, then a bare row of social icons (no heading, no email button). Hobbies do not get a section. There is no about page; `/about` redirects home.
 
 ## Performance budget
 
 Every page is rendered to HTML on the server and served from Vercel's CDN, refreshed every 10 minutes (`revalidate = 600`) so a scheduled post appears on time. Keep it that way:
 
-- A page stays a Server Component. `"use client"` is for a leaf that needs state or a browser API (the filters, the hero cube, copy buttons).
+- A page stays a Server Component. `"use client"` is for a leaf that needs state or a browser API (the filters, the hero cube, the signature, copy buttons).
 - Reading `cookies()`, `headers()`, or `searchParams` in a page makes it render per request and breaks the budget. Filter on the client instead.
 - Animation is CSS (`.fade-in`) and stops for reduced motion. The site ships no animation library.
 - Images go through `next/image` with real `sizes`. Only the first screen gets `priority`.

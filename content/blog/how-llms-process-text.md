@@ -107,7 +107,3 @@ When I started tuning prompts for my AI projects, thinking in tokens made a real
 ## The takeaway
 
 LLMs don't speak text. They speak tokens. It's all numbers back there, and knowing that makes you better at working with these things. Before you ship a prompt, run it through the tokenizer for the model you're actually calling. It's ten lines of code, and it swaps a guess for a number.
-
-✌️ Stay curious, Keep coding, Peace nerds!
-
-*Updated 10 October 2026: rewrote this in plainer language, gave it a new title, and dropped the GIF. The thesis, tokenizer link, and limits section were added on 9 October 2026.*

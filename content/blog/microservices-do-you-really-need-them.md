@@ -110,7 +110,3 @@ Choreography is a fine place to start. Orchestration is where a microservices se
 Lots of teams start with choreography because it feels elegant. And for simple stuff, it is. But complexity always shows up eventually, and then you're spending more time debugging event flows than building features. An orchestrator forces your business logic to be explicit, visible, and testable. That's not overhead. That's just being kind to future you.
 
 My rule: if a business operation needs a compensating step in more than one service, give it an orchestrator. Future you, and whoever's on call, will say thanks.
-
-✌️ Stay curious, Keep coding, Peace nerds!
-
-*Updated 10 October 2026: rewrote this in plainer language and dropped the GIF. The worked order flow, sources, and limits section were added on 9 October 2026.*

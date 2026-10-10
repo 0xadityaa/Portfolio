@@ -135,7 +135,3 @@ Is it basic? Absolutely. The dictionary is hardcoded and it won't be replacing G
 Sometimes the simplest projects are the most satisfying. This wasn't about building the next big thing. It was about taking an algorithm out of interview prep and watching it solve a real problem.
 
 Not every project has to change the world. Sometimes just understanding how a thing works is reward enough. So here's to the small wins, the *"aha"* moments, and the joy of seeing an algorithm come to life.
-
-✌️ Stay curious, Keep coding, Peace nerds!
-
-*Updated 10 October 2026: rewrote this in plainer language and gave it a new title. The core idea, sources, and limits section were added on 9 October 2026.*

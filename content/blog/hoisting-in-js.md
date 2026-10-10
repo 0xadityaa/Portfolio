@@ -101,7 +101,3 @@ Short version: when you use the `function` keyword, the engine stores the entire
 **Classes behave like `let`.** A `class` declaration is hoisted but uninitialised, so using it before its definition is a `ReferenceError`. I didn't cover that case here.
 
 The rule that makes all of this a non-issue: declare before use, prefer `const`, and let a linter yell about the rest.
-
-✌️ Stay curious, Keep coding, Peace nerds!
-
-*Updated 10 October 2026: rewrote this in plainer language and gave it a new title. The definition, a dead link, sources, and limits section were fixed or added on 9 October 2026.*

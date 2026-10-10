@@ -70,7 +70,3 @@ If the task needs strict reliability, a workflow is the better pick, because pre
 My prediction when I wrote this: 2025 would be the year we go from "agentic" to "multi-agent" systems, with several specialised agents working together on complex workflows. Exciting stuff. It's also a great way to pile on complexity and cost if you're not measuring at every step.
 
 My rule: write the task as a single prompt first. Then as a fixed workflow. Reach for an agent only when you can point at the exact step where a fixed path fails, and you have an eval showing the agent does better.
-
-✌️ Stay curious, Keep coding, Peace nerds!
-
-*Updated 10 October 2026: rewrote this in plainer language and dropped the GIF. The direct answer, the source for the definitions, and the limits section were added on 9 October 2026.*

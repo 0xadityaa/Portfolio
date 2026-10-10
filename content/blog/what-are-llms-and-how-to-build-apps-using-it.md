@@ -125,7 +125,3 @@ To get accurate, relevant answers out of an LLM, the prompt matters a lot. [Prom
 Building with LLMs is easier than ever with frameworks like LangChain and LangGraph. Chatbots, smart assistants, knowledge-search tools, they all come down to prompt engineering, context management, and conversation workflows.
 
 If you remember one thing: decide what the model needs to see, what it's allowed to do, and what it should remember. In that order. The right framework is whichever one makes those three decisions easiest to read.
-
-✌️ Stay curious, Keep coding, Peace nerds!
-
-*Updated 10 October 2026: rewrote this in plainer language and dropped the GIF. The central idea, primary sources, and limits section were added on 9 October 2026.*

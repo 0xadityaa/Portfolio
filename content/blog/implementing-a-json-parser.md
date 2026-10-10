@@ -228,7 +228,3 @@ Put the two together and, yep, that's a JSON parser. I built one. Feels good.
 ---
 
 Want the full code? Here's the [GitHub repo](https://github.com/0xadityaa/json-parser).
-
-✌️ Stay curious, Keep coding, Peace nerds!
-
-*Updated 10 October 2026: rewrote this in plainer language and gave it a new title. A broken sentence, the ECMA-404 link, and the limits section were fixed or added on 9 October 2026.*
