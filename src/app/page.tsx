@@ -72,7 +72,7 @@ export default async function Page() {
         <HeroArt className="aspect-[9/7] w-full" />
       </section>
 
-      <Section id="building" title="What I&apos;m building">
+      <Section id="building" title="Building">
         <div className="overflow-hidden rounded-2xl border border-border bg-card">
           <div className="grid lg:grid-cols-[1fr_24rem]">
             <div className="p-6 sm:p-8">
