@@ -19,12 +19,9 @@ export const DATA = {
     href: "https://gethivemind.xyz",
     docs: "https://gethivemind.xyz/docs",
     npm: "https://www.npmjs.com/package/@get-hivemind/cli",
-    intro:
+    paragraphs: [
       "LLMs are stateless, and your agents have the memory of a goldfish. Hivemind is the context engine I'm building to fix that: a memory layer built on SOTA retrieval techniques that sits under Claude Code, Cursor, ChatGPT and your own agents, and feeds each one exactly the context it needs. Agentic infra, shipped as a SaaS.",
-    points: [
-      "The engine: hybrid search (BM25 plus embeddings), RRF fusion, a cross-encoder rerank, then knapsack-packed into your token budget. If nothing's relevant, it sends nothing.",
-      "The interface: a dashboard that shows exactly what got sent to the model and what got cut. No black box.",
-      "The connectors: MCP for 13 coding tools, a browser extension for chat sites, GitHub and Notion sync, and an SDK for your own agents.",
+      "Under the hood it's hybrid search (BM25 plus embeddings), RRF fusion and a cross-encoder rerank, knapsack-packed into your token budget, and if nothing's relevant it sends nothing. There's a dashboard that shows exactly what got sent to the model and what got cut, and it plugs in everywhere: MCP for 13 coding tools, a browser extension for chat sites, GitHub and Notion sync, and an SDK for your own agents.",
     ],
     // Measured figures from Hivemind's benchmark record. Each label carries its conditions.
     stats: [
