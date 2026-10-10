@@ -1,103 +1,228 @@
+"use client";
+
 import { cn } from "@/lib/utils";
+import { useEffect, useRef, useState } from "react";
 
 /**
- * The home page illustration: a small isometric structure going up block by
- * block, with one clay block still on its way down to its place. Drawn by
- * hand as a height map, for "how things are built from the ground up".
+ * The home page illustration: an isometric Rubik's cube that scrambles itself
+ * and then, slowly, solves itself. A real cube model (27 cubies, layer turns)
+ * drawn as SVG polygons. Still when off screen or when the visitor prefers
+ * reduced motion.
  */
 
-// Blocks per plot, back row first.
-const HEIGHTS = [
-  [3, 2, 1, 0, 0, 0],
-  [2, 4, 2, 1, 0, 0],
-  [1, 3, 2, 1, 1, 0],
-  [1, 1, 2, 1, 0, 0],
-  [0, 1, 1, 1, 0, 0],
-  [0, 0, 0, 0, 0, 0],
-];
-// The block being placed, and how far above its plot it hovers.
-const PLACING = { row: 4, col: 3, lift: 1.8 };
+type Vec = [number, number, number];
+type Move = { axis: 0 | 1 | 2; layer: -1 | 1; dir: -1 | 1 };
+type Face = { n: Vec; tone: number };
+type Cubie = { p: Vec; faces: Face[] };
 
-const HALF_W = 24;
-const HALF_H = 12;
-const RISE = 22;
+const NORMALS: Vec[] = [
+  [0, 1, 0],
+  [1, 0, 0],
+  [0, 0, 1],
+  [0, -1, 0],
+  [-1, 0, 0],
+  [0, 0, -1],
+];
 
 const ink = (percent: number) =>
   `color-mix(in srgb, hsl(var(--foreground)) ${percent}%, hsl(var(--card)))`;
 const clay = (percent: number) =>
   `color-mix(in srgb, hsl(var(--brand)) ${percent}%, hsl(var(--card)))`;
 
-/** Screen position of the top corner of a block's lid. `level` counts from the ground. */
-function origin(row: number, col: number, level: number) {
-  return { x: (row - col) * HALF_W, y: (row + col) * HALF_H - level * RISE };
+// One colour per side of the cube, in the order of NORMALS: clay on top, ink elsewhere.
+const TONES = [clay(88), ink(20), ink(8), clay(46), ink(34), ink(48)];
+const BODY = "hsl(var(--background))";
+
+const SCRAMBLE: Move[] = [
+  { axis: 0, layer: 1, dir: 1 },
+  { axis: 1, layer: 1, dir: 1 },
+  { axis: 2, layer: 1, dir: -1 },
+  { axis: 0, layer: -1, dir: 1 },
+  { axis: 1, layer: -1, dir: -1 },
+  { axis: 2, layer: -1, dir: 1 },
+  { axis: 1, layer: 1, dir: 1 },
+];
+
+type Step = { wait: number } | { move: Move; duration: number };
+
+// Hold solved, scramble briskly, pause, then undo the scramble one slow turn at a time.
+const TIMELINE: Step[] = [
+  { wait: 2600 },
+  ...SCRAMBLE.map((move) => ({ move, duration: 620 })),
+  { wait: 1000 },
+  ...[...SCRAMBLE].reverse().flatMap((move): Step[] => [
+    { move: { ...move, dir: -move.dir as -1 | 1 }, duration: 1500 },
+    { wait: 280 },
+  ]),
+  { wait: 3200 },
+];
+
+function solved(): Cubie[] {
+  const cubies: Cubie[] = [];
+  for (const x of [-1, 0, 1])
+    for (const y of [-1, 0, 1])
+      for (const z of [-1, 0, 1]) {
+        const p: Vec = [x, y, z];
+        cubies.push({
+          p,
+          faces: NORMALS.map((n, tone) => ({
+            n,
+            // Only faces on the outside of the cube carry a colour.
+            tone: p[0] * n[0] + p[1] * n[1] + p[2] * n[2] === 1 ? tone : -1,
+          })),
+        });
+      }
+  return cubies;
 }
 
-function Block({ row, col, level, tone }: { row: number; col: number; level: number; tone: (p: number) => string }) {
-  const { x, y } = origin(row, col, level + 1);
-  const lid = `${x},${y} ${x + HALF_W},${y + HALF_H} ${x},${y + 2 * HALF_H} ${x - HALF_W},${y + HALF_H}`;
-  const left = `${x - HALF_W},${y + HALF_H} ${x},${y + 2 * HALF_H} ${x},${y + 2 * HALF_H + RISE} ${x - HALF_W},${y + HALF_H + RISE}`;
-  const right = `${x + HALF_W},${y + HALF_H} ${x},${y + 2 * HALF_H} ${x},${y + 2 * HALF_H + RISE} ${x + HALF_W},${y + HALF_H + RISE}`;
-  return (
-    <g>
-      <polygon points={left} fill={tone(tone === clay ? 62 : 10)} />
-      <polygon points={right} fill={tone(tone === clay ? 44 : 4)} />
-      <polygon points={lid} fill={tone(tone === clay ? 88 : 18)} />
-    </g>
+function rotate([x, y, z]: Vec, axis: number, angle: number): Vec {
+  const c = Math.cos(angle);
+  const s = Math.sin(angle);
+  if (axis === 0) return [x, y * c - z * s, y * s + z * c];
+  if (axis === 1) return [x * c + z * s, y, -x * s + z * c];
+  return [x * c - y * s, x * s + y * c, z];
+}
+
+const snap = (v: Vec): Vec => [Math.round(v[0]), Math.round(v[1]), Math.round(v[2])];
+
+function applyMove(cubies: Cubie[], move: Move): Cubie[] {
+  const angle = (move.dir * Math.PI) / 2;
+  return cubies.map((cubie) =>
+    cubie.p[move.axis] !== move.layer
+      ? cubie
+      : {
+          p: snap(rotate(cubie.p, move.axis, angle)),
+          faces: cubie.faces.map((face) => ({ ...face, n: snap(rotate(face.n, move.axis, angle)) })),
+        }
   );
 }
+
+const SCALE = 38;
+/** Isometric projection, looking down the (1, 1, 1) diagonal. */
+const project = ([x, y, z]: Vec) =>
+  `${((x - z) * 0.866 * SCALE).toFixed(1)},${(((x + z) * 0.5 - y) * SCALE).toFixed(1)}`;
+
+function polygons(cubies: Cubie[], turning: { move: Move; angle: number } | null) {
+  const out: { key: string; points: string; fill: string; depth: number }[] = [];
+  cubies.forEach((cubie, index) => {
+    const spin = (v: Vec) =>
+      turning && cubie.p[turning.move.axis] === turning.move.layer
+        ? rotate(v, turning.move.axis, turning.angle)
+        : v;
+    cubie.faces.forEach((face, f) => {
+      const n = spin(face.n);
+      // Skip faces pointing away from the viewer.
+      if (n[0] + n[1] + n[2] <= 0.01) return;
+      const [u, v] = [0, 1, 2].filter((axis) => face.n[axis] === 0);
+      const corners = (
+        [
+          [-1, -1],
+          [1, -1],
+          [1, 1],
+          [-1, 1],
+        ] as const
+      ).map(([a, b]) => {
+        const corner: Vec = [
+          cubie.p[0] + face.n[0] * 0.5,
+          cubie.p[1] + face.n[1] * 0.5,
+          cubie.p[2] + face.n[2] * 0.5,
+        ];
+        corner[u] += a * 0.5;
+        corner[v] += b * 0.5;
+        return spin(corner);
+      });
+      const centre = spin([
+        cubie.p[0] + face.n[0] * 0.5,
+        cubie.p[1] + face.n[1] * 0.5,
+        cubie.p[2] + face.n[2] * 0.5,
+      ]);
+      out.push({
+        key: `${index}-${f}`,
+        points: corners.map(project).join(" "),
+        fill: face.tone < 0 ? BODY : TONES[face.tone],
+        depth: centre[0] + centre[1] + centre[2],
+      });
+    });
+  });
+  // Paint far faces first.
+  return out.sort((a, b) => a.depth - b.depth);
+}
+
+const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
 export function HeroArt({ className }: { className?: string }) {
-  const size = HEIGHTS.length;
-  // Paint back to front so nearer blocks cover the ones behind.
-  const plots = HEIGHTS.flatMap((line, row) => line.map((height, col) => ({ row, col, height }))).sort(
-    (a, b) => a.row + a.col - (b.row + b.col)
-  );
-  const landing = origin(PLACING.row, PLACING.col, HEIGHTS[PLACING.row][PLACING.col]);
-  const hover = HEIGHTS[PLACING.row][PLACING.col] + PLACING.lift;
+  const svg = useRef<SVGSVGElement>(null);
+  const cube = useRef<Cubie[]>(solved());
+  const turning = useRef<{ move: Move; angle: number } | null>(null);
+  const [, redraw] = useState(0);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let visible = true;
+    const observer = new IntersectionObserver(([entry]) => (visible = entry.isIntersecting));
+    if (svg.current) observer.observe(svg.current);
+
+    let frame = 0;
+    let step = 0;
+    let elapsed = 0;
+    let last = performance.now();
+
+    const tick = (now: number) => {
+      const delta = Math.min(now - last, 100);
+      last = now;
+      if (visible && !document.hidden) {
+        elapsed += delta;
+        const current = TIMELINE[step];
+        const length = "wait" in current ? current.wait : current.duration;
+        if ("move" in current) {
+          const progress = Math.min(elapsed / length, 1);
+          turning.current = { move: current.move, angle: ease(progress) * current.move.dir * (Math.PI / 2) };
+          if (progress === 1) {
+            cube.current = applyMove(cube.current, current.move);
+            turning.current = null;
+          }
+          redraw((n) => n + 1);
+        }
+        if (elapsed >= length) {
+          elapsed = 0;
+          step = (step + 1) % TIMELINE.length;
+        }
+      }
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
+  }, []);
+
+  const ground = (a: number, b: number): Vec => [a, -1.5, b];
 
   return (
     <svg
-      viewBox="-162 -86 324 252"
+      ref={svg}
+      viewBox="-162 -118 324 252"
       aria-hidden
       className={cn("block bg-card", className)}
       strokeLinejoin="round"
       strokeLinecap="round"
     >
       {/* The plot grid on the ground. */}
-      <g fill="none" stroke={ink(16)} strokeWidth={1}>
-        {Array.from({ length: size + 1 }, (_, n) => {
-          const a = origin(n, 0, 0);
-          const b = origin(n, size, 0);
-          const c = origin(0, n, 0);
-          const d = origin(size, n, 0);
-          return (
-            <path key={n} d={`M${a.x} ${a.y}L${b.x} ${b.y}M${c.x} ${c.y}L${d.x} ${d.y}`} />
-          );
-        })}
+      <g fill="none" stroke={ink(14)} strokeWidth={1}>
+        {[-2.5, -1.5, -0.5, 0.5, 1.5, 2.5].map((n) => (
+          <path
+            key={n}
+            d={`M${project(ground(n, -2.5))}L${project(ground(n, 2.5))}M${project(ground(-2.5, n))}L${project(ground(2.5, n))}`}
+          />
+        ))}
       </g>
-
-      <g stroke={ink(58)} strokeWidth={1.2}>
-        {plots.flatMap(({ row, col, height }) =>
-          Array.from({ length: height }, (_, level) => (
-            <Block key={`${row}-${col}-${level}`} row={row} col={col} level={level} tone={ink} />
-          ))
-        )}
-      </g>
-
-      {/* Guides from the hovering block down to where it lands. */}
-      <g fill="none" stroke="hsl(var(--brand))" strokeWidth={1.2} strokeDasharray="2 5">
-        {[-HALF_W, 0, HALF_W].map((dx) => {
-          const dy = dx === 0 ? 2 * HALF_H : HALF_H;
-          return (
-            <path
-              key={dx}
-              d={`M${landing.x + dx} ${landing.y + dy - (PLACING.lift - 1) * RISE}V${landing.y + dy}`}
-            />
-          );
-        })}
-      </g>
-      <g stroke="hsl(var(--brand))" strokeWidth={1.2}>
-        <Block row={PLACING.row} col={PLACING.col} level={hover} tone={clay} />
+      <g stroke={ink(60)} strokeWidth={1.2}>
+        {polygons(cube.current, turning.current).map((polygon) => (
+          <polygon key={polygon.key} points={polygon.points} fill={polygon.fill} />
+        ))}
       </g>
     </svg>
   );

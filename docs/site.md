@@ -12,7 +12,7 @@ Warm charcoal and clay, in the spirit of Claude's dark interface, with custom-dr
 - A title stands alone: no kicker, number or label above it. Dates and other metadata go below.
 - Artwork is code, not image files:
   - `PostCover`: a pattern generated from a seed on a tinted background. Every post gets one automatically from its slug.
-  - `HeroArt`: the home page illustration, an isometric structure going up block by block with one clay block still being placed. The shape is a hand-set height map.
+  - `HeroArt`: the home page illustration, an isometric Rubik's cube that scrambles and then slowly solves itself. A client component; it stops off screen and for reduced motion.
   - `ProjectArt`: one line drawing per project, keyed by repo name. A new featured project needs a drawing added there (it falls back to a generated pattern).
   Draw in ink (`stroke-foreground`) on a `--tint-N` background, 2.5px round strokes, no gradients.
 - Screenshots appear only on a project's own page.
@@ -26,7 +26,7 @@ The home page is the whole introduction, in this order: hero and bio, latest wri
 
 Every page is rendered to HTML on the server and served from Vercel's CDN, refreshed every 10 minutes (`revalidate = 600`) so a scheduled post appears on time. Keep it that way:
 
-- A page stays a Server Component. `"use client"` is for a leaf that needs state or a browser API (the filters, copy buttons).
+- A page stays a Server Component. `"use client"` is for a leaf that needs state or a browser API (the filters, the hero cube, copy buttons).
 - Reading `cookies()`, `headers()`, or `searchParams` in a page makes it render per request and breaks the budget. Filter on the client instead.
 - Animation is CSS (`.fade-in`) and stops for reduced motion. The site ships no animation library.
 - Images go through `next/image` with real `sizes`. Only the first screen gets `priority`.
