@@ -76,6 +76,59 @@ export default async function Page() {
         <HeroMosaic />
       </section>
 
+      <Section id="writing" title="Writing" more={{ href: "/blog", label: "All posts" }}>
+        <div className="grid gap-x-12 gap-y-10 lg:grid-cols-[26rem_1fr]">
+          {latest && (
+            <Link
+              href={`/blog/${latest.slug}`}
+              className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-foreground/25"
+            >
+              <PostCover seed={latest.slug} cols={20} rows={9} className="aspect-[20/9] w-full border-b border-border" />
+              <div className="p-5">
+                <h3 className="font-serif text-2xl font-medium leading-snug tracking-tight text-foreground">
+                  {latest.metadata.title}
+                </h3>
+                <p className="mt-2 text-muted-foreground">{latest.metadata.summary}</p>
+                <p className="meta mt-3">
+                  <time dateTime={latest.metadata.publishedAt}>{formatDate(latest.metadata.publishedAt)}</time>
+                </p>
+              </div>
+            </Link>
+          )}
+          <ul className="rows">
+            {rest.slice(0, 5).map((post) => (
+              <li key={post.slug}>
+                <Link href={`/blog/${post.slug}`} className="row-link flex items-center gap-4 !py-2.5">
+                  <PostCover seed={post.slug} cols={3} rows={3} className="size-12 flex-none rounded-lg border border-border" />
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-foreground">{post.metadata.title}</span>
+                    <time dateTime={post.metadata.publishedAt} className="meta">
+                      {formatMonthYear(post.metadata.publishedAt)}
+                    </time>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Section>
+
+      <Section id="projects" title="Projects" more={{ href: "/projects", label: "All projects" }}>
+        <div className="grid gap-6 sm:grid-cols-2">
+          {DATA.projects.slice(0, 4).map((project) => (
+            <ProjectCard
+              key={project.title}
+              title={project.title}
+              href={`/projects/${projectSlug(project)}`}
+              description={project.description}
+              dates={project.dates}
+              slug={projectSlug(project)}
+              technologies={project.technologies}
+            />
+          ))}
+        </div>
+      </Section>
+
       <Section id="work" title="Experience">
         <div className="grid gap-x-12 gap-y-12 lg:grid-cols-[1fr_24rem]">
           <ol className="relative ml-1.5 space-y-9 border-l border-border">
@@ -120,59 +173,6 @@ export default async function Page() {
               ))}
             </dl>
           </div>
-        </div>
-      </Section>
-
-      <Section id="projects" title="Projects" more={{ href: "/projects", label: "All projects" }}>
-        <div className="grid gap-6 sm:grid-cols-2">
-          {DATA.projects.slice(0, 4).map((project) => (
-            <ProjectCard
-              key={project.title}
-              title={project.title}
-              href={`/projects/${projectSlug(project)}`}
-              description={project.description}
-              dates={project.dates}
-              slug={projectSlug(project)}
-              technologies={project.technologies}
-            />
-          ))}
-        </div>
-      </Section>
-
-      <Section id="writing" title="Writing" more={{ href: "/blog", label: "All posts" }}>
-        <div className="grid gap-x-12 gap-y-10 lg:grid-cols-[26rem_1fr]">
-          {latest && (
-            <Link
-              href={`/blog/${latest.slug}`}
-              className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-foreground/25"
-            >
-              <PostCover seed={latest.slug} cols={20} rows={9} className="aspect-[20/9] w-full border-b border-border" />
-              <div className="p-5">
-                <h3 className="font-serif text-2xl font-medium leading-snug tracking-tight text-foreground">
-                  {latest.metadata.title}
-                </h3>
-                <p className="mt-2 text-muted-foreground">{latest.metadata.summary}</p>
-                <p className="meta mt-3">
-                  <time dateTime={latest.metadata.publishedAt}>{formatDate(latest.metadata.publishedAt)}</time>
-                </p>
-              </div>
-            </Link>
-          )}
-          <ul className="rows">
-            {rest.slice(0, 5).map((post) => (
-              <li key={post.slug}>
-                <Link href={`/blog/${post.slug}`} className="row-link flex items-center gap-4 !py-2.5">
-                  <PostCover seed={post.slug} cols={3} rows={3} className="size-12 flex-none rounded-lg border border-border" />
-                  <span className="min-w-0 flex-1">
-                    <span className="block text-foreground">{post.metadata.title}</span>
-                    <time dateTime={post.metadata.publishedAt} className="meta">
-                      {formatMonthYear(post.metadata.publishedAt)}
-                    </time>
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
         </div>
       </Section>
 
