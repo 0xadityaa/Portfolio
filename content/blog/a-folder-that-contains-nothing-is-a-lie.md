@@ -1,13 +1,12 @@
 ---
 title: A Folder That Contains Nothing Is a Lie
-publishedAt: '2026-10-25T13:00:00Z'
+publishedAt: '2026-10-10T05:28:22Z'
 summary: 'Folders make you decide where something belongs before you know where you''ll need it. I made that bet in a side project and it broke the whole point of it.'
 tags:
   - architecture
   - design
   - data-modeling
   - ai
-preview: true
 ---
 
 Have you ever noticed that Gmail doesn't have folders?
