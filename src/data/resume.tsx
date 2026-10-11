@@ -20,26 +20,26 @@ export const DATA = {
     docs: "https://gethivemind.xyz/docs",
     npm: "https://www.npmjs.com/package/@get-hivemind/cli",
     paragraphs: [
-      "LLMs are stateless, and your agents have the memory of a goldfish. Hivemind is the context engine I'm building to fix that: a memory layer built on SOTA retrieval techniques that sits under Claude Code, Cursor, ChatGPT and your own agents, and feeds each one exactly the context it needs. Agentic infra, shipped as a SaaS.",
-      "Under the hood it's hybrid search (BM25 plus embeddings), RRF fusion and a cross-encoder rerank, knapsack-packed into your token budget, and if nothing's relevant it sends nothing. There's a dashboard that shows exactly what got sent to the model and what got cut, and it plugs in everywhere: MCP for 13 coding tools, a browser extension for chat sites, GitHub and Notion sync, and an SDK for your own agents.",
+      "LLMs are stateless, and your agents have the memory of a goldfish. You explain your stack to Claude Code, then to Cursor, then to ChatGPT, and tomorrow you do it all again. Hivemind is the context engine I'm building so you only say it once: one memory layer, built on SOTA retrieval techniques, sitting under every agent you use and handing each one just the context it needs. Agentic infra, shipped as a SaaS.",
+      "For the retrieval nerds: hybrid search, rank fusion and a cross-encoder rerank, then the winners get packed into your token budget like a carry-on. Nothing relevant? It sends nothing. A dashboard shows you what the model actually saw and what got cut, and it plugs in wherever you already work: MCP for 13 coding tools, a browser extension for chat sites, GitHub and Notion sync, and an SDK for your own agents.",
     ],
     // Measured figures from Hivemind's benchmark record. Each label carries its conditions.
     stats: [
       {
         value: "98.4%",
-        label: "of answers right on LongMemEval's single-session questions (oracle split), a benchmark it was never tuned on",
+        label: "right on LongMemEval's single-session questions (oracle split). Never tuned on it.",
       },
       {
         value: "1.7x",
-        label: "the best published score on MemoryAgentBench's conflicting-facts multi-hop split: 10% against 6%, on 100 questions",
+        label: "the best published score on MemoryAgentBench's conflicting-facts, multi-hop split. 10% vs 6%, 100 questions.",
       },
       {
         value: "40x",
-        label: "fewer tokens than pasting the whole conversation: 465 a question against 18,853 on LoCoMo",
+        label: "fewer tokens than dumping the whole chat in. 465 a question vs 18,853 on LoCoMo.",
       },
       {
         value: "20/20",
-        label: "facts told to one tool were found from another, across chat, MCP and CLI, in a 20-task cross-tool test",
+        label: "Tell one tool, ask another. 20 for 20 across chat, MCP and CLI.",
       },
     ],
     stack: ["TypeScript", "Cloudflare", "Bun", "React", "MCP"],
