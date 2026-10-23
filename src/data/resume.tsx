@@ -3,25 +3,25 @@ export const DATA = {
   initials: "AN",
   url: "https://www.0xadityaa.dev",
   repo: "https://github.com/0xadityaa/Portfolio",
-  role: "Full stack engineer",
+  role: "Software engineer",
   location: "Toronto, ON",
   locationLink: "https://www.google.com/maps/place/toronto",
   description:
-    "Full stack engineer in Toronto who can't leave things alone until I know how they work. I build stuff and write about what I figure out.",
+    "Software engineer in Toronto building backend and event-driven systems, plus Hivemind, shared memory and checked handoffs for AI tools.",
   about: [
-    "I'm a full stack engineer and aspiring solutions architect who can't leave things alone until I know how they work. I build stuff with equal parts brain and heart, and I think of engineering as architecture, just with fewer hard hats.",
-    "To me, building is more than making code work. It's about exploring systems, understanding the problem at hand, and seeing how it shapes the architecture around it. I'm endlessly curious about how people use everyday apps, what makes them stick, and how a codebase evolves as it scales.",
+    "I'm a software engineer in Toronto, mostly on the backend: event-driven services, data pipelines, and the plumbing that keeps them honest. I can't leave a system alone until I know how it works, and then I write about it.",
+    "At Enercare I took a discount rules engine from design doc to production as the only engineer on it. It now prices offers for 90,000+ customers, and yes, I carry its pager. Before that I helped build Compass, our CRM, from nothing to production. After hours I build Hivemind, so my AI tools stop forgetting what I told them.",
   ],
   // What Aditya is building now. Facts come from gethivemind.xyz and its docs.
   building: {
     name: "Hivemind",
-    tagline: "A context engine for your agents. One memory for every AI you use.",
+    tagline: "One memory for every AI you use, and handoffs you can check.",
     href: "https://gethivemind.xyz",
     docs: "https://gethivemind.xyz/docs",
     npm: "https://www.npmjs.com/package/@get-hivemind/cli",
     paragraphs: [
       "LLMs are stateless, and your agents have the memory of a goldfish. You explain your stack to Claude Code, then to Cursor, then to ChatGPT, and tomorrow you do it all again. Hivemind is the context engine I'm building so you only say it once: one memory layer, built on SOTA retrieval techniques, sitting under every agent you use and handing each one just the context it needs. Agentic infra, shipped as a SaaS.",
-      "For the retrieval nerds: hybrid search, rank fusion and a cross-encoder rerank, then the winners get packed into your token budget like a carry-on. Nothing relevant? It sends nothing. A dashboard shows you what the model actually saw and what got cut, and it plugs in wherever you already work: MCP for 13 coding tools, a browser extension for chat sites, GitHub and Notion sync, and an SDK for your own agents.",
+      "For the retrieval nerds: hybrid search, rank fusion and a cross-encoder rerank, then the winners get packed into your token budget like a carry-on. Nothing relevant? It sends nothing. A dashboard shows you what the model actually saw and what got cut, and it plugs in wherever you already work: MCP for 13 coding tools, a browser extension for chat sites, GitHub and Notion sync, and an SDK for your own agents. Newest bit: post a task in one tool, another picks it up, and you get a receipt of what was actually checked before you accept it.",
     ],
     // Measured figures from Hivemind's benchmark record. Each label carries its conditions.
     stats: [
@@ -96,6 +96,10 @@ export const DATA = {
         name: "RSS",
         url: "/rss.xml",
       },
+      Resume: {
+        name: "Résumé",
+        url: "/resume.pdf",
+      },
       email: {
         name: "Send Email",
         url: "mailto:negandhi.aditya@gmail.com",
@@ -112,7 +116,7 @@ export const DATA = {
       start: "Jul 2025",
       end: "Present",
       description:
-        "Full stack, all the way down: TypeScript, Nest.js, Azure, React. Mostly I'm dragging legacy systems into a reliable, event-driven future.",
+        "Started as a founding engineer on Compass, our in-house CRM: UI, Azure infra, and production in 8 months, now used by 150+ retention agents. Then went solo on Pricing & Offers and built the Discount Rules Engine, which checks each customer's eligibility per channel and hands Salesforce and Compass offers in the shape they expect, for 90,000+ customers. TypeScript, Nest.js, Azure, React.",
     },
     {
       company: "Architech",
@@ -120,7 +124,7 @@ export const DATA = {
       location: "Toronto, ON",
       title: "Software Development Mentee",
       start: "Jan 2025",
-      end: "May 2025",
+      end: "Jun 2025",
       description:
         "Built AI customer support automation with LangGraph and ReAct, got the LLM giving sharper answers with semantic search (OpenAI embeddings, pgvector, HNSW), and set up CI/CD so our Python and React apps stopped needing a babysitter.",
     },
@@ -139,14 +143,14 @@ export const DATA = {
     {
       school: "Humber Polytechnic",
       href: "https://humber.ca/",
-      degree: "MS Information Technology",
+      degree: "Post-Graduate Certificate, IT Solutions",
       start: "Jan 2023",
       end: "Aug 2024",
     },
     {
       school: "GLS University",
       href: "https://www.glsuniversity.ac.in/",
-      degree: "BS Computer Applications",
+      degree: "Bachelor of Computer Applications",
       start: "Apr 2019",
       end: "Aug 2022",
     },

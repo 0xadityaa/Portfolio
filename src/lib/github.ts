@@ -209,7 +209,7 @@ Returning mock GitHub data.
 
     return {
       name: user.name || "Aditya Negandhi",
-      bio: user.bio || "Full Stack Engineer & aspiring Solutions Architect.",
+      bio: user.bio || "Software engineer. Backend, event-driven systems, AI infra.",
       company: user.company || null,
       location: user.location || null,
       avatarUrl: user.avatarUrl || "/images/profile/avatar.png",
@@ -323,7 +323,7 @@ function getMockProfile(): GitHubBuilderProfile {
 
   return {
     name: "Aditya Negandhi (Mock)",
-    bio: "Full Stack Engineer & aspiring Solutions Architect.",
+    bio: "Software engineer. Backend, event-driven systems, AI infra.",
     company: null,
     location: "Toronto, ON",
     avatarUrl: "/images/profile/avatar.png",

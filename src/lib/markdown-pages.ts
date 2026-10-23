@@ -35,6 +35,7 @@ const contact = () => {
 - GitHub: ${social.GitHub.url}
 - LinkedIn: ${social.LinkedIn.url}
 - X: ${social.X.url}
+- Résumé (PDF): ${abs(social.Resume.url)}
 - RSS: ${abs("/rss.xml")}`;
 };
 

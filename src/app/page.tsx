@@ -62,6 +62,7 @@ export default async function Page() {
             {[
               { label: "LinkedIn", href: DATA.contact.social.LinkedIn.url },
               { label: "GitHub", href: DATA.contact.social.GitHub.url },
+              { label: "Résumé", href: DATA.contact.social.Resume.url },
             ].map((item) => (
               <a key={item.label} href={item.href} target="_blank" rel="noopener noreferrer" className="link">
                 {item.label}
