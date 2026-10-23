@@ -124,7 +124,7 @@ export const DATA = {
       location: "Toronto, ON",
       title: "Software Development Mentee",
       start: "Jan 2025",
-      end: "May 2025",
+      end: "Jun 2025",
       description:
         "Built AI customer support automation with LangGraph and ReAct, got the LLM giving sharper answers with semantic search (OpenAI embeddings, pgvector, HNSW), and set up CI/CD so our Python and React apps stopped needing a babysitter.",
     },
