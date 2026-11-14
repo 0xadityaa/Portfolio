@@ -20,11 +20,11 @@ Reading 50 outputs still beats chasing a metric early on. This is for when you'r
 
 ## Singles
 
-A real 3-point gain, 100 eval examples: the better system looked worse or tied in 32% of runs. So one eval in three can't even get the direction right.
+A real 3-point gain, 100 eval examples: the better system looked worse or tied in 32% of runs. One eval in three can't even get the direction right.
 
 ---
 
-Confidence interval on a 3-point gain at 100 examples: 21 points wide. At 500: 9.6. At 1,000: 6.8. So "up 3" is a dot inside a very wide band.
+Confidence interval on a 3-point gain at 100 examples: 21 points wide. At 500: 9.6. At 1,000: 6.8. "Up 3" is a dot inside a very wide band.
 
 ---
 
@@ -32,7 +32,7 @@ Before: two separate totals, a clear win 2.2% of the time. After: the same data 
 
 ---
 
-Half the gap, four times the examples. At 80% power I needed 202 per system for 10 points, 933 for 5, and 2,712 for 3. So a 50-example eval can't see a 3-point change.
+Half the gap, four times the examples. At 80% power I needed 202 per system for 10 points, 933 for 5, and 2,712 for 3. A 50-example eval can't see a 3-point change.
 
 ---
 

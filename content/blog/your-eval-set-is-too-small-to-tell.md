@@ -12,7 +12,7 @@ draft: true
 
 Your score goes from 80 to 83 on 100 examples. The better system lost or tied one run in three.
 
-Picture this, and yes, it's made up: you tweak a prompt, rerun your eval, and ship the three points. I wanted to know how often that's a real win, so I simulated it. Two systems (seeded [NumPy](https://numpy.org/doc/stable/reference/random/generator.html) draws), one truly better by 3 points, 83% against 80%. Eval sets from 25 to 1,000 examples, five thousand runs each. The code and raw output are [in the repo](https://github.com/0xadityaa/Portfolio/tree/main/content/research/your-eval-set-is-too-small-to-tell).
+A made-up but very ordinary afternoon: you tweak a prompt, rerun your eval, and ship the three points. I wanted to know how often that's a real win, so I simulated it. Two systems (seeded [NumPy](https://numpy.org/doc/stable/reference/random/generator.html) draws), one truly better by 3 points, 83% against 80%. Eval sets from 25 to 1,000 examples, five thousand runs each. The code and raw output are [in the repo](https://github.com/0xadityaa/Portfolio/tree/main/content/research/your-eval-set-is-too-small-to-tell).
 
 **A 50 to 100 example eval can't tell a 3-point improvement from noise, and running both systems on the same examples is the cheapest fix.** It won't make 100 examples enough. It makes them go about twice as far.
 
