@@ -1,0 +1,13 @@
+[
+  {"id":"filesystem","cmd":"npx","args":["-y","@modelcontextprotocol/server-filesystem@2.3.0","/private/tmp/claude-501/mcp-sandbox"]},
+  {"id":"memory","cmd":"npx","args":["-y","@modelcontextprotocol/server-memory@2.1.1"]},
+  {"id":"sequential-thinking","cmd":"npx","args":["-y","@modelcontextprotocol/server-sequential-thinking@2.1.1"]},
+  {"id":"everything","cmd":"npx","args":["-y","@modelcontextprotocol/server-everything@2.3.0"]},
+  {"id":"github","cmd":"npx","args":["-y","@modelcontextprotocol/server-github@2025.4.8"],"env":{"GITHUB_PERSONAL_ACCESS_TOKEN":"placeholder-not-a-real-token"}},
+  {"id":"playwright","cmd":"npx","args":["-y","@playwright/mcp@0.0.85"]},
+  {"id":"context7","cmd":"npx","args":["-y","@upstash/context7-mcp@4.7.0"]},
+  {"id":"chrome-devtools","cmd":"npx","args":["-y","chrome-devtools-mcp@1.13.0"]},
+  {"id":"fetch","cmd":"uvx","args":["mcp-server-fetch"]},
+  {"id":"git","cmd":"uvx","args":["mcp-server-git"]},
+  {"id":"time","cmd":"uvx","args":["mcp-server-time"]}
+]
