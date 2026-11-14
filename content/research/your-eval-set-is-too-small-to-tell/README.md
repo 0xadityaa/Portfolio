@@ -34,3 +34,28 @@ Seed `20261114`, NumPy 2.5.4, Python 3.12.8. It takes a few minutes on an Apple 
 ## Limits of the simulation
 
 Binary right/wrong scores only. Examples are exchangeable draws, so there is no clustering and no LLM-judge noise. Those only make real evals noisier than this.
+
+## Tables cut from the post
+
+Outcomes by eval size, true 83% against 80%, independent samples (5,000 runs each):
+
+| Examples | A scores higher | Tie | A scores lower | 95% CI width of A minus B |
+| --- | --- | --- | --- | --- |
+| 25 | 53.7% | 13.9% | 32.5% | 41.4 points |
+| 50 | 59.7% | 9.3% | 31.0% | 29.7 points |
+| 100 | 67.9% | 6.1% | 25.9% | 21.2 points |
+| 200 | 75.6% | 3.5% | 20.9% | 15.1 points |
+| 500 | 88.0% | 1.4% | 10.6% | 9.6 points |
+| 1,000 | 95.5% | 0.5% | 3.9% | 6.8 points |
+
+Same 83 against 80, same examples for both systems (correlation 0.5), analysed unpaired and paired:
+
+| Examples | CI width, unpaired | CI width, paired | Narrower by | CI above zero, unpaired | CI above zero, paired | McNemar |
+| --- | --- | --- | --- | --- | --- | --- |
+| 50 | 29.7 | 20.7 | 30% | 1.1% | 7.2% | 6.9% |
+| 100 | 21.1 | 14.9 | 30% | 2.2% | 11.1% | 11.7% |
+| 200 | 15.1 | 10.6 | 30% | 4.1% | 17.4% | 19.1% |
+| 500 | 9.6 | 6.8 | 29% | 13.7% | 38.8% | 40.1% |
+| 1,000 | 6.8 | 4.8 | 29% | 36.3% | 67.8% | 68.5% |
+
+Ignoring the pairing on correlated data is worse than the independent case (2.2% against 6.9% at 100 examples): the interval comes out too wide, so the test is too timid.
