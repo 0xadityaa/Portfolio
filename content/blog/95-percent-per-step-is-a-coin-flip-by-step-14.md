@@ -14,7 +14,7 @@ draft: true
 
 An agent that gets every step right 95% of the time sounds like an A student. Give it fourteen steps in a row and it finishes without a single mistake 49% of the time.
 
-Picture this, and yes, it's made up: 0.95 to the power of 14 is 0.49. A coin flip, from a model you'd happily call reliable.
+The arithmetic is one line: 0.95 to the power of 14 is 0.49. A coin flip, from a model you'd happily call reliable.
 
 In [Do You Really Need AI Agents?](/blog/do-you-really-need-agents) I said a fair comparison would run one task both ways and report tokens, seconds, and error rate. This is a partial sequel, and only about the error rate. I wrote a seeded simulation of a many-step task and tried five ways of handling failure. It's a model, not a measurement of any real LLM.
 

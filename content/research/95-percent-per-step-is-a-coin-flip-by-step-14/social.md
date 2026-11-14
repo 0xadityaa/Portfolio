@@ -16,7 +16,7 @@ Even a 99% agent is a coin flip at step 69. 95% gets there at step 13.5. 90% at 
 ---
 40 steps at 90% per step. No retries: 1.5% finish. Retry twice, transient failures: 95.8%. Half the failures persistent: 12.6%. Whether the failure goes away matters more than how many retries you allow.
 ---
-Restart from step 1 on failure: 57.8% finish. Resume from a checkpoint every 5 steps: 100.0%. Same model, same 95% per step, 40 steps. Only where the run restarts changed. So save state.
+Restart from step 1 on failure: 57.8% finish. Resume from a checkpoint every 5 steps: 100.0%. Same model, same 95% per step, 40 steps. Only where the run restarts changed. Save state.
 ---
 At 90% per step over 40 steps, a non-idempotent tool caused 2.16 duplicate side effects per run. With idempotency keys: zero. A double charge is a design bug, not a model bug.
 ---
