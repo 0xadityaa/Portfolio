@@ -14,15 +14,15 @@ My rule: count a server's tools before you connect it. The client, raw JSON and 
 
 ## Singles
 
-23,895 tokens. That's what ten MCP servers send with every request, before your question. Next to a 2,000-token prompt, the tools are 92% of the input. So the menu outweighs the order.
+23,895 tokens. That's what ten MCP servers send with every request, before your question. Next to a 2,000-token prompt, the tools are 92% of the input. The menu outweighs the order.
 ---
-Which costs more to describe, chrome-devtools or fetch? 6,751 tokens versus 296. Same protocol, 23x apart. So check the number before you add a server.
+Which costs more to describe, chrome-devtools or fetch? 6,751 tokens versus 296. Same protocol, 23x apart. Check before you add one.
 ---
-Ten MCP servers, 20,000 calls a day, Sonnet 5.5: $28,674 a month just to describe the tools. With cache hits, $1,433.70. A 95% discount, not a zero. So budget for it.
+Ten MCP servers, 20,000 calls a day, Sonnet 5.5: $28,674 a month just to describe the tools. With cache hits, $1,433.70. A 95% discount, not a zero.
 ---
-Anthropic's tool search reports 77K tokens of tools down to 8.7K. Same ratio on my ten servers: 23,895 down to about 3,600. That's arithmetic, not something I ran. So treat it as a promise.
+Anthropic's tool search reports 77K tokens of tools down to 8.7K. Same ratio on my ten servers: 23,895 down to about 3,600. That's arithmetic on their ratio, not a measurement.
 ---
-My ten-server setup exposes 143 tools. Anthropic's docs say tool selection degrades past 30 to 50. The token bill you can see. The wrong tool pick you won't. So count both.
+My ten-server setup exposes 143 tools. Anthropic's docs say tool selection degrades past 30 to 50. The token bill you can see. The wrong tool pick you won't.
 
 ## Substack Note
 
