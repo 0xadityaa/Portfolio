@@ -2,8 +2,8 @@
 title: Prompt Caching Rewards Boring Prompts
 publishedAt: '2026-11-14'
 summary: >-
-  Prompt caching cut input cost 88% in my simulation, but only with a static-first
-  prompt and steady traffic. Below 3 requests an hour it costs more.
+  Caching cut simulated input cost 88% with a static-first prompt and steady
+  traffic. Under 3 requests an hour, a 5-minute cache costs more.
 tags:
   - ai
   - llm
