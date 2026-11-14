@@ -1,0 +1,31 @@
+Reserve for activations/CUDA/framework (assumed): 2.0 GiB. Context per user: 32,768 tokens, fp16 KV cache.
+Bits per weight (group 128): fp16 = 16.00000, int8 g128 = 8.18750, int4 g128 = 4.15625
+
+Llama-3.1-8B: 8.03B params; block linear 6.98B (86.9%); kept fp16 (embeddings, head, norms, biases) 1.05B (13.1%)
+  KV per token 128 KiB; one user at 32,768 tokens = 4.00 GiB
+  precision  weights GiB  saved vs fp16 | 24 GB: room GiB, users@32k | 48 GB: room GiB, users@32k | 80 GB: room GiB, users@32k
+  fp16              15.0             0% |     5.4    1       |    27.7    6       |    57.5   14      
+  int8 g128          8.6            42% |    11.7    2       |    34.1    8       |    63.9   15      
+  int4 g128          5.3            64% |    15.0    3       |    37.4    9       |    67.2   16      
+
+Qwen2.5-14B: 14.77B params; block linear 13.21B (89.5%); kept fp16 (embeddings, head, norms, biases) 1.56B (10.5%)
+  KV per token 192 KiB; one user at 32,768 tokens = 6.00 GiB
+  precision  weights GiB  saved vs fp16 | 24 GB: room GiB, users@32k | 48 GB: room GiB, users@32k | 80 GB: room GiB, users@32k
+  fp16              27.5             0% |    -7.2   no       |    15.2    2       |    45.0    7      
+  int8 g128         15.5            44% |     4.9    0       |    27.2    4       |    57.0    9      
+  int4 g128          9.3            66% |    11.1    1       |    33.4    5       |    63.2   10      
+
+Qwen2.5-32B: 32.76B params; block linear 31.21B (95.2%); kept fp16 (embeddings, head, norms, biases) 1.56B (4.8%)
+  KV per token 256 KiB; one user at 32,768 tokens = 8.00 GiB
+  precision  weights GiB  saved vs fp16 | 24 GB: room GiB, users@32k | 48 GB: room GiB, users@32k | 80 GB: room GiB, users@32k
+  fp16              61.0             0% |   -40.7   no       |   -18.3   no       |    11.5    1      
+  int8 g128         32.6            47% |   -12.3   no       |    10.1    1       |    39.9    4      
+  int4 g128         18.0            71% |     2.4    0       |    24.7    3       |    54.5    6      
+
+Llama-3.1-70B: 70.55B params; block linear 68.45B (97.0%); kept fp16 (embeddings, head, norms, biases) 2.10B (3.0%)
+  KV per token 320 KiB; one user at 32,768 tokens = 10.00 GiB
+  precision  weights GiB  saved vs fp16 | 24 GB: room GiB, users@32k | 48 GB: room GiB, users@32k | 80 GB: room GiB, users@32k
+  fp16             131.4             0% |  -111.1   no       |   -88.7   no       |   -58.9   no      
+  int8 g128         69.2            47% |   -48.8   no       |   -26.5   no       |     3.3    0      
+  int4 g128         37.0            72% |   -16.7   no       |     5.7    0       |    35.5    3      
+

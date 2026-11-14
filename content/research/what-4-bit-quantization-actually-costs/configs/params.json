@@ -1,0 +1,26 @@
+{
+  "Llama-3.1-8B": {
+    "repo": "unsloth/Meta-Llama-3.1-8B",
+    "commit": "e9a141a2091ea561b96483212645a2a05e6f99fc",
+    "config_url": "https://huggingface.co/unsloth/Meta-Llama-3.1-8B/blob/e9a141a2091ea561b96483212645a2a05e6f99fc/config.json",
+    "parameters": 8030261248
+  },
+  "Qwen2.5-14B": {
+    "repo": "Qwen/Qwen2.5-14B",
+    "commit": "97e1e76335b7017d8f67c08a19d103c0504298c9",
+    "config_url": "https://huggingface.co/Qwen/Qwen2.5-14B/blob/97e1e76335b7017d8f67c08a19d103c0504298c9/config.json",
+    "parameters": 14770033664
+  },
+  "Qwen2.5-32B": {
+    "repo": "Qwen/Qwen2.5-32B",
+    "commit": "1818d35814b8319459f4bd55ed1ac8709630f003",
+    "config_url": "https://huggingface.co/Qwen/Qwen2.5-32B/blob/1818d35814b8319459f4bd55ed1ac8709630f003/config.json",
+    "parameters": 32763876352
+  },
+  "Llama-3.1-70B": {
+    "repo": "unsloth/Llama-3.1-70B",
+    "commit": "99f146c778e0de3b687d83191faf41e49198f2ca",
+    "config_url": "https://huggingface.co/unsloth/Llama-3.1-70B/blob/99f146c778e0de3b687d83191faf41e49198f2ca/config.json",
+    "parameters": 70553706496
+  }
+}

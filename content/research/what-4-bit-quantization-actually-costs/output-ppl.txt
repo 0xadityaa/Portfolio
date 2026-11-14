@@ -1,0 +1,11 @@
+WikiText-2 test: 8192 tokens scored in 8 windows of 1024
+
+weights                           perplexity   vs fp32  seconds
+fp32 (bf16 weights upcast)             17.17     +0.0%  138
+int8 tensor                            17.75     +3.4%  109
+int8 channel                           17.19     +0.1%  32
+int8 g128                              17.18     +0.1%  29
+int4 tensor                      10816107.81 +63007729.1%  28
+int4 channel                           31.76    +85.0%  50
+int4 g128                              20.49    +19.4%  64
+int4 tensor + keep 1% weights          20.89    +21.7%  84
