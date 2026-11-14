@@ -38,3 +38,6 @@ next-env.d.ts
 # local agent state
 .claude/settings.local.json
 .claude/worktrees/
+
+# Typefully API key (project-local config)
+.typefully/

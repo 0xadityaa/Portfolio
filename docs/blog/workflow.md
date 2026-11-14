@@ -53,7 +53,7 @@ To change the time after merging, edit `publishedAt` in a new pull request. To p
 
 ## 6. Cross-post
 
-The `Cross-post` action runs every 15 minutes. Once the post is live it publishes to every platform that has a secret, records each URL in the post's frontmatter, and opens one `crosspost` issue with a ready-made link for each manual platform. Details and failure handling: `docs/publishing.md`.
+The `Cross-post` action runs hourly. Once the post is live it publishes to every platform that has a secret, records each URL in the post's frontmatter, and opens one `crosspost` issue with a ready-made link for each manual platform. Details and failure handling: `docs/publishing.md`.
 
 ## Frontmatter
 

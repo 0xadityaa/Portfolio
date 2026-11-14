@@ -9,14 +9,29 @@ The site is the original; every other platform gets a copy with its canonical li
 | Medium | Manual: "Import a story" link in the checklist | A Medium account |
 | Substack | Manual, from the checklist | A Substack publication |
 | Hacker News | Manual and selective: prefilled submit link in the checklist | An HN account |
+| X, Substack Notes | Typefully drafts, cut from the post (see "Social posts") | `typefully` skill, API key |
 
 Why three of these are manual, with sources, is in `docs/research/distribution.md`. In short: Medium archived its API and issues no new tokens, and its rules forbid scripted access to the website; Substack has no publishing API; Hacker News has a read-only API and asks people to submit by hand. Each of these is a deliberate stop, so route around them only with a supported API.
 
-Free APIs that could be added next: Bluesky, Mastodon, LinkedIn.
+The channels that matter for now are X, Medium and Substack. LinkedIn is deliberately off the plan; Bluesky and Mastodon have free APIs if that changes.
+
+## Social posts (Typefully)
+
+Short-form posts on X and Substack Notes go through Typefully, drafted by an agent with the `typefully` skill (`.claude/skills/typefully/`, vendored from github.com/typefully/agent-skills; update by re-copying `skills/typefully/` from that repository). Account: social set `364514` (@0xadityaa), saved as the default.
+
+- Each social post is a cut of a published blog post and links to it on the site, so the site stays the original.
+- `docs/blog/style.md` applies: these go out under Aditya's name. Every post carries something real from the essay: a number, a table, a diagram, a code diff. No engagement bait.
+- What to cut from: the 2026 posts and anything newer. The 2024 to early-2025 explainers (Big O, JS internals, hoisting, spell checker, JSON parser, What are LLMs) stay on the site and are not turned into social posts.
+- The weekly shape: the essay as an X Article (`x_article`, its own draft, since X Articles can't share a draft), then single posts or short threads across the following days. A Substack Note rides in the same draft as its X post, as a single post (Notes take no threads).
+- Agents create drafts and may `--plan` them onto a date. Scheduling for real (`--schedule`) or publishing needs Aditya's explicit yes for that draft, the same gate as `/publish`.
+- Typefully's Substack support is Notes only. Newsletter issues are still the manual checklist above.
+- Check `social-sets:get` for `publishing_quota` before planning a week: the Free plan allows 10 posts a month, and two a day needs the Creator plan.
+
+The key: generate one at https://typefully.com/?settings=api and run `.claude/skills/typefully/scripts/typefully.js setup`, choosing the global location so the key lands in `~/.config/typefully/`, outside the repo. `.typefully/` is gitignored in case the local option is picked. For GitHub Actions later: `gh secret set TYPEFULLY_API_KEY`.
 
 ## How the Cross-post action decides
 
-`scripts/crosspost.mjs` runs every 15 minutes. A post is due on a platform when it is not a draft, its `publishedAt` has passed, it returns 200 on the site, it was published on or after `CROSSPOST_SINCE` (default 2026-10-01, so the older archive is left alone), and its frontmatter has no URL for that platform.
+`scripts/crosspost.mjs` runs hourly, at seven past. A post is due on a platform when it is not a draft, its `publishedAt` has passed, it returns 200 on the site, it was published on or after `CROSSPOST_SINCE` (default 2026-10-01, so the older archive is left alone), and its frontmatter has no URL for that platform.
 
 After publishing it writes the URL into the post's frontmatter and commits to `main`. That field is the record: a platform with a URL is never posted to again. Platforms that cannot be automated go into one issue per run, labelled `crosspost`, with the exact steps for each post; `crosspost_issue` in the frontmatter stops it being opened twice.
 

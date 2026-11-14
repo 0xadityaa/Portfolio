@@ -2,7 +2,8 @@ name: Cross-post
 # Syndicates posts once they are live on the site. See docs/publishing.md.
 on:
   schedule:
-    - cron: "7,22,37,52 * * * *"
+    # Hourly. The dev.to backlog has drained, so only the weekly post is left to send.
+    - cron: "7 * * * *"
   workflow_dispatch:
     inputs:
       dry_run:

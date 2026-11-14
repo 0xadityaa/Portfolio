@@ -86,4 +86,4 @@ jobs:
         run: |
           gh pr comment "$PR" --body "Approved and merged. Goes live **${{ steps.schedule.outputs.slot }}**.
 
-          At that time it appears on the site, in the RSS feed and in Markdown mode, and the Cross-post action syndicates it within about 15 minutes. To change the time, edit \`publishedAt\` in the post. To pull it, set \`draft: true\`."
+          At that time it appears on the site, in the RSS feed and in Markdown mode, and the Cross-post action syndicates it within the hour. To change the time, edit \`publishedAt\` in the post. To pull it, set \`draft: true\`."
