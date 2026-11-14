@@ -11,17 +11,17 @@ tags:
 draft: true
 ---
 
-Most RAG pipelines I read about cut documents into 512-token chunks with a bit of overlap. The reason is rarely a measurement. It's that a tutorial did, or a vendor's docs say [start with 512 tokens and 25% overlap](https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-chunk-documents), or the default was 800 and 400 and nobody touched it.
+Most RAG tutorials cut documents into 512-token chunks with a bit of overlap. The reason is rarely a measurement. It's that a tutorial did, or a vendor's docs say [start with 512 tokens and 25% overlap](https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-chunk-documents), or the default was 800 and 400 and nobody touched it.
 
 My [earlier post on retrieval](/blog/why-ai-tools-forget-you) asked which retriever finds the right note. This one asks how big the pieces should be, and I ran a sweep to find out. Five chunk sizes, two retrievers, two overlaps, 10,570 questions. Code, seed and raw output are [in the repo](https://github.com/0xadityaa/Portfolio/tree/main/content/research/chunk-size-is-a-hyperparameter-you-never-tuned).
 
-The claim I'll defend: **chunk size moves retrieval quality as much as the choice of retriever, and the best size depends on the retriever.** At a 2,000-token budget, chunk size swung recall by 5 points for BM25 and 39 for a small embedding model. The gap between the two retrievers, each at its best size, was 2 points.
+The claim I'll defend: **chunk size moves retrieval quality as much as the choice of retriever, and the best size depends on the retriever.** At a 2,000-token budget, chunk size swung recall by 5 points for BM25 and 6 for a small embedding model, over the sizes it can read in full (39 if you count sizes it has to truncate). The gap between the two retrievers, each at its best size, was 2 points.
 
 ## The short version
 
 - At a fixed number of chunks, bigger chunks look better for BM25 (recall@5 went from 76.6% at 64 tokens to 95.3% at 1,024). They also send 16 times more text to the model.
 - At an equal 2,000-token budget the picture changes. BM25 was flat from 128 to 512 tokens (91.1%, 92.2%, 91.7%). The embedding model peaked at 64 to 128 tokens (90.1%, 89.7%) and fell to 73.1% at 512.
-- At 2,000 tokens, BM25 at its best size beat the embedding model at its best size by 2.1 points. Choosing the wrong chunk size cost far more than choosing the wrong retriever.
+- At 2,000 tokens, BM25 at its best size beat the embedding model at its best size by 2.1 points. Choosing the wrong chunk size cost more than choosing the wrong retriever.
 - Adding 15% overlap helped small chunks by 4 to 5 points and large ones by under 4. It cost no extra tokens at a given k, only about 18% more chunks to index.
 
 ## What did I actually run?
