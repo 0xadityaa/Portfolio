@@ -1,0 +1,231 @@
+# cost_model.py, seed 20261114 , prices checked 2026-11-14
+
+## 1. Prices and cost per request (3,000 input + 500 output tokens)
+| model | input $/MTok | output $/MTok | cost per request |
+| --- | --- | --- | --- |
+| claude-haiku-5.5 | 0.1 | 0.5 | $0.00055 |
+| claude-opus-5.5 | 4.0 | 20.0 | $0.022 |
+| gpt-5.4-mini | 0.75 | 4.5 | $0.0045 |
+| gpt-5.4 | 2.5 | 15.0 | $0.015 |
+
+Anthropic (Haiku 5.5 vs Opus 5.5): expensive costs 40.0x the cheap one per request
+OpenAI (gpt-5.4-mini vs gpt-5.4): expensive costs 3.3x the cheap one per request
+
+## 2. Cost per useful answer = (attempt cost + failures x F) / successes
+ASSUMPTIONS: expensive success = 0.95; cheap success in [0.6, 0.8, 0.9]; every answer is delivered, a wrong one costs F.
+
+### Anthropic (Haiku 5.5 vs Opus 5.5)
+| F (cost of a wrong answer) | cheap @60% | cheap @80% | cheap @90% | expensive @95% | cheapest |
+| --- | --- | --- | --- | --- | --- |
+| $0 | $0.00092 | $0.00069 | $0.00061 | $0.023 | cheap (at 80%) |
+| $0.05 | $0.034 | $0.013 | $0.0062 | $0.026 | cheap (at 80%) |
+| $0.1 | $0.068 | $0.026 | $0.012 | $0.028 | cheap (at 80%) |
+| $0.25 | $0.168 | $0.063 | $0.028 | $0.036 | expensive (at 80%) |
+| $0.5 | $0.334 | $0.126 | $0.056 | $0.049 | expensive (at 80%) |
+| $1 | $0.668 | $0.251 | $0.112 | $0.076 | expensive (at 80%) |
+| $2 | $1.33 | $0.501 | $0.223 | $0.128 | expensive (at 80%) |
+| $5 | $3.33 | $1.25 | $0.556 | $0.286 | expensive (at 80%) |
+
+### OpenAI (gpt-5.4-mini vs gpt-5.4)
+| F (cost of a wrong answer) | cheap @60% | cheap @80% | cheap @90% | expensive @95% | cheapest |
+| --- | --- | --- | --- | --- | --- |
+| $0 | $0.0075 | $0.0056 | $0.0050 | $0.016 | cheap (at 80%) |
+| $0.05 | $0.041 | $0.018 | $0.011 | $0.018 | cheap (at 80%) |
+| $0.1 | $0.074 | $0.031 | $0.016 | $0.021 | expensive (at 80%) |
+| $0.25 | $0.174 | $0.068 | $0.033 | $0.029 | expensive (at 80%) |
+| $0.5 | $0.341 | $0.131 | $0.061 | $0.042 | expensive (at 80%) |
+| $1 | $0.674 | $0.256 | $0.116 | $0.068 | expensive (at 80%) |
+| $2 | $1.34 | $0.506 | $0.227 | $0.121 | expensive (at 80%) |
+| $5 | $3.34 | $1.26 | $0.561 | $0.279 | expensive (at 80%) |
+
+## 3. Break-even failure cost F*: above it the expensive model alone is cheaper per useful answer
+ASSUMPTION: expensive success = 0.95. Rows sweep the cheap model's success rate.
+| cheap success | Anthropic (Haiku 5.5 vs Opus 5.5) | OpenAI (gpt-5.4-mini vs gpt-5.4) |
+| --- | --- | --- |
+| 50% | $0.023 | $0.0072 |
+| 60% | $0.036 | $0.013 |
+| 70% | $0.060 | $0.025 |
+| 80% | $0.114 | $0.051 |
+| 85% | $0.182 | $0.085 |
+| 90% | $0.386 | $0.184 |
+| 93% | $0.997 | $0.484 |
+| 94% | $2.02 | $0.982 |
+| 95% | never (cheap is as good) | never (cheap is as good) |
+
+Same, expensive success = 0.99 (a stronger expensive model):
+| cheap success | Anthropic (Haiku 5.5 vs Opus 5.5) | OpenAI (gpt-5.4-mini vs gpt-5.4) |
+| --- | --- | --- |
+| 60% | $0.032 | $0.012 |
+| 80% | $0.090 | $0.040 |
+| 90% | $0.214 | $0.101 |
+| 95% | $0.509 | $0.245 |
+
+## 4. Steelman: failures are free and visible (the user just asks again)
+With F = 0 and a retry until it works, cost per useful answer is c / s, so cheap wins while s_c / s_e > c_cheap / c_exp.
+Anthropic (Haiku 5.5 vs Opus 5.5): cheap wins at F = 0 for any cheap success above 2.4% (expensive at 95%)
+OpenAI (gpt-5.4-mini vs gpt-5.4): cheap wins at F = 0 for any cheap success above 28.5% (expensive at 95%)
+
+## 5. Cascade: cheap answers, a verifier checks, a rejected answer goes to the expensive model
+ASSUMPTIONS: cheap success 0.8, expensive success 0.95, verifier passes 95% of right answers (true positive).
+The verifier is one cheap-model call (3500 in, 100 out). Verifier errors are independent of anything else (flatters the cascade).
+f = chance the verifier passes a WRONG answer (the leak). Expensive answers are delivered unchecked.
+
+### Anthropic (Haiku 5.5 vs Opus 5.5): verifier costs $0.00040 per check
+F = $0.05: cheap alone $0.013, expensive alone $0.026
+| leak f | cascade | wrong answers delivered | beats expensive? | beats cheap? |
+| --- | --- | --- | --- | --- |
+| 0.00 | $0.0069 | 1.2% | yes | yes |
+| 0.05 | $0.0072 | 2.2% | yes | yes |
+| 0.10 | $0.0076 | 3.1% | yes | yes |
+| 0.25 | $0.0086 | 5.9% | yes | yes |
+| 0.50 | $0.011 | 10.7% | yes | yes |
+| 0.75 | $0.013 | 15.4% | yes | yes |
+| 1.00 | $0.015 | 20.2% | yes | no |
+
+F = $0.25: cheap alone $0.063, expensive alone $0.036
+| leak f | cascade | wrong answers delivered | beats expensive? | beats cheap? |
+| --- | --- | --- | --- | --- |
+| 0.00 | $0.0093 | 1.2% | yes | yes |
+| 0.05 | $0.012 | 2.2% | yes | yes |
+| 0.10 | $0.014 | 3.1% | yes | yes |
+| 0.25 | $0.021 | 5.9% | yes | yes |
+| 0.50 | $0.034 | 10.7% | yes | yes |
+| 0.75 | $0.049 | 15.4% | no | yes |
+| 1.00 | $0.066 | 20.2% | no | no |
+
+F = $1: cheap alone $0.251, expensive alone $0.076
+| leak f | cascade | wrong answers delivered | beats expensive? | beats cheap? |
+| --- | --- | --- | --- | --- |
+| 0.00 | $0.018 | 1.2% | yes | yes |
+| 0.05 | $0.028 | 2.2% | yes | yes |
+| 0.10 | $0.038 | 3.1% | yes | yes |
+| 0.25 | $0.069 | 5.9% | yes | yes |
+| 0.50 | $0.124 | 10.7% | no | yes |
+| 0.75 | $0.186 | 15.4% | no | yes |
+| 1.00 | $0.255 | 20.2% | no | no |
+
+F = $5: cheap alone $1.25, expensive alone $0.286
+| leak f | cascade | wrong answers delivered | beats expensive? | beats cheap? |
+| --- | --- | --- | --- | --- |
+| 0.00 | $0.067 | 1.2% | yes | yes |
+| 0.05 | $0.116 | 2.2% | yes | yes |
+| 0.10 | $0.166 | 3.1% | yes | yes |
+| 0.25 | $0.322 | 5.9% | no | yes |
+| 0.50 | $0.604 | 10.7% | no | yes |
+| 0.75 | $0.917 | 15.4% | no | yes |
+| 1.00 | $1.27 | 20.2% | no | no |
+
+
+### OpenAI (gpt-5.4-mini vs gpt-5.4): verifier costs $0.0031 per check
+F = $0.05: cheap alone $0.018, expensive alone $0.018
+| leak f | cascade | wrong answers delivered | beats expensive? | beats cheap? |
+| --- | --- | --- | --- | --- |
+| 0.00 | $0.012 | 1.2% | yes | yes |
+| 0.05 | $0.012 | 2.2% | yes | yes |
+| 0.10 | $0.013 | 3.1% | yes | yes |
+| 0.25 | $0.014 | 5.9% | yes | yes |
+| 0.50 | $0.017 | 10.7% | yes | yes |
+| 0.75 | $0.020 | 15.4% | no | no |
+| 1.00 | $0.023 | 20.2% | no | no |
+
+F = $0.25: cheap alone $0.068, expensive alone $0.029
+| leak f | cascade | wrong answers delivered | beats expensive? | beats cheap? |
+| --- | --- | --- | --- | --- |
+| 0.00 | $0.014 | 1.2% | yes | yes |
+| 0.05 | $0.017 | 2.2% | yes | yes |
+| 0.10 | $0.019 | 3.1% | yes | yes |
+| 0.25 | $0.027 | 5.9% | yes | yes |
+| 0.50 | $0.041 | 10.7% | no | yes |
+| 0.75 | $0.056 | 15.4% | no | yes |
+| 1.00 | $0.074 | 20.2% | no | no |
+
+F = $1: cheap alone $0.256, expensive alone $0.068
+| leak f | cascade | wrong answers delivered | beats expensive? | beats cheap? |
+| --- | --- | --- | --- | --- |
+| 0.00 | $0.023 | 1.2% | yes | yes |
+| 0.05 | $0.033 | 2.2% | yes | yes |
+| 0.10 | $0.043 | 3.1% | yes | yes |
+| 0.25 | $0.074 | 5.9% | no | yes |
+| 0.50 | $0.131 | 10.7% | no | yes |
+| 0.75 | $0.193 | 15.4% | no | yes |
+| 1.00 | $0.263 | 20.2% | no | no |
+
+F = $5: cheap alone $1.26, expensive alone $0.279
+| leak f | cascade | wrong answers delivered | beats expensive? | beats cheap? |
+| --- | --- | --- | --- | --- |
+| 0.00 | $0.072 | 1.2% | yes | yes |
+| 0.05 | $0.121 | 2.2% | yes | yes |
+| 0.10 | $0.171 | 3.1% | yes | yes |
+| 0.25 | $0.327 | 5.9% | no | yes |
+| 0.50 | $0.610 | 10.7% | no | yes |
+| 0.75 | $0.924 | 15.4% | no | yes |
+| 1.00 | $1.28 | 20.2% | no | no |
+
+## 6. Where the cascade wins (Anthropic pair unless stated)
+### Anthropic (Haiku 5.5 vs Opus 5.5)
+Leak f* above which the cascade is no cheaper than the expensive model alone:
+| F | f* |
+| --- | --- |
+| $0.05 | none (cascade wins even at f = 1.0) |
+| $0.1 | none (cascade wins even at f = 1.0) |
+| $0.25 | 0.533 |
+| $0.5 | 0.367 |
+| $1 | 0.283 |
+| $2 | 0.242 |
+| $5 | 0.217 |
+
+F range where a cascade with leak f = 0.10 is the cheapest of the three (scan $0 to $5, step $0.005):
+  cheap: from $0 up to $0.025
+  cascade: from $0.025 up to $5
+
+### OpenAI (gpt-5.4-mini vs gpt-5.4)
+Leak f* above which the cascade is no cheaper than the expensive model alone:
+| F | f* |
+| --- | --- |
+| $0.05 | 0.643 |
+| $0.1 | 0.421 |
+| $0.25 | 0.289 |
+| $0.5 | 0.244 |
+| $1 | 0.222 |
+| $2 | 0.211 |
+| $5 | 0.204 |
+
+F range where a cascade with leak f = 0.10 is the cheapest of the three (scan $0 to $5, step $0.005):
+  cheap: from $0 up to $0.03
+  cascade: from $0.03 up to $5
+
+## 7. Sensitivity: escalated tasks are harder (expensive success on escalated tasks drops)
+Anthropic pair, leak f = 0.10, F = $1. Expensive alone stays at 95%.
+| expensive success on escalated tasks | cascade | expensive alone | wrong answers delivered |
+| --- | --- | --- | --- |
+| 95% | $0.038 | $0.076 | 3.1% |
+| 90% | $0.050 | $0.076 | 4.2% |
+| 80% | $0.075 | $0.076 | 6.4% |
+| 70% | $0.100 | $0.076 | 8.6% |
+| 50% | $0.156 | $0.076 | 13.0% |
+
+## 8. Monte Carlo check (200,000 tasks per row, seed 20261114, Anthropic pair, f varies)
+| leak f | closed-form spend/task | MC spend/task | closed-form P(useful) | MC P(useful) | closed-form P(wrong) | MC P(wrong) |
+| --- | --- | --- | --- | --- | --- | --- |
+| 0.00 | 0.006230 | 0.006261 | 0.9880 | 0.9881 | 0.0120 | 0.0119 |
+| 0.05 | 0.006010 | 0.006023 | 0.9785 | 0.9785 | 0.0215 | 0.0215 |
+| 0.10 | 0.005790 | 0.005777 | 0.9690 | 0.9684 | 0.0310 | 0.0316 |
+| 0.25 | 0.005130 | 0.005122 | 0.9405 | 0.9396 | 0.0595 | 0.0604 |
+| 0.50 | 0.004030 | 0.004036 | 0.8930 | 0.8927 | 0.1070 | 0.1073 |
+| 0.75 | 0.002930 | 0.002927 | 0.8455 | 0.8440 | 0.1545 | 0.1560 |
+| 1.00 | 0.001830 | 0.001835 | 0.7980 | 0.7976 | 0.2020 | 0.2024 |
+
+## 9. Spend to get N useful answers (Anthropic pair, F = $0.25, leak f = 0.10)
+| useful answers | cheap alone | expensive alone | cascade |
+| --- | --- | --- | --- |
+| 10,000 | $631.87 | $363.16 | $139.73 |
+| 1,000,000 | $63,187.50 | $36,315.79 | $13,973.17 |
+| 100,000,000 | $6,318,750.00 | $3,631,578.95 | $1,397,316.82 |
+(This counts failure cost in the total, so it is spend plus cost of wrong answers, not an invoice.)
+
+Spend on tokens only for the same volumes (no failure cost):
+| useful answers | cheap alone | expensive alone | cascade |
+| --- | --- | --- | --- |
+| 10,000 | $6.88 | $231.58 | $59.75 |
+| 1,000,000 | $687.50 | $23,157.89 | $5,975.23 |
+| 100,000,000 | $68,750.00 | $2,315,789.47 | $597,523.22 |
