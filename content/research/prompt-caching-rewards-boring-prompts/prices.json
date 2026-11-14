@@ -1,0 +1,40 @@
+{
+  "checked": "2026-11-14",
+  "unit": "USD per million input tokens",
+  "models": {
+    "anthropic-sonnet-5.5": {
+      "label": "Claude Sonnet 5.5",
+      "source": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "base": 2.0, "write_short": 2.5, "write_long": 4.0, "read": 0.10,
+      "ttl_short_min": 5, "ttl_long_min": 60,
+      "note": "Read is 0.05x base for Sonnet 5.5 per the page footnote. Hits refresh the TTL at no extra cost (prompt caching docs)."
+    },
+    "anthropic-sonnet-4.6": {
+      "label": "Claude Sonnet 4.6",
+      "source": "https://platform.claude.com/docs/en/about-claude/pricing",
+      "base": 3.0, "write_short": 3.75, "write_long": 6.0, "read": 0.30,
+      "ttl_short_min": 5, "ttl_long_min": 60,
+      "note": "The standard multipliers: 1.25x write (5m), 2x write (1h), 0.1x read."
+    },
+    "openai-gpt-5.5": {
+      "label": "OpenAI gpt-5.5",
+      "source": "https://developers.openai.com/api/docs/pricing",
+      "base": 5.0, "write_short": 5.0, "write_long": 5.0, "read": 0.50,
+      "ttl_short_min": 5, "ttl_long_min": 60,
+      "note": "Earlier models: no cache-write charge; entries typically stay active 5 to 10 minutes of inactivity, up to one hour (prompt caching guide). The simulation uses 5 minutes as the pessimistic end. Automatic, no TTL choice: the 60 minute column is not an option here and is skipped."
+    },
+    "openai-gpt-6.1-sol": {
+      "label": "OpenAI gpt-6.1-sol",
+      "source": "https://developers.openai.com/api/docs/pricing",
+      "base": 2.0, "write_short": 2.5, "write_long": 5.0, "read": 0.10,
+      "ttl_short_min": 30, "ttl_long_min": 720,
+      "note": "GPT-5.6 and later: default writes cost 1.25x and last at least 30 minutes; 12-hour writes cost 2.5x (Responses API). Whether a read extends the 30 minutes is not stated; the simulation assumes it does."
+    }
+  },
+  "gemini": {
+    "label": "Gemini 3.1 Pro Preview (explicit caching, prompts up to 200k)",
+    "source": "https://aistudio.google.com/docs/pricing",
+    "base": 2.0, "read": 0.20, "storage_per_mtok_hour": 4.50,
+    "note": "Storage is billed per million cached tokens per hour. The caching docs page did not state a default TTL or whether hits refresh it, so Gemini is break-even only, not simulated."
+  }
+}
