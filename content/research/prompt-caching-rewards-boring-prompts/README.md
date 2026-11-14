@@ -36,6 +36,27 @@ python3 make_diagram.py                              # writes ../../../public/im
 - `make_diagram.py`: draws the chart from the analytic model.
 - `results/`: the raw outputs the post quotes.
 
+## Prices and monthly bill
+
+Dollars per million input tokens, copied from the live pages on 2026-11-14 (sources in `prices.json`).
+
+| Model | Base | Cache write | Cache read |
+| --- | ---: | --- | ---: |
+| [Claude Sonnet 5.5](https://platform.claude.com/docs/en/about-claude/pricing) | $2.00 | $2.50 (5 min), $4.00 (1 hour) | $0.10 |
+| [OpenAI gpt-5.5](https://developers.openai.com/api/docs/pricing) | $5.00 | none | $0.50 |
+| OpenAI gpt-6.1-sol | $2.00 | $2.50 (30 min), $5.00 (12 hours) | $0.10 |
+| [Gemini 3.1 Pro Preview](https://aistudio.google.com/docs/pricing) | $2.00 | storage: $4.50 per million tokens per hour | $0.20 |
+
+The OpenAI guide says models before GPT-5.6 have no write charge and entries typically last 5 to 10 minutes of inactivity. GPT-5.6 and later charge 1.25 times base for a 30-minute write. Gemini bills explicit caches by the hour they sit in storage instead of charging a write premium. A Gemini cache held for an hour needs 2.5 hits in that hour to cover its storage; the creation cost isn't on the page, so it is left out.
+
+Sonnet 5.5 for the simulated prompt (6,000 static plus 500 per-request tokens), 30 days, input only:
+
+| Volume | Requests | No cache | 5-min cache | 1-hour cache |
+| --- | ---: | ---: | ---: | ---: |
+| 1 per hour | 720 | $9.36 | $10.68 | $7.24 |
+| 1 per minute | 43,200 | $561.60 | $73.31 | $69.12 |
+| 10 per minute | 432,000 | $5,616.00 | $691.20 | $691.20 |
+
 ## What is not modelled
 
 Concurrent requests arriving before the first response starts, multiple cache entries or tenants, bursty arrivals, latency, output tokens, Gemini TTL behaviour, OpenAI cache-routing overflow, and non-OpenAI tokenizers (o200k_base is a proxy).

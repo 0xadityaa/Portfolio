@@ -11,52 +11,40 @@ tags:
   - caching
 draft: true
 ---
+Prompt caching sounds like a free discount. In my simulation it cut the input bill 87.7%, and at one request an hour it made the bill 14.1% bigger.
 
-Prompt caching sounds like a free discount. Turn it on, pay about a tenth for the repeated part, move on. So I wrote a small simulation to put numbers on it, and found two ways to get none of the discount while still paying the setup fee.
+The [last post](/blog/every-mcp-server-taxes-every-prompt) leaned on caching as the answer to a big tool list. This one asks how far that answer goes. My claim: **caching is the biggest price lever most LLM apps leave on the table, and whether you get it depends on two things you control, the order of your prompt and how often traffic arrives.**
 
-The [last post](/blog/every-mcp-server-taxes-every-prompt) used caching as the counter-argument to a big tool list. This one is about caching itself. My claim: **caching is the biggest price lever most LLM apps leave on the table, and whether you get it depends less on the provider than on two things you control. The order of your prompt, and how often your traffic arrives.**
-
-Everything here is in [the artifact folder](https://github.com/0xadityaa/Portfolio/tree/main/content/research/prompt-caching-rewards-boring-prompts). I ran three scripts: a break-even calculator, a traffic simulation, and a prompt-order test with a real tokenizer. I have not called any live API.
+I ran a break-even calculator, a traffic simulation and a prompt-order test with a real tokenizer. Everything is in [the artifact folder](https://github.com/0xadityaa/Portfolio/tree/main/content/research/prompt-caching-rewards-boring-prompts). I haven't called any live API.
 
 ## The short version
 
-- A cache write pays for itself after one read on a 5-minute TTL and after two on a 1-hour TTL (Claude Sonnet 5.5 prices, copied on 2026-11-14).
+- A cache write pays for itself after one read on a 5-minute TTL and two on a 1-hour TTL (Claude Sonnet 5.5, prices copied 2026-11-14).
 - At steady traffic the input bill drops 87.7%. At one request an hour, a 5-minute cache costs 14.1% more than no cache.
 - The 5-minute cache only beats no cache above 2.8 requests an hour. The 1-hour cache gets there at 0.72.
-- Putting a timestamp and a user name at the top of the system prompt left 35.7% of my sample prompt cacheable. Putting them at the bottom left 98.4%, a tenfold gap in blended input price.
+- A timestamp and user name at the top of the system prompt left 35.7% of my sample cacheable. At the bottom, 98.4%.
 
 ## How does a prompt cache work?
 
-It matches on a prefix. The provider stores its computed state for the start of your prompt, and a later request that begins with exactly the same tokens skips recomputing that part. Change one token early on and everything after it is a miss.
+It matches on a prefix. The provider stores its computed state for the start of your prompt, and a later request that begins with exactly the same tokens skips recomputing it. Change one token early and everything after it misses.
 
-The providers differ in who decides. Anthropic's [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) is explicit: you mark breakpoints, up to four, and the cached prefix runs through tools, then system, then messages. [OpenAI](https://developers.openai.com/api/docs/guides/prompt-caching) caches by default and needs an exact match on the whole rendered prefix. Gemini's [caching docs](https://aistudio.google.com/docs/caching) describe implicit caching on by default for 2.5 and newer models, and explicit caching for some of them.
+Providers differ in who decides. Anthropic's [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) is explicit: you mark up to four breakpoints, and the prefix runs through tools, then system, then messages. [OpenAI](https://developers.openai.com/api/docs/guides/prompt-caching) caches by default on an exact prefix match. Gemini's [caching docs](https://aistudio.google.com/docs/caching) describe implicit caching on 2.5 and newer, plus explicit caching for some models. Self-hosting? [vLLM's prefix caching](https://docs.vllm.ai/en/latest/features/automatic_prefix_caching.html) does the same on your GPUs, and its docs say it does nothing when new queries share no prefix with old ones. That's the whole post in one line.
 
-If you host your own model, [vLLM's automatic prefix caching](https://docs.vllm.ai/en/latest/features/automatic_prefix_caching.html) is the same idea on your GPUs. Its docs say it does nothing when new queries share no prefix with old ones, which is the whole post in one line.
+Two rules from the Anthropic docs matter below. Hits restart the clock: "the cache is refreshed for no additional cost each time the cached content is used." And a change at any level invalidates that level and everything after it, so editing one tool definition throws away the lot.
 
-Two rules from the Anthropic docs matter for what follows. Hits restart the clock: "the cache is refreshed for no additional cost each time the cached content is used." And a change at any level invalidates that level and everything after it, so editing a tool definition throws away the whole cache.
+## Is the write fee a trap?
 
-## What do the prices say?
+On [Claude Sonnet 5.5](https://platform.claude.com/docs/en/about-claude/pricing), input is $2.00 per million tokens. A 5-minute write is $2.50, a 1-hour write is $4.00, and a read is $0.10. The math says one read covers the 5-minute fee (0.26 reads) and two cover the 1-hour one (1.05).
 
-I copied these from the live pages on 2026-11-14. All are dollars per million input tokens.
+So the fee is small. But you pay it every time the cache goes cold. The question is how often that happens.
 
-| Model | Base | Cache write | Cache read |
-| --- | ---: | --- | ---: |
-| [Claude Sonnet 5.5](https://platform.claude.com/docs/en/about-claude/pricing) | $2.00 | $2.50 (5 min), $4.00 (1 hour) | $0.10 |
-| [OpenAI gpt-5.5](https://developers.openai.com/api/docs/pricing) | $5.00 | none | $0.50 |
-| OpenAI gpt-6.1-sol | $2.00 | $2.50 (30 min), $5.00 (12 hours) | $0.10 |
-| [Gemini 3.1 Pro Preview](https://aistudio.google.com/docs/pricing) | $2.00 | storage: $4.50 per million tokens per hour | $0.20 |
-
-The OpenAI guide says models before GPT-5.6 have no write charge and entries typically last 5 to 10 minutes of inactivity. GPT-5.6 and later charge 1.25 times base for a 30-minute write. Gemini bills explicit caches by the hour they sit in storage instead of charging a write premium.
-
-Break-even is arithmetic. A write followed by n reads beats n+1 normal passes when write plus n times read is less than (n+1) times base. For Sonnet 5.5 that is 0.26 reads at 5 minutes and 1.05 reads at 1 hour. In practice: one read, or two. For Gemini, a cache held for an hour needs 2.5 hits in that hour to cover its storage, and I could not find the creation cost on the page, so I left it out.
-
-On paper, caching looks like a trap with a tiny entry fee. The fee is small. It is paid every time the cache goes cold, though, so the real question is how often that happens.
+The [OpenAI](https://developers.openai.com/api/docs/pricing) and [Gemini](https://aistudio.google.com/docs/pricing) prices, which are shaped differently, are in the artifact README.
 
 ## How often does the cache go cold?
 
-I simulated [Poisson](https://en.wikipedia.org/wiki/Poisson_point_process) arrivals, which means requests land at random with a fixed average rate, for one year per rate. The prompt is 6,000 static tokens (system prompt plus tools) and 500 per-request tokens. A request hits if the gap since the previous request is shorter than the TTL, and every request restarts the clock, because the docs say hits refresh it.
+I simulated [Poisson](https://en.wikipedia.org/wiki/Poisson_point_process) arrivals (random, at a fixed average rate) for a year per rate. The prompt is 6,000 static tokens and 500 per-request tokens. A request hits if the gap since the last one is shorter than the TTL.
 
-The hit rate matches the formula 1 minus e to the power of minus rate times TTL, within sampling noise. That is a useful sanity check, and also a shortcut: you can estimate your own hit rate on a napkin.
+The hit rate matched 1 minus e to the power of minus rate times TTL, within noise. That's a napkin formula for your own traffic.
 
 | Requests per hour | 5-min hit rate | 5-min cost vs no cache | 1-hour hit rate | 1-hour cost vs no cache |
 | ---: | ---: | ---: | ---: | ---: |
@@ -67,27 +55,19 @@ The hit rate matches the formula 1 minus e to the power of minus rate times TTL,
 | 60 | 99.3% | -86.9% | 100.0% | -87.7% |
 | 600 | 100.0% | -87.7% | 100.0% | -87.7% |
 
-No cache costs $0.0130 per request for this shape on Sonnet 5.5. At 600 requests an hour (ten a minute) it is $0.0016.
-
 ![Chart: cost per request against requests per hour on a log scale. The 5-minute cache is above the no-cache line until 2.8 requests an hour, the 1-hour cache until 0.72, and both fall to about one eighth of the no-cache cost](/images/blog/cache-cost-vs-traffic.svg)
 
-Here is the same thing as a monthly bill at three volumes, so you can find yourself on it. Thirty days, input only.
+As a monthly bill, input only, 30 days: one request an hour costs $9.36 with no cache, $10.68 on the 5-minute cache and $7.24 on the 1-hour one. One a minute costs $561.60, $73.31 and $69.12. Ten a minute costs $5,616.00 and $691.20 either way.
 
-| Volume | Requests | No cache | 5-min cache | 1-hour cache |
-| --- | ---: | ---: | ---: | ---: |
-| 1 per hour | 720 | $9.36 | $10.68 | $7.24 |
-| 1 per minute | 43,200 | $561.60 | $73.31 | $69.12 |
-| 10 per minute | 432,000 | $5,616.00 | $691.20 | $691.20 |
+At the small end the "loss" is $1.32 a month. And above about 0.5 requests an hour the 1-hour TTL beats the 5-minute one, even though its write costs 60% more, because you pay that write so rarely.
 
-Two things to notice. At the small volume the "loss" is $1.32 a month. And above about 0.5 requests an hour the 1-hour TTL is cheaper than the 5-minute one, even though its write costs 60% more, because you pay the write so rarely.
+One modelling choice to flag: a single prefix shared by every request. If traffic splits across a thousand users with their own prefixes, ten requests a minute is 0.6 an hour each. That's the low-traffic row.
 
-That last comparison leans on a modelling choice, so here it is: I assumed a single prefix shared by every request, Poisson arrivals, and TTL refresh on hit. If your traffic is split across many users with their own prefixes, each one sees only its share of the rate. Ten requests a minute across a thousand users is 0.6 an hour each, and that is the low-traffic row of the table.
+## Does prompt order matter more than traffic?
 
-## Does the order of the prompt matter more than the traffic?
+For me it did. Traffic decides how often the cache goes cold. Order decides how much of the prompt is eligible at all.
 
-For me it did, by a wide margin. Traffic decides how often the cache goes cold. Order decides how much of the prompt is eligible in the first place.
-
-I wrote a support-bot prompt for a made-up camping shop: five tool definitions and a system prompt covering policies, tone and worked examples. It is 1,677 tokens by [tiktoken](https://github.com/openai/tiktoken)'s `o200k_base`, a proxy, since Claude and Gemini tokenize differently. Then I rendered it in the order Anthropic documents (tools, system, user message) for two requests with different timestamps, names and questions, and counted the longest run of identical leading tokens. I did that for 200 random pairs per placement.
+I wrote a support-bot prompt for a made-up camping shop: five tool definitions plus a system prompt, 1,677 tokens by [tiktoken](https://github.com/openai/tiktoken)'s `o200k_base` (a proxy, since Claude and Gemini tokenize differently). I rendered it in Anthropic's order for 200 random pairs of requests with different timestamps, names and questions, and counted the longest run of identical leading tokens.
 
 | Where the timestamp and name go | Cacheable tokens | Share of the prompt | Blended input price |
 | --- | ---: | ---: | ---: |
@@ -97,28 +77,28 @@ I wrote a support-bot prompt for a made-up camping shop: five tool definitions a
 | Inside the user message | 1,690 | 98.5% | $0.128 |
 | Tool list shuffled each request, value at bottom | 46 | 2.7% | $1.991 |
 
-"Blended price" is Sonnet 5.5's $2.00 base and $0.10 read applied to the cacheable and uncacheable parts, assuming every request reads the cache. The gap between the first and third rows is about tenfold.
+"Blended price" applies Sonnet 5.5's $2.00 and $0.10 to the cacheable and uncacheable parts, assuming every request reads the cache. Top versus bottom is a tenfold gap.
 
-Look at the first row. Even with the value at the very top of the system prompt, the tools stay cacheable, because they render before the system prompt. That is 612 tokens. On OpenAI's published 1,024-token minimum it would be zero, and my sample is too short to say what a real 6,000-token prompt does there.
+Even at the very top of the system prompt, the tools stay cacheable because they render first. That's the 612. On OpenAI's published 1,024-token minimum it would be zero, and my sample is too short to say what a real 6,000-token prompt does.
 
-The last row is an easy bug to write: serialising tools from an unordered map, so the order changes between requests. The content is identical and the cache is not. I forced it with a seeded shuffle. Five tools gave me a mean of 46 cacheable tokens.
+The last row is the easy bug: serialising tools from an unordered map, so the order changes per request. Same content, no cache. I forced it with a seeded shuffle, and five tools left a mean of 46 cacheable tokens.
 
 ## Where I'd stop trusting this post
 
-**Caching adds constraints, and I only priced one of them.** Prompts under the minimum length are not cached, and Anthropic's docs say no error is returned. There are at most four breakpoints. Editing a tool invalidates the lot. Per-user prompts cannot share an entry. Each of those is an engineering cost, and a team with a prompt that changes every deploy and a small user base may reasonably decide the work is not worth it. My simulation prices only the traffic one. I could not find a named engineer arguing against caching, so this objection is the docs' own list of limits.
+**Caching adds constraints, and I only priced one.** Prompts under the minimum length aren't cached, and Anthropic's docs say no error comes back. There are four breakpoints at most, editing a tool invalidates everything, and per-user prompts can't share an entry. A team whose prompt changes every deploy, with few users, may fairly skip the work. I couldn't find a named engineer arguing against caching, so this objection is the docs' own list of limits.
 
-**The low-traffic loss is small in dollars and real in percent.** A 5-minute cache costs 14.1% more at one request an hour, which is $1.32 a month in my example. A long prompt, a big model or thousands of idle per-user prefixes multiply that.
+**Real traffic is bursty.** I assumed Poisson arrivals. I think bursts would raise hit rates at the same average, but that's reasoning, not something I ran.
 
-**I assumed Poisson arrivals.** Real traffic comes in bursts. I think bursts would raise hit rates for the same average rate, but that is reasoning, not something I ran.
+**Input only, no live calls.** Output tokens cost the same either way, so the saving on a whole bill is smaller than 87.7%. I didn't measure time to first token. Concurrent requests that land before the first response starts can't read the entry yet, per Anthropic's docs, and I didn't model that.
 
-**Input only, no latency, no live calls.** Output tokens cost the same either way, so the saving on a whole bill is smaller than 87.7%. Caching also cuts time to first token, and I did not measure that. Concurrent requests that arrive before the first response starts cannot read the entry yet, per the Anthropic docs, and I did not model it.
-
-**Vendor behaviour that I assumed.** OpenAI says entries last "typically" 5 to 10 minutes, and I used 5. For gpt-6.1-sol I assumed a read extends the 30 minutes, which the guide does not say. I did not simulate Gemini at all, because its docs page does not state a default TTL. The OpenAI guide also says traffic above about 15 requests a minute on one key can overflow to other machines, which I did not model.
+**Some vendor behaviour is assumed.** OpenAI says entries last "typically" 5 to 10 minutes, and I used 5. For gpt-6.1-sol I assumed a read extends the 30 minutes, which the guide doesn't say. I skipped Gemini, because its docs don't state a default TTL, and I didn't model OpenAI's overflow above about 15 requests a minute on one key.
 
 ## The takeaway
 
 Two checks, in this order.
 
-First, put everything that changes per request after everything that does not. Timestamps, names, retrieved documents and the user's question go last. Serialise tools in a fixed order. Then read the usage field on a real response and look at the cached-token count. If it is zero, your prefix is not stable, whatever the config says.
+First, put everything that changes per request after everything that doesn't: timestamps, names, retrieved documents, the user's question. Serialise tools in a fixed order. Then read the usage field on a real response. If the cached-token count is zero, your prefix isn't stable, whatever the config says.
 
-Second, estimate requests per hour per prefix. My rule of thumb from these numbers, which is mine and not a vendor's: below about one an hour, do not expect savings. Above about three, either TTL pays, and on Anthropic the 1-hour one is the cheaper in this model. What would change my mind is a hit rate from live traffic that sits well below what the formula predicts. Next I want to run the same prompt against the real APIs and compare their usage counts to my curve.
+Second, count requests per hour per prefix. My rule of thumb, mine and not a vendor's: below about one an hour, don't expect savings. Above about three, either TTL pays, and on Anthropic the 1-hour one is cheaper in this model.
+
+A live hit rate well below my curve would change my mind. Next I'd like to run the same prompt against the real APIs and compare their usage counts to it.
