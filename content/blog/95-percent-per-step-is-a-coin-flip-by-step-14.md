@@ -16,13 +16,13 @@ Here's a thought experiment, not a story from my work. An agent gets each step o
 
 In [Do You Really Need AI Agents?](/blog/do-you-really-need-agents) I said a fair version would run one task both ways and report tokens, seconds, and error rate. This is a partial sequel, and only about the error rate: I wrote a seeded simulation of a many-step task and tried five ways of handling failure. It is a model, not a measurement of any real LLM, and I'll say where it lies to you.
 
-My claim: **per-step reliability compounds, so a long run fails often even with a good model. Retries only help when failures are transient and steps are safe to repeat. Checkpoints and shorter loops buy back more reliability than a better prompt does.**
+My claim: **per-step reliability compounds, so a long run fails often even with a good model. Retries only help when failures are transient and steps are safe to repeat. When they are, checkpoints and shorter loops buy back more reliability than a better prompt does.**
 
 ## The short version
 
 - If every step succeeds with probability `p`, a run of `n` steps succeeds with `p^n`. At 95% per step the run is at 50% by step 14. At 90% it takes 7 steps.
 - Retries fixed everything in my simulation when failures were transient (95% per step, 20 steps: 35.5% to 99.8%). When half of failures were persistent, the same retries got to 60.4%.
-- Resuming from a checkpoint instead of step 1 took the 95% agent to 100.0% on 20 steps, while moving to 99% per step with no checkpoints reached 81.7%.
+- With transient failures, resuming from a checkpoint instead of step 1 took the 95% agent to 100.0% on 20 steps, while moving to 99% per step with no checkpoints reached 81.7%.
 - Retrying a step with a side effect can do it twice. Idempotency keys make the duplicates zero.
 
 ## Why does 95% per step fall apart so fast?
@@ -77,7 +77,9 @@ Most of it. The checkpoint row finishes 20 steps at 100.0% for 23.4 calls per su
 
 The reason is that a failure only costs you the segment since the last save, not the whole run. Failure at step 18 with a checkpoint at 15 means three steps repeated, not eighteen.
 
-So how does that compare with a better prompt? Suppose your prompt work moves per-step success from 95% to 99%, which is a fivefold cut in failures and hard to get. On 20 steps with no other changes the run goes from 35.5% to 81.7%. The checkpoint at 95% reached 100.0%. I'm not saying prompts don't matter. I'm saying the structure around the model had more to give in this model, and it also protects you the day a prompt change quietly makes things worse.
+One thing to be straight about: that 100.0% leans on the same assumption as the transient retry row. Re-running a segment only works if the step can succeed on another try. A checkpoint in front of a persistent failure just replays the same error from a later starting point. Checkpoints make retries cheap. They don't make a broken step work.
+
+So how does that compare with a better prompt? Suppose your prompt work moves per-step success from 95% to 99%, which is a fivefold cut in failures and hard to get. On 20 steps with no other changes the run goes from 35.5% to 81.7%. The checkpoint at 95% reached 100.0%. That comparison flatters the checkpoint, since the 99% agent got no retries at all, so read it as: once failures are transient, structure is cheaper than prompt work. I'm not saying prompts don't matter. I'm saying the structure around the model had more to give in this model, and it also protects you the day a prompt change quietly makes things worse.
 
 This is where [Anthropic's own advice on building agents](https://www.anthropic.com/engineering/building-effective-agents) points. It says autonomy brings the potential for compounding errors, recommends testing in sandboxes, and suggests stopping conditions and pausing for a human at checkpoints. In frameworks like [LangGraph](https://langchain-ai.github.io/langgraph/) the equivalent is persisting state between steps so a run can [resume](https://en.wikipedia.org/wiki/Application_checkpointing) instead of restart.
 
