@@ -14,7 +14,7 @@ draft: true
 
 In [What Exactly Is MCP?](/blog/what-exactly-is-mcp) I wrote one line about cost: every connected server adds its tool definitions to the context window. I never measured it. This post does, because a sentence like that is easy to nod at and ignore.
 
-So on 14 November 2026 I started eleven popular open-source MCP servers on my laptop, asked each one for its tool list, and counted the tokens. My claim: **tool definitions are a fixed cost on every request, almost nobody measures it, and past a handful of servers it is most of what you send.**
+So on 14 November 2026 I started eleven popular open-source MCP servers on my laptop, asked each one for its tool list, and counted the tokens. My claim: **tool definitions are a fixed cost on every request, they are easy to never measure, and past a handful of servers it is most of what you send.**
 
 ## The short version
 
