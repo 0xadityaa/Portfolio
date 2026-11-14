@@ -1,0 +1,634 @@
+{
+  "tokenizer": "tiktoken o200k_base",
+  "tiktoken_version": "0.14.0",
+  "servers": [
+    {
+      "id": "filesystem",
+      "version": "2.3.0",
+      "tools": 16,
+      "tokens": 2925,
+      "tokens_full_raw": 4264,
+      "avg_per_tool": 182.8,
+      "biggest_tool": [
+        338,
+        "edit_file"
+      ]
+    },
+    {
+      "id": "memory",
+      "version": "2.1.1",
+      "tools": 9,
+      "tokens": 1736,
+      "tokens_full_raw": 3286,
+      "avg_per_tool": 192.9,
+      "biggest_tool": [
+        290,
+        "search_nodes"
+      ]
+    },
+    {
+      "id": "sequential-thinking",
+      "version": "2.1.1",
+      "tools": 1,
+      "tokens": 489,
+      "tokens_full_raw": 620,
+      "avg_per_tool": 489.0,
+      "biggest_tool": [
+        489,
+        "sequentialthinking"
+      ]
+    },
+    {
+      "id": "everything",
+      "version": "2.3.0",
+      "tools": 16,
+      "tokens": 1721,
+      "tokens_full_raw": 11160,
+      "avg_per_tool": 107.6,
+      "biggest_tool": [
+        244,
+        "gzip-file-as-resource"
+      ]
+    },
+    {
+      "id": "github",
+      "version": "0.6.2",
+      "tools": 26,
+      "tokens": 3546,
+      "tokens_full_raw": 3546,
+      "avg_per_tool": 136.4,
+      "biggest_tool": [
+        360,
+        "create_pull_request_review"
+      ]
+    },
+    {
+      "id": "playwright",
+      "version": "1.66.0-alpha-2026-11-09",
+      "tools": 25,
+      "tokens": 3934,
+      "tokens_full_raw": 4583,
+      "avg_per_tool": 157.4,
+      "biggest_tool": [
+        327,
+        "browser_take_screenshot"
+      ]
+    },
+    {
+      "id": "context7",
+      "version": "4.7.0",
+      "tools": 2,
+      "tokens": 1062,
+      "tokens_full_raw": 1129,
+      "avg_per_tool": 531.0,
+      "biggest_tool": [
+        608,
+        "resolve-library-id"
+      ]
+    },
+    {
+      "id": "chrome-devtools",
+      "version": "1.13.0",
+      "tools": 33,
+      "tokens": 6751,
+      "tokens_full_raw": 7171,
+      "avg_per_tool": 204.6,
+      "biggest_tool": [
+        577,
+        "emulate"
+      ]
+    },
+    {
+      "id": "fetch",
+      "version": "2026.11.11",
+      "tools": 1,
+      "tokens": 296,
+      "tokens_full_raw": 324,
+      "avg_per_tool": 296.0,
+      "biggest_tool": [
+        296,
+        "fetch"
+      ]
+    },
+    {
+      "id": "git",
+      "version": "2026.11.11",
+      "tools": 14,
+      "tokens": 1435,
+      "tokens_full_raw": 1827,
+      "avg_per_tool": 102.5,
+      "biggest_tool": [
+        281,
+        "git_log"
+      ]
+    },
+    {
+      "id": "time",
+      "version": "2026.11.11",
+      "tools": 3,
+      "tokens": 500,
+      "tokens_full_raw": 1050,
+      "avg_per_tool": 166.7,
+      "biggest_tool": [
+        221,
+        "get_time_ago"
+      ]
+    }
+  ],
+  "cumulative_in_listed_order": {
+    "1": 2925,
+    "3": 5150,
+    "5": 10417,
+    "10": 23895,
+    "11": 24395
+  },
+  "subset_stats_all_combinations": {
+    "1": {
+      "mean": 2218,
+      "min": 296,
+      "max": 6751
+    },
+    "3": {
+      "mean": 6653,
+      "min": 1285,
+      "max": 14231
+    },
+    "5": {
+      "mean": 11089,
+      "min": 3782,
+      "max": 18892
+    },
+    "10": {
+      "mean": 22177,
+      "min": 17644,
+      "max": 24099
+    },
+    "11": {
+      "mean": 24395,
+      "min": 24395,
+      "max": 24395
+    }
+  },
+  "prices_per_mtok": {
+    "Claude Sonnet 5.5": {
+      "input": 2.0,
+      "cached": 0.1,
+      "src": "platform.claude.com/docs/en/about-claude/pricing"
+    },
+    "Claude Opus 5.5": {
+      "input": 4.0,
+      "cached": 0.2,
+      "src": "platform.claude.com/docs/en/about-claude/pricing"
+    },
+    "gpt-6.1-sol": {
+      "input": 2.0,
+      "cached": 0.1,
+      "src": "developers.openai.com/api/docs/pricing"
+    },
+    "gpt-5.5": {
+      "input": 5.0,
+      "cached": 0.5,
+      "src": "developers.openai.com/api/docs/pricing"
+    }
+  },
+  "volumes_calls_per_day": {
+    "small": 1000,
+    "medium": 20000,
+    "large": 500000
+  },
+  "days_per_month": 30,
+  "costs": [
+    {
+      "setup": "1 server (filesystem)",
+      "overhead_tokens": 2925,
+      "model": "Claude Sonnet 5.5",
+      "volume": "small",
+      "calls_per_day": 1000,
+      "monthly_uncached_usd": 175.5,
+      "monthly_cached_usd": 8.78
+    },
+    {
+      "setup": "1 server (filesystem)",
+      "overhead_tokens": 2925,
+      "model": "Claude Sonnet 5.5",
+      "volume": "medium",
+      "calls_per_day": 20000,
+      "monthly_uncached_usd": 3510.0,
+      "monthly_cached_usd": 175.5
+    },
+    {
+      "setup": "1 server (filesystem)",
+      "overhead_tokens": 2925,
+      "model": "Claude Sonnet 5.5",
+      "volume": "large",
+      "calls_per_day": 500000,
+      "monthly_uncached_usd": 87750.0,
+      "monthly_cached_usd": 4387.5
+    },
+    {
+      "setup": "1 server (filesystem)",
+      "overhead_tokens": 2925,
+      "model": "Claude Opus 5.5",
+      "volume": "small",
+      "calls_per_day": 1000,
+      "monthly_uncached_usd": 351.0,
+      "monthly_cached_usd": 17.55
+    },
+    {
+      "setup": "1 server (filesystem)",
+      "overhead_tokens": 2925,
+      "model": "Claude Opus 5.5",
+      "volume": "medium",
+      "calls_per_day": 20000,
+      "monthly_uncached_usd": 7020.0,
+      "monthly_cached_usd": 351.0
+    },
+    {
+      "setup": "1 server (filesystem)",
+      "overhead_tokens": 2925,
+      "model": "Claude Opus 5.5",
+      "volume": "large",
+      "calls_per_day": 500000,
+      "monthly_uncached_usd": 175500.0,
+      "monthly_cached_usd": 8775.0
+    },
+    {
+      "setup": "1 server (filesystem)",
+      "overhead_tokens": 2925,
+      "model": "gpt-6.1-sol",
+      "volume": "small",
+      "calls_per_day": 1000,
+      "monthly_uncached_usd": 175.5,
+      "monthly_cached_usd": 8.78
+    },
+    {
+      "setup": "1 server (filesystem)",
+      "overhead_tokens": 2925,
+      "model": "gpt-6.1-sol",
+      "volume": "medium",
+      "calls_per_day": 20000,
+      "monthly_uncached_usd": 3510.0,
+      "monthly_cached_usd": 175.5
+    },
+    {
+      "setup": "1 server (filesystem)",
+      "overhead_tokens": 2925,
+      "model": "gpt-6.1-sol",
+      "volume": "large",
+      "calls_per_day": 500000,
+      "monthly_uncached_usd": 87750.0,
+      "monthly_cached_usd": 4387.5
+    },
+    {
+      "setup": "1 server (filesystem)",
+      "overhead_tokens": 2925,
+      "model": "gpt-5.5",
+      "volume": "small",
+      "calls_per_day": 1000,
+      "monthly_uncached_usd": 438.75,
+      "monthly_cached_usd": 43.88
+    },
+    {
+      "setup": "1 server (filesystem)",
+      "overhead_tokens": 2925,
+      "model": "gpt-5.5",
+      "volume": "medium",
+      "calls_per_day": 20000,
+      "monthly_uncached_usd": 8775.0,
+      "monthly_cached_usd": 877.5
+    },
+    {
+      "setup": "1 server (filesystem)",
+      "overhead_tokens": 2925,
+      "model": "gpt-5.5",
+      "volume": "large",
+      "calls_per_day": 500000,
+      "monthly_uncached_usd": 219375.0,
+      "monthly_cached_usd": 21937.5
+    },
+    {
+      "setup": "3 servers",
+      "overhead_tokens": 5150,
+      "model": "Claude Sonnet 5.5",
+      "volume": "small",
+      "calls_per_day": 1000,
+      "monthly_uncached_usd": 309.0,
+      "monthly_cached_usd": 15.45
+    },
+    {
+      "setup": "3 servers",
+      "overhead_tokens": 5150,
+      "model": "Claude Sonnet 5.5",
+      "volume": "medium",
+      "calls_per_day": 20000,
+      "monthly_uncached_usd": 6180.0,
+      "monthly_cached_usd": 309.0
+    },
+    {
+      "setup": "3 servers",
+      "overhead_tokens": 5150,
+      "model": "Claude Sonnet 5.5",
+      "volume": "large",
+      "calls_per_day": 500000,
+      "monthly_uncached_usd": 154500.0,
+      "monthly_cached_usd": 7725.0
+    },
+    {
+      "setup": "3 servers",
+      "overhead_tokens": 5150,
+      "model": "Claude Opus 5.5",
+      "volume": "small",
+      "calls_per_day": 1000,
+      "monthly_uncached_usd": 618.0,
+      "monthly_cached_usd": 30.9
+    },
+    {
+      "setup": "3 servers",
+      "overhead_tokens": 5150,
+      "model": "Claude Opus 5.5",
+      "volume": "medium",
+      "calls_per_day": 20000,
+      "monthly_uncached_usd": 12360.0,
+      "monthly_cached_usd": 618.0
+    },
+    {
+      "setup": "3 servers",
+      "overhead_tokens": 5150,
+      "model": "Claude Opus 5.5",
+      "volume": "large",
+      "calls_per_day": 500000,
+      "monthly_uncached_usd": 309000.0,
+      "monthly_cached_usd": 15450.0
+    },
+    {
+      "setup": "3 servers",
+      "overhead_tokens": 5150,
+      "model": "gpt-6.1-sol",
+      "volume": "small",
+      "calls_per_day": 1000,
+      "monthly_uncached_usd": 309.0,
+      "monthly_cached_usd": 15.45
+    },
+    {
+      "setup": "3 servers",
+      "overhead_tokens": 5150,
+      "model": "gpt-6.1-sol",
+      "volume": "medium",
+      "calls_per_day": 20000,
+      "monthly_uncached_usd": 6180.0,
+      "monthly_cached_usd": 309.0
+    },
+    {
+      "setup": "3 servers",
+      "overhead_tokens": 5150,
+      "model": "gpt-6.1-sol",
+      "volume": "large",
+      "calls_per_day": 500000,
+      "monthly_uncached_usd": 154500.0,
+      "monthly_cached_usd": 7725.0
+    },
+    {
+      "setup": "3 servers",
+      "overhead_tokens": 5150,
+      "model": "gpt-5.5",
+      "volume": "small",
+      "calls_per_day": 1000,
+      "monthly_uncached_usd": 772.5,
+      "monthly_cached_usd": 77.25
+    },
+    {
+      "setup": "3 servers",
+      "overhead_tokens": 5150,
+      "model": "gpt-5.5",
+      "volume": "medium",
+      "calls_per_day": 20000,
+      "monthly_uncached_usd": 15450.0,
+      "monthly_cached_usd": 1545.0
+    },
+    {
+      "setup": "3 servers",
+      "overhead_tokens": 5150,
+      "model": "gpt-5.5",
+      "volume": "large",
+      "calls_per_day": 500000,
+      "monthly_uncached_usd": 386250.0,
+      "monthly_cached_usd": 38625.0
+    },
+    {
+      "setup": "5 servers",
+      "overhead_tokens": 10417,
+      "model": "Claude Sonnet 5.5",
+      "volume": "small",
+      "calls_per_day": 1000,
+      "monthly_uncached_usd": 625.02,
+      "monthly_cached_usd": 31.25
+    },
+    {
+      "setup": "5 servers",
+      "overhead_tokens": 10417,
+      "model": "Claude Sonnet 5.5",
+      "volume": "medium",
+      "calls_per_day": 20000,
+      "monthly_uncached_usd": 12500.4,
+      "monthly_cached_usd": 625.02
+    },
+    {
+      "setup": "5 servers",
+      "overhead_tokens": 10417,
+      "model": "Claude Sonnet 5.5",
+      "volume": "large",
+      "calls_per_day": 500000,
+      "monthly_uncached_usd": 312510.0,
+      "monthly_cached_usd": 15625.5
+    },
+    {
+      "setup": "5 servers",
+      "overhead_tokens": 10417,
+      "model": "Claude Opus 5.5",
+      "volume": "small",
+      "calls_per_day": 1000,
+      "monthly_uncached_usd": 1250.04,
+      "monthly_cached_usd": 62.5
+    },
+    {
+      "setup": "5 servers",
+      "overhead_tokens": 10417,
+      "model": "Claude Opus 5.5",
+      "volume": "medium",
+      "calls_per_day": 20000,
+      "monthly_uncached_usd": 25000.8,
+      "monthly_cached_usd": 1250.04
+    },
+    {
+      "setup": "5 servers",
+      "overhead_tokens": 10417,
+      "model": "Claude Opus 5.5",
+      "volume": "large",
+      "calls_per_day": 500000,
+      "monthly_uncached_usd": 625020.0,
+      "monthly_cached_usd": 31251.0
+    },
+    {
+      "setup": "5 servers",
+      "overhead_tokens": 10417,
+      "model": "gpt-6.1-sol",
+      "volume": "small",
+      "calls_per_day": 1000,
+      "monthly_uncached_usd": 625.02,
+      "monthly_cached_usd": 31.25
+    },
+    {
+      "setup": "5 servers",
+      "overhead_tokens": 10417,
+      "model": "gpt-6.1-sol",
+      "volume": "medium",
+      "calls_per_day": 20000,
+      "monthly_uncached_usd": 12500.4,
+      "monthly_cached_usd": 625.02
+    },
+    {
+      "setup": "5 servers",
+      "overhead_tokens": 10417,
+      "model": "gpt-6.1-sol",
+      "volume": "large",
+      "calls_per_day": 500000,
+      "monthly_uncached_usd": 312510.0,
+      "monthly_cached_usd": 15625.5
+    },
+    {
+      "setup": "5 servers",
+      "overhead_tokens": 10417,
+      "model": "gpt-5.5",
+      "volume": "small",
+      "calls_per_day": 1000,
+      "monthly_uncached_usd": 1562.55,
+      "monthly_cached_usd": 156.25
+    },
+    {
+      "setup": "5 servers",
+      "overhead_tokens": 10417,
+      "model": "gpt-5.5",
+      "volume": "medium",
+      "calls_per_day": 20000,
+      "monthly_uncached_usd": 31251.0,
+      "monthly_cached_usd": 3125.1
+    },
+    {
+      "setup": "5 servers",
+      "overhead_tokens": 10417,
+      "model": "gpt-5.5",
+      "volume": "large",
+      "calls_per_day": 500000,
+      "monthly_uncached_usd": 781275.0,
+      "monthly_cached_usd": 78127.5
+    },
+    {
+      "setup": "10 servers",
+      "overhead_tokens": 23895,
+      "model": "Claude Sonnet 5.5",
+      "volume": "small",
+      "calls_per_day": 1000,
+      "monthly_uncached_usd": 1433.7,
+      "monthly_cached_usd": 71.69
+    },
+    {
+      "setup": "10 servers",
+      "overhead_tokens": 23895,
+      "model": "Claude Sonnet 5.5",
+      "volume": "medium",
+      "calls_per_day": 20000,
+      "monthly_uncached_usd": 28674.0,
+      "monthly_cached_usd": 1433.7
+    },
+    {
+      "setup": "10 servers",
+      "overhead_tokens": 23895,
+      "model": "Claude Sonnet 5.5",
+      "volume": "large",
+      "calls_per_day": 500000,
+      "monthly_uncached_usd": 716850.0,
+      "monthly_cached_usd": 35842.5
+    },
+    {
+      "setup": "10 servers",
+      "overhead_tokens": 23895,
+      "model": "Claude Opus 5.5",
+      "volume": "small",
+      "calls_per_day": 1000,
+      "monthly_uncached_usd": 2867.4,
+      "monthly_cached_usd": 143.37
+    },
+    {
+      "setup": "10 servers",
+      "overhead_tokens": 23895,
+      "model": "Claude Opus 5.5",
+      "volume": "medium",
+      "calls_per_day": 20000,
+      "monthly_uncached_usd": 57348.0,
+      "monthly_cached_usd": 2867.4
+    },
+    {
+      "setup": "10 servers",
+      "overhead_tokens": 23895,
+      "model": "Claude Opus 5.5",
+      "volume": "large",
+      "calls_per_day": 500000,
+      "monthly_uncached_usd": 1433700.0,
+      "monthly_cached_usd": 71685.0
+    },
+    {
+      "setup": "10 servers",
+      "overhead_tokens": 23895,
+      "model": "gpt-6.1-sol",
+      "volume": "small",
+      "calls_per_day": 1000,
+      "monthly_uncached_usd": 1433.7,
+      "monthly_cached_usd": 71.69
+    },
+    {
+      "setup": "10 servers",
+      "overhead_tokens": 23895,
+      "model": "gpt-6.1-sol",
+      "volume": "medium",
+      "calls_per_day": 20000,
+      "monthly_uncached_usd": 28674.0,
+      "monthly_cached_usd": 1433.7
+    },
+    {
+      "setup": "10 servers",
+      "overhead_tokens": 23895,
+      "model": "gpt-6.1-sol",
+      "volume": "large",
+      "calls_per_day": 500000,
+      "monthly_uncached_usd": 716850.0,
+      "monthly_cached_usd": 35842.5
+    },
+    {
+      "setup": "10 servers",
+      "overhead_tokens": 23895,
+      "model": "gpt-5.5",
+      "volume": "small",
+      "calls_per_day": 1000,
+      "monthly_uncached_usd": 3584.25,
+      "monthly_cached_usd": 358.43
+    },
+    {
+      "setup": "10 servers",
+      "overhead_tokens": 23895,
+      "model": "gpt-5.5",
+      "volume": "medium",
+      "calls_per_day": 20000,
+      "monthly_uncached_usd": 71685.0,
+      "monthly_cached_usd": 7168.5
+    },
+    {
+      "setup": "10 servers",
+      "overhead_tokens": 23895,
+      "model": "gpt-5.5",
+      "volume": "large",
+      "calls_per_day": 500000,
+      "monthly_uncached_usd": 1792125.0,
+      "monthly_cached_usd": 179212.5
+    }
+  ]
+}
