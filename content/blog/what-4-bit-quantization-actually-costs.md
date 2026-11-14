@@ -133,7 +133,7 @@ Calibrated methods cut the gap by half or more. They don't close it: about +7% o
 
 ## Where I'd stop trusting this post
 
-**The strongest objection: 4-bit is basically free, so "it isn't free" is overcautious.** Fair. GPTQ's 175B result is within 0.03 perplexity, and the Llama 3 study's 4-bit group-128 rows above are a few percent off fp16 with GPTQ or AWQ. On big models with a good method, the drop is small.
+**The strongest objection: 4-bit is basically free, so "it isn't free" is overcautious.** Fair. GPTQ's 175B result is within 0.03 perplexity of fp16. On the biggest models with a calibrated method, the drop can be close to nothing.
 
 It breaks in four places I can name.
 
