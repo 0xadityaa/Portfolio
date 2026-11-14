@@ -40,6 +40,51 @@ python3 -I quant_experiment.py ppl         > output-ppl.txt           # see outp
 - Perplexity: non-overlapping 1,024-token windows of the WikiText-2 test text (joined with blank lines), first N windows only. The baseline is the bf16 checkpoint upcast to fp32.
 - Memory arithmetic: see the docstring of `memory.py`. The 2 GiB reserve for activations and overhead is my assumption, not a measurement.
 
+## Tables moved out of the post
+
+### GiB left for KV cache after weights and a 2 GiB reserve
+
+Full 32k-token users in brackets. "No" means the weights don't fit. Cards: 24 GB RTX 4090, 48 GB L40S, 80 GB H100 (NVIDIA product pages, checked 2026-11-14). Users are counted at a full 32k tokens, so shorter contexts make every row look better.
+
+| Model, precision | 24 GB card | 48 GB card | 80 GB card |
+| --- | --- | --- | --- |
+| 8B int4 | 15.0 (3) | 37.4 (9) | 67.2 (16) |
+| 14B fp16 | no | 15.2 (2) | 45.0 (7) |
+| 14B int4 | 11.1 (1) | 33.4 (5) | 63.2 (10) |
+| 32B int4 | 2.4 (0) | 24.7 (3) | 54.5 (6) |
+| 70B int8 | no | no | 3.3 (0) |
+| 70B int4 | no | 5.7 (0) | 35.5 (3) |
+
+### Share of activation-weighted error in the top 1% of input channels (Qwen2.5-0.5B)
+
+An estimate: it ignores cross terms between channels.
+
+| Scheme | Share of weighted error in the top 1% of channels |
+| --- | --- |
+| int4 per-tensor | 30.4% |
+| int4 per-channel | 38.6% |
+| int4 g128 | 38.4% |
+
+### GPTQ paper, Table 3: OPT WikiText-2 perplexity
+
+Per-row round-to-nearest baseline.
+
+| OPT model | fp16 | 4-bit RTN | 4-bit GPTQ |
+| --- | --- | --- | --- |
+| 125M | 27.65 | 37.28 | 31.12 |
+| 1.3B | 14.63 | 48.17 | 15.47 |
+| 66B | 9.34 | 110 | 9.55 |
+| 175B | 8.34 | 10.54 | 8.37 |
+
+### Llama 3 quantization study: WikiText-2 perplexity, 4 bits, group 128
+
+From [arXiv 2404.14047](https://arxiv.org/abs/2404.14047). The paper rounds to one decimal.
+
+| Llama 3 | fp16 | RTN | GPTQ | AWQ |
+| --- | --- | --- | --- | --- |
+| 8B | 6.1 | 8.5 | 6.5 | 6.6 |
+| 70B | 2.9 | 3.6 | 3.3 | 3.3 |
+
 ## Files
 
 - `EXPECTATION.txt`: written before running anything.
