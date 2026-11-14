@@ -30,23 +30,23 @@ When a wrong answer is free and the user just asks again, cheap wins and you can
 
 ## Singles
 
-Haiku 5.5 is 40x cheaper than Opus 5.5 per request. If it's right 80% of the time and Opus 95%, a wrong answer that costs more than $0.114 makes Opus cheaper per useful answer. So price the failure before you price the token.
+Haiku 5.5 is 40x cheaper than Opus 5.5 per request. If it's right 80% of the time and Opus 95%, a wrong answer that costs more than $0.114 makes Opus cheaper per useful answer. Price the failure before you price the token.
 
 ---
 
-Is the cheap model cheaper? Depends what a wrong answer costs. At $0, Haiku is 33x cheaper per useful answer. At $5, it's 4.4x more expensive. So the price list can't answer it alone.
+Is the cheap model cheaper? Depends what a wrong answer costs. At $0, Haiku is 33x cheaper per useful answer. At $5, it's 4.4x more expensive. The price list can't answer it alone.
 
 ---
 
-Cheap model right 60% of the time: break-even is $0.036 per wrong answer. At 90%: $0.386. At 94%: $2.02. At 95%, same as the expensive model, it never loses. So the quality gap matters more than the price gap.
+Cheap model right 60% of the time: break-even is $0.036 per wrong answer. At 90%: $0.386. At 94%: $2.02. At 95%, same as the expensive model, it never loses. The quality gap matters more than the price gap.
 
 ---
 
-Cheap-first cascade with a check that passes 10% of wrong answers: 3.1% wrong answers delivered, against 20% for Haiku alone and 5% for Opus. $0.0058 a task instead of $0.022. So the check is doing the work.
+Cheap-first cascade with a check that passes 10% of wrong answers: 3.1% wrong answers delivered, against 20% for Haiku alone and 5% for Opus. $0.0058 a task instead of $0.022. The check is doing the work.
 
 ---
 
-I guessed a leaky check only hurts a cascade once about half of wrong answers slip through. At $1 a failure it was 28%. At $5, 22%. So the pricier the failure, the less leak you can afford.
+I guessed a leaky check only hurts a cascade once about half of wrong answers slip through. At $1 a failure it was 28%. At $5, 22%. The pricier the failure, the less leak you can afford.
 
 ## Substack Note
 
