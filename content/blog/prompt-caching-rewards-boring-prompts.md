@@ -12,7 +12,7 @@ tags:
 draft: true
 ---
 
-I assumed prompt caching was a free discount. Turn it on, pay about a tenth for the repeated part, move on. Then I wrote a small simulation to put numbers on it, and found two ways to get none of the discount while paying the setup fee.
+Prompt caching sounds like a free discount. Turn it on, pay about a tenth for the repeated part, move on. So I wrote a small simulation to put numbers on it, and found two ways to get none of the discount while still paying the setup fee.
 
 The [last post](/blog/every-mcp-server-taxes-every-prompt) used caching as the counter-argument to a big tool list. This one is about caching itself. My claim: **caching is the biggest price lever most LLM apps leave on the table, and whether you get it depends less on the provider than on two things you control. The order of your prompt, and how often your traffic arrives.**
 
