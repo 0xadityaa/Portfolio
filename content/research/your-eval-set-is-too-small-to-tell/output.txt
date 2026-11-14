@@ -1,0 +1,56 @@
+python 3.12.8  numpy 2.5.4  seed 20261114  sims 5000  boot 1000
+base accuracy B = 80%; A = B + gap; headline phi = 0.5
+
+=== TRUE 83% vs 80% (gap 3 points), phi = 0.5 for paired ===
+win/tie/lose = how often the better system A shows a higher / equal / lower score.
+CI w = mean width of the 95% bootstrap CI of A - B, in points. sig = share of evals whose CI is entirely above zero.
+    n |  IND win    tie   lose  CI w    sig | PAIRED-DATA win    tie   lose | CIw unp CIw pair narrower | sig unp sig pair sig McN
+   25 |    53.7%  13.9%  32.5%  41.4   4.2% |           53.2%  20.5%  26.4% |    41.3     28.2    31.7% |    1.0%     5.0%    4.9%
+   50 |    59.7%   9.3%  31.0%  29.7   5.2% |           63.0%  12.5%  24.5% |    29.7     20.7    30.1% |    1.1%     7.2%    6.9%
+  100 |    67.9%   6.1%  25.9%  21.2   6.9% |           73.8%   7.8%  18.4% |    21.1     14.9    29.5% |    2.2%    11.1%   11.7%
+  200 |    75.6%   3.5%  20.9%  15.1  11.9% |           84.5%   4.0%  11.6% |    15.1     10.6    29.5% |    4.1%    17.4%   19.1%
+  500 |    88.0%   1.4%  10.6%   9.6  21.3% |           95.2%   1.2%   3.6% |     9.6      6.8    29.3% |   13.7%    38.8%   40.1%
+ 1000 |    95.5%   0.5%   3.9%   6.8  40.4% |           99.3%   0.1%   0.6% |     6.8      4.8    29.3% |   36.3%    67.8%   68.5%
+
+=== TRUE 85% vs 80% (gap 5 points), phi = 0.5 for paired ===
+win/tie/lose = how often the better system A shows a higher / equal / lower score.
+CI w = mean width of the 95% bootstrap CI of A - B, in points. sig = share of evals whose CI is entirely above zero.
+    n |  IND win    tie   lose  CI w    sig | PAIRED-DATA win    tie   lose | CIw unp CIw pair narrower | sig unp sig pair sig McN
+   25 |    60.3%  13.9%  25.8%  40.4   6.6% |           66.1%  17.6%  16.3% |    40.3     27.5    31.9% |    1.9%     8.1%    7.9%
+   50 |    69.8%   8.5%  21.7%  29.0   8.1% |           77.3%   9.5%  13.2% |    29.0     20.3    29.9% |    2.6%    13.3%   12.6%
+  100 |    80.0%   4.7%  15.3%  20.8  13.8% |           88.2%   4.3%   7.5% |    20.7     14.6    29.6% |    6.2%    23.9%   25.0%
+  200 |    89.5%   2.6%   7.9%  14.7  23.8% |           96.3%   1.3%   2.4% |    14.7     10.4    29.3% |   17.9%    45.6%   48.2%
+  500 |    98.2%   0.4%   1.4%   9.3  54.7% |           99.8%   0.1%   0.1% |     9.3      6.6    29.1% |   56.3%    83.2%   84.0%
+ 1000 |    99.8%   0.0%   0.1%   6.6  83.9% |          100.0%   0.0%   0.0% |     6.6      4.7    29.0% |   91.4%    98.6%   98.7%
+
+=== TRUE 90% vs 80% (gap 10 points), phi = 0.5 for paired ===
+win/tie/lose = how often the better system A shows a higher / equal / lower score.
+CI w = mean width of the 95% bootstrap CI of A - B, in points. sig = share of evals whose CI is entirely above zero.
+    n |  IND win    tie   lose  CI w    sig | PAIRED-DATA win    tie   lose | CIw unp CIw pair narrower | sig unp sig pair sig McN
+   25 |    79.6%   9.6%  10.7%  37.6  15.6% |           88.1%   8.9%   3.0% |    37.4     25.9    30.7% |    7.3%    21.9%   21.6%
+   50 |    88.9%   4.5%   6.7%  27.1  26.3% |           96.9%   2.0%   1.1% |    27.1     19.2    29.0% |   19.1%    50.8%   49.8%
+  100 |    97.1%   1.1%   1.8%  19.4  49.2% |           99.7%   0.2%   0.1% |    19.3     13.9    28.2% |   49.1%    80.6%   80.5%
+  200 |    99.7%   0.2%   0.1%  13.7  78.4% |          100.0%   0.0%   0.0% |    13.7      9.9    28.1% |   88.3%    98.2%   98.6%
+  500 |   100.0%   0.0%   0.0%   8.7  99.3% |          100.0%   0.0%   0.0% |     8.7      6.3    27.9% |  100.0%   100.0%  100.0%
+ 1000 |   100.0%   0.0%   0.0%   6.2 100.0% |          100.0%   0.0%   0.0% |     6.2      4.4    27.9% |  100.0%   100.0%  100.0%
+
+=== SENSITIVITY: pairing benefit as outcome correlation changes. 83% vs 80%, n = 100 ===
+phi 0.3: win  70.6% tie   7.2% lose  22.1% | CI width unpaired 21.2 paired 17.7 ( 16.6% narrower) | sig unpaired   3.6% paired   9.0% McNemar  10.0%
+phi 0.5: win  74.9% tie   8.2% lose  16.9% | CI width unpaired 21.2 paired 14.9 ( 29.7% narrower) | sig unpaired   1.9% paired  10.5% McNemar  11.0%
+phi 0.7: win  80.5% tie   8.2% lose  11.3% | CI width unpaired 21.2 paired 11.5 ( 45.6% narrower) | sig unpaired   0.6% paired  15.1% McNemar  14.6%
+
+=== HOW MANY EXAMPLES: smallest n with 80% power, two-sided 5% test, base 80% ===
+Unpaired: n per system, two-proportion z test. Paired: n shared examples, McNemar. Analytic = normal-approximation formula.
+true gap |  phi | unpaired sim  analytic | paired sim  analytic |  saving
+     2pt |  0.3 |         6252      6036 |       4313      4227 |   31.0%
+     2pt |  0.5 |         6252      6036 |       3117      3021 |   50.1%
+     2pt |  0.7 |         6252      6036 |       1871      1815 |   70.1%
+     3pt |  0.3 |         2712      2626 |       1871      1840 |   31.0%
+     3pt |  0.5 |         2712      2626 |       1352      1316 |   50.1%
+     3pt |  0.7 |         2712      2626 |        775       792 |   71.4%
+     5pt |  0.3 |          933       903 |        644       634 |   31.0%
+     5pt |  0.5 |          933       903 |        465       455 |   50.2%
+     5pt |  0.7 |          933       903 |        266       275 |   71.5%
+    10pt |  0.3 |          202       197 |        139       140 |   31.2%
+    10pt |  0.5 |          202       197 |        101       103 |   50.0%
+    10pt |  0.7 | not possible: correlation too high for 90% vs 80%
