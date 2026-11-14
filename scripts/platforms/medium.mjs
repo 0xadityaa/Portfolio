@@ -11,7 +11,7 @@ export const medium = {
   secret: "MEDIUM_INTEGRATION_TOKEN",
   /** Shown in the manual checklist when there is no token. */
   manual: (post) =>
-    `Open [Import a story](https://medium.com/p/import), paste \`${post.url}\`, then publish the draft it creates. Medium sets the canonical link for you.`,
+    `Open [Import a story](https://medium.com/p/import), paste \`${post.url}\`. Medium sets the canonical link for you. Before publishing, tick "Meter my story" so it earns in the Partner Program, then submit it to a publication (Towards AI or Level Up Coding) instead of publishing to your own profile.`,
 
   async publish(post, token) {
     const headers = {
