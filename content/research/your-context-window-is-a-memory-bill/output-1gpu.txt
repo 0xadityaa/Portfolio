@@ -1,0 +1,60 @@
+GPUs: 1 x 80 GB = 80 GB; cache values: 2 byte(s); weights: fp16, params x 2 bytes; sizes in GiB (2^30), budget in GB (10^9)
+
+Llama-2-7B  (6.74B params, weights 12.6 GiB)
+  layers=32 attention_heads=32 kv_heads=32 head_dim=128 hidden_size=4096 max_position_embeddings=4096
+  KV per token: 512.0 KiB with 32 kv heads; 512.0 KiB if kv_heads = 32 (1x)
+   context |  KV one seq | vs weights | seqs fit (as shipped) | KV one seq, no GQA | seqs fit (no GQA)
+     4,096 |     2.00 GiB |       16% |                    30 |           2.00 GiB |                30
+    32,768 |    16.00 GiB |      127% |                     3 |          16.00 GiB |                 3
+   131,072 |    64.00 GiB |      510% |                     0 |          64.00 GiB |                 0
+  4 concurrent full-length users, KV only: 4k: 8.0 GiB, 32k: 64.0 GiB, 128k: 256.0 GiB
+  8 concurrent full-length users, KV only: 4k: 16.0 GiB, 32k: 128.0 GiB, 128k: 512.0 GiB
+
+Mistral-7B-v0.3  (7.25B params, weights 13.5 GiB)
+  layers=32 attention_heads=32 kv_heads=8 head_dim=128 hidden_size=4096 max_position_embeddings=32768
+  KV per token: 128.0 KiB with 8 kv heads; 512.0 KiB if kv_heads = 32 (4x)
+   context |  KV one seq | vs weights | seqs fit (as shipped) | KV one seq, no GQA | seqs fit (no GQA)
+     4,096 |     0.50 GiB |        4% |                   122 |           2.00 GiB |                30
+    32,768 |     4.00 GiB |       30% |                    15 |          16.00 GiB |                 3
+   131,072 |    16.00 GiB |      119% |                     3 |          64.00 GiB |                 0
+  4 concurrent full-length users, KV only: 4k: 2.0 GiB, 32k: 16.0 GiB, 128k: 64.0 GiB
+  8 concurrent full-length users, KV only: 4k: 4.0 GiB, 32k: 32.0 GiB, 128k: 128.0 GiB
+
+Qwen2.5-7B  (7.62B params, weights 14.2 GiB)
+  layers=28 attention_heads=28 kv_heads=4 head_dim=128 hidden_size=3584 max_position_embeddings=131072
+  KV per token: 56.0 KiB with 4 kv heads; 392.0 KiB if kv_heads = 28 (7x)
+   context |  KV one seq | vs weights | seqs fit (as shipped) | KV one seq, no GQA | seqs fit (no GQA)
+     4,096 |     0.22 GiB |        2% |                   275 |           1.53 GiB |                39
+    32,768 |     1.75 GiB |       12% |                    34 |          12.25 GiB |                 4
+   131,072 |     7.00 GiB |       49% |                     8 |          49.00 GiB |                 1
+  4 concurrent full-length users, KV only: 4k: 0.9 GiB, 32k: 7.0 GiB, 128k: 28.0 GiB
+  8 concurrent full-length users, KV only: 4k: 1.8 GiB, 32k: 14.0 GiB, 128k: 56.0 GiB
+
+Llama-3.1-8B  (8.03B params, weights 15.0 GiB)
+  layers=32 attention_heads=32 kv_heads=8 head_dim=128 hidden_size=4096 max_position_embeddings=131072
+  KV per token: 128.0 KiB with 8 kv heads; 512.0 KiB if kv_heads = 32 (4x)
+   context |  KV one seq | vs weights | seqs fit (as shipped) | KV one seq, no GQA | seqs fit (no GQA)
+     4,096 |     0.50 GiB |        3% |                   119 |           2.00 GiB |                29
+    32,768 |     4.00 GiB |       27% |                    14 |          16.00 GiB |                 3
+   131,072 |    16.00 GiB |      107% |                     3 |          64.00 GiB |                 0
+  4 concurrent full-length users, KV only: 4k: 2.0 GiB, 32k: 16.0 GiB, 128k: 64.0 GiB
+  8 concurrent full-length users, KV only: 4k: 4.0 GiB, 32k: 32.0 GiB, 128k: 128.0 GiB
+
+Llama-3.1-70B  (70.55B params, weights 131.4 GiB)
+  layers=80 attention_heads=64 kv_heads=8 head_dim=128 hidden_size=8192 max_position_embeddings=131072
+  KV per token: 320.0 KiB with 8 kv heads; 2560.0 KiB if kv_heads = 64 (8x)
+   context |  KV one seq | vs weights | seqs fit (as shipped) | KV one seq, no GQA | seqs fit (no GQA)
+     4,096 |     1.25 GiB |        1% |               no room |          10.00 GiB |           no room
+    32,768 |    10.00 GiB |        8% |               no room |          80.00 GiB |           no room
+   131,072 |    40.00 GiB |       30% |               no room |         320.00 GiB |           no room
+  weights alone exceed the memory budget
+
+Qwen2.5-72B  (72.71B params, weights 135.4 GiB)
+  layers=80 attention_heads=64 kv_heads=8 head_dim=128 hidden_size=8192 max_position_embeddings=131072
+  KV per token: 320.0 KiB with 8 kv heads; 2560.0 KiB if kv_heads = 64 (8x)
+   context |  KV one seq | vs weights | seqs fit (as shipped) | KV one seq, no GQA | seqs fit (no GQA)
+     4,096 |     1.25 GiB |        1% |               no room |          10.00 GiB |           no room
+    32,768 |    10.00 GiB |        7% |               no room |          80.00 GiB |           no room
+   131,072 |    40.00 GiB |       30% |               no room |         320.00 GiB |           no room
+  weights alone exceed the memory budget
+
