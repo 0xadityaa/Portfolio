@@ -1,0 +1,14 @@
+{
+  "tokens_scored": 8184,
+  "window": 1024,
+  "perplexity": {
+    "fp32 (bf16 weights upcast)": 17.166291819857367,
+    "int8 tensor": 17.754387624966967,
+    "int8 channel": 17.19067769874696,
+    "int8 g128": 17.17671202696305,
+    "int4 tensor": 10816107.810694706,
+    "int4 channel": 31.76156007713694,
+    "int4 g128": 20.492229857043917,
+    "int4 tensor + keep 1% weights": 20.887845133375237
+  }
+}
