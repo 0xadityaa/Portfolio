@@ -1,0 +1,26 @@
+Written 2026-11-14, before running any retrieval.
+
+Setup: SQuAD v1.1 dev (48 articles, 10,570 questions). Each article's paragraphs
+are joined into one document. Chunk at 64/128/256/512/1,024 tokens (o200k_base),
+0% and 15% overlap. Retrieve over the whole corpus with BM25 and bge-small-en-v1.5.
+Hit = a retrieved chunk fully contains the gold answer span.
+
+What I expect:
+1. At a fixed k (say k=5), recall rises with chunk size for both retrievers,
+   because a bigger chunk is a bigger net. Recall@5 at 1,024 tokens is well above
+   recall@5 at 64 tokens (more than 20 points).
+2. At an equal ~2,000-token budget, the ordering flips: small and medium chunks
+   win. Embeddings peak around 128-256 tokens and fall off at 1,024 (the model
+   truncates at 512 tokens, so I expect the biggest chunks to hurt it most).
+   BM25 is flatter and peaks a bit later, around 256-512.
+3. At equal budget, the spread between the best and worst chunk size within one
+   retriever is at least as large as the gap between BM25 and embeddings at a
+   fixed chunk size (my guess: 5 to 10 points for the spread, against 5 to 15
+   for the retriever gap, and embeddings ahead of BM25 on this dataset).
+4. 15% overlap helps the smallest chunks a little (answers straddling a boundary
+   stop being lost), by 1 to 3 points, and does almost nothing at 512 and above.
+5. The strict span-based gold and the looser "answer string appears in the chunk"
+   gold disagree by a few points, with the string version higher.
+
+What would surprise me: BM25 beating embeddings at every size, or the best
+chunk size at equal budget being the same for both retrievers.
