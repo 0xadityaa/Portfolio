@@ -1,35 +1,35 @@
 ## Thread
 
-I wrote a small script that reads real config.json files and works out how much memory a long context costs when you serve a model yourself. Here's what came out.
+One user pasting 128k tokens into Llama 3.1 8B needs 16 GiB of cache. The model's weights are 15.0 GiB. Here's the arithmetic, from real config files.
 ---
-Llama 3.1 8B keeps 128 KiB of key/value cache per token. At 128k tokens that's 16 GiB for one user. The model's own weights are 15.0 GiB.
+Llama 3.1 8B keeps 128 KiB of key/value cache per token. Times 131,072 tokens is 16 GiB, for one person. The weights are paid once. The cache is paid per user.
 ---
-So at long context the model isn't the big thing on the GPU. The cache is. On one 80 GB card, I get 119 users at 4k tokens and 3 at 128k. Same model, same card.
+On one 80 GB card: 119 full-length users at 4k tokens, 3 at 128k. Same model, same card. Only how much each person pasted changed.
 ---
-The reason it isn't worse is grouped-query attention. Llama 3.1 8B shares 8 key/value heads across 32 query heads. Without that, one 128k user would need 64 GiB, and zero would fit.
+Why isn't it worse? Grouped-query attention. Llama 3.1 8B shares 8 key/value heads across 32 query heads. Without that, one 128k user would need 64 GiB, and none would fit.
 ---
-fp8 cache halves it (7 users at 128k instead of 3), prefix sharing helps, and DeepSeek's latent attention breaks the formula. I computed this, I didn't benchmark it. Script and write-up: https://www.0xadityaa.dev/blog/your-context-window-is-a-memory-bill
+fp8 cache halves it (7 users at 128k, not 3). Prefix sharing helps. DeepSeek's latent attention breaks the formula. This is arithmetic, not a benchmark. Write-up and script: https://www.0xadityaa.dev/blog/your-context-window-is-a-memory-bill
 
 ## Singles
 
-Llama 3.1 8B: 128 KiB of KV cache per token. At 128k tokens that's 16 GiB for a single user, and the weights are 15.0 GiB. At long context the cache is the bigger line item.
+At 128k tokens, Llama 3.1 8B's KV cache for one user is 16 GiB. The model itself is 15.0 GiB. So at long context, you're buying GPU memory for the cache.
 ---
-One 80 GB GPU, Llama 3.1 8B in fp16: 119 full-length users at 4k tokens, 14 at 32k, 3 at 128k. Nothing about the model changed. Only how much each person pasted.
+119 users at 4k tokens. 3 at 128k. Same model, same 80 GB card, same code. So the context you allow decides how many people you can serve.
 ---
-Grouped-query attention is a memory trick as much as a speed trick. Llama 3.1 70B would need 320 GiB of cache for one 128k user without it. With it: 40 GiB.
+Llama 3.1 70B without grouped-query attention: 320 GiB of cache for one 128k user. With it: 40 GiB. So GQA is a memory trick as much as a speed trick.
 ---
-Qwen2.5 7B caches 56 KiB per token because it shares 4 key/value heads across 28 query heads. That's 7x smaller than the same model with a head per query, and it's why 8 users fit at 128k on one card.
+Why does Qwen2.5 7B fit 8 users at 128k? It caches 56 KiB per token, sharing 4 key/value heads across 28 query heads. Seven times smaller than a head per query. So kv_heads is the number to read in a config.
 ---
-Quick check on my own formula: the PagedAttention paper says OPT-13B needs 800 KB of cache per token. 2 x 5,120 x 40 layers x 2 bytes is 819,200. My script uses the same arithmetic on each model's real config.json.
+Check on my formula: the PagedAttention paper says OPT-13B needs 800 KB of cache per token. 2 x 5,120 x 40 layers x 2 bytes is 819,200. So the same arithmetic works on each model's config.json.
 
 ## Substack Note
 
-I wrote a small script that reads each open model's real config.json and works out how much GPU memory a long context costs. Here's what "128k context" costs.
+One user pasting 128k tokens into Llama 3.1 8B needs 16 GiB of memory for the cache alone. The model's weights are 15.0 GiB.
 
-Take Llama 3.1 8B. It keeps 128 KiB of key/value cache per token, so one user at 128k tokens needs 16 GiB. The model's own weights are 15.0 GiB. On one 80 GB card that's 119 users at 4k tokens, but only 3 at 128k. Same model, same card.
+That's the KV cache: the keys and values the server saves for every token it has already read, so it doesn't recompute them. Llama 3.1 8B keeps 128 KiB per token. The weights are paid once, but the cache is paid per user. On one 80 GB card that's 119 users at 4k tokens and only 3 at 128k. Same model, same card.
 
-Grouped-query attention is why it isn't worse. Llama 3.1 8B shares 8 key/value heads across 32 query heads. Without it, one 128k user would need 64 GiB, and none would fit after the weights.
+Grouped-query attention is why it isn't worse. Llama 3.1 8B shares 8 key/value heads across 32 query heads, so without it one 128k user would need 64 GiB.
 
-It's arithmetic from configs, not a benchmark, and fp8 cache, prefix sharing and DeepSeek-style latent attention all move the numbers. The post has the table, the caveats, and the script.
+I only did arithmetic from real config files. I haven't run it on a GPU, and fp8 cache and prefix sharing move the numbers. The post has the table and the caveats.
 
 https://www.0xadityaa.dev/blog/your-context-window-is-a-memory-bill

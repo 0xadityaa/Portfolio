@@ -32,6 +32,19 @@ python3 kv_cache.py --bytes 1 > output-fp8-kv-1gpu.txt   # one byte per cached v
 
 The Llama repos are the `NousResearch` and `unsloth` mirrors, because Meta's own repos are gated. Their configs are the same architecture fields; the mirrors are not Meta's files.
 
+## KV cache per user, all six models
+
+One full-length user, fp16 cache, in GiB. "vs weights" is the 128k cache divided by the weights. Llama 2 7B was trained for 4,096 tokens and Mistral 7B v0.3's config says 32,768, so their longer rows are what-ifs.
+
+| Model (kv heads) | KV per token | 4k | 32k | 128k | 128k vs weights |
+| --- | --- | --- | --- | --- | --- |
+| Llama 2 7B (32) | 512 KiB | 2.00 | 16.00 | 64.00 | 510% |
+| Mistral 7B v0.3 (8) | 128 KiB | 0.50 | 4.00 | 16.00 | 119% |
+| Qwen2.5 7B (4) | 56 KiB | 0.22 | 1.75 | 7.00 | 49% |
+| Llama 3.1 8B (8) | 128 KiB | 0.50 | 4.00 | 16.00 | 107% |
+| Llama 3.1 70B (8) | 320 KiB | 1.25 | 10.00 | 40.00 | 30% |
+| Qwen2.5 72B (8) | 320 KiB | 1.25 | 10.00 | 40.00 | 30% |
+
 ## Method and what it leaves out
 
 - KV bytes per token = 2 x `num_hidden_layers` x `num_key_value_heads` x `head_dim` x bytes per value. `head_dim` is the config field if present, else `hidden_size / num_attention_heads`. A missing `num_key_value_heads` means multi-head attention.
