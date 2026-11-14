@@ -12,15 +12,15 @@ fp8 cache halves it (7 users at 128k, not 3). Prefix sharing helps. DeepSeek's l
 
 ## Singles
 
-At 128k tokens, Llama 3.1 8B's KV cache for one user is 16 GiB. The model itself is 15.0 GiB. So at long context, you're buying GPU memory for the cache.
+At 128k tokens, Llama 3.1 8B's KV cache for one user is 16 GiB. The model itself is 15.0 GiB. At long context, you're buying GPU memory for the cache.
 ---
-119 users at 4k tokens. 3 at 128k. Same model, same 80 GB card, same code. So the context you allow decides how many people you can serve.
+119 users at 4k tokens. 3 at 128k. Same model, same 80 GB card, same code. The context you allow decides how many people you can serve.
 ---
-Llama 3.1 70B without grouped-query attention: 320 GiB of cache for one 128k user. With it: 40 GiB. So GQA is a memory trick as much as a speed trick.
+Llama 3.1 70B without grouped-query attention: 320 GiB of cache for one 128k user. With it: 40 GiB. GQA is a memory trick as much as a speed trick.
 ---
-Why does Qwen2.5 7B fit 8 users at 128k? It caches 56 KiB per token, sharing 4 key/value heads across 28 query heads. Seven times smaller than a head per query. So kv_heads is the number to read in a config.
+Why does Qwen2.5 7B fit 8 users at 128k? It caches 56 KiB per token, sharing 4 key/value heads across 28 query heads. Seven times smaller than a head per query. The number to read in a config is kv_heads.
 ---
-Check on my formula: the PagedAttention paper says OPT-13B needs 800 KB of cache per token. 2 x 5,120 x 40 layers x 2 bytes is 819,200. So the same arithmetic works on each model's config.json.
+Check on my formula: the PagedAttention paper says OPT-13B needs 800 KB of cache per token. 2 x 5,120 x 40 layers x 2 bytes is 819,200. The same arithmetic works on each model's config.json.
 
 ## Substack Note
 

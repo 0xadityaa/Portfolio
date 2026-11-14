@@ -13,7 +13,7 @@ draft: true
 
 16 GiB. That's what one user's 128k-token paste costs in memory on Llama 3.1 8B, and the model's own weights are 15.0 GiB.
 
-Picture this, and yes, it's made up, I haven't run it: one 80 GB GPU serving Llama 3.1 8B. The weights take about 16 GB, so 64 GB is free. Plenty, right? Then users start pasting codebases. Three fit. The fourth doesn't. Not the compute, the memory.
+A thought experiment, since I haven't run this on a real server: one 80 GB GPU serving Llama 3.1 8B. The weights take about 16 GB, so 64 GB is free. Plenty, right? Then users start pasting codebases. Three fit. The fourth doesn't. Not the compute, the memory.
 
 This is a sequel to [LLMs Don't Read Your Prompt. They Count It.](/blog/how-llms-process-text), which was about what a token is. This one is about what a token costs to keep around. I wrote a script that reads real `config.json` files and does the arithmetic.
 
