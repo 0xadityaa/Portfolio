@@ -1,6 +1,6 @@
 ## Thread
 
-Swapping my retriever moved recall by 2 points. Changing the chunk size moved it by 5 to 6. I tested both on 10,570 SQuAD questions, and I'd never tuned the second one.
+Swapping my retriever moved recall by 2 points. Changing the chunk size moved it by 5 to 6. I tested both on 10,570 SQuAD questions. The second one is usually a copied default.
 ---
 Most RAG pipelines use 512-token chunks because a tutorial did. I swept 64 to 1,024 tokens with two retrievers, BM25 and a small embedding model, at a fixed 2,000-token context.
 ---
@@ -28,7 +28,7 @@ A tutorial picked your chunk size. A sweep of 128, 256 and 512 at a fixed token 
 
 ## Substack Note
 
-Swapping my retriever changed recall by 2 points. Changing the chunk size changed it by 5 or 6. I'd never tuned the second one.
+Swapping my retriever changed recall by 2 points. Changing the chunk size changed it by 5 or 6. Guess which one most pipelines tune.
 
 I took the 10,570 questions in SQuAD v1.1 dev, cut 48 articles into chunks of 64 to 1,024 tokens, and retrieved with BM25 and a small embedding model, holding the context at about 2,000 tokens. BM25 was flat from 128 to 512. The embedder peaked at 64 to 128 and fell to 73.1% at 512, and to 51.4% at 1,024. The last drop is mostly truncation: it reads 512 tokens at most. Over sizes it reads in full, the spread is about 6 points.
 
