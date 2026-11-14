@@ -43,3 +43,49 @@ To use your own numbers, edit `prices.json` and the constants near the top of `c
 - Single models have no check: every wrong answer is delivered and costs `F`. The cascade gets a verifier, which is a second opinion the single models do not get.
 - Verifier errors are independent of the task. Real verifiers probably fail on the same hard cases as the cheap model.
 - Escalated tasks default to the expensive model's average success. Section 7 of the output shows what happens when they are harder.
+
+## Tables moved out of the post
+
+All numbers are from `output.txt`. Prices as of 2026-11-14; success rates and failure costs are swept assumptions.
+
+### Request prices (3,000 in, 500 out)
+
+| Model | Input $/MTok | Output $/MTok | One request |
+| --- | --- | --- | --- |
+| Claude Haiku 5.5 | 0.10 | 0.50 | $0.00055 |
+| Claude Opus 5.5 | 4.00 | 20.00 | $0.022 |
+| gpt-5.4-mini | 0.75 | 4.50 | $0.0045 |
+| gpt-5.4 | 2.50 | 15.00 | $0.015 |
+
+### Break-even failure cost F*, expensive model held at 95%
+
+```text
+F* = (c_exp / s_exp - c_cheap / s_cheap) / (1 / s_cheap - 1 / s_exp)
+```
+
+| Cheap model right | Claude pair | OpenAI pair |
+| --- | --- | --- |
+| 60% | $0.036 | $0.013 |
+| 80% | $0.114 | $0.051 |
+| 90% | $0.386 | $0.184 |
+| 94% | $2.02 | $0.982 |
+| 95% | never | never |
+
+### Cost per useful answer, cascade with leak 0.10
+
+| Cost of a wrong answer | Cheap alone | Expensive alone | Cascade |
+| --- | --- | --- | --- |
+| $0.05 | $0.013 | $0.026 | $0.0076 |
+| $0.25 | $0.063 | $0.036 | $0.014 |
+| $1 | $0.251 | $0.076 | $0.038 |
+| $5 | $1.25 | $0.286 | $0.166 |
+
+The cheap model alone is cheapest only up to $0.025. Above that the cascade wins to $5.
+
+### Volume, wrong answer costs $0.25 (spend plus failure cost, not an invoice)
+
+| Useful answers | Cheap alone | Expensive alone | Cascade |
+| --- | --- | --- | --- |
+| 10,000 | $632 | $363 | $140 |
+| 1,000,000 | $63,188 | $36,316 | $13,973 |
+| 100,000,000 | $6.3M | $3.6M | $1.4M |

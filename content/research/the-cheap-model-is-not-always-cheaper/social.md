@@ -1,61 +1,61 @@
 ## Thread
 
-The cheap model is 40x cheaper per request. I priced one request (3,000 tokens in, 500 out): Claude Haiku 5.5 costs $0.00055, Opus 5.5 costs $0.022. Pricing pages checked 2026-11-14.
-
-But you don't buy requests. You buy useful answers.
+Haiku 5.5 is 40x cheaper than Opus 5.5 per request: $0.00055 against $0.022. It can still cost more per useful answer. The thread shows where the crossover sits, and what a cheap-first cascade does to it. The success rates are my assumptions, not measurements.
 
 ---
 
-Cost per useful answer = (what you spent + wrong answers x what each one costs) / answers that were right.
+You don't buy requests, you buy right answers. Cost per useful answer = (spend + wrong answers x what each costs) / answers that were right.
 
-I assumed Haiku is right 80% of the time and Opus 95%. Made-up numbers, so I swept them.
-
----
-
-With those assumptions the break-even is $0.114. If one wrong answer costs you more than 11 cents, Opus is cheaper per useful answer. At $5 a wrong answer, Haiku costs $1.25 per useful answer and Opus $0.286.
+I gave Haiku 80% right and Opus 95%. Made up, so I swept the cost of a wrong answer instead.
 
 ---
 
-A cascade fixes most of it: cheap model answers, a check decides whether to escalate. With a check that passes 10% of wrong answers, it was cheapest of the three from $0.025 up to $5.
+Break-even: $0.114. Above 11 cents per wrong answer, Opus is cheaper per useful answer.
+
+At $5 a failure, Haiku costs $1.25 per useful answer. Opus costs $0.286.
 
 ---
 
-A leaky check erases the win. At $1 per wrong answer, a check that lets through more than 28% of wrong answers loses to Opus alone. I'd guessed 50%.
-
-Build the check first, then measure its false-positive rate.
+A cascade changes it. Haiku answers, a check decides whether to escalate to Opus. With a check that passes 10% of wrong answers, it was cheapest of the three from $0.025 up to $5 per failure.
 
 ---
 
-When failures are free and the user just asks again, cheap wins and you can stop reading. Script, raw output and the sweep are in the post: https://www.0xadityaa.dev/blog/the-cheap-model-is-not-always-cheaper
+A leaky check erases that. At $1 per wrong answer, a check that lets through more than 28% of wrong answers loses to Opus alone. I'd guessed 50%.
+
+So build the check first. Then measure its false-positive rate on real traffic.
+
+---
+
+When a wrong answer is free and the user just asks again, cheap wins and you can stop reading. Script, raw output and the full sweep are in the post: https://www.0xadityaa.dev/blog/the-cheap-model-is-not-always-cheaper
 
 ## Singles
 
-One request, 3,000 tokens in and 500 out. Claude Haiku 5.5: $0.00055. Claude Opus 5.5: $0.022. That is 40x. But if Haiku is right 80% of the time and Opus 95%, the break-even is a wrong answer that costs $0.114. Above that, Opus is cheaper per useful answer.
+Haiku 5.5 is 40x cheaper than Opus 5.5 per request. If it's right 80% of the time and Opus 95%, a wrong answer that costs more than $0.114 makes Opus cheaper per useful answer. So price the failure before you price the token.
 
 ---
 
-Price per token tells you what a request costs. Cost per useful answer is (spend + wrong answers x cost of each) / right answers. In my sweep, at $5 per wrong answer, an 80%-right cheap model cost $1.25 per useful answer and a 95%-right expensive one cost $0.286.
+Is the cheap model cheaper? Depends what a wrong answer costs. At $0, Haiku is 33x cheaper per useful answer. At $5, it's 4.4x more expensive. So the price list can't answer it alone.
 
 ---
 
-The gap between models decides the break-even more than the price does. Cheap model at 60% right, break-even is $0.036. At 90%, $0.386. At 94%, $2.02. At 95%, same as the expensive one, so it never loses. Measure your own gap before you pick.
+Cheap model right 60% of the time: break-even is $0.036 per wrong answer. At 90%: $0.386. At 94%: $2.02. At 95%, same as the expensive model, it never loses. So the quality gap matters more than the price gap.
 
 ---
 
-I simulated a cheap-first cascade with a verifier. When the verifier let through 10% of wrong answers, the cascade delivered 3.1% wrong answers against 20% for the cheap model alone and 5% for the expensive one, at $0.0058 a task instead of $0.022.
+Cheap-first cascade with a check that passes 10% of wrong answers: 3.1% wrong answers delivered, against 20% for Haiku alone and 5% for Opus. $0.0058 a task instead of $0.022. So the check is doing the work.
 
 ---
 
-I guessed a leaky verifier would only hurt the cascade once it passed about half of wrong answers. At $1 per wrong answer it stopped beating the expensive model alone at 28%. At $5 it stopped at 22%. The pricier the failure, the less leak you can afford.
+I guessed a leaky check only hurts a cascade once about half of wrong answers slip through. At $1 a failure it was 28%. At $5, 22%. So the pricier the failure, the less leak you can afford.
 
 ## Substack Note
 
-The cheap model is 40 times cheaper per request. I priced one request on Claude Haiku 5.5 and Opus 5.5 (3,000 tokens in, 500 out): $0.00055 against $0.022.
+Haiku 5.5 is 40 times cheaper than Opus 5.5 per request: $0.00055 against $0.022 for 3,000 tokens in and 500 out. I still don't think it's always the cheaper choice.
 
-That isn't the number that matters. You're buying useful answers, so the unit is (spend + wrong answers times what each costs) divided by the answers that were right.
+You aren't buying requests, you're buying useful answers. So the real unit is what you spent plus what the wrong answers cost you, divided by the answers that were right.
 
-I wrote a small seeded script to sweep it. With Haiku at an assumed 80% right and Opus at 95%, the break-even is $0.114. Above that cost per wrong answer, Opus is cheaper per useful answer. A cheap-first cascade with a decent check beat both from $0.025 up to $5. A check that lets through more than 28% of wrong answers lost to Opus alone at $1 a failure.
+I swept it with a small seeded script. If Haiku is right 80% of the time and Opus 95% (my assumptions, not measurements), a wrong answer that costs more than 11 cents makes Opus the cheaper one. A cheap-first cascade with a decent check beat both. But a check that lets through more than 28% of wrong answers lost to Opus alone at $1 a failure. I'd guessed 50%.
 
-The success rates are my assumptions, not measurements, and when a wrong answer is free and visible, the cheap model just wins. The post has the tables, the limits and the code.
+If a wrong answer is free and the user just asks again, buy the cheap model and move on. The tables, the limits and the code are in the post.
 
 https://www.0xadityaa.dev/blog/the-cheap-model-is-not-always-cheaper
