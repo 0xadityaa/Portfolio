@@ -55,3 +55,34 @@ Apple M2, 8 cores, 16 GB, CPU only (the machine was also busy with other jobs, s
 - The corpus is 48 articles. A real knowledge base has more distractors.
 - SQuAD questions were written by people looking at the paragraph, which favours BM25.
 - Intervals are clustered by article. They cover sampling noise over questions and articles, not the choice of dataset, model or BM25 parameters.
+
+## Detail moved out of the post
+
+Corpus and retrievers: SQuAD v1.1 dev ([Rajpurkar et al., 2016](https://arxiv.org/abs/1606.05250)), 48 articles joined into one document each, 330,249 tokens counted with tiktoken `o200k_base`. BM25 follows [Robertson and Zaragoza (2009)](https://doi.org/10.1561/1500000019). The looser "answer string appears in a retrieved chunk" measure came out 1 to 7 points higher than the strict span measure.
+
+### Same k (k = 5)
+
+| Chunk size | BM25 recall@5 | Embeddings recall@5 | Tokens handed to the model (BM25) |
+| --- | --- | --- | --- |
+| 64 | 76.6% | 76.7% | 319 |
+| 128 | 84.7% | 77.6% | 638 |
+| 256 | 89.8% | 78.3% | 1,273 |
+| 512 | 93.1% | 77.1% | 2,530 |
+| 1,024 | 95.3% | 71.3% | 4,988 |
+
+I expected embedding recall to rise with size. It sat between 76.7% and 78.3% from 64 to 512 tokens, then dropped at 1,024.
+
+### Equal 2,000-token budget, details
+
+- `k` is 2,000 divided by the chunk size, rounded. Actual tokens sent landed between 1,930 and 2,040.
+- BM25 at 64 tokens is 5.3 points under its best size, partly because 3.2% of questions have no 64-token chunk holding the whole answer.
+- Embedder: 64 and 128 tokens tie (90.1% and 89.7%). Spread across all five sizes 38.7 points; over 64 to 256 (read in full) 5.9 points. BM25 spread 5.3 points.
+- BM25 best 92.2% against embedder best 90.1%: 2.1 points, 95% interval 1.1 to 3.1. At 512 tokens the embedder is 17.0 points under its best (interval 15.1 to 18.8).
+
+### Overlap (15%)
+
+- 10 tokens of overlap at size 64, 154 at size 1,024.
+- At 64 tokens: +5.1 points for BM25, +4.4 for embeddings, at the 2,000-token budget. Answer spans cut in half: 3.2% without overlap, 0.1% with.
+- At 512 and 1,024 tokens BM25 gained under a point and the embedder 2.7 and 3.5. Why is unknown; boundaries moving which tail gets truncated is a guess.
+- Chunk count at 64 tokens: 6,133 with overlap against 5,187 without (about 18% more to index). Tokens handed over barely change at a fixed k.
+- Best numbers at the 2,000-token budget with overlap: 94.5% (embedder, 64 tokens) and 94.2% (BM25, 128 tokens).
