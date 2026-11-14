@@ -1,0 +1,38 @@
+{
+  "Llama-2-7B": {
+    "repo": "NousResearch/Llama-2-7b-hf",
+    "commit": "8efe6c9b93655b934e27bd9981e3ec13e55aee9d",
+    "config_url": "https://huggingface.co/NousResearch/Llama-2-7b-hf/raw/8efe6c9b93655b934e27bd9981e3ec13e55aee9d/config.json",
+    "parameters": 6738417664
+  },
+  "Mistral-7B-v0.3": {
+    "repo": "mistralai/Mistral-7B-v0.3",
+    "commit": "caa1feb0e54d415e2df31207e5f4e273e33509b1",
+    "config_url": "https://huggingface.co/mistralai/Mistral-7B-v0.3/raw/caa1feb0e54d415e2df31207e5f4e273e33509b1/config.json",
+    "parameters": 7248023552
+  },
+  "Qwen2.5-7B": {
+    "repo": "Qwen/Qwen2.5-7B",
+    "commit": "d149729398750b98c0af14eb82c78cfe92750796",
+    "config_url": "https://huggingface.co/Qwen/Qwen2.5-7B/raw/d149729398750b98c0af14eb82c78cfe92750796/config.json",
+    "parameters": 7615616512
+  },
+  "Llama-3.1-8B": {
+    "repo": "unsloth/Meta-Llama-3.1-8B",
+    "commit": "e9a141a2091ea561b96483212645a2a05e6f99fc",
+    "config_url": "https://huggingface.co/unsloth/Meta-Llama-3.1-8B/raw/e9a141a2091ea561b96483212645a2a05e6f99fc/config.json",
+    "parameters": 8030261248
+  },
+  "Llama-3.1-70B": {
+    "repo": "unsloth/Llama-3.1-70B",
+    "commit": "99f146c778e0de3b687d83191faf41e49198f2ca",
+    "config_url": "https://huggingface.co/unsloth/Llama-3.1-70B/raw/99f146c778e0de3b687d83191faf41e49198f2ca/config.json",
+    "parameters": 70553706496
+  },
+  "Qwen2.5-72B": {
+    "repo": "Qwen/Qwen2.5-72B",
+    "commit": "efba10c8e54e91e0d9570ab5f7b51a958474d4cb",
+    "config_url": "https://huggingface.co/Qwen/Qwen2.5-72B/raw/efba10c8e54e91e0d9570ab5f7b51a958474d4cb/config.json",
+    "parameters": 72706203648
+  }
+}
