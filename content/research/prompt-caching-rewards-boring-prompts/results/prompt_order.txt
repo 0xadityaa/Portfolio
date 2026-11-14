@@ -1,0 +1,13 @@
+sample prompt: tools 601 tokens, system prompt 1076 tokens (o200k_base)
+static content total: about 1677 tokens
+
+placement of the per-request block    total  mean prefix   min   max  % of total  cached @512  cached @1024  $/MTok-prompt
+top_of_system                          1716          612   612   614       35.7%          612             0          1.322
+middle_of_system                       1716          902   902   904       52.6%          902             0          1.001
+bottom_of_system                       1716         1688  1688  1690       98.4%         1688          1688          0.131
+in_user_message                        1716         1690  1690  1692       98.5%         1690          1690          0.128
+tools_shuffled                         1716           46     6  1688        2.7%            8             8          1.991
+
+'mean prefix' is the longest identical run of leading tokens between two requests, averaged over 200 random pairs.
+'cached @512' and '@1024' zero the prefix when it is shorter than the minimum cacheable length.
+'$/MTok-prompt' is the blended input price per million prompt tokens on Sonnet 5.5 ($2.00 base, $0.10 read) if every request reads the cached prefix and pays base for the rest.

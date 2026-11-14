@@ -1,0 +1,65 @@
+[
+  {
+    "name": "lookup_order",
+    "description": "Look up an order by its order number and the email address on the order. Returns status, carrier, tracking number, items, delivery estimate and delivery date if delivered. Fails if the email does not match.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "order_number": {"type": "string", "description": "The five or six digit order number the customer gives you."},
+        "email": {"type": "string", "description": "The email address on the order."}
+      },
+      "required": ["order_number", "email"]
+    }
+  },
+  {
+    "name": "start_return",
+    "description": "Start a return or a fault return for one item on an order. Returns the return label link, the refund method and whether shipping is free. Only call after you have confirmed the item and the reason with the customer.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "order_number": {"type": "string", "description": "The order number."},
+        "item_id": {"type": "string", "description": "The item id from the lookup_order result."},
+        "reason": {"type": "string", "enum": ["unused", "faulty", "wrong_item", "arrived_damaged", "other"], "description": "Why the customer is returning the item."},
+        "notes": {"type": "string", "description": "A short note from the customer, such as what happens when the stove is lit."}
+      },
+      "required": ["order_number", "item_id", "reason"]
+    }
+  },
+  {
+    "name": "search_catalogue",
+    "description": "Search the product catalogue. Returns up to five products with name, price, key specs, season rating and stock status. Use it before recommending any product.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "query": {"type": "string", "description": "What the customer is looking for, in their words."},
+        "category": {"type": "string", "enum": ["tents", "sleeping_bags", "stoves", "boots", "packs", "clothing", "accessories"], "description": "Optional category filter."},
+        "max_price": {"type": "number", "description": "Optional maximum price in dollars."}
+      },
+      "required": ["query"]
+    }
+  },
+  {
+    "name": "shipping_options",
+    "description": "Return the shipping options, prices and estimated delivery windows for a destination country and a list of item ids. Also says whether any item ships by freight.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "country": {"type": "string", "description": "Two letter country code."},
+        "item_ids": {"type": "array", "items": {"type": "string"}, "description": "Item ids in the basket."}
+      },
+      "required": ["country", "item_ids"]
+    }
+  },
+  {
+    "name": "handoff_to_human",
+    "description": "Pass the conversation to a human support agent. Include a two sentence summary so the customer does not have to repeat themselves.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "summary": {"type": "string", "description": "Two sentences: who the customer is, what they need, and what you already tried."},
+        "priority": {"type": "string", "enum": ["normal", "urgent"], "description": "Urgent only for double charges and injuries."}
+      },
+      "required": ["summary"]
+    }
+  }
+]
