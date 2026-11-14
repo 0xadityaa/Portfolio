@@ -74,7 +74,7 @@ The size of the gain depends on that correlation. At 100 examples, a correlation
 
 ## How many examples do I need?
 
-Here's the table I wish I'd had earlier. It gives the smallest `n` that reaches 80% [power](https://en.wikipedia.org/wiki/Power_of_a_test) (the test catches the real gap 80% of the time) at a two-sided 5% level. Base accuracy is 80%. "Unpaired" is `n` per system. "Paired" is `n` shared examples, and it depends on the correlation.
+Here's the table to keep next to your eval. It gives the smallest `n` that reaches 80% [power](https://en.wikipedia.org/wiki/Power_of_a_test) (the test catches the real gap 80% of the time) at a two-sided 5% level. Base accuracy is 80%. "Unpaired" is `n` per system. "Paired" is `n` shared examples, and it depends on the correlation.
 
 | True gap | Unpaired, per system | Paired, correlation 0.3 | Paired, 0.5 | Paired, 0.7 |
 | --- | --- | --- | --- | --- |
