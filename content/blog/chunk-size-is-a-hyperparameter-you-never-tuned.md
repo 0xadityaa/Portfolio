@@ -13,7 +13,7 @@ draft: true
 
 Swapping my retriever changed recall by 2 points. Changing the chunk size changed it by 5 or 6. And the second one is usually a default copied from a tutorial.
 
-I'd bet you haven't either. Most RAG tutorials cut documents into 512-token chunks because the last tutorial did, or because a vendor's docs say to [start with 512 tokens and 25% overlap](https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-chunk-documents), or because the default was 800 and 400 and nobody touched it.
+Most RAG tutorials cut documents into 512-token chunks because the last tutorial did, or because a vendor's docs say to [start with 512 tokens and 25% overlap](https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-chunk-documents), or because the default was 800 and 400 and nobody touched it.
 
 So I swept it: five chunk sizes, two retrievers, two overlaps, 10,570 questions. This follows my [earlier post on retrieval](/blog/why-ai-tools-forget-you), which asked which retriever finds the right note. This one asks how big the pieces should be.
 
