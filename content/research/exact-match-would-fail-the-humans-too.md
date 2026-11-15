@@ -118,11 +118,11 @@ Diagram: `public/images/blog/exact-match-vs-wrong-answers.svg`, paired horizonta
 
 ## The six things in style.md
 
-1. Thesis in first 150 words: bold sentence after the opening paragraphs.
+1. Thesis in first 150 words: the bold sentence after the three-line opening (hook, softer-metric turn, who it bites), about word 60.
 2. Artifact: the scoring run, the committed adversarial set, the hand-check, in the repo folder.
 3. Numbers with papers: every number is from `results/analysis.txt`; the paper figures link to arXiv with the 2026-11-15 check recorded here. The post has no cost claims, so no three-volume arithmetic applies.
 4. Links as evidence trail: SQuAD paper and dataset, official script, bge-small card, Tomayto Tomahto, BERTScore, the cheap answer-equivalence paper, the eval-size post, the repo folder (more than 5 per 1,000 words).
-5. Limits: "Where I'd stop trusting this post" (the steelman first, linked to the sources above and flagged as my reasoning in the note).
+5. Limits: "Where I'd stop trusting this post" (the steelman first, linked to the sources above and flagged as my reasoning in the note). It also states the reference-count mismatch (human rates use up to five references, the wrong answers one) with the single-reference rates from `results/analysis.txt`.
 6. Ending: decision rule, and what would change my mind (a ranking test on real model outputs).
 
 ## Open questions

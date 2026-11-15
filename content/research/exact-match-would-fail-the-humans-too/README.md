@@ -18,7 +18,7 @@ Question: if one correct human answer is the "prediction" and the other human an
 ## Files
 
 - `EXPECTATION.txt`: what I expected, written before the first run.
-- `run.py`: builds items, embeds every unique string once, scores everything, draws the hand-check sample. Embedding the 15,048 unique strings took a few minutes on CPU under load.
+- `run.py`: builds items, embeds every unique string once, scores everything, draws the hand-check sample. Embedding the 15,048 unique strings is nearly all of the run time.
 - `analyze.py`: tables, 95% article-cluster bootstrap intervals (2,000 resamples, seed 20261115) for the human items, Wilson intervals for the 100 adversarial items, threshold sweeps, separation (the probability that a random correct human answer outscores a random wrong one), and the hand-check summary.
 - `make_chart.py`: draws `public/images/blog/exact-match-vs-wrong-answers.svg`.
 - `adversarial.jsonl`, `handcheck.json`: the hand-written inputs.
@@ -27,26 +27,45 @@ Question: if one correct human answer is the "prediction" and the other human an
 
 ## Run it again
 
-Everything big lives outside the repo.
+Everything big lives outside the repo. Needs `uv` (any recent version), Python 3.12 and network access for the dataset and the model weights.
+
+### 1. Set up
 
 ```bash
 WORK=/private/tmp/claude-501/em
-mkdir -p $WORK/data $WORK/cache && cd $WORK
+mkdir -p $WORK/data $WORK/cache $WORK/out && cd $WORK
 uv venv --python 3.12 venv
 uv pip install --python venv/bin/python numpy sentence-transformers
+```
 
+This installed torch 2.15.0, sentence-transformers 6.3.0 and numpy 2.5.4 (see Environment).
+
+### 2. Fetch the data and weights
+
+```bash
 # dataset (4.8 MB, CC BY-SA 4.0)
 curl -sSL -o data/dev-v1.1.json https://rajpurkar.github.io/SQuAD-explorer/dataset/dev-v1.1.json
 shasum -a 256 data/dev-v1.1.json   # 95aa6a52d5d6a735563366753ca50492a658031da74f301ac5238b03966972c9
+```
 
-cd <repo root>
+The model weights (`BAAI/bge-small-en-v1.5`, about 130 MB) download from Hugging Face on the first run of `run.py`; nothing to fetch by hand. Embeddings are cached in `$WORK/cache`, which is safe to delete.
+
+### 3. Run
+
+From the repo root:
+
+```bash
 R=content/research/exact-match-would-fail-the-humans-too
 $WORK/venv/bin/python $R/run.py $WORK/data/dev-v1.1.json $R/adversarial.jsonl $WORK/cache $R/results
 $WORK/venv/bin/python $R/analyze.py $R/adversarial.jsonl $R/results
 $WORK/venv/bin/python $R/make_chart.py $R/results public/images/blog/exact-match-vs-wrong-answers.svg
 ```
 
-`cache/` holds the embeddings and is safe to delete. `run.py` fetches the bge-small weights on first use.
+To leave the committed output alone, send `run.py` to another directory (the first command's last argument) and point the other two at it.
+
+### 4. How long it takes
+
+About 5 minutes end to end on CPU. I reran it from an empty cache on 2026-11-15 (M2, 4 torch threads, machine busy with other jobs): `run.py` took 5 minutes 6 seconds including the model download and embedding all 15,048 strings, `analyze.py` took about 2 seconds, `make_chart.py` under a second. With embeddings cached, `run.py` takes about 50 seconds. The rerun gave `analysis.txt`, `handcheck_sample.json`, the per-item scores and the SVG identical to the committed files.
 
 ## Environment
 
