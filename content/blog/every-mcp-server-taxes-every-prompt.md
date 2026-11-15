@@ -94,7 +94,7 @@ Mostly, on price. That's the strongest objection, so here it is properly.
 
 Tool definitions sit at the front of the request, and [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) works on prefixes in the order tools, system, messages. A stable tool list is a perfect candidate. On Sonnet 5.5 a hit costs $0.10 per million against $2, so 95% off. [OpenAI](https://developers.openai.com/api/docs/guides/prompt-caching) caches automatically from 1,024 tokens and includes tool definitions in the prefix.
 
-Then there's [tool search](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool). You mark tools `defer_loading: true` and only the few the model searches for enter its context. Anthropic's [engineering post](https://www.anthropic.com/engineering/advanced-tool-use) reports one five-server setup going from about 77,000 tokens to about 8,700, and Opus 4 accuracy from 49% to 74%. Its docs quote an over-85% cut. Take 85% off my ten servers and 23,895 becomes about 3,600. That's my arithmetic, not something I ran.
+Then there's [tool search](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool). You mark tools `defer_loading: true` and only the few the model searches for enter its context. Anthropic's [engineering post](https://www.anthropic.com/engineering/advanced-tool-use) reports one five-server setup going from about 77,000 tokens to about 8,700, and Opus 4 accuracy from 49% to 74%. The same post calls that an 85% cut. Take 85% off my ten servers and 23,895 becomes about 3,600. That's my arithmetic, not something I ran.
 
 Both are real wins. Neither makes the tax zero:
 
