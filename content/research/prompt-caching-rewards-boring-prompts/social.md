@@ -1,14 +1,18 @@
 ## Hook
 
-Prompt caching cut my simulated input bill 87.7%. At 1 request an hour, the same 5-minute cache made it 14.1% bigger.
+Prompt caching can make your bill bigger.
 
-How many requests an hour does your busiest prompt prefix get, and did anyone check before caching went on?
+In my simulation it cut the input bill 87.7%. At 1 request an hour, the same 5-minute cache made it 14.1% bigger.
+
+How many requests an hour does your busiest prompt get?
 
 [image: public/images/blog/cache-cost-vs-traffic.svg]
 
 ## Thread
 
-Prompt caching cut my simulated input bill 87.7%. At 1 request an hour, the same 5-minute cache made it 14.1% bigger. Here's what flips it, and what doesn't:
+Prompt caching can make your bill bigger.
+
+It cut my simulated input bill 87.7%, and at 1 request an hour it added 14.1%. The two things that decide which one you get:
 ---
 At 1 request an hour, a 5-minute cache hits 8.1% of the time. Every miss pays the write fee again. The hit rate is 1 minus e^(-rate x TTL), and my year-long simulation matched it within noise.
 ---
