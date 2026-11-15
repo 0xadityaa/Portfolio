@@ -9,21 +9,30 @@ Measures how many tokens the tool definitions of 11 open-source MCP servers cost
 - `list-tools.mjs`: dependency-free Node client. Spawns each server over stdio, sends `initialize`, `notifications/initialized`, then pages through `tools/list`. Saves the raw result.
 - `raw/*.tools.json`: the raw `tools/list` results. `raw/run-log.txt`: the run log.
 - `count-tokens.py`: counts tokens with tiktoken `o200k_base` and prices the overhead. Writes `results.json` and `results.md`.
-- `social.md`: social cuts for the post.
+- `social.md`: social cuts for the post (X hook, thread, singles, reply prompts, Substack Note).
 
 ## Reproduce
 
-Needs Node 22 and `uv`. Keep the virtualenv outside the repo.
+**1. Set up.** Node 22 (I used v22.23.1), `uv` for `uvx`, Python 3.12 (I used 3.12.8) and `tiktoken==0.14.0`. Keep the virtualenv outside the repo.
 
 ```bash
-mkdir -p /tmp/mcp-sandbox            # the filesystem server needs a directory to expose
-cd content/research/every-mcp-server-taxes-every-prompt
-node list-tools.mjs servers.json raw > raw/run-log.txt
+mkdir -p /tmp/mcp-sandbox            # the filesystem server needs a directory to expose; servers.json points here
 python3 -m venv /tmp/mcp-venv && /tmp/mcp-venv/bin/pip install tiktoken==0.14.0
+cd content/research/every-mcp-server-taxes-every-prompt
+```
+
+**2. Fetch the data.** There are no weights or datasets. The next step downloads the 11 MCP servers itself: `npx -y` pulls the npm ones at the versions pinned in `servers.json`, and `uvx` pulls `mcp-server-fetch`, `mcp-server-git` and `mcp-server-time` unpinned (all three reported 2026.11.11 on 2026-11-14). It needs network access.
+
+**3. Run.**
+
+```bash
+node list-tools.mjs servers.json raw > raw/run-log.txt
 /tmp/mcp-venv/bin/python count-tokens.py
 ```
 
-Edit the `/private/tmp/claude-501/mcp-sandbox` path in `servers.json` if you use another directory.
+The first command writes `raw/*.tools.json`. The second reads them and writes `results.json` and `results.md`. If you use a different sandbox directory, change its path in `servers.json`.
+
+**4. How long.** About 70 seconds for the Node step on my laptop (each server takes 4 to 28 seconds to start, mostly downloading). Slow networks take longer, because the client waits up to 180 seconds per server. The counting step takes about 3 seconds. No GPU and no API key. I reran both steps on 2026-11-15: `results.md` and `results.json` came out byte-identical, and every raw file matched except `filesystem`, which echoes back the sandbox path.
 
 ## What is counted
 

@@ -1,5 +1,5 @@
 [
-  {"id":"filesystem","cmd":"npx","args":["-y","@modelcontextprotocol/server-filesystem@2.3.0","/private/tmp/claude-501/mcp-sandbox"]},
+  {"id":"filesystem","cmd":"npx","args":["-y","@modelcontextprotocol/server-filesystem@2.3.0","/tmp/mcp-sandbox"]},
   {"id":"memory","cmd":"npx","args":["-y","@modelcontextprotocol/server-memory@2.1.1"]},
   {"id":"sequential-thinking","cmd":"npx","args":["-y","@modelcontextprotocol/server-sequential-thinking@2.1.1"]},
   {"id":"everything","cmd":"npx","args":["-y","@modelcontextprotocol/server-everything@2.3.0"]},

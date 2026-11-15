@@ -1,7 +1,7 @@
 # Every MCP Server You Add Taxes Every Prompt
 
 - Topic issue: none (series topic assigned in chat; syllabus loosely follows llmdojo.dev/curriculum, used only as a topic list)
-- Format: essay (about 1,750 words, with an artifact)
+- Format: essay (about 1,400 words, with an artifact)
 - Thesis: tool definitions are a fixed per-request token cost that most people never measure, and past a handful of servers they are most of what a request carries.
 - Reader: an engineer who has connected an MCP server or two to an AI app, and has read `what-exactly-is-mcp`.
 
@@ -21,8 +21,9 @@ Folder: `content/research/every-mcp-server-taxes-every-prompt/` (README has the 
 
 ```bash
 node list-tools.mjs servers.json raw > raw/run-log.txt
-python3 -m venv /private/tmp/claude-501/mcp-venv && /private/tmp/claude-501/mcp-venv/bin/pip install tiktoken
-/private/tmp/claude-501/mcp-venv/bin/python count-tokens.py
+mkdir -p /tmp/mcp-sandbox
+python3 -m venv /tmp/mcp-venv && /tmp/mcp-venv/bin/pip install tiktoken==0.14.0
+/tmp/mcp-venv/bin/python count-tokens.py
 ```
 
 **Environment**: macOS (Darwin 25.5.0), Node v22.23.1, Python 3.12.8, tiktoken 0.14.0, `uv`/`uvx` from miniconda, 2026-11-14. Servers via `npx -y` with pinned versions (filesystem 2.3.0, memory 2.1.1, sequential-thinking 2.1.1, everything 2.3.0, github 2025.4.8 reporting 0.6.2, playwright 0.0.85 reporting 1.66.0-alpha-2026-11-09, context7 4.7.0, chrome-devtools 1.13.0) and unpinned `uvx` for fetch, git, time (all reported 2026.11.11).
@@ -48,7 +49,7 @@ python3 -m venv /private/tmp/claude-501/mcp-venv && /private/tmp/claude-501/mcp-
 | Counter: caching and tool search shrink the cost | the three Anthropic and OpenAI docs above | 1 | 2026-11-14 |
 | tiktoken `o200k_base` tokenizer | https://github.com/openai/tiktoken | 1 | 2026-11-14 |
 | Reference servers list | https://github.com/modelcontextprotocol/servers | 1 | 2026-11-14 |
-| Tool search "if ratio held, 23,895 becomes about 3,600" | arithmetic on Anthropic's 85%; not measured | mine | 2026-11-14 |
+| Tool search "85% off 23,895 is about 3,600" | arithmetic on the docs' over-85% figure; not measured | mine | 2026-11-14 |
 
 Primary share: 12 of 14 rows are tier 1.
 
@@ -58,18 +59,18 @@ Nothing yet. The post makes no first-person claim beyond running the artifact.
 
 ## Outline
 
-Thesis in the first paragraph, linking the earlier post. "The short version" bullets. Sections: What did I actually run? (method, proxy caveat, expectation) / What does each server cost? (per-server table, cumulative table, the SVG) / Why does this matter more than it looks? (ratio against an assumed prompt, hidden system prompt, lost in the middle) / What does it cost in money? (grid at three volumes) / Doesn't caching fix this? (steelman, quantified at the cached price and the 85% ratio, where it breaks) / Where I'd stop trusting this post / The takeaway.
+Hook (number, then a question), a stakes sentence for anyone running ten servers, thesis, "The short version" bullets. Sections: How do you count a tool menu? (method, proxy caveat, expectation) / Which server is the fat one? (per-server table, cumulative numbers, the SVG) / Why does it matter more than it looks? (ratio against an assumed prompt, lost in the middle, tool-search accuracy limit) / What does it cost in dollars? (grid at three volumes) / Doesn't caching fix this? (steelman, quantified at the cached price and the 85% cut, where it breaks) / Where does this post stop being true? / What should you do tomorrow? (rule, what would change my mind).
 
 Diagram: `public/images/blog/tool-definitions-per-request.svg`, bars of cumulative tokens for 1, 3, 5 and 10 servers with a 2,000-token prompt for scale; the accent marks the ten-server bar. Carries the "fixed cost versus prompt" claim.
 
 ## Self-check against style.md
 
-1. Thesis in the first 150 words: second paragraph of the post ("My claim: ...").
-2. Artifact: the `tools/list` client, raw JSON, counter, and cost grid in the folder, linked in "What did I actually run?".
-3. Numbers with papers: prices linked with dates in "What does it cost in money?", arithmetic at 1,000 / 20,000 / 500,000 calls a day.
-4. Links as evidence trail: more than ten links in about 1,750 words.
-5. Limits: "Doesn't caching fix this?" holds the objection, linked to Anthropic and OpenAI docs; "Where I'd stop trusting this post" says where the advice stops and what was not tested.
-6. Ending that adds: the last section gives the decision rule, what would change my mind, and what I will measure next.
+1. Thesis in the first 150 words: "My claim: ..." paragraph, fourth block of the post.
+2. Artifact: the `tools/list` client, raw JSON, counter, and cost grid in the folder, linked in "How do you count a tool menu?".
+3. Numbers with papers: prices linked with dates in "What does it cost in dollars?", arithmetic at 1,000 / 20,000 / 500,000 calls a day.
+4. Links as evidence trail: 16 links in about 1,400 words.
+5. Limits: "Doesn't caching fix this?" holds the objection, linked to Anthropic and OpenAI docs; "Where does this post stop being true?" repeats it first, then covers the proxy tokenizer, the server selection and the untested live model.
+6. Ending that adds: "What should you do tomorrow?" gives the rule of thumb (marked as mine) and what would change my mind.
 
 ## Open questions
 
