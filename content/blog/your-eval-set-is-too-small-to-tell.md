@@ -1,5 +1,5 @@
 ---
-title: Your Eval Set Is Too Small to Tell
+title: Your 100-Example Eval Is Lying About That 3-Point Win
 publishedAt: '2026-11-14'
 summary: >-
   On 100 examples, a real 3-point gain shows up as significant 7% of the time. Scoring both systems on the same examples gets you about twice as far.
