@@ -10,11 +10,12 @@ Standard library only.
 """
 import argparse
 import json
+import os
 import pathlib
 import urllib.request
 
 HERE = pathlib.Path(__file__).parent
-DATA_DIR = pathlib.Path("/private/tmp/claude-501/quant")
+DATA_DIR = pathlib.Path(os.environ.get("DATA_DIR", "data")).resolve()
 
 # Models used for the memory arithmetic. Configs are fetched at the commit the
 # Hugging Face API reports for the repo today, then written to configs/params.json.

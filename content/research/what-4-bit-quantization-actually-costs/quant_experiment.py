@@ -26,6 +26,7 @@ What "quantize" means here
 import argparse
 import json
 import math
+import os
 import pathlib
 import re
 import sys
@@ -34,7 +35,7 @@ import time
 import torch
 
 HERE = pathlib.Path(__file__).parent
-DATA_DIR = pathlib.Path("/private/tmp/claude-501/quant")
+DATA_DIR = pathlib.Path(os.environ.get("DATA_DIR", "data")).resolve()
 MODEL_DIR = DATA_DIR / "qwen"
 GROUP = 128
 LINEAR_RE = re.compile(r"model\.layers\.(\d+)\.(self_attn\.(q|k|v|o)_proj|mlp\.(gate|up|down)_proj)\.weight$")

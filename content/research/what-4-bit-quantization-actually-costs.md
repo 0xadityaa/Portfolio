@@ -92,7 +92,7 @@ Limits of the artifact: round-to-nearest only (no GPTQ or AWQ run); fake quantiz
 | AWQ Table 1 (INT3 g128, OPT-6.7B): fp16 10.86, RTN 23.54, 1% by activation 11.39, 1% by weight 22.37, 1% random 24.23 | https://arxiv.org/abs/2306.00978 Table 1 | 1 | 2026-11-14 |
 | LLM.int8(): outlier feature dimensions emerge from about 6.7B parameters, about 0.1% of dimensions, kept in 16-bit | https://arxiv.org/abs/2208.07339 | 1 | 2026-11-14 |
 | Llama 3 8B WikiText-2 4-bit g128: fp16 6.1, RTN 8.5, GPTQ 6.5, AWQ 6.6; 70B: 2.9, 3.6, 3.3, 3.3 | https://arxiv.org/abs/2404.14047 Tables 1 and 2 | 1 | 2026-11-14 |
-| Same study: 4-bit drop described as slight (about 2% across its metrics); 70B robust; abstract says non-negligible degradation, especially at ultra-low bit widths | https://arxiv.org/abs/2404.14047 | 1 | 2026-11-14 |
+| Same study: abstract says LLaMA3 still shows non-negligible degradation, especially at ultra-low bit widths (an earlier draft's "about 2%" summary was not supported by the abstract and was removed from the post) | https://arxiv.org/abs/2404.14047 | 1 | 2026-11-14 |
 | NF4 is an information-theoretically optimal type for normally distributed weights (per its authors) | https://arxiv.org/abs/2305.14314 abstract | 1 | 2026-11-14 |
 | Card memory: RTX 4090 24 GB GDDR6X; L40S 48GB GDDR6; H100 80GB | https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4090/ , https://www.nvidia.com/en-us/data-center/l40s/ , https://www.nvidia.com/en-us/data-center/h100/ | 1 | 2026-11-14 |
 | Layers, kv heads, head_dim, hidden and intermediate size; parameter counts | pinned config.json URLs and `configs/params.json` (HF API at the same commits) | 1 | 2026-11-14 |
@@ -140,7 +140,6 @@ Self-check against `docs/blog/style.md`:
 - Does Aditya run quantized models himself (llama.cpp, vLLM, Ollama)? A real "what I saw" line or a measured memory figure would strengthen the post. None is invented.
 - The closing no longer promises a follow-up run of GPTQ and AWQ (cut in the publish-ready sweep); it ends on the rule and what would change his mind.
 - The links to /blog/your-context-window-is-a-memory-bill and /blog/your-eval-set-is-too-small-to-tell resolve only once those posts are live.
-- The Llama 3 "about 2%" summary is the paper's own phrase across PPL and CommonsenseQA; I did not read the accuracy tables. Worth a read before publishing.
 - Scheduled publish date: `publishedAt: '2026-11-14'` is a placeholder; planned slot Tue 29 December.
 
 ## Left out

@@ -16,7 +16,7 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install torch==2.7.1 transformers==4.52.4 safetensors==0.5.3 numpy==2.3.1 pandas==2.2.3 pyarrow==19.0.1
 ```
 
-Weights and data are read from `DATA_DIR`, a constant at the top of `fetch.py` and `quant_experiment.py`. It is set to `/private/tmp/claude-501/quant`; change it in both files to a folder you own. You need about 1 GB free and 16 GB of RAM.
+Weights and data go in `DATA_DIR`, which defaults to `./data` next to where you run the scripts. Set it to use another folder, for example `DATA_DIR=~/quant-data python fetch.py`. You need about 1 GB free and 16 GB of RAM.
 
 ## 2. Fetch the weights and data
 
