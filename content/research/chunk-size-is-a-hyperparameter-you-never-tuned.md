@@ -121,10 +121,10 @@ Diagram: `public/images/blog/chunk-size-equal-budget.svg`, recall at a 2,000-tok
 
 ### Where each of style.md's six required things is
 
-1. Thesis in the first 150 words: the "claim I'll defend" paragraph, with numbers, in the third paragraph.
-2. Artifact: the sweep, linked in the second paragraph; tables and chart in the middle.
+1. Thesis in the first 150 words: the bold thesis paragraph (right after the opening hook and the sweep paragraph), with numbers.
+2. Artifact: the sweep, described under "What did I actually run?" with a link to this folder; tables and chart in the middle.
 3. Numbers with their papers: every cost-like number is a measured token count or has a link (Azure, OpenAI, Chroma, Anthropic). It is a measurement post, not a price post, so the "three volumes" rule is met by the four token budgets in `results/analysis.txt` (500, 1,000, 2,000, 4,000); the post prints 2,000 and mentions fixed k.
-4. Links as the evidence trail: 14 distinct external links for about 1,950 words.
+4. Links as the evidence trail: 17 links (15 external) in about 1,350 words.
 5. Limits: "Where I'd stop trusting this post", including the strongest objection with its holders linked, where the advice stops applying, and what was not tested.
 6. An ending that adds: a decision rule (sweep 128, 256, 512 at a fixed token budget) and what would change his mind (a long-context embedder that stops losing to 64-token chunks).
 

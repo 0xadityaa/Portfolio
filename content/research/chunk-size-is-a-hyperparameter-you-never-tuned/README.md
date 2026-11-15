@@ -43,6 +43,8 @@ venv/bin/python $R/analyze.py $R/results
 venv/bin/python $R/make_chart.py $R/results public/images/blog/chunk-size-equal-budget.svg
 ```
 
+Runtime: about 30 minutes on an M2 laptop CPU for `run.py`, almost all of it embedding the chunks; `analyze.py` takes a minute or so and `make_chart.py` seconds. Downloads: the 4.8 MB dataset, the bge-small weights (about 130 MB) and the tiktoken `o200k_base` vocabulary, each fetched on first use.
+
 `cache/` holds the chunk embeddings and is safe to delete. `run.py` is deterministic apart from tiny floating-point differences in the embeddings.
 
 ## Environment

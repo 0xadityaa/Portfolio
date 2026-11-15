@@ -2,7 +2,7 @@
 title: Chunk Size Is a Hyperparameter You Never Tuned
 publishedAt: '2026-11-14'
 summary: >-
-  On 10,570 SQuAD questions, chunk size moved recall by 5 to 6 points for both retrievers I tried. Swapping the retriever, each at its best size, moved it by 2.
+  Across 10,570 SQuAD questions, chunk size moved recall 5 to 6 points. Swapping the retriever, each at its best size, moved it 2.
 tags:
   - ai
   - rag
@@ -11,11 +11,11 @@ tags:
 draft: true
 ---
 
-Swapping my retriever changed recall by 2 points. Changing the chunk size changed it by 5 or 6. And the second one is usually a default copied from a tutorial.
+Swapping my retriever moved recall by 2 points. Changing the chunk size moved it by 5 to 6.
 
-Most RAG tutorials cut documents into 512-token chunks because the last tutorial did, or because a vendor's docs say to [start with 512 tokens and 25% overlap](https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-chunk-documents), or because the default was 800 and 400 and nobody touched it.
+So who picked your chunk size, and did they test it? If you've built a RAG pipeline, the answer is probably a tutorial, and that setting is the one doing more work.
 
-So I swept it: five chunk sizes, two retrievers, two overlaps, 10,570 questions. This follows my [earlier post on retrieval](/blog/why-ai-tools-forget-you), which asked which retriever finds the right note. This one asks how big the pieces should be.
+Tutorials cut documents into 512-token chunks because the last tutorial did, or because a vendor's docs say to [start with 512 tokens and 25% overlap](https://learn.microsoft.com/en-us/azure/search/vector-search-how-to-chunk-documents), or because the default was 800 and 400 and nobody touched it. So I swept it: five chunk sizes, two retrievers, two overlaps, 10,570 questions. This follows my [earlier post on retrieval](/blog/why-ai-tools-forget-you), which asked which retriever finds the right note. This one asks how big the pieces should be.
 
 **Chunk size moves retrieval quality more than the choice of retriever does, and the best size depends on the retriever.** At a 2,000-token budget, the spread across chunk sizes was 5.3 points for BM25 and 5.9 for a small embedding model (over the sizes it can read in full). The gap between the two retrievers, each at its best size, was 2.1.
 
@@ -34,11 +34,11 @@ The retrievers are [BM25](https://doi.org/10.1561/1500000019), the old keyword s
 
 I [wrote my guesses down first](https://github.com/0xadityaa/Portfolio/blob/main/content/research/chunk-size-is-a-hyperparameter-you-never-tuned/EXPECTATION.txt). Some were wrong. The [README](https://github.com/0xadityaa/Portfolio/tree/main/content/research/chunk-size-is-a-hyperparameter-you-never-tuned) has the method, the code, the seed and the raw output.
 
-## Why isn't "bigger chunks, better recall" the answer?
+## Don't bigger chunks just win?
 
-Because it's a cost trick. Retrieve five chunks and BM25's recall@5 goes from 76.6% at 64 tokens to 95.3% at 1,024. Looks like a free win until you see that the 1,024 row hands the model 4,988 tokens and the 64 row hands it 319. Of course it finds the answer more often.
+No, that's a cost trick. Retrieve five chunks and BM25's recall@5 goes from 76.6% at 64 tokens to 95.3% at 1,024. Looks like a free win until you see that the 1,024 row hands the model 4,988 tokens and the 64 row hands it 319. Of course it finds the answer more often. That's the cheap part.
 
-Tokens are what you pay for, and a longer prompt makes the model worse at [using what's in the middle](https://arxiv.org/abs/2307.03172). So I held the budget at about 2,000 tokens and set `k` to 2,000 divided by the chunk size: 31 chunks of 64 tokens, down to 2 chunks of 1,024.
+The fair test holds the bill still. Tokens are what you pay for, and a longer prompt makes the model worse at [using what's in the middle](https://arxiv.org/abs/2307.03172). So I held the budget at about 2,000 tokens and set `k` to 2,000 divided by the chunk size: 31 chunks of 64 tokens, down to 2 chunks of 1,024.
 
 | Chunk size | k | BM25 | Embeddings |
 | --- | --- | --- | --- |
@@ -54,21 +54,21 @@ Two retrievers, two different curves. BM25 likes 128 to 512, and 256 versus 512 
 
 Each at its best size, BM25 got 92.2% and the embedder 90.1%. That's the 2.1-point gap, with a 95% interval of 1.1 to 3.1.
 
-## What about that 39-point drop?
+## Is the 39-point drop a chunk-size effect?
 
-Here's the number I'd be careful with. The embedder's raw spread, from 90.1% at 64 tokens to 51.4% at 1,024, is 38.7 points. Most of that isn't chunk size on its own. It's that bge-small can't read long chunks. Re-tokenised with its own tokenizer, 43% of my 512-token chunks and 92% of the 1,024-token ones run past its 512-token limit, so it never sees their tails.
+Mostly not, and it's the number I'd be most careful with. The embedder's raw spread, from 90.1% at 64 tokens to 51.4% at 1,024, is 38.7 points. Most of that isn't chunk size on its own. It's that bge-small can't read long chunks. Re-tokenised with its own tokenizer, 43% of my 512-token chunks and 92% of the 1,024-token ones run past its 512-token limit, so it never sees their tails.
 
 That's a real cost of picking a size, but it's about this model's input limit. Count only the sizes it reads in full, 64 to 256, and the spread is 5.9 points. Still bigger than the retriever gap, and about the same as BM25's.
 
 ## Is 512 a bad default?
 
-Depends who's asking. For BM25, 512 was half a point under its best size. For the embedding model it was 17 points under (73.1% against 90.1%). Same default, very different bill.
+It depends on your retriever. For BM25, 512 was half a point under its best size. For the embedding model it was 17 points under (73.1% against 90.1%), though much of that is its input limit, since 43% of my 512-token chunks overflow it. Same default, very different bill.
 
 Chroma's [July 2024 study](https://www.trychroma.com/research/evaluating-chunking) points the same way: with OpenAI's embeddings on five small corpora, 200-token chunks with no overlap gave the best precision, and OpenAI's default of [800 tokens with 400 overlap](https://developers.openai.com/api/reference/resources/vector_stores/methods/create) was among the lowest on their efficiency metrics. Different data and a different metric, so I'm only borrowing the direction.
 
 ## Does overlap help?
 
-At small sizes, yes, more than I guessed. I'd guessed 1 to 3 points. At 64 tokens, 15% overlap added 5.1 points for BM25 and 4.4 for the embedder. Without it, 3.2% of questions have their answer span cut in half by a chunk boundary. With it, that falls to 0.1%.
+At small sizes, yes, and more than I guessed. I'd guessed 1 to 3 points. At 64 tokens, 15% overlap added 5.1 points for BM25 and 4.4 for the embedder. Without it, 3.2% of questions have their answer span cut in half by a chunk boundary. With it, that falls to 0.1%.
 
 At 512 and 1,024 tokens BM25 gained under a point. Overlap sends no extra tokens at a fixed k. The price is index size: 6,133 chunks instead of 5,187 at 64 tokens, so about 18% more to embed.
 
@@ -88,4 +88,4 @@ Find where your chunk size is set and ask who chose it. If the answer is "a tuto
 
 Sweep 128, 256 and 512 with your own retriever, score at a fixed token budget instead of a fixed k, and try 15% overlap at the small end. By my eval simulation, about 200 labelled questions can show a 10-point gap, and telling 128 from 256 takes thousands. If your embedder's input limit is below your chunk size, fix that first.
 
-I'd change my mind if a model that reads the full chunk stopped losing to 64-token pieces. That's the run I'd like to do next.
+I'd change my mind if a model that reads the full chunk stopped losing to 64-token pieces.
