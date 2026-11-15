@@ -1,35 +1,27 @@
 ## Hook
 
-Exact match failed 33% of correct human answers on SQuAD, scoring each against one other human. Token F1 at 0.5 cut that to 12%, then passed 74 of 100 near-miss wrong answers I wrote by hand.
+Your eval metric would flunk a third of correct human answers.
 
-What do you grade answers with, and who picked the threshold?
+Exact match, each SQuAD answer scored against one other human: 33% marked wrong. Token F1 at 0.5 cut that to 12%, then passed 74 of 100 near-miss wrong answers I wrote.
+
+What do you grade answers with?
 
 ## Thread
 
-Exact match failed 33% of correct human answers on SQuAD, scoring each against one other human. Softer metrics fix that and pass wrong answers instead. Here's what that costs, measured on 100 wrong answers I wrote by hand to sit close to the truth:
+Your eval metric would flunk a third of correct human answers.
 
+I scored SQuAD's crowdworkers against each other, then wrote 100 wrong answers to see what the softer metrics let through:
 ---
-
 Token F1 at 0.5 failed 12.4% of correct answers and passed 74 of my 100 wrong ones. Move the cut-off to 0.8 and it flips: 26.4% of correct answers fail, 23 wrong ones pass. All one reference each.
-
 ---
-
 F1 counts words, not order. "Caesar stabbed Brutus" scores 1.0 against "Brutus stabbed Caesar". All 10 of my reversed-role answers passed F1 at 0.8, and negations did too (4 of 10).
-
 ---
-
 Embeddings (bge-small cosine at 0.90) failed 24.0% of correct answers and passed 37 of 100 wrong ones. 9 of 10 unit swaps ("828 feet" for "828 metres") got through. "Lyon" for "Paris" never did.
-
 ---
-
 Why does exact match fail so many right answers? I read 50 of its failures between humans. 43 were the same answer with words added or dropped ("Fowler" vs "Bennie Fowler"). 4 were real disagreements.
-
 ---
-
 The strongest objection: a strict metric with a steady bias can still rank systems fine, and it's free. I didn't test whether rankings survive. I measured per-answer errors on one dataset, not leaderboard order.
-
 ---
-
 Rule of thumb: if a wrong answer costs more than a missed right one (money, units, medicine), stay strict. If failing right answers hurts, go softer and add checks for numbers, negation and order.
 
 Full write-up, code and raw output: https://www.0xadityaa.dev/blog/exact-match-would-fail-the-humans-too
