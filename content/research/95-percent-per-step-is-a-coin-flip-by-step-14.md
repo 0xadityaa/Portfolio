@@ -84,10 +84,10 @@ Steps are not independent coin flips. A strong model that sees a failing test or
 
 ## Self-check against style.md
 
-1. Thesis in the first 150 words: third paragraph, bold sentence, after the opening thought experiment and the sequel link.
+1. Thesis in the first 150 words: the bold sentence after the opening and the sequel link. The opening names the stake (agents that chain ten or more tool calls) in its first screen.
 2. Artifact: the simulation, its output tables, and the SVG chart; folder linked from the post.
 3. Numbers with papers: every external number has an inline link (τ-bench, METR, Stripe); simulation numbers point at the repo folder. This post is about reliability, not cost, so no three-volume cost table; the closed-form table spans four run lengths and three reliabilities.
-4. Links as evidence trail: 11 external links in about 1,900 words (limit for the check is 9).
+4. Links as evidence trail: 12 links in about 1,400 words, 10 of them external or in the repo.
 5. Limits: "Where I'd stop trusting this post", strongest objection first with METR and Huang, then what he did not test.
 6. Ending that adds: decision rule (work out `p^n`; if under 90%, segment, key, and retry only transient errors) plus what would change his mind.
 

@@ -1,32 +1,52 @@
+## Hook
+
+A 95%-per-step agent finishes a 20-step job 35.5% of the time. A 99% agent with no retries: 81.7%. A 95% agent that checkpoints every 5 steps and resumes: 100.0%. (Simulation, transient failures.)
+
+How long is your longest agent loop, and does it save state between steps?
+
 ## Thread
 
-A 95%-per-step agent finishes a 14-step job about half the time. 0.95^14 = 0.49. I simulated what buys the reliability back: retries, checkpoints, idempotency keys. Some of it works. Some of it doesn't.
+A 95%-per-step agent finishes 20 steps clean 35.5% of the time. A 99% agent with no retries manages 81.7%. A 95% agent that checkpoints every 5 steps: 100.0%. I simulated what buys the reliability back, and what only looks like it helps:
 ---
-Baseline: 95% per step, 20 steps, no retries. 35.5% of runs finish. The closed form says 35.8%, so the simulation checks out. Even a 99% agent is a coin flip by step 69.
+First the wall. 0.95^14 = 0.49. A run falls to 50% after ln 0.5 / ln p steps: 6.6 steps at 90% per step, 13.5 at 95%, 69 at 99%. Even the 99% agent is at two in three by step 40.
 ---
-Retry twice: 99.8% finish. But only if failures are transient. Make half of them persistent and it's 60.4%. Retrying a deterministic error just buys you the same error again.
+Retry twice on transient errors: 99.8% finish, up from 35.5%. Make half the failures persistent and it's 60.4%. Retrying a wrong parameter or a missing permission just buys you the same error again.
 ---
-Checkpoint every 5 steps and resume: 100.0% finish, at 23.4 calls per success. Restart from step 1 under the same call cap: 88.8% at 37.4 calls. A 99% agent with no checkpoints: 81.7%.
+Checkpoint every 5 steps and resume: 100.0% finish at 23.4 calls per success. Restart from step 1 under the same call cap: 88.8% at 37.4 calls. At 40 steps it's 100.0% against 57.8%. A failure only costs the segment since the last save.
 ---
-Retrying a step with a side effect can do it twice. 41.1% of runs had a duplicate. Idempotency keys took it to zero. It's a model, not a real LLM, so the limits matter: https://www.0xadityaa.dev/blog/95-percent-per-step-is-a-coin-flip-by-step-14
+Retrying a step with a side effect can run it twice. At 95% and 20 steps, 41.1% of runs had a duplicate. At 90% and 40 steps, 88.0%. Idempotency keys took every one of them to zero, with no extra calls.
+---
+The strongest objection: steps aren't independent coin flips. Models notice a failing test and change course, so real curves are flatter than p^n. METR finds task horizons doubling every ~7 months. It's a model, not an LLM, and failures here are always detected.
+---
+Rule of thumb: compute p^n with the per-step success you honestly believe. Under 90%, skip the prompt rewrite. Checkpoint, key every side-effect tool, retry only errors you can show are transient.
+
+Full write-up, code and raw output: https://www.0xadityaa.dev/blog/95-percent-per-step-is-a-coin-flip-by-step-14
 
 ## Singles
 
-Even a 99% agent is a coin flip at step 69. 95% gets there at step 13.5. 90% at 6.6. The formula is ln 0.5 / ln p. Run it before you make an agent loop longer.
+40 steps at 90% per step, no retries: 1.5% of runs finish. Retry twice on transient errors: 95.8%. Retry twice when half the failures are persistent: 12.6%. Whether the error goes away matters more than how many retries you allow.
 ---
-40 steps at 90% per step. No retries: 1.5% finish. Retry twice, transient failures: 95.8%. Half the failures persistent: 12.6%. Whether the failure goes away matters more than how many retries you allow.
+Same code, same retry count. Transient failures: 99.8% of 20-step runs finish. Half persistent: 60.4%. The retry policy didn't change. What the error did when you tried again did.
 ---
-Restart from step 1 on failure: 57.8% finish. Resume from a checkpoint every 5 steps: 100.0%. Same model, same 95% per step, 40 steps. Only where the run restarts changed. Save state.
+The bill for a 40-step run at 90% per step, in model calls per finished task. No retries: 672.6. Restart from step 1: 894.7. Retry twice, transient: 45.4. Checkpoint every 5 steps: 55.5. Most of that spend is runs that never finish.
 ---
-At 90% per step over 40 steps, a non-idempotent tool caused 2.16 duplicate side effects per run. With idempotency keys: zero. A double charge is a design bug, not a model bug.
+If you're about to lengthen an agent loop, run ln 0.5 / ln p first. At 95% per step the run is a coin flip at step 13.5. At 90%, step 6.6. At 99%, step 69. If the answer is under your loop length, add checkpoints before you touch the prompt.
 ---
-gpt-4o scores about 61% on one tau-bench retail trial, under 25% if it must pass all 8. Identical 61% coins would pass all 8 only 1.9% of the time. Tasks vary, so real curves are flatter than p^n.
+Common advice: retry on timeout. What I measured: with half of failures being timeouts where the action already landed, 88.0% of 40-step runs at 90% per step did something twice. 2.16 duplicates per run. Idempotency keys took it to 0.
+
+## Reply prompts
+
+Someone says their agent is flaky and the fix is a better prompt: "In a simulation, a 99% agent with no retries finished 20 steps 81.7% of the time. A 95% agent that checkpoints every 5 steps finished 100.0%, as long as failures were transient. Which is yours?"
+
+Someone adds retries to a tool-calling loop: "Retries took a 20-step run from 35.5% to 99.8% when failures were transient. With half persistent it was 60.4%. Do you know which kind your tool errors are?"
+
+Someone has an agent that sends emails or charges cards: "I simulated retries on steps with side effects: 41.1% of 20-step runs at 95% per step did something twice. Idempotency keys took it to zero. Does your tool take a key?"
 
 ## Substack Note
 
-An agent that gets each step right 95% of the time finishes a 14-step job without a mistake only 49% of the time. That's 0.95^14, the same compounding that bit me in a ranking bug in October, with steps instead of days.
+A 95%-per-step agent finishes a 20-step job without a mistake 35.5% of the time. That's 0.95^20, the same compounding that bit me in a ranking bug in October, with steps instead of days.
 
-So I wrote a seeded simulation to see what buys reliability back. At 95% per step over 20 steps, no retries finish 35.5% of runs. Retry twice and it's 99.8%, but only if failures are transient: when half are persistent, it's 60.4%. Checkpointing every 5 steps got 100.0%, against 88.8% for restarting from step 1 under the same call cap. And retrying a step with a side effect duplicated it in 41.1% of runs until I added idempotency keys.
+So I wrote a seeded simulation to see what buys reliability back. Retry twice and it's 99.8%, but only if failures are transient: when half are persistent, it's 60.4%. Checkpointing every 5 steps got 100.0%, against 88.8% for restarting from step 1 under the same call cap. A 99% agent with no checkpoints got 81.7%. And retrying a step with a side effect ran it twice in 41.1% of runs, until I added idempotency keys.
 
 It's a model, not a real LLM, and real agents recover from mistakes better than independent coin flips would. The post says where it breaks:
 
