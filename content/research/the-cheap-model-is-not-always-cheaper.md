@@ -88,10 +88,10 @@ In many applications a wrong answer is cheap and visible: the user rereads and a
 
 ## Self-check against style.md
 
-1. Thesis in the first 150 words: third paragraph, bold sentence, after the priced-request opening.
+1. Thesis in the first 150 words: fourth paragraph, the bold sentence, after the opening claim (40x cheaper per request, 4.4x dearer per useful answer at $5) and the assumed-rates note.
 2. Artifact: calculator, cascade simulation and break-even solver in the linked folder; chart and tables in the post.
-3. Numbers with their papers: prices link to both pricing pages with the checked date in this note and "copied today" in the post; cost shown at 10,000, 1,000,000 and 100,000,000 useful answers; other numbers come from the script.
-4. Links as evidence trail: 10+ external links in about 2,150 words.
+3. Numbers with their papers: the Anthropic price carries "as it read on 14 November 2026" in the post and the OpenAI pair links its pricing page (checked dates in this note); cost shown at 10,000, 1,000,000 and 100,000,000 useful answers in the "What does a cascade change?" table; other numbers come from the script.
+4. Links as evidence trail: 10+ external links in about 1,440 words of body.
 5. Limits: "Where I'd stop trusting this post" opens with the cheap-and-visible-failures objection, using my own numbers, then routers (Huyen), assumed rates, and what was not tested.
 6. Ending that adds: decision rule (write down what a wrong answer costs; cents and retryable means cheap model; over ten cents and silent means price per useful answer; cascade only after measuring the check's leak) plus what would change my mind.
 

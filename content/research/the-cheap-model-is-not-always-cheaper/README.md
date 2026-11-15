@@ -2,8 +2,6 @@
 
 Artifact for the post `content/blog/the-cheap-model-is-not-always-cheaper.md`.
 
-Standard library only, Python 3.12.8 (any Python 3.8+ should do). No virtualenv, no downloads, no network at run time.
-
 ## Files
 
 - `prices.json`: per-million-token prices copied from the live pricing pages on 2026-11-14, with each source URL.
@@ -13,7 +11,21 @@ Standard library only, Python 3.12.8 (any Python 3.8+ should do). No virtualenv,
 - `EXPECTATION.txt`: what I expected, written before the first run.
 - `social.md`: cuts for Typefully.
 
-## Commands
+## Set up
+
+Python 3.12.8 (what I ran; any Python 3.8+ should do) and `xmllint` (ships with macOS; `apt install libxml2-utils` on Debian). The scripts use only the standard library, so there is nothing to install and no virtualenv.
+
+```bash
+git clone https://github.com/0xadityaa/Portfolio.git
+cd Portfolio/content/research/the-cheap-model-is-not-always-cheaper
+python3 --version
+```
+
+## Fetch data or weights
+
+None. There are no models, datasets or network calls. Prices are in `prices.json`, copied by hand from the pricing pages on 2026-11-14.
+
+## Run
 
 From this folder:
 
@@ -23,7 +35,11 @@ python3 make_chart.py ../../../public/images/blog/cost-per-useful-answer.svg
 xmllint --noout ../../../public/images/blog/cost-per-useful-answer.svg
 ```
 
-The seed is 20261114, 200,000 tasks per Monte Carlo row.
+The seed is 20261114, 200,000 tasks per Monte Carlo row. The first command should reproduce the committed `output.txt` byte for byte.
+
+## How long it takes
+
+Under two seconds on a laptop CPU for `cost_model.py` (I timed 1.2 s), and about the same for `make_chart.py`.
 
 ## What is a price and what is an assumption
 
