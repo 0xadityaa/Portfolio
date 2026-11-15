@@ -1,14 +1,16 @@
 ## Hook
 
-Qwen2.5-0.5B rounded to 4 bits, same plain rounding both times. One scale per matrix: perplexity 10,816,108. One scale per 128 weights: 20.5. The unquantized baseline is 17.2.
+Same 4 bits. One way wrecks the model, the other barely dents it.
 
-What group size are you running your 4-bit models at, and who picked it?
+Qwen2.5-0.5B, plain rounding. One scale per matrix: perplexity 10,816,108. One scale per 128 weights: 20.5. Baseline: 17.2.
+
+What group size are your 4-bit models running at?
 
 ## Thread
 
-Qwen2.5-0.5B rounded to 4 bits, same plain rounding both times. One scale per matrix: perplexity 10,816,108. One scale per 128 weights: 20.5. Baseline 17.2.
+4-bit saves up to 72% of a model's memory. A tiny slice of the model pays for it.
 
-Here's what moved the number, and what didn't:
+I rounded a small model to 4 bits on my laptop and tracked where the damage lands:
 ---
 Why does one scale per matrix fail? The biggest weights stretch the range, so every other weight gets a coarse grid.
 

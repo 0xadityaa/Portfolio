@@ -1,5 +1,5 @@
 ---
-title: What 4-Bit Quantization Actually Costs You
+title: 4-Bit Saves Up to 72% Memory. 1% of the Model Pays for It
 publishedAt: '2026-11-14'
 summary: >-
   Plain 4-bit rounding took a small model from perplexity 17 to 10.8 million. One setting brought it back to 20.5, and 1% of channels carry 38% of the error.
@@ -17,7 +17,7 @@ On 14 November 2026 I rounded every weight in Qwen2.5-0.5B's transformer blocks 
 
 **4-bit weights are close to a free lunch on memory, but the quality bill isn't zero and it isn't spread evenly: a few input channels take much of the damage. Size the model to the card first, then check quality on your own task.**
 
-If you're squeezing a model onto a 24 GB or 48 GB card, this decides whether you get a model or noise. It's a sequel to [Your Context Window Is a Memory Bill](/blog/your-context-window-is-a-memory-bill), which sized the KV cache. This one sizes the weights.
+If you're squeezing a model onto a 24 GB or 48 GB card, this decides whether you get a model or noise. It's a sequel to [One Long Prompt Can Eat More GPU Than the Whole Model](/blog/your-context-window-is-a-memory-bill), which sized the KV cache. This one sizes the weights.
 
 ## The short version
 
@@ -106,4 +106,4 @@ An [empirical study of Llama 3 quantization](https://arxiv.org/abs/2404.14047) a
 
 Tomorrow, pick the largest model that fits your card at int4 g128 with real KV room. If a model fits at int8, take int8: I measured +0.1% perplexity there. Never accept per-tensor 4-bit, and don't pick a naively rounded 4-bit big model over a smaller fp16 one without a test. That's my rule, not a law.
 
-The test is cheap: run your own prompts through both and compare the answers pair by pair, as in [Your Eval Set Is Too Small to Tell](/blog/your-eval-set-is-too-small-to-tell). An own-task regression that GPTQ or AWQ fails to fix would change my mind.
+The test is cheap: run your own prompts through both and compare the answers pair by pair, as in [Your 100-Example Eval Is Lying About That 3-Point Win](/blog/your-eval-set-is-too-small-to-tell). An own-task regression that GPTQ or AWQ fails to fix would change my mind.
