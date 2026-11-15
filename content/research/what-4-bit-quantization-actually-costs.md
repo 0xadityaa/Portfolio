@@ -128,17 +128,17 @@ Nothing. The post uses no first-person past-tense experience beyond the artifact
 
 Self-check against `docs/blog/style.md`:
 
-1. Thesis in the first 150 words: the bold "My claim" paragraph, after the experiment opening (about word 130 to 190; the first paragraph already states the 69% vs 19% result and "That gap is the post").
+1. Thesis in the first 150 words: the bold paragraph after the opening (about word 115 to 150). The hook (perplexity 17 to 10,816,108, then 19% with one setting changed) and the stakes sentence for people fitting models onto 24 GB or 48 GB cards come first or right after.
 2. Artifact: `quant_experiment.py` and `memory.py`, linked in section 3, with tables and the SVG.
 3. Numbers with sources and dates: paper numbers link arXiv; cards link NVIDIA (dated 14 November 2026 in the text); model sizes link pinned configs; the rest come from artifact output. The "three volumes" requirement is cost-oriented; here it is four model sizes against three card sizes.
 4. Links as evidence trail: about 20 external links in about 2,200 words.
 5. Limits: "Where I'd stop trusting this post" gives the strongest objection with links, four places it breaks, and what was not tested.
-6. Ending that adds: decision rule (largest model at int4 g128 with KV room, prefer int8 if it fits, test on own prompts) plus what would change my mind and the next measurement.
+6. Ending that adds: decision rule (largest model at int4 g128 with KV room, prefer int8 if it fits, test on own prompts) plus what would change my mind.
 
 ## Open questions
 
 - Does Aditya run quantized models himself (llama.cpp, vLLM, Ollama)? A real "what I saw" line or a measured memory figure would strengthen the post. None is invented.
-- The closing says "Next I'll run both [GPTQ and AWQ] on this same model". That is a commitment in his name; keep or cut?
+- The closing no longer promises a follow-up run of GPTQ and AWQ (cut in the publish-ready sweep); it ends on the rule and what would change his mind.
 - The links to /blog/your-context-window-is-a-memory-bill and /blog/your-eval-set-is-too-small-to-tell resolve only once those posts are live.
 - The Llama 3 "about 2%" summary is the paper's own phrase across PPL and CommonsenseQA; I did not read the accuracy tables. Worth a read before publishing.
 - Scheduled publish date: `publishedAt: '2026-11-14'` is a placeholder; planned slot Tue 29 December.

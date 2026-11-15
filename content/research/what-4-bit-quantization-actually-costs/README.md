@@ -7,18 +7,37 @@ The artifact behind the post "What 4-Bit Quantization Actually Costs You". Two p
 
 Written and run on 2026-11-14: Python 3.12.8, torch 2.7.1, transformers 4.52.4, safetensors 0.5.3, numpy 2.3.1, pandas 2.2.3, pyarrow 19.0.1, Apple M2 (8 cores, 16 GB), CPU only.
 
-## Commands
+## 1. Set up
+
+Python 3.12 on any machine; no GPU needed. `memory.py` and `fetch.py` use only the standard library. The experiment needs these exact versions (the ones I ran):
 
 ```bash
-python3 fetch.py --configs-only        # optional: re-download the four configs (pinned)
-python3 -I memory.py > output-memory.txt
-python3 -I memory.py --json > memory.json
+python3 -m venv .venv && source .venv/bin/activate
+pip install torch==2.7.1 transformers==4.52.4 safetensors==0.5.3 numpy==2.3.1 pandas==2.2.3 pyarrow==19.0.1
+```
 
-python3 fetch.py                       # downloads ~1 GB of weights and WikiText-2 to /private/tmp/claude-501/quant (not committed)
+Weights and data are read from `DATA_DIR`, a constant at the top of `fetch.py` and `quant_experiment.py`. It is set to `/private/tmp/claude-501/quant`; change it in both files to a folder you own. You need about 1 GB free and 16 GB of RAM.
+
+## 2. Fetch the weights and data
+
+```bash
+python3 fetch.py --configs-only   # optional: re-download the four memory configs (a few KB)
+python3 fetch.py                  # Qwen2.5-0.5B weights (~1 GB) and WikiText-2, pinned by commit; a few minutes on a normal connection
+```
+
+## 3. Run
+
+```bash
+python3 -I memory.py > output-memory.txt       # under a second
+python3 -I memory.py --json > memory.json
 python3 -I quant_experiment.py weights     > output-weights.txt       # about 2.5 minutes
 python3 -I quant_experiment.py activations > output-activations.txt   # about 10 minutes
-python3 -I quant_experiment.py ppl         > output-ppl.txt           # see output for time
+python3 -I quant_experiment.py ppl         > output-ppl.txt           # about 9 minutes
 ```
+
+## 4. How long it takes
+
+About 22 minutes for all three experiment steps on an Apple M2 (8 cores, CPU only), plus the download. The memory arithmetic is instant. Perplexity timings per scheme are in `output-ppl.txt`.
 
 `-I` is Python's isolated mode; it keeps the interpreter from importing anything from the current directory or environment while it reads downloaded files. Each subcommand also writes `results-*.json`.
 
@@ -88,7 +107,7 @@ From [arXiv 2404.14047](https://arxiv.org/abs/2404.14047). The paper rounds to o
 ## Files
 
 - `EXPECTATION.txt`: written before running anything.
-- `fetch.py`, `memory.py`, `quant_experiment.py`: the code.
+- `fetch.py`, `memory.py`, `quant_experiment.py`: the code. `make_diagram.py` redraws `public/images/blog/weight-memory-vs-cards.svg` from `memory.json`.
 - `configs/`: pinned configs and parameter counts.
 - `output-*.txt`, `results-*.json`, `memory.json`: raw outputs.
 - `social.md`: social cuts for the post.

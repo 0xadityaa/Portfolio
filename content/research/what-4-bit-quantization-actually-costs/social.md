@@ -1,37 +1,65 @@
+## Hook
+
+Qwen2.5-0.5B rounded to 4 bits, same plain rounding both times. One scale per matrix: perplexity 10,816,108. One scale per 128 weights: 20.5. The unquantized baseline is 17.2.
+
+What group size are you running your 4-bit models at, and who picked it?
+
 ## Thread
 
-Perplexity 17.2 to 10.8 million. That's Qwen2.5-0.5B after I rounded every weight to 4 bits the lazy way. Change one thing and it's only 19% worse. Same four bits.
+Qwen2.5-0.5B rounded to 4 bits, same plain rounding both times. One scale per matrix: perplexity 10,816,108. One scale per 128 weights: 20.5. Baseline 17.2.
+
+Here's what moved the number, and what didn't:
 ---
-The one thing: how many weights share a scale. One scale per matrix gave 69% weight error. One scale per 128 weights gave perplexity 20.5. One per output row gave 31.8.
+Why does one scale per matrix fail? The biggest weights stretch the range, so every other weight gets a coarse grid.
+
+Keep the top 1% of weights exact and pick the range from the rest: per-tensor int4 weight error falls from 69.4% to 10.8%. Nothing else changed.
 ---
-I expected the biggest 1% of weights to carry 5% to 15% of the rounding error. They carry 1% to 2%. I was wrong. They hurt by stretching the range, so everyone else gets a coarse grid.
+I expected the biggest 1% of weights to carry 5% to 15% of the rounding error. They carry 1% to 2%.
+
+Rounding error is about the same size for every weight. Big weights hurt by setting the step size, not by being rounded badly.
 ---
-What does concentrate the damage is activations. The 1% of input channels with the biggest ones carry about 38% of the error that reaches the output. That's the gap AWQ and GPTQ go after.
+What does concentrate the damage is activations. At int4 with groups of 128, the 1% of input channels with the largest activations carry about 38% of the error that reaches the output.
+
+Spread evenly, it would be 1%.
 ---
-Memory is the good news. Int4 with groups of 128 saves 64% to 72% on 8B to 70B models, not 75%, because of scales and fp16 embeddings. A 70B drops to 37.0 GiB and fits a 48 GB card, with about 18k tokens of KV cache for one user.
+Memory is the good news, with a footnote. Int4 with groups of 128 cuts weights by 64% to 72% on 8B to 70B models, not 75%. Scales and fp16 embeddings eat it.
+
+Llama 3.1 70B goes from 131.4 GiB to 37.0 GiB and fits a 48 GB card, with about 18k tokens of KV cache for one user.
 ---
-Caveats: round-to-nearest only, I never ran GPTQ or AWQ, and perplexity is one run on 8,184 scored tokens. Code, raw outputs and the write-up: https://www.0xadityaa.dev/blog/what-4-bit-quantization-actually-costs
+The strongest objection: 4-bit is basically free. On big models with a calibrated method, close to it.
+
+In the GPTQ paper, same method, OPT-175B goes from 8.34 perplexity to 8.37 at 4 bits. OPT-125M goes from 27.65 to 31.12. I only ran plain rounding on a 0.5B model.
+---
+Rule of thumb: if it fits at int8, run int8 (+0.1% perplexity on mine). If it only fits at 4 bits, use groups of 128, never one scale per matrix, and compare fp16 and 4-bit answers on your own prompts first.
+
+Full write-up, code and raw output: https://www.0xadityaa.dev/blog/what-4-bit-quantization-actually-costs
 
 ## Singles
 
-Int4 on Qwen2.5-0.5B, plain rounding: perplexity 10.8 million with one scale per matrix, 31.8 per row, 20.5 per 128 weights. The baseline is 17.2. How many weights share a scale matters more than the four bits.
+I expected the biggest 1% of weights to carry 5% to 15% of 4-bit rounding error. Measured on Qwen2.5-0.5B: 1.07% per-tensor, 2.19% with groups of 128. Rounding error is about the same size for every weight. Big weights only hurt by stretching the range.
 ---
-Int8 with groups of 128 cost 0.1% perplexity on Qwen2.5-0.5B. Int4 with the same groups cost 19.4%. Going from 255 steps to 15 multiplied the weight error by about 17. Int8 is the safe default when it fits.
+Half the bits, 17x the error. On Qwen2.5-0.5B with groups of 128, int8 weight error is 0.64% and int4 is 10.79%. Perplexity: +0.1% at int8, +19.4% at int4. Same model, same rounding, same grouping.
 ---
-I guessed the top 1% of weights by size would carry 5% to 15% of the rounding error. They carry 1% to 2%. Rounding error is about the same size for every weight. Big weights hurt by stretching the range for the rest.
+Llama 3.1 70B at int4 with groups of 128 is 37.0 GiB. On a 48 GB card with a 2 GiB reserve, that leaves 5.7 GiB: about 18k tokens of fp16 KV cache for one user. The weights fit. One long conversation barely does.
 ---
-1% of input channels carry about 38% of the weighted rounding error at int4 on Qwen2.5-0.5B. Evenly spread, it would be 1%. Protect the channels the activations care about, not the weights that look big.
+Weight size is the wrong ruler for 4-bit damage. On Qwen2.5-0.5B, the 1% of input channels with the biggest activations carry about 38% of the activation-weighted rounding error at int4. Protect what the activations multiply.
 ---
-Llama 3.1 70B in fp16 is 131.4 GiB of weights. At int4 with groups of 128 it's 37.0 GiB, a 72% cut. On a 48 GB card with a 2 GiB reserve, 5.7 GiB is left: about 18k tokens of KV cache for one user. It loads, but it barely serves.
+If a model fits at int8, run int8: +0.1% perplexity on my test, against +19.4% for int4 with the same grouping. If it only fits at 4 bits, use groups of 128 and check fp16 against 4-bit on your own prompts before you ship.
+
+## Reply prompts
+
+Granularity beats bit width at the low end. I rounded Qwen2.5-0.5B to int4, plain rounding: one scale per matrix gave perplexity 10,816,108, one per 128 weights gave 20.5. Which granularity does your 4-bit setup use?
+
+"Will a 70B fit on a 48 GB card?" Weights, yes: int4 with groups of 128 is 37.0 GiB. What's left after a 2 GiB reserve is 5.7 GiB, about 18k tokens of fp16 KV cache for one user.
+
+On why AWQ and GPTQ exist: I measured plain int4 rounding on a small Qwen, and 1% of input channels, picked by activation size, carried about 38% of the activation-weighted error. Evenly spread would be 1%.
 
 ## Substack Note
 
-37.0 GiB. That's Llama 3.1 70B at 4 bits with groups of 128, down from 131.4 GiB in fp16. It fits a 48 GB card, with room for about 18k tokens of KV cache for one user. It loads, but it barely serves.
+10,816,108. That's the perplexity of Qwen2.5-0.5B after I rounded every weight in its transformer blocks to 4 bits, with one scale for each whole matrix. Give every 128 weights their own scale instead, same four bits, same plain rounding, and it's 20.5. The unquantized model scores 17.2.
 
-The quality bill is the part I wanted to see. I rounded every weight in Qwen2.5-0.5B to 4 bits with no calibration. One scale per matrix: perplexity went from 17 to 10.8 million. One scale per 128 weights: 19% worse. Same four bits.
+I'd guessed the biggest 1% of weights would carry 5% to 15% of the error. They carry 1% to 2%. What does concentrate it is activations: 1% of input channels carry about 38% of the error that reaches the output. That's the gap GPTQ and AWQ exist to close, though I only ran plain rounding.
 
-I'd guessed the biggest 1% of weights would carry 5% to 15% of the error. They carry 1% to 2%, so I was wrong. What does concentrate it is activations: 1% of input channels carry about 38% of the error that reaches the output. That's the gap GPTQ and AWQ exist to close.
-
-I only ran round-to-nearest. The post has the tables, the limits and the code.
+The memory side is kinder. Llama 3.1 70B drops from 131.4 GiB to 37.0 GiB at int4 with groups of 128 and fits a 48 GB card, with room for about 18k tokens of KV cache for one user.
 
 https://www.0xadityaa.dev/blog/what-4-bit-quantization-actually-costs
