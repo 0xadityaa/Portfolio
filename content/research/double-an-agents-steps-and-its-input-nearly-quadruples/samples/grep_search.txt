@@ -1,0 +1,47 @@
+src/app/rss.xml/route.ts:33:      <pubDate>${publishTime(metadata.publishedAt).toUTCString()}</pubDate>
+src/app/blog/[slug]/opengraph-image.tsx:20:    kicker: post ? formatDate(post.metadata.publishedAt) : undefined,
+src/app/blog/[slug]/page.tsx:33:  const { title, publishedAt: publishedTime, summary: description, image, tags } = post.metadata;
+src/app/blog/[slug]/page.tsx:88:            datePublished: post.metadata.publishedAt,
+src/app/blog/[slug]/page.tsx:89:            dateModified: post.metadata.updated ?? post.metadata.publishedAt,
+src/app/blog/[slug]/page.tsx:109:          <time dateTime={post.metadata.publishedAt}>
+src/app/blog/[slug]/page.tsx:110:            {formatDate(post.metadata.publishedAt)}
+src/app/sitemap.ts:17:      lastModified: publishTime(post.metadata.publishedAt),
+src/app/page.tsx:131:                  <time dateTime={latest.metadata.publishedAt}>{formatDate(latest.metadata.publishedAt)}</time>
+src/app/page.tsx:143:                    <time dateTime={post.metadata.publishedAt} className="meta">
+src/app/page.tsx:144:                      {formatMonthYear(post.metadata.publishedAt)}
+src/components/blog-list.tsx:34:    publishedAt: string;
+src/components/blog-list.tsx:68:      const year = getYear(post.metadata.publishedAt);
+src/components/blog-list.tsx:107:                        <time dateTime={post.metadata.publishedAt} className="meta hidden flex-none sm:block">
+src/components/blog-list.tsx:108:                          {formatShortDate(post.metadata.publishedAt)}
+src/lib/markdown-pages.ts:68:      `- [${post.metadata.title}](${abs(`/blog/${post.slug}.md`)}) (${post.metadata.publishedAt.slice(0, 10)})`
+src/lib/markdown-pages.ts:111:      `## [${post.metadata.title}](${abs(`/blog/${post.slug}.md`)})\n\n${post.metadata.publishedAt.slice(0, 10)}${
+src/lib/markdown-pages.ts:122:  const { title, publishedAt, summary, tags, readingTime } = post.metadata;
+src/lib/markdown-pages.ts:127:- Published: ${formatDate(publishedAt)}
+src/data/blog.ts:18:  publishedAt: string;
+src/data/blog.ts:45:export function publishTime(publishedAt: string) {
+src/data/blog.ts:46:  return new Date(String(publishedAt).includes("T") ? publishedAt : `${publishedAt}T12:00:00Z`);
+src/data/blog.ts:62:  return !metadata.draft && publishTime(metadata.publishedAt).getTime() <= Date.now();
+src/data/blog.ts:81:  if (data.publishedAt instanceof Date) data.publishedAt = data.publishedAt.toISOString();
+src/data/blog.ts:163:        publishTime(b.metadata.publishedAt).getTime() -
+src/data/blog.ts:164:        publishTime(a.metadata.publishedAt).getTime()
+scripts/check-posts.mjs:31:  for (const key of ["title", "publishedAt", "summary"]) {
+scripts/check-posts.mjs:34:  if (data.publishedAt && Number.isNaN(new Date(String(data.publishedAt)).getTime())) {
+scripts/check-posts.mjs:35:    fail(`publishedAt "${data.publishedAt}" is not a date`);
+scripts/check-posts.mjs:42:  if (new Date(String(data.publishedAt)).toISOString() < STYLE_GUIDE_SINCE) continue;
+scripts/schedule-post.mjs:3: * Approves posts for release: sets `publishedAt` and clears `draft`.
+scripts/schedule-post.mjs:39:  data.publishedAt = instant.toISOString().replace(".000Z", "Z");
+scripts/lib/posts.mjs:8:/** Same rule as src/data/blog.ts: a date-only publishedAt goes live at 12:00 UTC. */
+scripts/lib/posts.mjs:9:export function publishTime(publishedAt) {
+scripts/lib/posts.mjs:10:  const value = String(publishedAt);
+scripts/lib/posts.mjs:22:      if (data.publishedAt instanceof Date) data.publishedAt = data.publishedAt.toISOString();
+scripts/crosspost.mjs:79:  (a, b) => publishTime(a.data.publishedAt) - publishTime(b.data.publishedAt)
+scripts/crosspost.mjs:86:    publishTime(data.publishedAt) <= new Date() &&
+scripts/crosspost.mjs:87:    publishTime(data.publishedAt) >= since;
+docs/publishing.md:7:| Site, `/rss.xml`, `/llms.txt`, `<url>.md` | Automatic within 10 minutes of `publishedAt` | Nothing |
+docs/publishing.md:34:`scripts/crosspost.mjs` runs hourly, at seven past. A post is due on a platform when it is not a draft, its `publishedAt` has passed, it returns 200 on the site, it was published on or after `CROSSPOST_SINCE` (default 2026-10-01, so the older archive is left alone), and its frontmatter has no URL for that platform.
+docs/blog/workflow.md:29:Set `draft: true` and a placeholder `publishedAt` of today. The real publish time is set at approval, in stage 4.
+docs/blog/workflow.md:46:The `Publish` action writes that time into `publishedAt`, removes `draft`, merges, and replies with the exact go-live time. If he gives you a date in chat instead, post that comment for him only when he has said the draft is final. The default slot and the reason for it are in `scripts/lib/schedule.mjs` and `docs/research/distribution.md`.
+docs/blog/workflow.md:50:Nothing to do. Pages re-render every 10 minutes, so the post appears on the blog, in `/rss.xml`, in `/llms.txt`, and at `<url>.md` within 10 minutes of its `publishedAt`.
+docs/blog/workflow.md:52:To change the time after merging, edit `publishedAt` in a new pull request. To pull a live post, set `draft: true`.
+docs/blog/workflow.md:63:publishedAt: '2026-10-15T13:00:00Z' # set by /publish; a bare date means 12:00 UTC
+docs/blog/workflow.md:69:preview: true                    # optional; show on the site before publishedAt (feeds and cross-posting still wait)

@@ -1,0 +1,2 @@
+All posts pass.
+exit 0
