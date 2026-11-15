@@ -1,14 +1,18 @@
 ## Hook
 
-One user pasting 128k tokens into Llama 3.1 8B needs 16 GiB of KV cache. The model's weights are 15.0 GiB. On one 80 GB card that's 119 users at 4k tokens and 3 at 128k.
+One long prompt can eat more GPU than the whole model.
 
-What context cap are you running, and who picked it?
+Llama 3.1 8B: one user at 128k tokens needs 16 GiB of KV cache. The weights are 15 GiB. One 80 GB card fits 119 users at 4k, and 3 at 128k.
+
+What context cap are you running?
 
 [image: public/images/blog/kv-cache-vs-weights.svg]
 
 ## Thread
 
-One user pasting 128k tokens costs 16 GiB of GPU memory on Llama 3.1 8B. The model itself is 15.0 GiB. I worked out what that does to an 80 GB card, from real config.json files. Here's what moved the number, and what didn't:
+One long prompt can eat more GPU than the whole model.
+
+On Llama 3.1 8B, a single 128k-token user needs 16 GiB of KV cache. The weights are 15 GiB. The arithmetic, from real config files, and why it isn't worse:
 ---
 On one 80 GB card: 119 full-length users at 4k tokens. 3 at 128k.
 

@@ -1,5 +1,5 @@
 ---
-title: Your Context Window Is a Memory Bill
+title: One Long Prompt Can Eat More GPU Than the Whole Model
 publishedAt: '2026-11-14'
 summary: >-
   One 128k-token paste needs more GPU memory than Llama 3.1 8B itself: 16 GiB
