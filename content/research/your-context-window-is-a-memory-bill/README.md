@@ -2,14 +2,36 @@
 
 The artifact behind the post "Your Context Window Is a Memory Bill". It reads real Hugging Face `config.json` files and computes KV cache size and how many full-length sequences fit on an 80 GB GPU.
 
-Python 3 standard library only, so there is no virtualenv to create. Run from this folder (written on Python 3.12.8):
+## Set up
+
+Python 3 standard library only (written and run on Python 3.12.8, macOS). There is no virtualenv, no `pip install`, no GPU and no model weights. Clone the repo and `cd` into this folder:
 
 ```bash
-python3 fetch.py                                   # optional: re-download configs (pinned by commit)
-python3 kv_cache.py > output-1gpu.txt              # one 80 GB GPU, fp16 cache
-python3 kv_cache.py --gpus 4 > output-4gpu.txt     # four GPUs pooled (idealised)
+cd content/research/your-context-window-is-a-memory-bill
+python3 --version    # 3.12.8 is what I used
+```
+
+## Fetch the data
+
+The configs and parameter counts are already committed in `configs/`, so you can skip this. To re-download them (needs internet, 12 small HTTP requests), run:
+
+```bash
+python3 fetch.py
+```
+
+Only `config.json` files and parameter counts are fetched, pinned by commit. No weights are downloaded.
+
+## Run
+
+```bash
+python3 kv_cache.py > output-1gpu.txt                    # one 80 GB GPU, fp16 cache
+python3 kv_cache.py --gpus 4 > output-4gpu.txt           # four GPUs pooled (idealised)
 python3 kv_cache.py --bytes 1 > output-fp8-kv-1gpu.txt   # one byte per cached value (fp8 KV)
 ```
+
+## How long it takes
+
+Each `kv_cache.py` run finishes in well under a second (0.15 s wall on my laptop). `fetch.py` takes a few seconds on a normal connection. The three committed `output-*.txt` files are byte-identical to a fresh run, which I checked on 2026-11-15.
 
 ## Files
 

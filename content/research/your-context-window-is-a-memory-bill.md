@@ -100,17 +100,17 @@ Nothing. The post uses no first-person past-tense experience. It says "I calcula
 
 Self-check against `docs/blog/style.md`, where each of the six things is in the post:
 
-1. Thesis in first 150 words: the bold sentence ("when you serve a long-context model yourself, the limit is mostly KV cache memory...") in the opening, after the thought experiment.
+1. Thesis in first 150 words: the bold sentence ("When you serve a long-context model yourself, the limit is mostly KV cache memory...") in the opening, after the 16 GiB hook, the cost-to-the-reader line and the thought experiment.
 2. Artifact: `kv_cache.py` with pinned configs, linked in "What did the script find?", with two tables and the SVG.
 3. Numbers with sources and dates: tables come from the artifact output; the paper figures link arXiv 2309.06180; the H100 figures link NVIDIA's page; pricing is dated 14 November 2026 in the limits section. A cost post would show three volumes; here the three context lengths (4k, 32k, 128k) play that role.
 4. Links as evidence trail: more than ten external links in about 1,900 words (arXiv papers, configs, NVIDIA, vLLM docs, pricing pages).
 5. Limits: "Where I'd stop trusting this post" states the strongest objection (it's solved by paging, fp8, prefix sharing), links vLLM and DeepSeek, says where the advice stops, and says what I did not test (inference, quantization quality, overhead).
-6. Ending that adds: the decision rule (size cache first, cap the context before buying the card) and what would change my mind (a real vLLM measurement).
+6. Ending that adds: the decision rule (size cache first, cap the context before buying the card) and what would change my mind (a real vLLM run far from the table). The ending no longer promises a follow-up.
 
 ## Open questions
 
 - Has Aditya served a model himself (vLLM or similar) at long context? If so, a real "what I saw" line and a measured memory number against my table would strengthen the post. I invented none, so the opening is a labelled thought experiment.
-- Does he want the sequel (measure on a real GPU) promised in the last paragraph? It is a commitment in his name.
+- The ending no longer promises a GPU follow-up post; it only says what result would change his mind.
 - The Gemini model name is taken from the page section heading near the pricing numbers; recheck the rendered page before publishing, as prices and previews change.
 - Is the title acceptable? "Your Context Window Is a Memory Bill" is 36 characters.
 - The scheduled publish date: the frontmatter has `publishedAt: '2026-11-14'` as a placeholder, to be set at `/publish`.
