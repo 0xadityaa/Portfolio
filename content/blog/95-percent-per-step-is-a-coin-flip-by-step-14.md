@@ -25,7 +25,7 @@ My claim: **per-step reliability compounds, so long runs fail often even with a 
 
 - At 95% per step, a run is at 50% by step 14. At 90% it takes 7 steps, and at 99% it takes 69.
 - With transient failures, two retries took a 20-step run from 35.5% to 99.8%. With half the failures persistent: 60.4%.
-- Resuming from a checkpoint finished 100.0% of runs at 95% per step, if failures are transient. A 99% agent with no checkpoints finished 81.7%.
+- Resuming from a checkpoint finished 100.0% of runs at 95% per step, if failures are transient. A 99% agent with no retries at all finished 81.7%, which isn't a fair fight, but it shows where the cheap gains are.
 - Retrying a step with a side effect can do it twice. Idempotency keys took the duplicates to zero.
 
 ## Why does 95% per step fall apart so fast?
