@@ -1,12 +1,14 @@
 ## Hook
 
-A 95%-per-step agent finishes a 20-step job 35.5% of the time. A 99% agent with no retries: 81.7%. A 95% agent that checkpoints every 5 steps and resumes: 100.0%. (Simulation, transient failures.)
+A 95%-per-step agent finishes a 20-step job 35.5% of the time.
 
-How long is your longest agent loop, and does it save state between steps?
+Retry each step twice and it's 99.8%. But only if the errors go away on a retry. Make half of them stick and the same retries get you 60.4%.
+
+What does your agent do with an error it's already seen twice?
 
 ## Thread
 
-A 95%-per-step agent finishes 20 steps clean 35.5% of the time. A 99% agent with no retries manages 81.7%. A 95% agent that checkpoints every 5 steps: 100.0%. I simulated what buys the reliability back, and what only looks like it helps:
+A 95%-per-step agent finishes 20 steps clean 35.5% of the time. I simulated what buys the reliability back (retries, checkpoints, idempotency keys) and what only looks like it helps:
 ---
 First the wall. 0.95^14 = 0.49. A run falls to 50% after ln 0.5 / ln p steps: 6.6 steps at 90% per step, 13.5 at 95%, 69 at 99%. Even the 99% agent is at two in three by step 40.
 ---
@@ -36,7 +38,7 @@ Common advice: retry on timeout. What I measured: with half of failures being ti
 
 ## Reply prompts
 
-Someone says their agent is flaky and the fix is a better prompt: "In a simulation, a 99% agent with no retries finished 20 steps 81.7% of the time. A 95% agent that checkpoints every 5 steps finished 100.0%, as long as failures were transient. Which is yours?"
+Someone says their agent is flaky and the fix is a better prompt: "In a simulation, a 95% agent finished 20 steps 35.5% of the time. Two retries per step took it to 99.8%, but only when errors were transient. With half of them persistent: 60.4%. Which kind is yours?"
 
 Someone adds retries to a tool-calling loop: "Retries took a 20-step run from 35.5% to 99.8% when failures were transient. With half persistent it was 60.4%. Do you know which kind your tool errors are?"
 
@@ -46,7 +48,7 @@ Someone has an agent that sends emails or charges cards: "I simulated retries on
 
 A 95%-per-step agent finishes a 20-step job without a mistake 35.5% of the time. That's 0.95^20, the same compounding that bit me in a ranking bug in October, with steps instead of days.
 
-So I wrote a seeded simulation to see what buys reliability back. Retry twice and it's 99.8%, but only if failures are transient: when half are persistent, it's 60.4%. Checkpointing every 5 steps got 100.0%, against 88.8% for restarting from step 1 under the same call cap. A 99% agent with no checkpoints got 81.7%. And retrying a step with a side effect ran it twice in 41.1% of runs, until I added idempotency keys.
+So I wrote a seeded simulation to see what buys reliability back. Retry twice and it's 99.8%, but only if failures are transient: when half are persistent, it's 60.4%. Checkpointing every 5 steps got 100.0%, against 88.8% for restarting from step 1 under the same call cap. And retrying a step with a side effect ran it twice in 41.1% of runs, until I added idempotency keys.
 
 It's a model, not a real LLM, and real agents recover from mistakes better than independent coin flips would. The post says where it breaks:
 
