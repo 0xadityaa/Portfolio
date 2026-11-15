@@ -1,5 +1,5 @@
 ---
-title: The Cheap Model Isn't Always Cheaper
+title: The 40x Cheaper Model Might Be Costing You More
 publishedAt: '2026-11-14'
 summary: >-
   Haiku 5.5 is 40x cheaper than Opus 5.5 per request, yet at $5 a wrong answer it costs 4.4x more per useful answer. My success rates are assumed.
@@ -57,7 +57,7 @@ At $0, Haiku is 33 times cheaper per useful answer. At $5, it's 4.4 times more e
 
 The success-rate gap matters more than the price gap. Shrink it to one point (Haiku at 94%) and you'd need a $2.02 failure to flip it. The same sums on gpt-5.4-mini and gpt-5.4 ([OpenAI pricing](https://developers.openai.com/api/docs/pricing), only 3.3 times apart) cross at $0.051. The [README](https://github.com/0xadityaa/Portfolio/blob/main/content/research/the-cheap-model-is-not-always-cheaper/README.md) has the rest.
 
-Retries don't rescue Haiku here. As I covered in [95% Per Step Is a Coin Flip by Step 14](/blog/95-percent-per-step-is-a-coin-flip-by-step-14), they only help when a failure is visible, and these are silent: the answer that looks fine and isn't.
+Retries don't rescue Haiku here. As I covered in [Your 95% Reliable Agent Fails Half Its 14-Step Tasks](/blog/95-percent-per-step-is-a-coin-flip-by-step-14), they only help when a failure is visible, and these are silent: the answer that looks fine and isn't.
 
 That's the plain story. The cascade is the interesting one.
 
