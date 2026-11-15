@@ -1,16 +1,18 @@
 ## Hook
 
-I counted the tool definitions on 11 popular MCP servers. Ten of them add 23,895 tokens to every request, before you've typed a word. chrome-devtools alone is 6,751. fetch is 296.
+Your MCP servers are eating tokens before you type a word.
 
-How many servers are you running, and have you ever counted what they cost?
+I counted 11 popular ones. Ten add 23,895 tokens to every request. chrome-devtools alone: 6,751. fetch: 296.
+
+How many servers are you running, and have you ever counted?
 
 [image: public/images/blog/tool-definitions-per-request.svg]
 
 ## Thread
 
-I counted the tool definitions on 11 popular MCP servers. Ten of them add 23,895 tokens to every request, before you've typed a word.
+Your MCP servers are eating tokens before you type a word.
 
-Here's what that is against a normal prompt, what it costs, and what caching does and doesn't fix:
+Ten popular ones add 23,895 tokens to every single request. I counted them, priced them, and checked what caching actually fixes:
 ---
 Against a short 2,000-token prompt (my assumption), ten servers are 92% of what the model reads. Five are 84%.
 

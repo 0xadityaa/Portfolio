@@ -1,5 +1,5 @@
 ---
-title: Every MCP Server You Add Taxes Every Prompt
+title: Your MCP Servers Eat 24,000 Tokens Before You Type
 publishedAt: '2026-11-14'
 summary: >-
   Ten popular MCP servers add 23,895 tokens to every request, 92% of a short
