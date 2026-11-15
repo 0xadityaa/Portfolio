@@ -37,7 +37,7 @@ The strongest objection: a strict metric with a steady bias can still rank syste
 
 I didn't test whether rankings survive. I measured per-answer errors on one dataset with wrong answers I wrote, not leaderboard order.
 ---
-Want the 100 wrong answers and the scoring code? Reply EVAL and I'll DM it.
+Want the 100 wrong answers and the scoring code? Reply GRADE and I'll DM it.
 ---
 Rule of thumb: if a wrong answer costs more than a missed right one (money, units, medicine), stay strict. If failing right answers hurts, go softer and add checks for numbers, negation and order.
 
@@ -87,7 +87,7 @@ It matches topic. Facts are a different job.
 
 ## CTA
 
-EVAL | the 100 hand-written wrong answers and the scoring code | https://github.com/0xadityaa/Portfolio/tree/main/content/research/exact-match-would-fail-the-humans-too
+GRADE | the 100 hand-written wrong answers and the scoring code | https://github.com/0xadityaa/Portfolio/tree/main/content/research/exact-match-would-fail-the-humans-too
 
 ## Reply prompts
 
