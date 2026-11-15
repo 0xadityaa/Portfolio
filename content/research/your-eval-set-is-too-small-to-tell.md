@@ -78,11 +78,11 @@ Primary share: of the 11 rows that carry a factual claim, 5 cite tier 1 sources 
 
 ## From Aditya
 
-Nothing yet. The post contains no first-person past-tense experience. It opens on a labelled thought experiment and says "I simulated", which is true of the artifact.
+Nothing yet. The post contains no first-person past-tense experience. It opens on the simulation's result and says "I simulated", which is true of the artifact.
 
 ## Outline
 
-Thesis in the first 150 words (opening plus claim). "The short version" bullets. Then:
+Hook (a number and a question), stakes sentence, then the thesis in the first 150 words. "The short version" bullets. Then:
 
 1. How often does the better system win on 100 examples? The unpaired table (win, tie, lose, CI width) and the 5- and 10-point numbers. Diagram: share of evals whose CI excludes zero against eval size, unpaired vs paired, with the 80% line and the 100-example point highlighted.
 2. What does pairing change? Mechanism (shared difficulty cancels), McNemar in two sentences, the paired table, the sensitivity to correlation (17%, 30%, 46% narrower).
@@ -92,10 +92,10 @@ Thesis in the first 150 words (opening plus claim). "The short version" bullets.
 
 ## Self-check against the six required things in style.md
 
-1. Thesis in first 150 words: the "claim I'll defend" paragraph after the opening, a sentence an engineer could dispute.
-2. Artifact: the NumPy simulation, `simulate.py` with raw output, linked in the second paragraph; tables are its output; one SVG diagram.
+1. Thesis in first 150 words: the bold sentence after the opening three paragraphs, a sentence an engineer could dispute.
+2. Artifact: the NumPy simulation, `simulate.py` with raw output, linked in the third paragraph; tables are its output; one SVG diagram.
 3. Numbers with their papers: Miller's figures and McNemar's formula are linked with checked dates in the table above; all other numbers come from the artifact and say so. No cost claims, so no three-volume arithmetic (the sample-size table gives four gaps and three correlations instead).
-4. Links: 10 distinct external links in about 1,900 words (checker passes).
+4. Links: 10 distinct external links in about 1,280 words of body (checker passes).
 5. Limits: "Where I'd stop trusting this post": Hamel's objection steelmanned with link, where the advice applies, binary-only, judge noise, clustering, representativeness, what was not tested.
 6. An ending that adds: decision rule plus what would change my mind.
 

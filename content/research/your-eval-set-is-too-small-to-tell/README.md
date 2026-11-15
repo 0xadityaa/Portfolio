@@ -4,16 +4,23 @@ The artifact behind the post "Your Eval Set Is Too Small to Tell". A seeded NumP
 
 ## Run it
 
-The virtualenv lives outside the repo.
+1. Set up. The virtualenv lives outside the repo. Needs Python 3.12 and NumPy 2.5.4 (the version the committed output was run with).
 
 ```sh
 python3 -m venv /private/tmp/claude-501/evalvenv
-/private/tmp/claude-501/evalvenv/bin/pip install numpy
-cd content/research/your-eval-set-is-too-small-to-tell
-/private/tmp/claude-501/evalvenv/bin/python simulate.py > output.txt
+/private/tmp/claude-501/evalvenv/bin/pip install numpy==2.5.4
 ```
 
-Seed `20261114`, NumPy 2.5.4, Python 3.12.8. It takes a few minutes on an Apple M2 (the 160-point sample-size search is the slow part). It writes `results.json` next to the script and prints the same numbers.
+2. Fetch data or weights. There are none: the simulation draws its own data from a fixed seed (`20261114`), so it needs no downloads and no network after `pip install`.
+
+3. Run it. From the repo root:
+
+```sh
+cd content/research/your-eval-set-is-too-small-to-tell
+/private/tmp/claude-501/evalvenv/bin/python -u simulate.py > output.txt
+```
+
+4. How long it takes: about 3.5 minutes on CPU (Apple M2, about 5 on a busy machine; the 160-point sample-size search is the slow part). It prints the tables to `output.txt` and writes `results.json` next to the script. Re-running reproduces the committed `output.txt` exactly.
 
 ## Files
 

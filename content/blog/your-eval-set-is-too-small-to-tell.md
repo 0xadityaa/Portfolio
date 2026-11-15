@@ -10,9 +10,11 @@ tags:
 draft: true
 ---
 
-Your score goes from 80 to 83 on 100 examples. The better system lost or tied one run in three.
+I built a system that's truly 3 points better than another. On a 100-example eval, it looked worse or tied one run in three.
 
-A made-up but very ordinary afternoon: you tweak a prompt, rerun your eval, and ship the three points. I wanted to know how often that's a real win, so I simulated it. Two systems (seeded [NumPy](https://numpy.org/doc/stable/reference/random/generator.html) draws), one truly better by 3 points, 83% against 80%. Eval sets from 25 to 1,000 examples, five thousand runs each. The code and raw output are [in the repo](https://github.com/0xadityaa/Portfolio/tree/main/content/research/your-eval-set-is-too-small-to-tell).
+So when your score goes from 80 to 83, what did you actually learn?
+
+If you choose prompts or models on 50 to 100 examples, this costs you: some of the wins you ship are noise you can't tell from signal. I simulated it to see how much. Two systems, one truly better, 83% against 80% (seeded [NumPy](https://numpy.org/doc/stable/reference/random/generator.html) draws). Eval sets from 25 to 1,000 examples, five thousand runs each. The code and raw output are [in the repo](https://github.com/0xadityaa/Portfolio/tree/main/content/research/your-eval-set-is-too-small-to-tell).
 
 **A 50 to 100 example eval can't tell a 3-point improvement from noise, and running both systems on the same examples is the cheapest fix.** It won't make 100 examples enough. It makes them go about twice as far.
 
@@ -23,37 +25,37 @@ A made-up but very ordinary afternoon: you tweak a prompt, rerun your eval, and 
 - Pairing the comparison cut the interval by about 30% and made the same eval 1.6 times as likely to show the win (11% against 7%).
 - A 3-point gap needs about 2,700 examples per system unpaired, or about 1,350 paired.
 
-## How often does the better system win?
+## Does the better system at least win?
 
-Not as often as it feels like it should.
+Two times in three. The other third is a clean, honest eval with no bugs and no leakage, and it still points the wrong way or shrugs.
 
-At 100 examples, one eval in three showed the truly better system losing or tied. That's a clean, random, honest eval. No bugs, no leakage.
+The interval is what really stings. It's a [bootstrap](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)) one: resample the examples with replacement, recompute the difference a thousand times, take the middle 95%. At 100 examples it spans 21 points. Your "up 3" is a dot inside a band from about minus 8 to plus 13.
 
-The interval is what gets me. It's a [bootstrap](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)) one: resample the examples with replacement, recompute the difference a thousand times, take the middle 95%. At 100 examples it spans 21 points. A score "going up 3" is a dot inside a band from about minus 8 to plus 13.
-
-At 500 examples the band is 9.6 points wide. At 1,000, 6.8. Even then you only see a clear win 40% of the time. For a 5-point gap, 100 examples gets you 13.8%. Only a 10-point gap is comfortable: 49% at 100, 99% at 500.
+At 500 examples the band is 9.6 points wide. At 1,000, 6.8, and you still only see a clear win 40% of the time. A 5-point gap at 100 examples gets you 13.8%. Only a 10-point gap is comfortable: 49% at 100, 99% at 500.
 
 ![Line chart of simulated evals for a true 83% against 80%: the share whose 95% interval excludes zero rises from 4% at 25 examples to 40% at 1,000 with separate samples, and from 5% to 68% with paired analysis. At 100 examples it is 7% unpaired and 11% paired. Neither reaches the 80% line.](/images/blog/eval-size-power-paired-vs-unpaired.svg)
 
-None of this is new. Evan Miller's [Adding error bars to evals](https://arxiv.org/abs/2411.00640) (Anthropic, November 2024) makes the same case: questions are a sample from a bigger population, and the field has mostly reported single numbers. His worked example lands near a thousand questions to detect a 3-point difference ([checked 2026-11-14](https://arxiv.org/html/2411.00640)). His difficulty model differs from mine, so the numbers don't match exactly. The order of magnitude does.
+None of this is new. Evan Miller's [Adding error bars to evals](https://arxiv.org/abs/2411.00640) (Anthropic, November 2024) makes the case that questions are a sample from a bigger population, and that the field mostly reports single numbers. His worked example lands near a thousand questions to detect a 3-point difference ([checked 2026-11-14](https://arxiv.org/html/2411.00640)). His difficulty model differs from mine, so the numbers don't match exactly. The order of magnitude does.
+
+The fix is cheap. It doesn't even need more examples.
 
 ## What does pairing change?
 
-Pairing means both systems answer the same examples, and you compare them example by example instead of comparing two totals.
+It shrinks the interval by about 30%, for free. Pairing means both systems answer the same examples, and you compare them example by example instead of comparing two totals.
 
-Most examples are easy for both systems or hard for both. That shared difficulty is noise in an unpaired comparison, and it cancels in a paired one. What's left is the examples where the systems disagree.
+Think of timing two runners. On different courses, the hills add noise to the comparison. On the same course, the hills cancel. Most examples are easy for both systems or hard for both, and that shared difficulty is the hill. What's left is the examples where the systems disagree.
 
 [McNemar's test](https://en.wikipedia.org/wiki/McNemar%27s_test) uses only those. Count where A is right and B is wrong (`b`), and where B is right and A is wrong (`c`). The statistic is `(b - c)^2 / (b + c)`. McNemar published it in 1947 as a [note on correlated proportions](https://doi.org/10.1007/BF02295996). The idea is older than most of the models you're comparing.
 
-In my simulation the interval came out about 30% narrower at every size. At 100 examples, a clear win showed up 2.2% of the time analysing the data unpaired and 11.1% analysing it as pairs. A paired bootstrap and McNemar agreed within a point or two, so use whichever your tooling makes easy.
+At 100 examples, on the same data, a clear win showed up 2.2% of the time analysing it as two separate totals and 11.1% analysing it as pairs. A paired bootstrap and McNemar agreed within a point or two, so use whichever your tooling makes easy.
 
-I had to pick how correlated the two systems are, and I used 0.5. That's an assumption. Miller's example uses 0.5 too, and it's made up as well. You can measure yours from the table you already have. It matters: at 100 examples, a correlation of 0.3 narrowed the interval 17%, 0.5 by 30%, and 0.7 by 46%. Two versions of the same prompt on the same model disagree rarely, so pairing helps you more.
+The catch is that I had to pick how correlated the two systems are, and I used 0.5. That's an assumption. Miller's example uses 0.5 too, and it's made up as well. You can measure yours from the table you already have. It matters: at 100 examples, a correlation of 0.3 narrowed the interval 17%, 0.5 by 30%, and 0.7 by 46%. Two versions of one prompt on the same model probably disagree rarely, so expect a higher correlation and a bigger gain.
 
 The full tables are in the [simulation README](https://github.com/0xadityaa/Portfolio/tree/main/content/research/your-eval-set-is-too-small-to-tell).
 
 ## How many examples do I need?
 
-This is the table to keep next to your eval. It gives the smallest `n` that reaches 80% [power](https://en.wikipedia.org/wiki/Power_of_a_test) (you catch the real gap 80% of the time) at a two-sided 5% level, from a base accuracy of 80%. "Unpaired" is `n` per system. "Paired" is `n` shared examples.
+More than you have. For a 3-point gap, about 2,700 per system, or about 1,350 if you pair. Here's the table to keep next to your eval. It gives the smallest `n` that reaches 80% [power](https://en.wikipedia.org/wiki/Power_of_a_test) (you catch the real gap 80% of the time) at a two-sided 5% level, from a base accuracy of 80%. "Unpaired" is `n` per system. "Paired" is `n` shared examples.
 
 | True gap | Unpaired, per system | Paired, correlation 0.3 | Paired, 0.5 | Paired, 0.7 |
 | --- | --- | --- | --- | --- |
@@ -80,8 +82,6 @@ I haven't tested real model outputs, a measured correlation, or any non-binary m
 
 ## The takeaway
 
-Before you compare two candidates on a number, look up the gap you care about in the table. If your eval has fewer examples than that, don't read the difference as a win. Read the outputs.
+Tomorrow, before you compare two candidates on a number, look up the gap you care about in the table. If your eval has fewer examples than that, don't call it a win. Read the outputs. If you can run both systems on the same examples, do it and analyse the pairs: at a correlation of 0.5 it halved the examples I needed.
 
-If you can run both on the same examples, do it and analyse the pairs. It's free, and at a correlation of 0.5 it halved the examples I needed.
-
-I'd like to measure the correlation on a real eval. If it's far from 0.5, or the paired and unpaired intervals come out the same, this post is wrong about how much pairing buys you.
+What would change my mind: a real eval where the measured correlation is far from 0.5, or where the paired and unpaired intervals come out the same. Then this post is wrong about how much pairing buys you.
