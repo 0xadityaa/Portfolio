@@ -13,7 +13,9 @@ python3 -m venv /private/tmp/claude-501/prompt-caching-venv
 /private/tmp/claude-501/prompt-caching-venv/bin/pip install numpy tiktoken
 ```
 
-tiktoken downloads and caches the `o200k_base` vocabulary the first time it runs. Nothing downloaded is committed.
+## Fetch
+
+No datasets or model weights. The only download is the `o200k_base` vocabulary (about 2 MB), which tiktoken fetches and caches the first time `prompt_order.py` runs. Nothing downloaded is committed.
 
 ## Run
 
@@ -25,6 +27,10 @@ python3 simulate.py     > results/simulation.txt     # Poisson arrivals vs 5-min
 python3 prompt_order.py > results/prompt_order.txt   # cacheable prefix tokens by placement of a per-request block
 python3 make_diagram.py                              # writes ../../../public/images/blog/cache-cost-vs-traffic.svg
 ```
+
+## How long it takes
+
+About 40 seconds in total on one CPU core (macOS, Python 3.12.8), most of it in `simulate.py`. Rerunning reproduces `results/` and the SVG byte for byte, because every script is seeded.
 
 ## What each file does
 

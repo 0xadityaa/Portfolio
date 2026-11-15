@@ -94,8 +94,8 @@ Diagram: `public/images/blog/cache-cost-vs-traffic.svg`, no cache vs 5-minute vs
 
 ## Style.md's six things, where they are
 
-1. Thesis in the first 150 words: the bold sentence in the third paragraph.
-2. Artifact: the three scripts in the artifact folder, linked in the second paragraph after the thesis.
+1. Thesis in the first 150 words: the bold sentence in the third paragraph (after the hook and a one-sentence stake for the reader).
+2. Artifact: the three scripts in the artifact folder, linked in the paragraph right after the thesis.
 3. Numbers with their papers: price table (linked, dated 2026-11-14), simulation table, three-volume monthly table.
 4. Links as evidence: 10 or more external links; each provider, price and doc linked at first mention.
 5. Limits: "Where I'd stop trusting this post", with the steelman, the percent-versus-dollars point, and what was not tested.
