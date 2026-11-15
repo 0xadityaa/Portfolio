@@ -12,7 +12,7 @@ This doc sets the format for every `content/research/<slug>/social.md`. The goal
 | What does it punish? | Anything that makes people back away. "Not interested" is about −75 likes, a mute −83, a report −330. One annoyed reader can cancel dozens of likes. |
 | Bookmarks? | Not among the weights in the published code. Don't design for them. |
 | Links in posts? | X says it stopped penalising links (Musk, 29 July 2026). A 28k-post dataset finds no penalty for the median account. Earlier data found non-Premium link posts dead, so this depends on Premium. |
-| Format? | Text and image posts lead on engagement; the gap between them is small. Premium matters far more than format. |
+| Format? | Text and image posts lead on engagement; the gap between them is small. Premium matters far more than format. Skimmable line breaks and one honest comment-to-get CTA per post (section 5). |
 | Threads or Articles? | Both. The thread is the reach play. The X Article is the dwell-time play and the monetisation play (original long-form). |
 | What pays? | Original Content Rewards, which replaced revenue sharing in September 2026. Premium is required and replies don't count toward the impressions bar. Check the exact thresholds in Creator Studio before relying on them. |
 
@@ -79,62 +79,90 @@ X open-sourced its Grok-based recommender in January 2026 and updates it publicl
 
 **What it means for us:** our edge is that every post carries a number we measured ourselves. That's the definition of original. Payouts come from impressions on our own posts and Articles, not from replies to others. So replies to bigger accounts are a follower-growth tactic, and our own posts are the payout engine.
 
-## 5. The format for every social.md
+## 5. What the high performers do, and what we take from them
 
-Five sections, in this order. Write to the reader who builds with LLMs for a living.
+`docs/research/high-performing-tweets.md` collects posts that each passed 100K views. Most are AI-tool engagement farming. Their mechanics line up with the ranker weights in section 1: they ask for replies (7 likes each) and follows (6 likes each) and make the post easy to skim. We take the mechanics and keep our credibility, since the readers we want mute hype (−83 likes each).
+
+**Take:**
+- **A one-line hook that states the payoff.** "ChatGPT knows everything about you." "Creating a video with Veo 3 costs around $3." Short, declarative, concrete, in the first 8 words. No preamble.
+- **Line breaks between every thought.** One sentence per line, a blank line between ideas. Posts are read on phones.
+- **Short bullet lists** (`-` or `→`) for 3–5 parallel items: the steps, the numbers, what's inside.
+- **A pointer to what's below** ("Here's what I found ↓", "The numbers:") when a list or thread follows.
+- **Social proof as a number you produced.** Theirs is "$600K in 90 days". Ours is "10,570 questions", "11 servers", "34,723 answers": the size of the experiment.
+- **The comment-to-get CTA, once per post set.** "Reply KV and I'll DM you the calculator." Every post ships a real script or calculator in the repo, so the offer is genuine. A reply is worth 7 likes to the ranker, and the DM starts a conversation. Use a short keyword in capitals. Aditya fulfils it by replying with the artifact link (the thread draft's scratchpad holds it).
+- **A strong first-person line** where it's true ("I counted the tool definitions on 11 MCP servers.").
+- **Emoji:** at most one per post, and only a pointer (↓ 👇) or a marker (→). No 🤯, no 🔥.
+
+**Don't take:**
+- Invented emotion or results ("I'm literally shaking", "$47K monthly"). Every claim is a number from our artifact or a linked source.
+- "Must be following + repost + like to get it." Ask for the reply only. Conditions read as farming to engineers and invite mutes.
+- "Feels illegal", "Hollywood is over", "No. 6 will terrify you", "99% of people don't know". Stock hype, and the opposite of our brand.
+- Fake scarcity ("free for 24 hours").
+
+## 6. The format for every social.md
+
+Write for the engineer who builds with LLMs for a living, using the mechanics above. Sections, in this order:
 
 ### `## Hook`
-One standalone post, ≤280 characters, the strongest single finding, posted on blog day at 09:30. It has to work with no context and no link.
+One standalone post, ≤280 characters, posted the morning the blog goes live. Structure:
 
-Pick a shape:
-- **The measured surprise.** "I measured X. Expected A. Got B." Lead with the number.
-- **The default nobody chose.** "Most RAG stacks use 512-token chunks. Nobody I can find measured it. So I did:"
-- **The bill.** A dollar figure at a volume the reader recognises.
-- **The flip.** "Caching saves 88%. At 1 request an hour it costs 14% more."
+```
+<one-line payoff, ≤10 words, with the number or the flip>
 
-Then one line that invites a reply only a practitioner can give. A real question ("What chunk size are you running, and who picked it?"), not "Thoughts?".
+<2-3 short lines: the evidence, one number per line>
 
-Attach the post's chart only if it shows the finding at a glance. Note it as `[image: public/images/blog/<file>.svg]`; it's converted to PNG when scheduling.
+<a practitioner question, OR the CTA>
+```
+
+Attach the chart with `[image: public/images/blog/<file>.svg]` only if it shows the finding at a glance.
 
 ### `## Thread`
 5–7 posts, `---` between them.
-1. Post 1 is the hook again, rewritten to promise what the thread shows ("Here's what moved the number, and what didn't:").
-2. Posts 2 to n−1 carry one number or idea each, in order of surprise, not in the order the blog uses. Plain claims and short sentences; a line break to set off the number is fine.
-3. One post states the strongest objection fairly (from the post's limits). Engineers respect it, and it invites quotes.
-4. The last post gives the rule of thumb plus the link: "Full write-up, code and raw output:" + URL.
-- No "🧵", no "1/", no emoji, no hashtags.
+1. Post 1: the hook line, then one line promising the payoff, ending with ↓.
+2. The middle posts carry one finding each, formatted for skimming (line breaks, a short list where there are parallel items).
+3. One post states the strongest objection fairly.
+4. The second-to-last post is the CTA: "Want the <script/calculator>? Reply <KEYWORD> and I'll DM it."
+5. The last post gives the rule of thumb and the link: "Full write-up, code and raw output:" + URL.
 
 ### `## Singles`
-Exactly 5 standalone posts across the week, each with a different shape from the list above, plus:
-- **The rule of thumb.** "If X, do Y. If not, don't bother."
-- **Myth vs measured.** "Common advice: A. What I measured: B."
-- **The contrarian line.** A claim from the post that a reasonable engineer would push back on, stated with its number.
+Exactly 5 standalone posts with no links, each a different shape:
+- **The measured surprise:** a payoff line, then the numbers as lines.
+- **The default nobody chose:** "Most X use Y. I measured it:" and a short list.
+- **The bill:** a dollar figure at a volume the reader recognises.
+- **The flip:** "A saves 88%. Until it costs 14% more."
+- **The rule of thumb / myth vs measured / contrarian line.**
 
-Each must work alone and end on the implication, not on "So …". No links.
+Each must work alone, end on the implication, and never end on "So …". Singles also go to Substack Notes.
+
+### `## CTA`
+One line: the keyword, what gets DM'd, and the repo URL to send. For example: `KV | the KV cache calculator | https://github.com/0xadityaa/Portfolio/tree/main/content/research/<slug>`.
 
 ### `## Reply prompts`
-3 questions to use when replying to bigger accounts' posts on the same topic that week. Each adds the post's number to someone else's conversation ("We measured this: at 100 examples a real 3-point gain looked significant 7% of the time."). These grow followers; they don't count for payouts.
+3 replies for bigger accounts' posts on the topic, each adding this post's number to their conversation.
 
 ### `## Substack Note`
-One post, 80–160 words, conversational, opening on the surprising number, ending with the link.
+One post, 80–160 words, conversational, opening on the surprising number, ending with the link. It rides in the thread's draft.
 
-## 6. Weekly schedule (Toronto time)
+## 7. Cadence (Toronto time)
 
-| Day | Post |
+**Two blog posts a week (Tuesday and Friday at 09:00), and at least two X posts every day**, from 1 December 2026. Each post gets a 3- or 4-day window:
+
+| When | Post |
 | --- | --- |
-| Tue 09:00 | Blog goes live |
-| Tue 09:30 | Hook |
-| Tue 12:00 | Thread |
-| Wed 18:00 | Single 1 |
-| Thu 09:00 | X Article (the full post) |
-| Fri 09:00 | Single 2 |
-| Sat 10:00 | Single 3 |
-| Sun 10:00 | Single 4 |
-| Mon 18:00 | Single 5 |
+| Blog day 09:30 | Hook (X) |
+| Blog day 17:30 | Thread (X) + Substack Note |
+| Day 1 09:30 | Single 1 (X + Substack Note) |
+| Day 1 17:30 | Single 2 (X + Substack Note) |
+| Day 2 09:30 | X Article (the full post) |
+| Day 2 17:30 | Single 3 (X + Substack Note) |
+| Day 3 09:30 | Single 4 (X + Substack Note) |
+| Day 3 17:30 | Single 5 (X + Substack Note) |
 
-For the first hour after the hook and the thread, reply to every reply.
+A Tuesday window is three days (Tue to Thu), so it adds a 12:30 slot on Tue and Wed to fit all eight. For the first hour after the hook and the thread, reply to every reply, and fulfil every CTA keyword.
 
-## 7. What this doc doesn't know
+The thread and the X Article link to, or reproduce, the blog post, so they stay *planned* until the post's `/publish` merges. The hook and the singles stand alone.
+
+## 8. What this doc doesn't know
 
 - None of these rules has been tested on this account yet. After four weeks, compare impressions, replies and follows per format in X's analytics and revise this doc.
 - The weights change. X says it updates the published model every four weeks. Re-read `param.rs` before relying on a number.
