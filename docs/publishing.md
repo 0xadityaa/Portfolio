@@ -22,7 +22,7 @@ Short-form posts on X and Substack Notes go through Typefully, drafted by an age
 - Each social post is a cut of a published blog post and links to it on the site, so the site stays the original.
 - `docs/blog/style.md` applies: these go out under Aditya's name. Every post carries something real from the essay: a number, a table, a diagram, a code diff. No engagement bait.
 - What to cut from: the 2026 posts and anything newer. The 2024 to early-2025 explainers (Big O, JS internals, hoisting, spell checker, JSON parser, What are LLMs) stay on the site and are not turned into social posts.
-- The weekly shape: the essay as an X Article (`x_article`, its own draft, since X Articles can't share a draft), then single posts or short threads across the following days. A Substack Note rides in the same draft as its X post, as a single post (Notes take no threads).
+- The format and the weekly schedule are in `docs/research/x-playbook.md`: a hook, a thread, the essay as an X Article (`x_article`, its own draft, since X Articles can't share a draft), and five singles across the week, each cut from `content/research/<slug>/social.md`. A Substack Note rides in the thread's draft as a single post (Notes take no threads). Read the playbook before writing any social copy; it explains what X's ranker rewards and punishes.
 - Agents create drafts and may `--plan` them onto a date. Scheduling for real (`--schedule`) or publishing needs Aditya's explicit yes for that draft, the same gate as `/publish`.
 - Typefully's Substack support is Notes only. Newsletter issues are still the manual checklist above.
 - Check `social-sets:get` for `publishing_quota` before planning a week: the Free plan allows 10 posts a month, and two a day needs the Creator plan.
