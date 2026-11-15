@@ -1,13 +1,18 @@
 ## Hook
 
-Swapping my retriever moved recall by 2 points. Changing the chunk size moved it by 5 to 6 (10,570 SQuAD questions, 2,000-token context).
+You tuned the wrong RAG setting.
+
+Swapping my retriever moved recall by 2 points. Changing the chunk size moved it by 5 to 6. 10,570 SQuAD questions, same 2,000-token budget.
 
 What chunk size are you running, and who picked it?
+
 [image: public/images/blog/chunk-size-equal-budget.svg]
 
 ## Thread
 
-Swapping my retriever moved recall by 2 points. Changing the chunk size moved it by 5 to 6. 10,570 SQuAD questions, BM25 and a small embedding model. Here's what moved the number, and what didn't:
+You tuned the wrong RAG setting.
+
+Across 10,570 questions, chunk size moved recall 5 to 6 points. Swapping BM25 for embeddings moved it 2. What I'd set instead of the 512 default:
 ---
 First, a trap. At a fixed k=5, BM25 recall climbs from 76.6% to 95.3% as chunks grow from 64 to 1,024 tokens. It also hands the model 4,988 tokens instead of 319. Bigger chunks win partly by sending 16 times more text.
 ---
