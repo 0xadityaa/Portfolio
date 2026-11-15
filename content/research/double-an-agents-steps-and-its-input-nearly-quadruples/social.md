@@ -41,7 +41,7 @@ But cached tokens still fill the window: 190,730 at step 100. Accuracy can degra
 ---
 Want the model, the tokenised tool outputs and the raw results?
 
-Reply CACHE and I'll DM it.
+Reply LOOP and I'll DM it.
 ---
 Rule of thumb: if your loop resends a stable history, turn caching on first. If you clear, clear in big batches, never one result per step.
 
@@ -87,7 +87,7 @@ Caching off, nothing cleared. The curve turns quadratic long before the window f
 
 ## CTA
 
-CACHE | the agent-loop cost model, tokenised tool outputs and raw results | https://github.com/0xadityaa/Portfolio/tree/main/content/research/double-an-agents-steps-and-its-input-nearly-quadruples
+LOOP | the agent-loop cost model, tokenised tool outputs and raw results | https://github.com/0xadityaa/Portfolio/tree/main/content/research/double-an-agents-steps-and-its-input-nearly-quadruples
 
 ## Reply prompts
 
