@@ -2,9 +2,11 @@
 
 Your 100-example eval is lying about that 3-point win.
 
-I simulated a system that's truly 3 points better. On 100 examples it looked worse or tied 32% of the time, and only 7% of runs could call it a win.
+Simulated: the truly better system looked worse or tied in 1 run in 3.
 
-How big is the eval you ship prompt changes on?
+Only 7% of runs showed a clear win.
+
+How many examples do you ship prompt changes on?
 
 [image: public/images/blog/eval-size-power-paired-vs-unpaired.svg]
 
@@ -12,29 +14,38 @@ How big is the eval you ship prompt changes on?
 
 Your 100-example eval is lying about that 3-point win.
 
-I simulated it 5,000 times. The truly better system looked worse or tied in a third of runs. What it takes to actually see a 3-point gain:
+I simulated it 5,000 times. The truly better system looked worse or tied in a third of runs. Here's what it takes to see a 3-point gain ↓
 ---
-At 100 examples the better system scored higher 68% of the time, tied 6%, lost 26%.
+Two systems, 83% vs 80% true accuracy. 100 examples, 5,000 runs.
 
-The 95% interval on the gap was 21 points wide. Your "up 3" is a dot in a band from about -8 to +13.
+→ Better one scored higher 68%, tied 6%, lower 26%
+→ 95% interval on the gap: 21 points wide
+→ Clear win, interval above zero: 7%
+
+At 500 examples 21%. At 1,000, 40%.
 ---
-Only 7% of those evals could call the better system better, with the interval above zero.
+Cheapest fix: score both systems on the same examples and compare pair by pair. Shared difficulty cancels.
 
-At 500 examples: 21%. At 1,000: 40%.
+Same 100 examples, outcomes correlated at 0.5 (my assumption):
+
+→ Two separate totals: clear win in 2.2% of runs
+→ Pair by pair: 11.1%
+
+Interval about 30% narrower.
 ---
-Cheapest fix: run both systems on the same examples and compare pair by pair. Most examples are easy or hard for both, so that noise cancels.
+Examples needed to catch the gap 80% of the time:
 
-Interval about 30% narrower. On the same data, a clear win went from 2.2% of runs to 11.1%.
+3 points: about 2,700 per system, or about 1,350 paired
+5 points: 933, or 465 paired
+10 points: 202, or 101 paired
+
+Paired figures assume the 0.5 correlation. I didn't measure it on a real eval.
 ---
-How many examples to catch a 3-point gap, 80% power?
+Strongest objection, Hamel Husain's: early on, reading real outputs beats chasing a metric. He's right. This is for choosing between two candidates on a number.
 
-About 2,700 per system unpaired. About 1,350 paired, if the two systems' outcomes correlate at 0.5 (my assumption, not a measurement).
-
-For a 10-point gap: 202 against 101.
+Also, simulated binary scores on independent examples. Real evals are noisier.
 ---
-The strongest objection is Hamel Husain's: early on, reading real outputs beats chasing a metric. He's right. This is for when you're choosing between two candidates on a number.
-
-Also, this is binary scores and independent examples. Real evals are noisier.
+Want the simulation and the sample-size table? Reply EVAL and I'll DM it.
 ---
 Rule of thumb: look up the gap you care about. If your eval has fewer examples than the table says, don't call it a win. Read the outputs. If you can, score both systems on the same examples.
 
@@ -43,35 +54,61 @@ https://www.0xadityaa.dev/blog/your-eval-set-is-too-small-to-tell
 
 ## Singles
 
-I expected a real 3-point gain to show a clear win about 10% of the time on 100 examples. Five thousand simulated runs said 7%. In one run in three the better system looked worse or tied.
+A real 3-point gain, 100 examples, 5,000 simulated runs.
+
+Clear win: 7% of runs.
+Looked worse or tied: 32%.
+
+An 80 to 83 jump on a small eval tells you less than it feels like.
 
 ---
 
-The bill for catching a real gap at 80% power, per system: 202 examples for 10 points, 933 for 5, 2,712 for 3. Halve the gap, roughly quadruple the examples.
+Most evals score two systems as two separate totals. On the same 100 examples (correlation 0.5, assumed):
+
+- Separate totals: interval 21 points, clear win 2.2%
+- Pair by pair: interval 15 points, clear win 11.1%
+
+Same data. Only the analysis changed.
 
 ---
 
-Same models, same 100 examples. Analysed as two separate totals, a real 3-point gain showed a clear win in 2.2% of runs. Analysed pair by pair: 11.1%. Only the analysis changed.
+The bill for catching a real gap 80% of the time, per system:
+
+- 10 points: 202 examples
+- 5 points: 933
+- 3 points: 2,712
+
+Halve the gap, roughly quadruple the examples.
 
 ---
 
-A 500-example eval is still too small for a 3-point change. At 500, 21% of simulated runs showed a clear win. At 1,000, 40%. The 95% interval at 1,000 is still 6.8 points wide.
+Pairing cuts the interval by 30% at a correlation of 0.5. At 0.3 it's 17%. At 0.7 it's 46%.
+
+It pays most when your two systems mostly agree. Two versions of one prompt probably do.
 
 ---
 
-If your eval has fewer examples than the table says for the gap you care about, don't call it a win. Read the outputs. At a correlation of 0.5: about 100 shared examples for 10 points, 465 for 5, 1,350 for 3.
+Myth: 500 examples is plenty.
+
+Measured, for a real 3-point gain: 21% of simulated runs showed a clear win at 500, 40% at 1,000.
+
+Below 1,000 examples, a 3-point change is a coin you can't read.
+
+## CTA
+
+EVAL | the eval-size simulation with raw output and the sample-size table | https://github.com/0xadityaa/Portfolio/tree/main/content/research/your-eval-set-is-too-small-to-tell
 
 ## Reply prompts
 
-I simulated this: on a 100-example eval, a real 3-point gain showed a clear win (95% interval above zero) 7% of the time. Do you score candidates on the same examples every time?
+In my simulation, a real 3-point gain on a 100-example eval showed a clear win (95% interval above zero) in 7% of runs. Do you score candidates on the same examples every time?
 
-Re small evals: the 95% interval on a 3-point difference at 100 examples came out 21 points wide in my simulation. Comparing pair by pair on the same examples cut it about 30%.
+On small evals: the 95% interval on a 3-point difference at 100 examples came out 21 points wide. Pair-by-pair comparison on the same examples cut it about 30%.
 
 Re "we went from 80 to 83": in my simulation a truly better system looked worse or tied on one 100-example eval in three. How many examples was this run on?
 
 ## Substack Note
 
-On 100 examples, a system that's truly 3 points better looked worse or tied one run in three.
+On 100 examples, a system that's truly 3 points better looked worse or tied in one run out of three.
 
 I simulated it: two systems, 83% against 80%, 5,000 runs at each eval size. At 100 examples the better one scored higher 68% of the time and lower 26%. The 95% interval on the gap was 21 points wide, and only 7% of runs could say "better" with it above zero. At 1,000 examples that rose to 40%.
 
