@@ -1,5 +1,5 @@
 ---
-title: 95% Per Step Is a Coin Flip by Step 14
+title: Your 95% Reliable Agent Fails Half Its 14-Step Tasks
 publishedAt: '2026-11-14'
 summary: >-
   A 95%-per-step agent finishes 14 steps 49% of the time. In a simulation, checkpoints and idempotency keys beat prompt work when failures are transient.

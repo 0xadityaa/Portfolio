@@ -1,14 +1,16 @@
 ## Hook
 
-A 95%-per-step agent finishes a 20-step job 35.5% of the time.
+Your 95% reliable agent fails half its 14-step tasks.
 
-Retry each step twice and it's 99.8%. But only if the errors go away on a retry. Make half of them stick and the same retries get you 60.4%.
+0.95^14 = 0.49. Two retries per step take a 20-step run from 35.5% to 99.8%, but only if the errors go away. Make half of them stick: 60.4%.
 
-What does your agent do with an error it's already seen twice?
+What does your agent do with an error it's seen twice?
 
 ## Thread
 
-A 95%-per-step agent finishes 20 steps clean 35.5% of the time. I simulated what buys the reliability back (retries, checkpoints, idempotency keys) and what only looks like it helps:
+Your 95% reliable agent fails half its 14-step tasks.
+
+I simulated what buys the reliability back (retries, checkpoints, idempotency keys) and which of them only look like they help:
 ---
 First the wall. 0.95^14 = 0.49. A run falls to 50% after ln 0.5 / ln p steps: 6.6 steps at 90% per step, 13.5 at 95%, 69 at 99%. Even the 99% agent is at two in three by step 40.
 ---
