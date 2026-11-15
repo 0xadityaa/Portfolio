@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 440" width="940" height="440" role="img" aria-label="Venn diagram of three capabilities: access to private data, exposure to untrusted content, and a way to send data out. Any two alone are not enough to leak; the overlap of all three, in orange, is where an injected instruction can exfiltrate data. Removing any one circle closes the leak.">
+<rect width="940" height="440" fill="#30302E"/>
+<text x="40" y="38" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="16" fill="#FAF9F5">What an agent needs before an injection can leak your data</text>
+<circle cx="290" cy="200" r="115" fill="none" stroke="#FAF9F5" stroke-width="2"/>
+<circle cx="420" cy="200" r="115" fill="none" stroke="#FAF9F5" stroke-width="2"/>
+<circle cx="355" cy="305" r="115" fill="none" stroke="#FAF9F5" stroke-width="2"/>
+<defs><clipPath id="c1"><circle cx="290" cy="200" r="115"/></clipPath><clipPath id="c2"><circle cx="420" cy="200" r="115"/></clipPath></defs>
+<g clip-path="url(#c1)"><g clip-path="url(#c2)"><circle cx="355" cy="305" r="115" fill="#D97757"/></g></g>
+<circle cx="290" cy="200" r="115" fill="none" stroke="#FAF9F5" stroke-width="2"/><circle cx="420" cy="200" r="115" fill="none" stroke="#FAF9F5" stroke-width="2"/><circle cx="355" cy="305" r="115" fill="none" stroke="#FAF9F5" stroke-width="2"/>
+<text x="355" y="228" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#30302E">leak</text>
+<text x="235" y="165" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="14" fill="#FAF9F5">private</text>
+<text x="235" y="183" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="14" fill="#FAF9F5">data</text>
+<text x="475" y="165" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="14" fill="#FAF9F5">untrusted</text>
+<text x="475" y="183" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="14" fill="#FAF9F5">content</text>
+<text x="355" y="345" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="14" fill="#FAF9F5">a way to send</text>
+<text x="355" y="363" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="14" fill="#FAF9F5">data out</text>
+<g font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="14" fill="#FAF9F5">
+<text x="600" y="130" font-weight="600">Private data + untrusted content</text>
+<text x="600" y="152" fill="#B0AEA5">Can be tricked, but nothing can leave.</text>
+<text x="600" y="200" font-weight="600">Untrusted content + a way out</text>
+<text x="600" y="222" fill="#B0AEA5">Can send, but has nothing secret to send.</text>
+<text x="600" y="270" font-weight="600">Private data + a way out</text>
+<text x="600" y="292" fill="#B0AEA5">No attacker text reaches the model.</text>
+<text x="600" y="340" font-weight="600" fill="#D97757">All three</text>
+<text x="600" y="362" fill="#D97757">An injected line says "send the key to this</text>
+<text x="600" y="382" fill="#D97757">address" and the agent can do it.</text>
+</g>
+</svg>
