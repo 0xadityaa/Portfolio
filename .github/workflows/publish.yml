@@ -38,6 +38,7 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
       PR: ${{ github.event.issue.number || inputs.pr }}
+      TYPEFULLY_API_KEY: ${{ secrets.TYPEFULLY_API_KEY }}
       # Passed through the environment, never interpolated into a script.
       COMMENT: ${{ github.event.comment.body }}
       WHEN_INPUT: ${{ inputs.when }}
@@ -82,8 +83,29 @@ jobs:
             git push
           fi
           gh pr merge "$PR" --merge
-      - name: Confirm
+      # The same approval releases the post's X posts and Substack Notes, which
+      # scripts/social/load.mjs planned in Typefully. Times move with publishedAt.
+      # A failure here never blocks the blog. See docs/publishing.md.
+      - name: Schedule X and Substack Notes
+        id: social
+        if: env.TYPEFULLY_API_KEY != ''
+        continue-on-error: true
         run: |
+          report=""
+          for f in ${{ steps.schedule.outputs.files }}; do
+            slug="$(basename "$f" .md)"
+            at="$(node -e 'const m=require("gray-matter");console.log(new Date(m(require("fs").readFileSync(process.argv[1],"utf8")).data.publishedAt).toISOString())' "$f")"
+            report="${report}$(node scripts/social/confirm.mjs --post "$slug" --at "$at" 2>&1)
+          "
+          done
+          { echo "report<<EOF"; echo "$report"; echo "EOF"; } >> "$GITHUB_OUTPUT"
+      - name: Confirm
+        env:
+          SOCIAL: ${{ steps.social.outputs.report }}
+        run: |
+          if [ -z "$TYPEFULLY_API_KEY" ]; then SOCIAL="X and Substack Notes were not scheduled: the TYPEFULLY_API_KEY secret is not set."; fi
           gh pr comment "$PR" --body "Approved and merged. Goes live **${{ steps.schedule.outputs.slot }}**.
 
-          At that time it appears on the site, in the RSS feed and in Markdown mode, and the Cross-post action syndicates it within the hour. To change the time, edit \`publishedAt\` in the post. To pull it, set \`draft: true\`."
+          At that time it appears on the site, in the RSS feed and in Markdown mode, and the Cross-post action syndicates it within the hour. To change the time, edit \`publishedAt\` in the post. To pull it, set \`draft: true\`.
+
+          ${SOCIAL}"

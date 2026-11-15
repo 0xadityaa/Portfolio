@@ -47,7 +47,7 @@ The `Publish` action writes that time into `publishedAt`, removes `draft`, merge
 
 ## 5. Publish
 
-Nothing to do. Pages re-render every 10 minutes, so the post appears on the blog, in `/rss.xml`, in `/llms.txt`, and at `<url>.md` within 10 minutes of its `publishedAt`.
+Nothing to do. The same `/publish` also schedules the post's X posts and Substack Notes in Typefully at matching times (`docs/publishing.md`, "Social posts"). Pages re-render every 10 minutes, so the post appears on the blog, in `/rss.xml`, in `/llms.txt`, and at `<url>.md` within 10 minutes of its `publishedAt`.
 
 To change the time after merging, edit `publishedAt` in a new pull request. To pull a live post, set `draft: true`.
 

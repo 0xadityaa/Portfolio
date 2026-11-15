@@ -1,48 +1,69 @@
-// Turn planned drafts into real schedules at their planned times.
-//   node scripts/social/confirm.mjs                 hooks + singles for every post (they stand alone; no blog link)
-//   node scripts/social/confirm.mjs --post <slug>   that post's thread (+ Substack Note) and X Article, after its /publish merged
-// Writes are paced to stay under Typefully's rate limit.
+// Schedule a post's X and Substack drafts in Typefully, timed to its approved publish time.
+//
+//   node scripts/social/confirm.mjs --post <slug> --at <publishedAt ISO>
+//
+// Run by the Publish action after `/publish` merges a post, so Aditya's one approval releases the
+// blog, dev.to, X and Substack Notes together. Every draft that `load.mjs` made for the post
+// (Hook, Thread + Substack Note, X Article, Singles) keeps its offset from the blog time and moves
+// with it. If a slot would land in the past (a late or "now" approval), it moves to the next
+// free quarter hour instead.
+//
+// Needs TYPEFULLY_API_KEY in the environment (or the CLI's saved config). Writes are paced.
+import fs from "node:fs";
 import { execFileSync } from "node:child_process";
 
-const CLI = `${process.cwd()}/.claude/skills/typefully/scripts/typefully.js`;
-const SS = "364514";
-const args = process.argv.slice(2);
-const post = args[0] === "--post" ? args[1] : null;
-const sleep = (ms) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
-const run = (a) => JSON.parse(execFileSync("node", [CLI, ...a], { encoding: "utf8" }));
+const args = Object.fromEntries(process.argv.slice(2).reduce((a, v, i, all) => (v.startsWith("--") ? [...a, [v.slice(2), all[i + 1]]] : a), []));
+const slug = args.post, at = args.at;
+if (!slug || !at) { console.error("usage: confirm.mjs --post <slug> --at <ISO time>"); process.exit(2); }
 
-const all = [];
-for (let off = 0; ; off += 50) {
-  const r = run(["drafts:list", SS, "--status", "planned", "--limit", "50", "--offset", String(off)]);
-  all.push(...r.results); if (!r.next) break;
-}
-const pick = all.filter((d) => {
-  const t = d.draft_title || "";
-  if (post) {
-    if (t === `v2 / ${post} / thread`) return true;
-    // X Articles carry the post's title; match by the scratchpad-free rule: x_post disabled and same week as the thread.
-    return false;
-  }
-  return /^v2 \/ .+ \/ (hook|single \d)$/.test(t);
-});
-if (post) {
-  const thread = pick[0];
-  if (thread) {
-    const day = thread.scheduled_date.slice(0, 10);
-    const t0 = new Date(day).getTime();
-    for (const d of all) if (!d.x_post_enabled && d.scheduled_date && Math.abs(new Date(d.scheduled_date).getTime() - t0) < 4 * 864e5 && !(d.draft_title || "").startsWith("v2 /")) pick.push(d);
-  }
-}
-const quota = run(["social-sets:get", SS]).publishing_quota;
-console.log(`confirming ${pick.length} drafts; quota: ${JSON.stringify(quota)}`);
-for (const d of pick) {
+const CLI = `${process.cwd()}/.claude/skills/typefully/scripts/typefully.js`;
+const SS = process.env.TYPEFULLY_SOCIAL_SET || "364514";
+const PACE = Number(process.env.PACE_MS || 20000);
+const sleep = (ms) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+const run = (a) => {
   for (let i = 0; ; i++) {
-    try { run(["drafts:schedule", SS, String(d.id), "--time", d.scheduled_date]); console.log("scheduled", d.id, d.draft_title, d.scheduled_date); break; }
+    try { return JSON.parse(execFileSync("node", [CLI, ...a], { encoding: "utf8" })); }
     catch (e) {
-      const out = String(e.stdout || "");
-      if (/RATE_LIMITED|429/.test(out) && i < 10) { sleep(300000); continue; }
-      console.log("FAILED", d.id, d.draft_title, out.slice(0, 200)); break;
+      const out = String(e.stdout || e.message);
+      if (/RATE_LIMITED|429/.test(out) && i < 6) { sleep(120000); continue; }
+      throw new Error(out.slice(0, 300));
     }
   }
-  sleep(30000);
+};
+
+const md = fs.readFileSync(`content/blog/${slug}.md`, "utf8");
+const title = md.match(/^title:\s*(.+)$/m)[1].trim().replace(/^['"]|['"]$/g, "");
+
+const all = [];
+for (const status of ["planned", "scheduled"]) {
+  for (let off = 0; ; off += 50) {
+    const r = run(["drafts:list", SS, "--status", status, "--limit", "50", "--offset", String(off)]);
+    all.push(...r.results); if (!r.next) break;
+  }
 }
+const mine = all.filter((d) => d.draft_title?.startsWith(`v2 / ${slug} / `) || d.draft_title === title);
+const hook = mine.find((d) => d.draft_title === `v2 / ${slug} / hook`);
+if (!hook) { console.log(`No Typefully drafts found for ${slug}. Run scripts/social/load.mjs first.`); process.exit(0); }
+
+// load.mjs puts the hook 30 minutes after the planned blog time.
+const plannedBlog = new Date(hook.scheduled_date).getTime() - 30 * 60e3;
+const delta = new Date(at).getTime() - plannedBlog;
+const now = Date.now();
+let nextFree = Math.ceil((now + 10 * 60e3) / (15 * 60e3)) * 15 * 60e3;
+
+const report = [];
+for (const d of mine.sort((a, b) => a.scheduled_date.localeCompare(b.scheduled_date))) {
+  let t = new Date(d.scheduled_date).getTime() + delta;
+  if (t < now + 5 * 60e3) { t = nextFree; nextFree += 30 * 60e3; }
+  const iso = new Date(t).toISOString();
+  try {
+    run(["drafts:schedule", SS, String(d.id), "--time", iso]);
+    report.push(`- scheduled ${d.draft_title?.replace(`v2 / ${slug} / `, "") || "x article"} at ${iso}`);
+  } catch (e) {
+    report.push(`- FAILED ${d.draft_title}: ${e.message.replace(/\s+/g, " ").slice(0, 160)}`);
+  }
+  sleep(PACE);
+}
+const failed = report.filter((l) => l.includes("FAILED")).length;
+console.log(`Typefully: ${mine.length - failed} of ${mine.length} drafts scheduled for ${slug}.\n${report.join("\n")}`);
+if (failed) process.exitCode = 1;
