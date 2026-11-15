@@ -1,5 +1,5 @@
 ---
-title: Double an Agent's Steps and Its Input Nearly Quadruples
+title: "10x the Agent Steps, 55x the Tokens. Here's the Fix"
 publishedAt: '2026-11-14'
 summary: >-
   In my model, 10x the agent steps meant 55x the input tokens. Caching cut the bill 92%, but a per-step clear on top of it cost 4x more than caching alone.

@@ -1,14 +1,16 @@
 ## Hook
 
-In my simulated 100-step agent run, caching cut the bill from $20.43 to $1.72. Then I added per-step clearing of old tool results, caching still on: $7.20. 4x worse than caching alone.
+10x the agent steps, 55x the tokens.
 
-If you clear tool results, have you checked what it does to your cache reads?
+In my simulated run, caching cut a 100-step bill from $20.43 to $1.72. Then the obvious cleanup, clearing old tool results, made it $7.20. Cache still on.
+
+Have you checked what your cleanup does to cache reads?
 
 ## Thread
 
-In my simulated 100-step agent run on Claude Sonnet 5.5, caching cut the bill from $20.43 to $1.72. Adding the obvious cleanup made it 4x worse.
+10x the agent steps, 55x the tokens.
 
-Here's what moved the number and what didn't. It's a model, not a live API run, and the cache is assumed always warm.
+I modelled a 100-step agent on Sonnet 5.5 and priced the three common fixes. One of them quietly undoes another. (A model, not a live run; cache assumed warm.)
 ---
 The cleanup: clear one old tool result per step.
 
