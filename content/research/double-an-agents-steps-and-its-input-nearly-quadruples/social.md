@@ -1,55 +1,77 @@
+## Hook
+
+In my simulated 100-step agent run, caching cut the bill from $20.43 to $1.72. Then I added per-step clearing of old tool results, caching still on: $7.20. 4x worse than caching alone.
+
+If you clear tool results, have you checked what it does to your cache reads?
+
 ## Thread
 
-A 10-step agent run sends 0.18M input tokens. A 100-step run sends 10.1M.
+In my simulated 100-step agent run on Claude Sonnet 5.5, caching cut the bill from $20.43 to $1.72. Adding the obvious cleanup made it 4x worse.
 
-Ten times the steps, 55 times the tokens. I modelled five ways to cut that on Claude Sonnet 5.5, and one of them fights prompt caching.
+Here's what moved the number and what didn't. It's a model, not a live API run, and the cache is assumed always warm.
 ---
-Every step is a fresh request carrying the whole history so far. Doubling the steps in my model multiplied input by 3.4 (25 to 50 steps) and 3.7 (50 to 100).
+The cleanup: clear one old tool result per step.
 
-Pure squaring would be 4. The fixed system prompt is what keeps it under.
----
-Clearing old tool results, or compacting every 25 steps, cut 100-step input from 10.1M tokens to about 3.6M.
+100 steps, caching on: $7.20 with clearing, $1.72 without.
 
-The summarisation calls aren't free. Compaction's three calls cost $0.46 of a $7.48 bill, and I counted them.
+Every step edits the middle of the history, so the cache rewrites everything after the edit.
 ---
-Prompt caching cut the 100-step bill from $20.43 to $1.72. At 10 steps it went from $0.39 to $0.10, and I'd guessed it wouldn't help there.
+Caching helped even a 10-step run: $0.39 to $0.10, same steps, no context management.
 
-Reads cost 0.05x of normal input on Sonnet 5.5. That swamps the 1.25x write premium.
+On Sonnet 5.5 a cache read costs 0.05x fresh input and a write 1.25x. My pre-run guess was that it wouldn't help at 10 steps.
 ---
-The catch: clearing a sliding window of old results edits the middle of the history on every step, so the cache rewrites everything after the edit.
+Why there's anything to fix: every step resends the whole history.
 
-With caching on, that run cost $7.20. Caching alone cost $1.72.
+0.18M input tokens at 10 steps, 10.1M at 100. Ten times the steps, 55 times the tokens. Caching off, no management.
 ---
-Caching fixes the price, not the window or the model's attention over a long context. Model, tokenised tool outputs and arithmetic: https://www.0xadityaa.dev/blog/double-an-agents-steps-and-its-input-nearly-quadruples
+Caching off, clearing old tool results or compacting every 25 steps cut 100-step input from 10.1M tokens to about 3.6M.
+
+Compaction's three summarisation calls cost $0.46 of a $7.48 bill. I counted them.
+---
+The strongest objection: with caching the quadratic barely matters, and nothing I ran contradicts that.
+
+It leaves the window and attention alone, though. Cached tokens still count toward the context limit, and Anthropic says accuracy degrades as context grows.
+---
+Rule of thumb: if your loop resends a stable history, turn caching on first. If you clear, clear in big batches, never one result per step.
+
+Full write-up, code and raw output:
+https://www.0xadityaa.dev/blog/double-an-agents-steps-and-its-input-nearly-quadruples
 
 ## Singles
 
-Ten times the steps, 55 times the input tokens.
+I expected caching to barely help a 10-step agent run. In my simulated run on Sonnet 5.5 it cut the bill from $0.39 to $0.10.
 
-That's a simulated agent loop on Claude Sonnet 5.5: 0.18M tokens at 10 steps, 10.1M at 100. Every step resends the whole history, and the history keeps growing.
+Cache reads cost 0.05x of fresh input. That swamps the 1.25x write premium, even on a short run.
 ---
-Does prompt caching fix an agent's quadratic bill?
+Simulated 100-step agent run, Sonnet 5.5, no context management, cache assumed always warm.
 
-It cut my simulated 100-step run from $20.43 to $1.72, 93% less. The curve is still superlinear, 2.7x the cost for 2x the steps, and the window and attention are untouched.
+Run it 100 times a day for 30 days: $61,293 with caching off, $5,151 with caching on.
 ---
-Same 100-step agent run, caching on. Clear a sliding window of old tool results: $7.20. Do nothing: $1.72.
+Caching on, 100 steps, input cost only. Clear at a 50k trigger versus do nothing:
 
-Editing the middle of the history forces the cache to rewrite everything after it.
+$1.35 against $1.47 at my measured tool-result size.
+$3.89 against $2.65 with tool results doubled.
+
+A clear that fires often keeps rewriting the cache.
 ---
-Rule of thumb from my agent-loop model: turn caching on before you clear or compact anything.
+If a loop resends a stable history, turn caching on before you clear or compact anything.
 
-It cut the 100-step bill 12x. The best uncached fix cut it 2.7x.
+In my 100-step model it cut the bill about 12x, from $20.43 to $1.72. The best fix without caching cut it 2.7x, to $7.48.
 ---
-A 100-step agent run with no context management ends at 190,730 tokens and crosses 200k at step 105. With tool results twice as big, step 57.
+Common advice: with caching on, the quadratic doesn't matter.
 
-Clearing or compacting kept every run under 106k, even at 300 steps.
+What I modelled: a cached run with no management still pays 2.9x the input cost going from 50 to 100 steps, and ends at 190,730 tokens of context.
+
+## Reply prompts
+
+Modelled this: a 100-step agent loop on Sonnet 5.5 with caching on costs $1.72, but clearing one old tool result per step pushes it to $7.20. Are you clearing in batches, or per step?
+Modelled a 100-step loop with roughly 1.6k-token tool results: 10.1M input tokens, 55x a 10-step run, caching off. The bill gets quadratic well before the context window fills.
+In my model caching helped even a 10-step agent run, $0.39 to $0.10 on Sonnet 5.5, with the cache assumed warm. Where does it stop helping in your loops: short runs, or slow tool calls?
 
 ## Substack Note
 
-A 10-step agent run sends 0.18 million input tokens. A 100-step run sends 10.1 million. That's 55 times the tokens for ten times the steps.
+Caching cut my simulated 100-step agent run from $20.43 to $1.72. Then I added the obvious cleanup on top, clearing one old tool result per step, and the bill went back up to $7.20.
 
-I modelled it on Claude Sonnet 5.5 because every step of an agent loop resends the whole history. Doubling the steps multiplied input by 3.4, then 3.7. Clearing old tool results or compacting every 25 steps cut the 100-step total to about 3.6 million. Prompt caching cut the bill from $20.43 to $1.72.
+That's the surprise in a model I built on Claude Sonnet 5.5, not a live API run. Every step of an agent loop resends the whole history, so input grows with the square of the steps: 0.18 million tokens at 10 steps, 10.1 million at 100. Clearing or compacting cuts that to about 3.6 million. Caching changes the price instead. But a per-step clear edits the middle of the history, so the cache rewrites everything after it.
 
-The part that surprised me: clearing and caching fight. Clearing a sliding window edits the middle of the history on every step, so the cache rewrites everything after it, and that run cost $7.20 with caching on. Caching alone cost $1.72.
-
-It's a model, not a live API run, and it has no term for answer quality. The arithmetic and the tool outputs I tokenised are in the post: https://www.0xadityaa.dev/blog/double-an-agents-steps-and-its-input-nearly-quadruples
+The model has no quality term, and it assumes the cache is always warm. The tokenised tool outputs and the arithmetic are in the post: https://www.0xadityaa.dev/blog/double-an-agents-steps-and-its-input-nearly-quadruples

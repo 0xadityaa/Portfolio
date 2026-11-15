@@ -2,9 +2,23 @@
 
 A model of an agent loop that resends its history on every step, priced on Claude Sonnet 5.5 for five context strategies, with and without prompt caching. It backs the post `content/blog/double-an-agents-steps-and-its-input-nearly-quadruples.md`. No live API calls: every number is arithmetic on the inputs below.
 
+## Set up
+
+Python 3.12 (written and checked on 3.12.8) and `tiktoken` 0.8.0. From the repository root:
+
+```
+python3 -m venv .venv && source .venv/bin/activate
+pip install tiktoken==0.8.0
+cd content/research/double-an-agents-steps-and-its-input-nearly-quadruples
+```
+
+## Fetch data
+
+No model weights and no API key. The tool outputs are already in `samples/`, and the prices are in `prices.json`. `tiktoken` downloads the `o200k_base` vocabulary on first use, so the first run needs internet access. After that it works offline.
+
 ## Run it
 
-Python 3.12 and `tiktoken` (`pip install tiktoken`). From this folder:
+From this folder:
 
 ```
 python3 model.py > results/model.txt   # also writes results/series.json
@@ -12,7 +26,11 @@ python3 make_diagram.py                # writes public/images/blog/agent-input-t
 xmllint --noout ../../../public/images/blog/agent-input-tokens-by-strategy.svg
 ```
 
-`tiktoken` downloads the `o200k_base` vocabulary on first use. The model is deterministic.
+The model is deterministic: rerunning it on 2026-11-15 reproduced `results/model.txt` byte for byte.
+
+## How long it takes
+
+About 25 seconds for `model.py` on a laptop CPU (the first run also downloads the vocabulary). `make_diagram.py` takes under a second.
 
 ## Inputs
 

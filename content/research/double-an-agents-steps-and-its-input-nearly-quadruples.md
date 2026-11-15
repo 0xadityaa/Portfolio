@@ -48,7 +48,7 @@ summarisation calls (compact25, 100 steps): 3 calls, $0.344 input + $0.120 outpu
 2x tool results, 100 steps cached input $: none 2.65, clear-trigger 3.89, compact100k 1.42
 ```
 
-Did the expectation hold? Partly. Right: the quadratic shape, near-linear clearing and the sliding-clear plus caching clash. Wrong or off: 10 to 100 steps gave 55x, not 70 to 90x, because the fixed prefix and a front-loaded cycle matter at 10 steps; the 200k crossing came at step 105, close to my 110; clearing cut 63% not 75 to 85%; caching cut 93% at 100 steps, better than my 75 to 85%; and caching helped even at 10 steps (78% on input), where I'd guessed it might not.
+Did the expectation hold? Partly. Right: the quadratic shape, near-linear clearing and the sliding-clear plus caching clash. Wrong or off: 10 to 100 steps gave 55x, not 70 to 90x, because the fixed prefix and a front-loaded cycle matter at 10 steps; the 200k crossing came at step 105, close to my 110; clearing cut 63% not 75 to 85%; caching cut the total bill 92% at 100 steps (91.6%, or 92.7% on input alone), better than my 75 to 85%; and caching helped even at 10 steps (78% on input), where I'd guessed it might not.
 
 ## Claims and sources
 
@@ -74,7 +74,7 @@ Notes on reading: WebFetch summarises pages with a small model. The Sonnet 5.5 p
 
 ## Counter-argument
 
-With caching, re-sending history is cheap, so the quadratic curve matters little in dollars. The post steelmans it with the artifact's cached numbers (a cached 100-step run is $1.72, a 10-step run $0.10, 93% below uncached) and then says what caching leaves alone: the window (cached tokens still count, per the docs), quality (Anthropic's context-rot statement, Chroma, Lost in the Middle) and latency (not measured). Gap: I did not find a named practitioner arguing the "caching makes it irrelevant" side in so many words; the objection is built from the pricing page.
+With caching, re-sending history is cheap, so the quadratic curve matters little in dollars. The post steelmans it with the artifact's cached numbers (a cached 100-step run is $1.72, a 10-step run $0.10; the 100-step run is 92% below uncached) and then says what caching leaves alone: the window (cached tokens still count, per the docs), quality (Anthropic's context-rot statement, Chroma, Lost in the Middle) and latency (not measured). Gap: I did not find a named practitioner arguing the "caching makes it irrelevant" side in so many words; the objection is built from the pricing page.
 
 ## From Aditya
 
@@ -85,23 +85,23 @@ Nothing. The post claims no personal experience. Every "I" is "I ran", "I modell
 Thesis: input tokens are quadratic in steps; clearing, compaction and caching bend it differently; pick by what the loop repeats.
 1. Opening and thesis: 0.18M at 10 steps, 10.1M at 100, 55x.
 2. The short version.
-3. Why does the bill grow with the square? Formula, sizes with justification, table 1 (tokens by strategy and steps), modelling-choice flag.
+3. Why does the bill grow with the square? Formula, sizes with justification, table 1 (tokens by strategy and steps).
 4. What does each fix do to the curve? Diagram; clearing, compaction, caching mechanics.
-5. Which one actually pays? Table 2 (cost at 100 steps, caching off and on, largest context), clearing against caching, three volumes.
-6. Where does the 200k window come in? Crossing steps; 1M on Sonnet 5.5.
+5. Which fix pays the most? Table 2 (cost at 100 steps, caching off and on, largest context), clearing against caching, three volumes.
+6. Does the 200k window still matter? Crossing steps; 1M on Sonnet 5.5.
 7. Where I'd stop trusting this post: caching steelman first, then no quality term, one repo's sizes and a proxy tokeniser, always-warm cache.
-8. The takeaway: decision rule and what would change his mind.
+8. What to do tomorrow: decision rule and what would change his mind.
 
 Diagram: `public/images/blog/agent-input-tokens-by-strategy.svg`, cumulative input tokens against step for the five strategies, with the no-management line in the accent colour. It carries the claim that the curve is quadratic and that clearing and compaction flatten it.
 
 ## Style.md's six things, where they are
 
-1. Thesis in the first 150 words: the bold sentence in the second paragraph.
-2. Artifact: model, samples and results in the artifact folder, linked in the third paragraph.
-3. Numbers with their papers: pricing, caching, context-editing and compaction docs linked at first mention, dated 2026-11-14 here; cost arithmetic at three volumes (10, 100, 1,000 runs a day) in section 5.
-4. Links as evidence: 14 external links.
-5. Limits: "Where I'd stop trusting this post", the caching steelman first.
-6. Ending that adds: the decision rule and the real-usage-fields check he'd like to run.
+1. Thesis in the first 150 words: the bold sentence in the third paragraph, after the 55x opening and the model-not-live-API disclaimer.
+2. Artifact: model, samples and results in the artifact folder, linked in the fourth paragraph.
+3. Numbers with their papers: pricing, caching, context-editing and compaction docs linked at first mention, dated 2026-11-14 here; cost arithmetic at three volumes (10, 100, 1,000 runs a day) in the table under "Which fix pays the most?".
+4. Links as evidence: 10 distinct external links, plus two earlier-post links.
+5. Limits: "Where I'd stop trusting this post", the caching steelman first, with the always-warm cache as the last bolded limit.
+6. Ending that adds: "What to do tomorrow", the decision rule, and what would change his mind (a real run's usage fields disagreeing with the curve).
 
 ## Open questions
 
