@@ -10,7 +10,7 @@ tags:
 draft: true
 ---
 
-I built a system that's truly 3 points better than another. On a 100-example eval, it looked worse or tied one run in three.
+I simulated a system that's truly 3 points better than another. On a 100-example eval, it looked worse or tied one run in three.
 
 So when your score goes from 80 to 83, what did you actually learn?
 
@@ -22,7 +22,7 @@ If you choose prompts or models on 50 to 100 examples, this costs you: some of t
 
 - At 100 examples the truly better system scored higher 68% of the time, tied 6%, and scored lower 26%.
 - Only 7% of those evals could say "better" with the 95% interval above zero. At 1,000 examples it was 40%.
-- Pairing the comparison cut the interval by about 30% and made the same eval 1.6 times as likely to show the win (11% against 7%).
+- Pairing the comparison cut the interval by about 30%. On the same data, the share of evals that could call the win went from 2.2% to 11.1%.
 - A 3-point gap needs about 2,700 examples per system unpaired, or about 1,350 paired.
 
 ## Does the better system at least win?
