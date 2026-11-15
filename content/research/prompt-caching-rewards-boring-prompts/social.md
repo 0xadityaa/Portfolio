@@ -1,8 +1,10 @@
 ## Hook
 
-Prompt caching can make your bill bigger.
+Prompt caching can make your bill 14% bigger.
 
-In my simulation it cut the input bill 87.7%. At 1 request an hour, the same 5-minute cache made it 14.1% bigger.
+Simulated, 5-minute cache, 1 request an hour: +14.1%
+Steady traffic: -87.7%
+Timestamp at the top of the prompt: 35.7% cacheable
 
 How many requests an hour does your busiest prompt get?
 
@@ -10,35 +12,76 @@ How many requests an hour does your busiest prompt get?
 
 ## Thread
 
-Prompt caching can make your bill bigger.
+Prompt caching can make your bill 14% bigger.
 
-It cut my simulated input bill 87.7%, and at 1 request an hour it added 14.1%. The two things that decide which one you get:
+In my simulation it also cut the input bill 87.7%. Two things decide which side you land on ↓
 ---
-At 1 request an hour, a 5-minute cache hits 8.1% of the time. Every miss pays the write fee again. The hit rate is 1 minus e^(-rate x TTL), and my year-long simulation matched it within noise.
+Traffic comes first.
+
+At 1 request an hour, a 5-minute cache hits 8.1% of the time. Every miss pays the write fee again.
+
+The hit rate is 1 - e^(-rate x TTL). A year of simulated Poisson arrivals per rate matched it within noise.
 ---
-The 1-hour cache costs 60% more to write and is still the cheaper one above about 0.5 requests an hour. At 1 an hour it's 22.6% cheaper than no cache. You pay that write so rarely that the longer TTL wins.
+Break-even for a 6,000-token prompt on Claude Sonnet 5.5, vs no cache:
+
+→ 5-minute cache: above 2.8 requests an hour
+→ 1-hour cache: above 0.72
+
+At 1 an hour: 5-minute is 14.1% dearer, 1-hour is 22.6% cheaper. Same prompt, same traffic.
 ---
-Prompt order is the other lever. In a 1,677-token support-bot prompt, a timestamp and user name at the top left 35.7% cacheable. At the bottom: 98.4%. Same words, a tenfold gap in blended input price.
+Order is the other lever.
+
+1,677-token support-bot prompt, made-up shop. Timestamp and name at the top: 35.7% cacheable. At the bottom: 98.4%.
+
+Same words. Tools shuffled per request: 2.7%.
 ---
-The easiest bug: serialising tools from an unordered map, so the order changes per request. A seeded shuffle of five tools left a mean of 46 cacheable tokens, 2.7% of the prompt.
+The fair objection: caching adds constraints.
+
+- 4 breakpoints at most
+- a minimum prompt length, with no error when you miss it
+- editing one tool invalidates everything
+
+A team that ships a new prompt every deploy can reasonably skip it.
 ---
-The fair objection: caching adds constraints. Four breakpoints at most, a minimum prompt length with no error when you miss it, and editing one tool invalidates everything. A team that ships a new prompt every deploy may reasonably skip it.
+Want the break-even calculator and the traffic simulation? Reply CACHE and I'll DM it.
 ---
-Rule of thumb, mine and not a vendor's: under about 1 request an hour per prefix, don't expect savings. Above about 3, either TTL pays. Put per-request values last, then check the cached-token count on a real response.
+Rule of thumb, mine and not a vendor's: below about 1 request an hour per prefix, don't expect savings. Above about 3, either TTL pays. Put per-request values last.
 
 Full write-up, code and raw output: https://www.0xadityaa.dev/blog/prompt-caching-rewards-boring-prompts
 
 ## Singles
 
-One request a minute on Claude Sonnet 5.5 with a 6,000-token static prompt: $561.60 a month with no cache, $73.31 with a 5-minute cache. Ten a minute: $5,616.00 against $691.20. The write fee is the cheap line on that bill.
+Prompt caching cut my simulated input bill 87.7%.
+
+At 1 request an hour, the same 5-minute cache made it 14.1% bigger.
+
+The discount belongs to your traffic, not to the API.
 ---
-Common advice: caching is a 90% discount. What I measured: 87.7% at steady traffic, and +14.1% at 1 request an hour on a 5-minute TTL. The discount belongs to your traffic, not to the API.
+Most prompts open with the current time and the user's name. I measured it:
+
+→ top of the system prompt: 35.7% cacheable
+→ bottom: 98.4%
+
+Same 1,677 tokens. Moving one line is a tenfold gap in blended input price.
 ---
-The default nobody chose: the current time in the first line of the system prompt. In my 1,677-token sample it left 35.7% cacheable. Moved to the bottom, 98.4%. One line moved, a tenfold gap in input price.
+One request a minute on Claude Sonnet 5.5, 6,000-token static prompt, input only:
+
+$561.60 a month with no cache
+$73.31 with a 5-minute cache
+
+At ten a minute, $5,616.00 against $691.20. The write fee is the cheap line on that bill.
 ---
-A 1-hour cache write costs 60% more than a 5-minute one, and it's still the cheaper cache above about 0.5 requests an hour. Choose the TTL by how often traffic arrives, not by the price of the write.
+A 1-hour cache write costs 60% more than a 5-minute one. Above about 0.5 requests an hour it's still the cheaper cache.
+
+You pay that write so rarely that the longer TTL wins.
 ---
-Count requests per prefix, not per app. 10 requests a minute across 1,000 users with their own prefixes is 0.6 an hour each, which is the row where a 5-minute cache costs more than none.
+Count requests per prefix, not per app.
+
+10 requests a minute across 1,000 users with their own prefixes is 0.6 an hour each. That's the row where a 5-minute cache costs more than none.
+
+## CTA
+
+CACHE | the prompt-caching break-even calculator and traffic simulation | https://github.com/0xadityaa/Portfolio/tree/main/content/research/prompt-caching-rewards-boring-prompts
 
 ## Reply prompts
 
