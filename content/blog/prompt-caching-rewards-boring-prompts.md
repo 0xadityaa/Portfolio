@@ -15,7 +15,7 @@ Prompt caching cut my simulated input bill 87.7%. At one request an hour, the sa
 
 So which side of that line are you on? If a prompt of yours gets a few requests an hour, or has the time stamped at the top, the discount you're counting on may never arrive.
 
-The [last post](/blog/every-mcp-server-taxes-every-prompt) leaned on caching as the answer to a big tool list. This one asks how far that answer goes. My claim: **caching is the biggest price lever most LLM apps leave on the table, and you only get it if you control two things: the order of your prompt and how often traffic arrives.**
+An [earlier post](/blog/every-mcp-server-taxes-every-prompt) leaned on caching as the answer to a big tool list. This one asks how far that answer goes. My claim: **caching is the biggest price lever most LLM apps leave on the table, and you only get it if you control two things: the order of your prompt and how often traffic arrives.**
 
 I ran a break-even calculator, a traffic simulation and a prompt-order test with a real tokenizer. It's all in [the artifact folder](https://github.com/0xadityaa/Portfolio/tree/main/content/research/prompt-caching-rewards-boring-prompts), and it reruns in about 40 seconds on a laptop. I haven't called any live API.
 
