@@ -22,12 +22,22 @@ Short-form posts on X and Substack Notes go through Typefully, drafted by an age
 - Each social post is a cut of a published blog post and links to it on the site, so the site stays the original.
 - `docs/blog/style.md` applies: these go out under Aditya's name. Every post carries something real from the essay: a number, a table, a diagram, a code diff. No engagement bait.
 - What to cut from: the 2026 posts and anything newer. The 2024 to early-2025 explainers (Big O, JS internals, hoisting, spell checker, JSON parser, What are LLMs) stay on the site and are not turned into social posts.
-- The weekly shape: the essay as an X Article (`x_article`, its own draft, since X Articles can't share a draft), then single posts or short threads across the following days. A Substack Note rides in the same draft as its X post, as a single post (Notes take no threads).
+- The format and the weekly schedule are in `docs/research/x-playbook.md`: a hook, a thread, the essay as an X Article (`x_article`, its own draft, since X Articles can't share a draft), and five singles across the week, each cut from `content/research/<slug>/social.md`. A Substack Note rides in the thread's draft as a single post (Notes take no threads). Read the playbook before writing any social copy; it explains what X's ranker rewards and punishes.
 - Agents create drafts and may `--plan` them onto a date. Scheduling for real (`--schedule`) or publishing needs Aditya's explicit yes for that draft, the same gate as `/publish`.
 - Typefully's Substack support is Notes only. Newsletter issues are still the manual checklist above.
 - Check `social-sets:get` for `publishing_quota` before planning a week: the Free plan allows 10 posts a month, and two a day needs the Creator plan.
 
-The key: generate one at https://typefully.com/?settings=api and run `.claude/skills/typefully/scripts/typefully.js setup`, choosing the global location so the key lands in `~/.config/typefully/`, outside the repo. `.typefully/` is gitignored in case the local option is picked. For GitHub Actions later: `gh secret set TYPEFULLY_API_KEY`.
+Loading, from the repo root (it paces its writes, because Typefully rate-limits bulk API writes):
+
+```bash
+node scripts/social/load.mjs <slug> <planned blog date YYYY-MM-DD>
+```
+
+It reads the post from `origin/post/<slug>`, renders the Hook's chart to PNG with headless Chrome, and creates the Hook, the Thread with its Substack Note, the X Article, and five Singles (X + Substack Notes), all **planned**: dated and visible in Typefully's calendar, but inert. Re-running it skips parts that already exist.
+
+**Approval releases everything.** When Aditya comments `/publish <date>` on a post's pull request, the Publish action merges it, then runs `scripts/social/confirm.mjs --post <slug> --at <publishedAt>`. That schedules every planned draft for the post, shifted to keep its offset from the publish time, and the action's PR comment lists what was scheduled. So one approval puts the post on the site, dev.to, X and Substack Notes at the chosen time. This needs the `TYPEFULLY_API_KEY` repository secret and a Typefully plan whose publishing quota covers the month (the Free plan allows 10 posts). A Typefully failure never blocks the blog; the comment says what didn't schedule. The Substack newsletter issue and Medium stay manual (see the table above).
+
+The key: generate one at https://typefully.com/?settings=api and run `.claude/skills/typefully/scripts/typefully.js setup`, choosing the global location so the key lands in `~/.config/typefully/`, outside the repo. `.typefully/` is gitignored in case the local option is picked. For the Publish action: `gh secret set TYPEFULLY_API_KEY`.
 
 ## How the Cross-post action decides
 
