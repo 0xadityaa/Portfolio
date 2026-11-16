@@ -1,6 +1,6 @@
 ---
-title: Your MCP Servers Eat 24,000 Tokens Before You Type
-publishedAt: '2026-11-14'
+title: 'Your MCP Servers Eat 24,000 Tokens Before You Type'
+publishedAt: '2026-11-16T20:17:56.100Z'
 summary: >-
   Ten popular MCP servers add 23,895 tokens to every request, 92% of a short
   prompt. Caching cuts the price 95%, not the length.
@@ -9,7 +9,6 @@ tags:
   - llm
   - cost
   - ai
-draft: true
 ---
 
 Ten MCP servers add 23,895 tokens to every request, before you've typed a word.
