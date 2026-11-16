@@ -9,6 +9,8 @@ tags:
   - llm
   - cost
   - ai
+devto_url: 'https://dev.to/0xadityaa/your-mcp-servers-eat-24000-tokens-before-you-type-7m5'
+crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/143'
 ---
 
 Ten MCP servers add 23,895 tokens to every request, before you've typed a word.
