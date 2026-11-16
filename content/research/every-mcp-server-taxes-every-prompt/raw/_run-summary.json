@@ -1,0 +1,57 @@
+[
+  {
+    "id": "filesystem",
+    "ok": true,
+    "tools": 16
+  },
+  {
+    "id": "memory",
+    "ok": true,
+    "tools": 9
+  },
+  {
+    "id": "sequential-thinking",
+    "ok": true,
+    "tools": 1
+  },
+  {
+    "id": "everything",
+    "ok": true,
+    "tools": 16
+  },
+  {
+    "id": "github",
+    "ok": true,
+    "tools": 26
+  },
+  {
+    "id": "playwright",
+    "ok": true,
+    "tools": 25
+  },
+  {
+    "id": "context7",
+    "ok": true,
+    "tools": 2
+  },
+  {
+    "id": "chrome-devtools",
+    "ok": true,
+    "tools": 33
+  },
+  {
+    "id": "fetch",
+    "ok": true,
+    "tools": 1
+  },
+  {
+    "id": "git",
+    "ok": true,
+    "tools": 14
+  },
+  {
+    "id": "time",
+    "ok": true,
+    "tools": 3
+  }
+]
