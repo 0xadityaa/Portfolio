@@ -1,0 +1,85 @@
+     1	/**
+     2	 * When posts go out. The default slot is defined in local time so it does not
+     3	 * drift with daylight saving. The reasoning is in docs/research/distribution.md.
+     4	 */
+     5	export const TIME_ZONE = "America/Toronto";
+     6	export const DEFAULT_SLOT = { weekday: 2, time: "09:00" }; // 0 = Sunday
+     7	
+     8	/** Offset of `timeZone` from UTC, in minutes, at the given instant. */
+     9	function offsetMinutes(instant, timeZone) {
+    10	  const parts = Object.fromEntries(
+    11	    new Intl.DateTimeFormat("en-US", {
+    12	      timeZone,
+    13	      hourCycle: "h23",
+    14	      year: "numeric",
+    15	      month: "2-digit",
+    16	      day: "2-digit",
+    17	      hour: "2-digit",
+    18	      minute: "2-digit",
+    19	      second: "2-digit",
+    20	    })
+    21	      .formatToParts(instant)
+    22	      .map((part) => [part.type, part.value])
+    23	  );
+    24	  const asUtc = Date.UTC(parts.year, parts.month - 1, parts.day, parts.hour, parts.minute, parts.second);
+    25	  return Math.round((asUtc - instant.getTime()) / 60000);
+    26	}
+    27	
+    28	/** A wall-clock date and time in `timeZone`, as a UTC Date. */
+    29	export function zonedToUtc(date, time, timeZone = TIME_ZONE) {
+    30	  const guess = new Date(`${date}T${time}:00Z`);
+    31	  return new Date(guess.getTime() - offsetMinutes(guess, timeZone) * 60000);
+    32	}
+    33	
+    34	/** The calendar date in `timeZone` for an instant, as YYYY-MM-DD. */
+    35	function localDate(instant, timeZone = TIME_ZONE) {
+    36	  return new Intl.DateTimeFormat("en-CA", { timeZone, dateStyle: "short" }).format(instant);
+    37	}
+    38	
+    39	/** The next default slot that is at least an hour away. */
+    40	export function nextDefaultSlot(now = new Date()) {
+    41	  for (let day = 0; day < 8; day++) {
+    42	    const date = localDate(new Date(now.getTime() + day * 86400000));
+    43	    const weekday = new Date(`${date}T12:00:00Z`).getUTCDay();
+    44	    const slot = zonedToUtc(date, DEFAULT_SLOT.time);
+    45	    if (weekday === DEFAULT_SLOT.weekday && slot.getTime() - now.getTime() > 3600000) return slot;
+    46	  }
+    47	  throw new Error("No default slot found in the next week");
+    48	}
+    49	
+    50	/**
+    51	 * Turn what Aditya typed into a publish time.
+    52	 *   ""                      the next default slot
+    53	 *   "now"                   immediately
+    54	 *   "2026-10-15"            that day at the default time, Toronto
+    55	 *   "2026-10-15 14:30"      that day and time, Toronto
+    56	 *   "2026-10-15T18:30:00Z"  an exact instant
+    57	 */
+    58	export function parseWhen(input, now = new Date()) {
+    59	  const text = (input ?? "").trim();
+    60	  if (text === "") return nextDefaultSlot(now);
+    61	  if (text === "now") return now;
+    62	
+    63	  let match;
+    64	  if ((match = text.match(/^(\d{4}-\d{2}-\d{2})$/))) {
+    65	    return zonedToUtc(match[1], DEFAULT_SLOT.time);
+    66	  }
+    67	  if ((match = text.match(/^(\d{4}-\d{2}-\d{2})[ T](\d{1,2}):(\d{2})$/))) {
+    68	    return zonedToUtc(match[1], `${match[2].padStart(2, "0")}:${match[3]}`);
+    69	  }
+    70	  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?(\.\d+)?(Z|[+-]\d{2}:\d{2})$/.test(text)) {
+    71	    return new Date(text);
+    72	  }
+    73	  throw new Error(
+    74	    `Could not read "${text}" as a publish time. Use YYYY-MM-DD, "YYYY-MM-DD HH:MM" (Toronto time), "now", or leave it empty for the next default slot.`
+    75	  );
+    76	}
+    77	
+    78	export function describe(instant) {
+    79	  const local = new Intl.DateTimeFormat("en-CA", {
+    80	    timeZone: TIME_ZONE,
+    81	    dateStyle: "full",
+    82	    timeStyle: "short",
+    83	  }).format(instant);
+    84	  return `${local} Toronto time (${instant.toISOString().replace(".000Z", "Z")})`;
+    85	}

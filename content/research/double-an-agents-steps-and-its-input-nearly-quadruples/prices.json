@@ -1,0 +1,10 @@
+{
+  "_source": "https://platform.claude.com/docs/en/about-claude/pricing, checked 2026-11-14. USD per million tokens.",
+  "claude-sonnet-5-5": {
+    "input": 2.0,
+    "cache_write_5m": 2.5,
+    "cache_write_1h": 4.0,
+    "cache_read": 0.1,
+    "output": 10.0
+  }
+}

@@ -1,0 +1,14 @@
+Written 2026-11-14 before running model.py.
+
+Guess: tool results in my sample mix average about 1,500 tokens, so with a 250-token
+reply the context grows about 1,750 tokens a step.
+- No management: cumulative input at 100 steps is roughly 9 million tokens, and going from 10 to
+  100 steps multiplies it by about 70 to 90 (less than 100 because of the fixed prefix term, more than 10).
+  Context crosses 200k at around step 110, so a 100-step run just misses the window.
+- Clearing old tool results (keep 10): cumulative input becomes close to linear, maybe 75 to 85% less at 100 steps.
+- Compaction: cuts roughly half to 60% at 100 steps, and the summarisation call costs a few percent of the saving.
+- Prompt caching of the growing history: input cost falls 75 to 85% at 100 steps, but cached cost still
+  grows faster than linear. At 10 steps caching might barely help or even cost more, because of the
+  1.25x write price on every new token.
+- Sliding clearing plus caching: the two fight, because every step edits the middle of the history and
+  invalidates the cache after it. I expect cached sliding-clear to be worse than cached no-management.
