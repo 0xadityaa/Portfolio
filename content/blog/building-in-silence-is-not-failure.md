@@ -16,8 +16,6 @@ We live in a culture that demands immediate proof of concept. If you cannot show
 
 Vincent van Gogh completely rejected this idea.
 
-![A man in a suit holds a young sprout above the soil, its roots drawn beneath the ground, in white ink on black.](/images/blog/building-in-silence.jpg)
-
 In January 1885, he was working in obscurity in the village of Nuenen, financially dependent on his brother Theo. Yet he wrote Theo a letter containing a profound psychological anchor ([letter 480](https://vangoghletters.org/en/let480), Nuenen, on or about Monday, 26 January 1885):
 
 > “…if I’m no good now, I won’t be any good later either — but if later, then now too. For wheat is wheat, even if it looks like grass at first to townsfolk — and the other way round too.”
