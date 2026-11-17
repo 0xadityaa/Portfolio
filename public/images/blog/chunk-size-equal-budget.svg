@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 460" width="940" height="460" role="img" aria-label="Chart: share of questions whose answer reaches the model with a 2,000-token context, by chunk size. BM25 stays between 87 and 92 percent at every size from 64 to 1,024 tokens. The embedding model falls from 90 percent at 64 tokens to 51 percent at 1,024.">
+<rect width="940" height="460" fill="#30302E"/>
+<text x="40" y="34" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="16" fill="#FAF9F5">Answer reaches the model, 2,000 tokens of context, by chunk size</text>
+<text x="40" y="54" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" fill="#B0AEA5">SQuAD v1.1 dev, 10,570 questions, top-k chunks, k = 2,000 divided by chunk size, rounded</text>
+<path d="M80 380.0H880" stroke="#4A4A45" stroke-width="1"/>
+<text x="68" y="384.0" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#B0AEA5">0%</text>
+<path d="M80 312.5H880" stroke="#4A4A45" stroke-width="1"/>
+<text x="68" y="316.5" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#B0AEA5">25%</text>
+<path d="M80 245.0H880" stroke="#4A4A45" stroke-width="1"/>
+<text x="68" y="249.0" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#B0AEA5">50%</text>
+<path d="M80 177.5H880" stroke="#4A4A45" stroke-width="1"/>
+<text x="68" y="181.5" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#B0AEA5">75%</text>
+<path d="M80 110.0H880" stroke="#4A4A45" stroke-width="1"/>
+<text x="68" y="114.0" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#B0AEA5">100%</text>
+<path d="M140.0 380v6" stroke="#B0AEA5" stroke-width="1"/>
+<text x="140.0" y="404" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#B0AEA5">64</text>
+<text x="140.0" y="420" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#B0AEA5">k=31</text>
+<path d="M310.0 380v6" stroke="#B0AEA5" stroke-width="1"/>
+<text x="310.0" y="404" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#B0AEA5">128</text>
+<text x="310.0" y="420" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#B0AEA5">k=16</text>
+<path d="M480.0 380v6" stroke="#B0AEA5" stroke-width="1"/>
+<text x="480.0" y="404" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#B0AEA5">256</text>
+<text x="480.0" y="420" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#B0AEA5">k=8</text>
+<path d="M650.0 380v6" stroke="#B0AEA5" stroke-width="1"/>
+<text x="650.0" y="404" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#B0AEA5">512</text>
+<text x="650.0" y="420" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#B0AEA5">k=4</text>
+<path d="M820.0 380v6" stroke="#B0AEA5" stroke-width="1"/>
+<text x="820.0" y="404" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#B0AEA5">1024</text>
+<text x="820.0" y="420" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" fill="#B0AEA5">k=2</text>
+<text x="480.0" y="452" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" fill="#B0AEA5">chunk size in tokens (o200k_base), no overlap</text>
+<path d="M140.0 145.1L310.0 134.0L480.0 131.0L650.0 132.4L820.0 142.0" fill="none" stroke="#FAF9F5" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="140.0" cy="145.1" r="4" fill="#FAF9F5"/>
+<text x="140.0" y="167.1" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#FAF9F5">87</text>
+<circle cx="310.0" cy="134.0" r="4" fill="#FAF9F5"/>
+<text x="310.0" y="122.0" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#FAF9F5">91</text>
+<circle cx="480.0" cy="131.0" r="4" fill="#FAF9F5"/>
+<text x="480.0" y="119.0" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#FAF9F5">92</text>
+<circle cx="650.0" cy="132.4" r="4" fill="#FAF9F5"/>
+<text x="650.0" y="120.4" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#FAF9F5">92</text>
+<circle cx="820.0" cy="142.0" r="4" fill="#FAF9F5"/>
+<text x="820.0" y="130.0" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#FAF9F5">88</text>
+<path d="M140.0 136.7L310.0 137.9L480.0 152.7L650.0 182.7L820.0 241.2" fill="none" stroke="#D97757" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="140.0" cy="136.7" r="4" fill="#D97757"/>
+<text x="140.0" y="124.7" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#D97757">90</text>
+<circle cx="310.0" cy="137.9" r="4" fill="#D97757"/>
+<text x="310.0" y="159.9" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#D97757">90</text>
+<circle cx="480.0" cy="152.7" r="4" fill="#D97757"/>
+<text x="480.0" y="174.7" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#D97757">84</text>
+<circle cx="650.0" cy="182.7" r="4" fill="#D97757"/>
+<text x="650.0" y="204.7" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#D97757">73</text>
+<circle cx="820.0" cy="241.2" r="4" fill="#D97757"/>
+<text x="820.0" y="263.2" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#D97757">51</text>
+<circle cx="88" cy="86" r="4" fill="#FAF9F5"/><text x="100" y="90" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" fill="#FAF9F5">BM25</text>
+<circle cx="170" cy="86" r="4" fill="#D97757"/><text x="182" y="90" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" fill="#D97757">bge-small embeddings</text>
+</svg>
