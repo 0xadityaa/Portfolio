@@ -1,0 +1,274 @@
+{
+  "Llama-3.1-8B": {
+    "params": 8030261248,
+    "linear_params": 6979321856,
+    "other_params": 1050939392,
+    "kv_bytes_per_token": 131072,
+    "precisions": {
+      "fp16": {
+        "weights_gib": 14.957527160644531,
+        "cards": {
+          "24": {
+            "room_gib": 5.394214630126953,
+            "users": 1,
+            "fits": true
+          },
+          "48": {
+            "room_gib": 27.745956420898438,
+            "users": 6,
+            "fits": true
+          },
+          "80": {
+            "room_gib": 57.54827880859375,
+            "users": 14,
+            "fits": true
+          }
+        }
+      },
+      "int8 g128": {
+        "weights_gib": 8.609870910644531,
+        "cards": {
+          "24": {
+            "room_gib": 11.741870880126953,
+            "users": 2,
+            "fits": true
+          },
+          "48": {
+            "room_gib": 34.09361267089844,
+            "users": 8,
+            "fits": true
+          },
+          "80": {
+            "room_gib": 63.89593505859375,
+            "users": 15,
+            "fits": true
+          }
+        }
+      },
+      "int4 g128": {
+        "weights_gib": 5.334480285644531,
+        "cards": {
+          "24": {
+            "room_gib": 15.017261505126953,
+            "users": 3,
+            "fits": true
+          },
+          "48": {
+            "room_gib": 37.36900329589844,
+            "users": 9,
+            "fits": true
+          },
+          "80": {
+            "room_gib": 67.17132568359375,
+            "users": 16,
+            "fits": true
+          }
+        }
+      }
+    }
+  },
+  "Qwen2.5-14B": {
+    "params": 14770033664,
+    "linear_params": 13212057600,
+    "other_params": 1557976064,
+    "kv_bytes_per_token": 196608,
+    "precisions": {
+      "fp16": {
+        "weights_gib": 27.51133155822754,
+        "cards": {
+          "24": {
+            "room_gib": -7.159589767456055,
+            "users": 0,
+            "fits": false
+          },
+          "48": {
+            "room_gib": 15.19215202331543,
+            "users": 2,
+            "fits": true
+          },
+          "80": {
+            "room_gib": 44.99447441101074,
+            "users": 7,
+            "fits": true
+          }
+        }
+      },
+      "int8 g128": {
+        "weights_gib": 15.495035171508789,
+        "cards": {
+          "24": {
+            "room_gib": 4.856706619262695,
+            "users": 0,
+            "fits": true
+          },
+          "48": {
+            "room_gib": 27.20844841003418,
+            "users": 4,
+            "fits": true
+          },
+          "80": {
+            "room_gib": 57.01077079772949,
+            "users": 9,
+            "fits": true
+          }
+        }
+      },
+      "int4 g128": {
+        "weights_gib": 9.294626235961914,
+        "cards": {
+          "24": {
+            "room_gib": 11.05711555480957,
+            "users": 1,
+            "fits": true
+          },
+          "48": {
+            "room_gib": 33.408857345581055,
+            "users": 5,
+            "fits": true
+          },
+          "80": {
+            "room_gib": 63.21117973327637,
+            "users": 10,
+            "fits": true
+          }
+        }
+      }
+    }
+  },
+  "Qwen2.5-32B": {
+    "params": 32763876352,
+    "linear_params": 31205621760,
+    "other_params": 1558254592,
+    "kv_bytes_per_token": 262144,
+    "precisions": {
+      "fp16": {
+        "weights_gib": 61.027475357055664,
+        "cards": {
+          "24": {
+            "room_gib": -40.67573356628418,
+            "users": 0,
+            "fits": false
+          },
+          "48": {
+            "room_gib": -18.323991775512695,
+            "users": 0,
+            "fits": false
+          },
+          "80": {
+            "room_gib": 11.478330612182617,
+            "users": 1,
+            "fits": true
+          }
+        }
+      },
+      "int8 g128": {
+        "weights_gib": 32.646127700805664,
+        "cards": {
+          "24": {
+            "room_gib": -12.29438591003418,
+            "users": 0,
+            "fits": false
+          },
+          "48": {
+            "room_gib": 10.057355880737305,
+            "users": 1,
+            "fits": true
+          },
+          "80": {
+            "room_gib": 39.85967826843262,
+            "users": 4,
+            "fits": true
+          }
+        }
+      },
+      "int4 g128": {
+        "weights_gib": 18.001352310180664,
+        "cards": {
+          "24": {
+            "room_gib": 2.3503894805908203,
+            "users": 0,
+            "fits": true
+          },
+          "48": {
+            "room_gib": 24.702131271362305,
+            "users": 3,
+            "fits": true
+          },
+          "80": {
+            "room_gib": 54.50445365905762,
+            "users": 6,
+            "fits": true
+          }
+        }
+      }
+    }
+  },
+  "Llama-3.1-70B": {
+    "params": 70553706496,
+    "linear_params": 68451041280,
+    "other_params": 2102665216,
+    "kv_bytes_per_token": 327680,
+    "precisions": {
+      "fp16": {
+        "weights_gib": 131.41651916503906,
+        "cards": {
+          "24": {
+            "room_gib": -111.06477737426758,
+            "users": 0,
+            "fits": false
+          },
+          "48": {
+            "room_gib": -88.7130355834961,
+            "users": 0,
+            "fits": false
+          },
+          "80": {
+            "room_gib": -58.91071319580078,
+            "users": 0,
+            "fits": false
+          }
+        }
+      },
+      "int8 g128": {
+        "weights_gib": 69.16065979003906,
+        "cards": {
+          "24": {
+            "room_gib": -48.80891799926758,
+            "users": 0,
+            "fits": false
+          },
+          "48": {
+            "room_gib": -26.457176208496094,
+            "users": 0,
+            "fits": false
+          },
+          "80": {
+            "room_gib": 3.3451461791992188,
+            "users": 0,
+            "fits": true
+          }
+        }
+      },
+      "int4 g128": {
+        "weights_gib": 37.03663635253906,
+        "cards": {
+          "24": {
+            "room_gib": -16.684894561767578,
+            "users": 0,
+            "fits": false
+          },
+          "48": {
+            "room_gib": 5.666847229003906,
+            "users": 0,
+            "fits": true
+          },
+          "80": {
+            "room_gib": 35.46916961669922,
+            "users": 3,
+            "fits": true
+          }
+        }
+      }
+    }
+  }
+}
