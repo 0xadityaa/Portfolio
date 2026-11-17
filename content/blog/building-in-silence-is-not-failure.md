@@ -1,14 +1,14 @@
 ---
-title: 'Building in Silence Is Not Failure'
-publishedAt: '2026-11-17'
+title: Building in Silence Is Not Failure
+publishedAt: '2026-11-17T17:51:58.352Z'
 summary: >-
-  Van Gogh wrote that wheat is wheat even when townsfolk call it grass. Three old ideas on why work done in silence is not failing work.
+  Van Gogh wrote that wheat is wheat even when townsfolk call it grass. Three
+  old ideas on why work done in silence is not failing work.
 tags:
   - philosophy
   - stoicism
   - art
 image: /images/blog/building-in-silence.jpg
-draft: true
 syndicate: false
 ---
 
