@@ -1,0 +1,100 @@
+{"id": 1, "category": "year", "question": "In what year did the Berlin Wall fall?", "reference": "1989", "wrong": "1991"}
+{"id": 2, "category": "year", "question": "In what year did the Titanic sink?", "reference": "1912", "wrong": "1913"}
+{"id": 3, "category": "year", "question": "In what year did World War II end in Europe?", "reference": "1945", "wrong": "1944"}
+{"id": 4, "category": "year", "question": "In what year did the Normans conquer England?", "reference": "1066", "wrong": "1067"}
+{"id": 5, "category": "year", "question": "In what year did Apollo 11 land on the Moon?", "reference": "1969", "wrong": "1968"}
+{"id": 6, "category": "year", "question": "In what year did the French Revolution begin?", "reference": "1789", "wrong": "1798"}
+{"id": 7, "category": "year", "question": "In what year was Magna Carta sealed?", "reference": "1215", "wrong": "1225"}
+{"id": 8, "category": "year", "question": "In what year was the US Declaration of Independence adopted?", "reference": "1776", "wrong": "1777"}
+{"id": 9, "category": "year", "question": "In what year did Columbus first reach the Americas?", "reference": "1492", "wrong": "1493"}
+{"id": 10, "category": "year", "question": "In what year was the Soviet Union dissolved?", "reference": "1991", "wrong": "1989"}
+{"id": 11, "category": "number", "question": "How many players from one team are on the field in a soccer match?", "reference": "11", "wrong": "10"}
+{"id": 12, "category": "number", "question": "How many states are in the United States?", "reference": "50", "wrong": "51"}
+{"id": 13, "category": "number", "question": "How many bones does an adult human have?", "reference": "206", "wrong": "208"}
+{"id": 14, "category": "number", "question": "How many chromosomes are in a typical human cell?", "reference": "46", "wrong": "48"}
+{"id": 15, "category": "number", "question": "About how fast does light travel?", "reference": "about 300,000 km/s", "wrong": "about 30,000 km/s"}
+{"id": 16, "category": "number", "question": "How many planets are in the Solar System?", "reference": "8", "wrong": "9"}
+{"id": 17, "category": "number", "question": "At what temperature does water boil at sea level?", "reference": "100 degrees Celsius", "wrong": "90 degrees Celsius"}
+{"id": 18, "category": "number", "question": "How tall is Mount Everest?", "reference": "8,849 metres", "wrong": "8,489 metres"}
+{"id": 19, "category": "number", "question": "How long is a marathon?", "reference": "42.195 kilometres", "wrong": "41.295 kilometres"}
+{"id": 20, "category": "number", "question": "How many keys does a standard piano have?", "reference": "88", "wrong": "86"}
+{"id": 21, "category": "negation", "question": "Does the Moon orbit the Earth?", "reference": "The Moon orbits the Earth", "wrong": "The Moon does not orbit the Earth"}
+{"id": 22, "category": "negation", "question": "Is Canberra the capital of Australia?", "reference": "Canberra is the capital of Australia", "wrong": "Canberra is not the capital of Australia"}
+{"id": 23, "category": "negation", "question": "Did Shakespeare write Hamlet?", "reference": "Shakespeare wrote Hamlet", "wrong": "Shakespeare did not write Hamlet"}
+{"id": 24, "category": "negation", "question": "Does the Nile flow through Africa?", "reference": "The Nile flows through Africa", "wrong": "The Nile does not flow through Africa"}
+{"id": 25, "category": "negation", "question": "Do whales breathe air?", "reference": "Whales breathe air", "wrong": "Whales do not breathe air"}
+{"id": 26, "category": "negation", "question": "Was Abraham Lincoln assassinated?", "reference": "Lincoln was assassinated", "wrong": "Lincoln was not assassinated"}
+{"id": 27, "category": "negation", "question": "Is Mount Kilimanjaro in Tanzania?", "reference": "Mount Kilimanjaro is in Tanzania", "wrong": "Mount Kilimanjaro is not in Tanzania"}
+{"id": 28, "category": "negation", "question": "Is helium a noble gas?", "reference": "Helium is a noble gas", "wrong": "Helium is not a noble gas"}
+{"id": 29, "category": "negation", "question": "Did the Treaty of Versailles formally end the war with Germany?", "reference": "The Treaty of Versailles formally ended the war with Germany", "wrong": "The Treaty of Versailles did not formally end the war with Germany"}
+{"id": 30, "category": "negation", "question": "Does photosynthesis release oxygen?", "reference": "Photosynthesis releases oxygen", "wrong": "Photosynthesis does not release oxygen"}
+{"id": 31, "category": "qualifier", "question": "What kind of chemical bond shares electrons between atoms?", "reference": "covalent bond", "wrong": "ionic bond"}
+{"id": 32, "category": "qualifier", "question": "What type of rock forms from cooled lava?", "reference": "igneous rock", "wrong": "sedimentary rock"}
+{"id": 33, "category": "qualifier", "question": "What kind of triangle has three equal sides?", "reference": "equilateral triangle", "wrong": "isosceles triangle"}
+{"id": 34, "category": "qualifier", "question": "What kind of eclipse happens when the Moon blocks the Sun?", "reference": "solar eclipse", "wrong": "lunar eclipse"}
+{"id": 35, "category": "qualifier", "question": "Which type of plate boundary has plates moving apart?", "reference": "divergent boundary", "wrong": "convergent boundary"}
+{"id": 36, "category": "qualifier", "question": "What kind of wave is sound in air?", "reference": "longitudinal wave", "wrong": "transverse wave"}
+{"id": 37, "category": "qualifier", "question": "Which type of diabetes is autoimmune and often diagnosed in childhood?", "reference": "type 1 diabetes", "wrong": "type 2 diabetes"}
+{"id": 38, "category": "qualifier", "question": "What kind of numbers cannot be written as a fraction of two integers?", "reference": "irrational numbers", "wrong": "rational numbers"}
+{"id": 39, "category": "qualifier", "question": "Which blood vessel carries blood away from the heart?", "reference": "an artery", "wrong": "a vein"}
+{"id": 40, "category": "qualifier", "question": "Which kind of cells lack a nucleus?", "reference": "prokaryotic cells", "wrong": "eukaryotic cells"}
+{"id": 41, "category": "sibling", "question": "What is the capital of France?", "reference": "Paris", "wrong": "Lyon"}
+{"id": 42, "category": "sibling", "question": "Who wrote Pride and Prejudice?", "reference": "Jane Austen", "wrong": "Charlotte Bronte"}
+{"id": 43, "category": "sibling", "question": "What is the largest ocean?", "reference": "Pacific Ocean", "wrong": "Atlantic Ocean"}
+{"id": 44, "category": "sibling", "question": "Who painted the Mona Lisa?", "reference": "Leonardo da Vinci", "wrong": "Michelangelo"}
+{"id": 45, "category": "sibling", "question": "What is the capital of Japan?", "reference": "Tokyo", "wrong": "Osaka"}
+{"id": 46, "category": "sibling", "question": "Who discovered penicillin?", "reference": "Alexander Fleming", "wrong": "Louis Pasteur"}
+{"id": 47, "category": "sibling", "question": "What is the chemical symbol for gold?", "reference": "Au", "wrong": "Ag"}
+{"id": 48, "category": "sibling", "question": "Who wrote On the Origin of Species?", "reference": "Charles Darwin", "wrong": "Gregor Mendel"}
+{"id": 49, "category": "sibling", "question": "What is the longest river in South America?", "reference": "Amazon River", "wrong": "Orinoco River"}
+{"id": 50, "category": "sibling", "question": "What is the highest mountain above sea level?", "reference": "Mount Everest", "wrong": "Mount Kilimanjaro"}
+{"id": 51, "category": "unit", "question": "About how far is the Earth from the Sun?", "reference": "150 million kilometres", "wrong": "150 million miles"}
+{"id": 52, "category": "unit", "question": "About how many people live on Earth?", "reference": "about 8 billion", "wrong": "about 8 million"}
+{"id": 53, "category": "unit", "question": "How tall is the Burj Khalifa?", "reference": "828 metres", "wrong": "828 feet"}
+{"id": 54, "category": "unit", "question": "About how long is the Great Wall of China?", "reference": "about 21,000 kilometres", "wrong": "about 21,000 miles"}
+{"id": 55, "category": "unit", "question": "About how many people live in Canada?", "reference": "about 40 million", "wrong": "about 40 billion"}
+{"id": 56, "category": "unit", "question": "About how deep is the Mariana Trench?", "reference": "about 11 kilometres", "wrong": "about 11 metres"}
+{"id": 57, "category": "unit", "question": "At what temperature does water freeze?", "reference": "0 degrees Celsius", "wrong": "0 degrees Fahrenheit"}
+{"id": 58, "category": "unit", "question": "How fast does sound travel in air at 20 degrees Celsius?", "reference": "343 metres per second", "wrong": "343 kilometres per second"}
+{"id": 59, "category": "unit", "question": "How long is a marathon, roughly?", "reference": "42 kilometres", "wrong": "42 miles"}
+{"id": 60, "category": "unit", "question": "How much blood does an adult human body hold?", "reference": "about 5 litres", "wrong": "about 5 millilitres"}
+{"id": 61, "category": "direction", "question": "In which direction does the Earth rotate?", "reference": "from west to east", "wrong": "from east to west"}
+{"id": 62, "category": "direction", "question": "Where does the Sun rise?", "reference": "in the east", "wrong": "in the west"}
+{"id": 63, "category": "direction", "question": "What does a catalyst do to the activation energy of a reaction?", "reference": "it lowers it", "wrong": "it raises it"}
+{"id": 64, "category": "direction", "question": "What happens to the pressure of a fixed amount of gas at constant temperature when its volume is reduced?", "reference": "it increases", "wrong": "it decreases"}
+{"id": 65, "category": "direction", "question": "What happens to the boiling point of water as altitude increases?", "reference": "it decreases", "wrong": "it increases"}
+{"id": 66, "category": "direction", "question": "In which direction does the Gulf Stream carry warm water along the US east coast?", "reference": "northward", "wrong": "southward"}
+{"id": 67, "category": "direction", "question": "In which hemisphere is Australia?", "reference": "the Southern Hemisphere", "wrong": "the Northern Hemisphere"}
+{"id": 68, "category": "direction", "question": "What do central banks usually do to interest rates to fight high inflation?", "reference": "raise them", "wrong": "lower them"}
+{"id": 69, "category": "direction", "question": "What happens to gravitational pull as distance from an object increases?", "reference": "it weakens", "wrong": "it strengthens"}
+{"id": 70, "category": "direction", "question": "Which way does the Mississippi River flow?", "reference": "southward into the Gulf of Mexico", "wrong": "northward into the Gulf of Mexico"}
+{"id": 71, "category": "near_name", "question": "Which English king had six wives?", "reference": "Henry VIII", "wrong": "Henry VII"}
+{"id": 72, "category": "near_name", "question": "Who was exiled to Saint Helena?", "reference": "Napoleon Bonaparte", "wrong": "Napoleon III"}
+{"id": 73, "category": "near_name", "question": "Which treaty formally ended the war with Germany after World War I?", "reference": "Treaty of Versailles", "wrong": "Treaty of Vienna"}
+{"id": 74, "category": "near_name", "question": "Who wrote Das Kapital?", "reference": "Karl Marx", "wrong": "Groucho Marx"}
+{"id": 75, "category": "near_name", "question": "Who reigned as British monarch for 70 years until 2022?", "reference": "Elizabeth II", "wrong": "Elizabeth I"}
+{"id": 76, "category": "near_name", "question": "Which war was fought from 1914 to 1918?", "reference": "World War I", "wrong": "World War II"}
+{"id": 77, "category": "near_name", "question": "Which Roosevelt was US president for most of World War II?", "reference": "Franklin D. Roosevelt", "wrong": "Theodore Roosevelt"}
+{"id": 78, "category": "near_name", "question": "Which Bach composed the Brandenburg Concertos?", "reference": "Johann Sebastian Bach", "wrong": "Johann Christian Bach"}
+{"id": 79, "category": "near_name", "question": "Who was British prime minister when the French Revolutionary Wars began in 1793?", "reference": "William Pitt the Younger", "wrong": "William Pitt the Elder"}
+{"id": 80, "category": "near_name", "question": "Which Alexandre Dumas wrote The Count of Monte Cristo?", "reference": "Alexandre Dumas, pere", "wrong": "Alexandre Dumas, fils"}
+{"id": 81, "category": "reversed", "question": "Who stabbed Julius Caesar?", "reference": "Brutus stabbed Caesar", "wrong": "Caesar stabbed Brutus"}
+{"id": 82, "category": "reversed", "question": "Who invaded Poland in 1939?", "reference": "Germany invaded Poland", "wrong": "Poland invaded Germany"}
+{"id": 83, "category": "reversed", "question": "What orbits what, the Earth or the Moon?", "reference": "The Moon orbits the Earth", "wrong": "The Earth orbits the Moon"}
+{"id": 84, "category": "reversed", "question": "What do plants take in and give out during photosynthesis?", "reference": "Plants absorb carbon dioxide and release oxygen", "wrong": "Plants absorb oxygen and release carbon dioxide"}
+{"id": 85, "category": "reversed", "question": "Which country ruled India before 1947?", "reference": "Britain ruled India", "wrong": "India ruled Britain"}
+{"id": 86, "category": "reversed", "question": "What did Copernicus propose?", "reference": "The Earth orbits the Sun", "wrong": "The Sun orbits the Earth"}
+{"id": 87, "category": "reversed", "question": "Who won World War II?", "reference": "The Allies defeated the Axis powers", "wrong": "The Axis powers defeated the Allies"}
+{"id": 88, "category": "reversed", "question": "Who attacked whom at Pearl Harbor in 1941?", "reference": "Japan attacked the United States", "wrong": "The United States attacked Japan"}
+{"id": 89, "category": "reversed", "question": "Who kills Claudius in Hamlet?", "reference": "Hamlet killed Claudius", "wrong": "Claudius killed Hamlet"}
+{"id": 90, "category": "reversed", "question": "Who won the 1974 Rumble in the Jungle?", "reference": "Muhammad Ali defeated George Foreman", "wrong": "George Foreman defeated Muhammad Ali"}
+{"id": 91, "category": "wrong_detail", "question": "What did Marie Curie win Nobel Prizes in?", "reference": "physics and chemistry", "wrong": "physics and medicine"}
+{"id": 92, "category": "wrong_detail", "question": "How did Amelia Earhart fly solo across the Atlantic?", "reference": "from Newfoundland to Northern Ireland", "wrong": "from Newfoundland to Southern France"}
+{"id": 93, "category": "wrong_detail", "question": "What was the Manhattan Project?", "reference": "a US-led wartime programme that built the first atomic bombs", "wrong": "a US-led wartime programme that built the first hydrogen bombs"}
+{"id": 94, "category": "wrong_detail", "question": "What does DNA stand for?", "reference": "deoxyribonucleic acid", "wrong": "ribonucleic acid"}
+{"id": 95, "category": "wrong_detail", "question": "What was the Treaty of Tordesillas?", "reference": "a 1494 agreement dividing newly discovered lands between Spain and Portugal", "wrong": "a 1494 agreement dividing newly discovered lands between Spain and France"}
+{"id": 96, "category": "wrong_detail", "question": "Where did the 1986 Chernobyl reactor explosion happen?", "reference": "a nuclear reactor in the Soviet Union, in present-day Ukraine", "wrong": "a nuclear reactor in the Soviet Union, in present-day Belarus"}
+{"id": 97, "category": "wrong_detail", "question": "What did Johannes Gutenberg develop?", "reference": "movable-type printing in Europe, around 1440", "wrong": "movable-type printing in China, around 1440"}
+{"id": 98, "category": "wrong_detail", "question": "What is the Rosetta Stone?", "reference": "a granodiorite slab inscribed in hieroglyphic, Demotic and Greek", "wrong": "a granodiorite slab inscribed in hieroglyphic, Demotic and Latin"}
+{"id": 99, "category": "wrong_detail", "question": "What was the Louisiana Purchase?", "reference": "the 1803 purchase of French territory by the United States", "wrong": "the 1803 purchase of Spanish territory by the United States"}
+{"id": 100, "category": "wrong_detail", "question": "What is Magna Carta?", "reference": "a 1215 charter limiting the power of King John of England", "wrong": "a 1215 charter limiting the power of King Richard of England"}

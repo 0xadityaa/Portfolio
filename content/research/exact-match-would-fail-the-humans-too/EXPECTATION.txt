@@ -1,0 +1,29 @@
+Written 2026-11-15, before running anything on the data.
+
+Setup: SQuAD v1.1 dev (10,570 questions, mostly 3 human answers each). For every
+question, each human answer in turn is the "prediction" and the other human answers
+are the references (max over references, as the official script does). Three
+metrics: exact match (official normalisation), token F1, and cosine similarity of
+bge-small-en-v1.5 embeddings of the two answer strings. Then ~100 adversarial wrong
+answers I write by hand, and a hand-read sample of 50 exact-match failures.
+
+What I expect:
+1. Exact match marks about 20% of correct human answers wrong (the SQuAD paper
+   reports 80.3% EM for humans on dev, so I expect 17 to 23% failures here).
+2. Token F1 at a 0.5 threshold fails about 7% of them; at 0.8 about 13%.
+3. Embedding cosine at 0.80 fails under 3%; at 0.85 about 5%; at 0.90 about 12%.
+   (The model card says scores live mostly in 0.6 to 1, so thresholds of 0.8 to 0.9
+   are where I should look.)
+4. On my adversarial set, exact match lets through 0%. F1 >= 0.5 lets through about
+   40% (wrong answers that share most of their tokens with the right one). Cosine
+   >= 0.85 lets through more than 70%, and cosine >= 0.90 still more than 40%.
+5. No single cosine threshold gets both under 10%: the human-failure curve and the
+   adversarial-pass curve cross well above that.
+6. Of 50 hand-read exact-match failures, most (60% or more) are extra or missing
+   words or formatting; under 15% are genuinely different answers.
+7. Control: pairing each question's answer with a random other question's answer
+   (obviously wrong), cosine >= 0.80 lets through about 10%; F1 and EM about 0%.
+
+What would surprise me: cosine at 0.9 failing fewer than 5% of humans while passing
+fewer than 30% of the adversarial set (a clean threshold), or exact match failing
+fewer than 10% of human answers.

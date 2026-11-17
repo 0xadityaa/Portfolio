@@ -1,0 +1,15 @@
+questions: 10570, articles: 48
+adversarial items: 100
+loo: 34723 items
+pairs: 84310 items
+paper: 10431 items
+control: 10570 items
+adv: 100 items
+unique strings to embed: 15048
+loaded cached embeddings
+[loo] n=34723 mean EM 82.0  mean F1 91.7  mean cos 0.967
+[pairs] n=84310 mean EM 67.3  mean F1 83.0  mean cos 0.933
+[paper] n=10431 mean EM 81.7  mean F1 91.2  mean cos 0.966
+[control] n=10570 mean EM 0.0  mean F1 0.4  mean cos 0.505
+[adv] n=100 mean EM 0.0  mean F1 51.2  mean cos 0.847
+EM failures (leave-one-out items): 6262 of 34723; wrote 50-item hand-check sample

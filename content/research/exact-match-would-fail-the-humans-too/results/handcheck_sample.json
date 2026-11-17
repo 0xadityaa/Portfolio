@@ -1,0 +1,616 @@
+[
+ {
+  "n": 1,
+  "article": "Amazon_rainforest",
+  "question": "In lands attributed to what tribe are found remains of large settlements?",
+  "prediction": "Xingu tribe",
+  "references": [
+   "Xingu",
+   "Xingu"
+  ],
+  "f1": 0.667,
+  "cos": 0.904
+ },
+ {
+  "n": 2,
+  "article": "Super_Bowl_50",
+  "question": "When did the NFL announce the suspension of using Roman numerals to brand the Super Bowl?",
+  "prediction": "June 4, 2014",
+  "references": [
+   "On June 4, 2014",
+   "2014"
+  ],
+  "f1": 0.857,
+  "cos": 0.976
+ },
+ {
+  "n": 3,
+  "article": "Civil_disobedience",
+  "question": "What is a simple form of civil disobedience?",
+  "prediction": "disobedience of laws",
+  "references": [
+   "Non-revolutionary civil disobedience",
+   "Non-revolutionary civil disobedience",
+   "Non-revolutionary",
+   "cultural revolution"
+  ],
+  "f1": 0.333,
+  "cos": 0.832
+ },
+ {
+  "n": 4,
+  "article": "United_Methodist_Church",
+  "question": "What is Prevenient grace?",
+  "prediction": "It is that power which enables us to love and motivates us to seek a relationship with God through Jesus Christ.",
+  "references": [
+   "the grace that \"goes before\" us",
+   "that power which enables us to love and motivates us to seek a relationship with God through Jesus Christ."
+  ],
+  "f1": 0.947,
+  "cos": 0.995
+ },
+ {
+  "n": 5,
+  "article": "French_and_Indian_War",
+  "question": "How successful was initial effort by Braddock?",
+  "prediction": "disaster; he was defeated in the Battle of the Monongahela",
+  "references": [
+   "disaster",
+   "was a disaster",
+   "he was defeated",
+   "None succeeded"
+  ],
+  "f1": 0.545,
+  "cos": 0.793
+ },
+ {
+  "n": 6,
+  "article": "Scottish_Parliament",
+  "question": "Which hall was used as Parliament's principle committee room?",
+  "prediction": "the main hall",
+  "references": [
+   "main",
+   "main"
+  ],
+  "f1": 0.667,
+  "cos": 0.776
+ },
+ {
+  "n": 7,
+  "article": "Chloroplast",
+  "question": "What is Durinskia's chloroplast?",
+  "prediction": "a diatom (heterokontophyte) derived chloroplast",
+  "references": [
+   "diatom (heterokontophyte) derived",
+   "diatom (heterokontophyte) derived"
+  ],
+  "f1": 0.857,
+  "cos": 0.927
+ },
+ {
+  "n": 8,
+  "article": "Martin_Luther",
+  "question": "When did Philip I convene an assembly to set doctrine in the Protestant states?",
+  "prediction": "1529",
+  "references": [
+   "October 1529",
+   "October 1529"
+  ],
+  "f1": 0.667,
+  "cos": 0.915
+ },
+ {
+  "n": 9,
+  "article": "Packet_switching",
+  "question": "What did the network install in 1999",
+  "prediction": "vBNS installed one of the first ever production OC-48c (2.5 Gbit/s) IP links in February 1999 and went on to upgrade the entire backbone to OC-48c",
+  "references": [
+   "one of the first ever production OC-48c (2.5 Gbit/s) IP links",
+   "OC-48c"
+  ],
+  "f1": 0.588,
+  "cos": 0.823
+ },
+ {
+  "n": 10,
+  "article": "Martin_Luther",
+  "question": "What was the image of Luther a contrast to the life of?",
+  "prediction": "ascetic life of the medieval religious orders",
+  "references": [
+   "religious orders",
+   "medieval religious orders"
+  ],
+  "f1": 0.667,
+  "cos": 0.904
+ },
+ {
+  "n": 11,
+  "article": "United_Methodist_Church",
+  "question": "Approximately how many adherents does the United Methodist Church have across the world?",
+  "prediction": "80 million adherents",
+  "references": [
+   "80 million",
+   "80 million"
+  ],
+  "f1": 0.8,
+  "cos": 0.827
+ },
+ {
+  "n": 12,
+  "article": "United_Methodist_Church",
+  "question": "What is the concept of the visible and invisible Church?",
+  "prediction": "meaning that all who are truly believers in every age belong to the holy Church invisible, while the United Methodist Church is a branch of the Church visible,",
+  "references": [
+   "meaning that all who are truly believers in every age belong to the holy Church invisible",
+   "all who are truly believers in every age belong to the holy Church invisible, while the United Methodist Church is a branch of the Church visible,"
+  ],
+  "f1": 0.957,
+  "cos": 0.982
+ },
+ {
+  "n": 13,
+  "article": "Immune_system",
+  "question": "Helper and regulatory T cells can only recognize antigens coupled to what kind of molecules?",
+  "prediction": "Class II MHC",
+  "references": [
+   "Class II MHC molecules",
+   "Class II MHC molecules"
+  ],
+  "f1": 0.857,
+  "cos": 0.942
+ },
+ {
+  "n": 14,
+  "article": "Prime_number",
+  "question": "How many primes were included in Derrick Norman Lehmer's list of prime numbers?",
+  "prediction": "primes up to 10,006,721",
+  "references": [
+   "10,006,721",
+   "10,006,721",
+   "10,006,721",
+   "10,006,721"
+  ],
+  "f1": 0.4,
+  "cos": 0.826
+ },
+ {
+  "n": 15,
+  "article": "Sky_(United_Kingdom)",
+  "question": "How large was the audience BSkyB said they could reach?",
+  "prediction": "25m people",
+  "references": [
+   "25m",
+   "36% of households"
+  ],
+  "f1": 0.667,
+  "cos": 0.849
+ },
+ {
+  "n": 16,
+  "article": "French_and_Indian_War",
+  "question": "How many of the Pitt's planned expeditions were successful?",
+  "prediction": "Two of the expeditions were successful, with Fort Duquesne and Louisbourg",
+  "references": [
+   "Two",
+   "Two",
+   "Two",
+   "Two"
+  ],
+  "f1": 0.182,
+  "cos": 0.536
+ },
+ {
+  "n": 17,
+  "article": "Nikola_Tesla",
+  "question": "What other compensation did Tesla get from Westinghouse?",
+  "prediction": "rent at the Hotel New Yorker",
+  "references": [
+   "paying his rent",
+   "paying his rent at the Hotel New Yorker"
+  ],
+  "f1": 0.833,
+  "cos": 0.88
+ },
+ {
+  "n": 18,
+  "article": "Super_Bowl_50",
+  "question": "Who was the receiver on the successful 2-point conversion?",
+  "prediction": "Fowler",
+  "references": [
+   "Bennie Fowler",
+   "Bennie Fowler"
+  ],
+  "f1": 0.667,
+  "cos": 0.769
+ },
+ {
+  "n": 19,
+  "article": "Oxygen",
+  "question": "What type of compounds such as acetone,contain oxygen?",
+  "prediction": "solvents",
+  "references": [
+   "organic solvents",
+   "organic solvents",
+   "organic solvents",
+   "organic solvents"
+  ],
+  "f1": 0.667,
+  "cos": 0.918
+ },
+ {
+  "n": 20,
+  "article": "Jacksonville,_Florida",
+  "question": "What is the scale used to measure the strength of hurricanes called?",
+  "prediction": "Saffir-Simpson",
+  "references": [
+   "Saffir-Simpson Scale",
+   "Saffir-Simpson Scale"
+  ],
+  "f1": 0.667,
+  "cos": 0.81
+ },
+ {
+  "n": 21,
+  "article": "Islamism",
+  "question": "What's the party's take on Muslim history?",
+  "prediction": "Islam's pivotal turning point as occurring not with the death of Ali",
+  "references": [
+   "a different view",
+   "different view"
+  ],
+  "f1": 0.0,
+  "cos": 0.569
+ },
+ {
+  "n": 22,
+  "article": "Sky_(United_Kingdom)",
+  "question": "What is the name brand of the personal video recorder that BSkyB offers?",
+  "prediction": "PVR",
+  "references": [
+   "Sky+",
+   "Sky+"
+  ],
+  "f1": 0.0,
+  "cos": 0.537
+ },
+ {
+  "n": 23,
+  "article": "Martin_Luther",
+  "question": "What kind of marriage was this ?",
+  "prediction": "clerical",
+  "references": [
+   "clerical marriage",
+   "clerical marriage.",
+   "clerical marriage."
+  ],
+  "f1": 0.667,
+  "cos": 0.856
+ },
+ {
+  "n": 24,
+  "article": "Nikola_Tesla",
+  "question": "Who hired Tesla in 1888?",
+  "prediction": "Westinghouse",
+  "references": [
+   "George Westinghouse",
+   "George Westinghouse"
+  ],
+  "f1": 0.667,
+  "cos": 0.864
+ },
+ {
+  "n": 25,
+  "article": "Doctor_Who",
+  "question": "Which seasons is the BBC missing a total of 79 episodes?",
+  "prediction": "seasons 3, 4, & 5",
+  "references": [
+   "3, 4, & 5",
+   "3, 4, & 5"
+  ],
+  "f1": 0.857,
+  "cos": 0.836
+ },
+ {
+  "n": 26,
+  "article": "Construction",
+  "question": "Building construction is usually further divided into what categories?",
+  "prediction": "residential and non-residential",
+  "references": [
+   "residential and non-residential (commercial/institutional)",
+   "residential and non-residential (commercial/institutional)"
+  ],
+  "f1": 0.857,
+  "cos": 0.945
+ },
+ {
+  "n": 27,
+  "article": "Martin_Luther",
+  "question": "What is Psalm 67 about?",
+  "prediction": "grace",
+  "references": [
+   "prayer for grace",
+   "prayer for grace"
+  ],
+  "f1": 0.5,
+  "cos": 0.824
+ },
+ {
+  "n": 28,
+  "article": "Jacksonville,_Florida",
+  "question": "What type of movies were produced in Jacksonville's 30 studios?",
+  "prediction": "silent",
+  "references": [
+   "silent film",
+   "silent film"
+  ],
+  "f1": 0.667,
+  "cos": 0.79
+ },
+ {
+  "n": 29,
+  "article": "French_and_Indian_War",
+  "question": "How did war start?",
+  "prediction": "dispute over control",
+  "references": [
+   "dispute over control of the confluence of the Allegheny and Monongahela rivers, called the Forks of the Ohio",
+   "dispute over control of the confluence of the Allegheny and Monongahela rivers",
+   "dispute over control of the confluence of the Allegheny and Monongahela rivers",
+   "a dispute over control of the confluence of the Allegheny and Monongahela rivers"
+  ],
+  "f1": 0.462,
+  "cos": 0.725
+ },
+ {
+  "n": 30,
+  "article": "United_Methodist_Church",
+  "question": "How many schools and institutions does the church operate overseas?",
+  "prediction": "three hundred sixty schools and institutions overseas.",
+  "references": [
+   "three hundred sixty",
+   "three hundred"
+  ],
+  "f1": 0.6,
+  "cos": 0.673
+ },
+ {
+  "n": 31,
+  "article": "Packet_switching",
+  "question": "What use was suggested for the system ",
+  "prediction": "use in the ARPANET",
+  "references": [
+   "ARPANET",
+   "ARPANET"
+  ],
+  "f1": 0.5,
+  "cos": 0.88
+ },
+ {
+  "n": 32,
+  "article": "Packet_switching",
+  "question": "WHat does UserDatagram Protocol gaurentee",
+  "prediction": "sequenced delivery of data to the host",
+  "references": [
+   "In the virtual call system, the network guarantees sequenced delivery of data to the host",
+   "sequenced delivery of data"
+  ],
+  "f1": 0.8,
+  "cos": 0.947
+ },
+ {
+  "n": 33,
+  "article": "Martin_Luther",
+  "question": "What do scholars agree on about the posting on the door story?",
+  "prediction": "little foundation in truth",
+  "references": [
+   "has little foundation in truth",
+   "settled as one of the pillars of history"
+  ],
+  "f1": 0.889,
+  "cos": 0.92
+ },
+ {
+  "n": 34,
+  "article": "Geology",
+  "question": "It is now possible to convert old relative ages into what type of ages using isotopic dating?",
+  "prediction": "rock units",
+  "references": [
+   "absolute ages",
+   "new absolute"
+  ],
+  "f1": 0.0,
+  "cos": 0.513
+ },
+ {
+  "n": 35,
+  "article": "Immune_system",
+  "question": "Sleep hormones shift the cytokine balance to which cytokine?",
+  "prediction": "Th1",
+  "references": [
+   "one that supports Th1"
+  ],
+  "f1": 0.4,
+  "cos": 0.878
+ },
+ {
+  "n": 36,
+  "article": "Geology",
+  "question": "Where do dikes form?",
+  "prediction": "areas that are being actively deformed",
+  "references": [
+   "in areas that are being actively deformed",
+   "in areas that are being actively deformed"
+  ],
+  "f1": 0.923,
+  "cos": 0.986
+ },
+ {
+  "n": 37,
+  "article": "Prime_number",
+  "question": "What type of number do modern mathematicians consider 1 to be?",
+  "prediction": "its own special category as a \"unit\"",
+  "references": [
+   "unit",
+   "a \"unit\"",
+   "unit",
+   "a \"unit"
+  ],
+  "f1": 0.286,
+  "cos": 0.861
+ },
+ {
+  "n": 38,
+  "article": "Martin_Luther",
+  "question": "When was a third visit to Mnafeld scheduled? ",
+  "prediction": "early 1546",
+  "references": [
+   "1546",
+   "1546"
+  ],
+  "f1": 0.667,
+  "cos": 0.932
+ },
+ {
+  "n": 39,
+  "article": "Doctor_Who",
+  "question": "What two Doctors does the War Doctor exist between?",
+  "prediction": "McGann and Eccleston",
+  "references": [
+   "McGann and Eccleston's Doctors",
+   "McGann and Eccleston's"
+  ],
+  "f1": 0.667,
+  "cos": 0.982
+ },
+ {
+  "n": 40,
+  "article": "Super_Bowl_50",
+  "question": "How did the drive end for the Panthers?",
+  "prediction": "Newton was sacked",
+  "references": [
+   "punt",
+   "sacked"
+  ],
+  "f1": 0.5,
+  "cos": 0.823
+ },
+ {
+  "n": 41,
+  "article": "Chloroplast",
+  "question": "Where is the chloroplast peripheral reticulum usually found?",
+  "prediction": "chloroplasts of C4 plants",
+  "references": [
+   "in the chloroplasts of C4 plants",
+   "in the chloroplasts of C4 plants,"
+  ],
+  "f1": 0.889,
+  "cos": 0.979
+ },
+ {
+  "n": 42,
+  "article": "Genghis_Khan",
+  "question": "How many divisions comprised Genghis Khan's army in Khwarezmia?",
+  "prediction": "three groups",
+  "references": [
+   "three",
+   "three"
+  ],
+  "f1": 0.667,
+  "cos": 0.832
+ },
+ {
+  "n": 43,
+  "article": "Super_Bowl_50",
+  "question": "Which team in Super Bowl 50 had a 15-1 record?",
+  "prediction": "Panthers",
+  "references": [
+   "Carolina Panthers",
+   "The Carolina Panthers"
+  ],
+  "f1": 0.667,
+  "cos": 0.929
+ },
+ {
+  "n": 44,
+  "article": "Black_Death",
+  "question": "Which areas were least vulnerable to disease?",
+  "prediction": "most isolated areas",
+  "references": [
+   "isolated areas",
+   "isolated"
+  ],
+  "f1": 0.8,
+  "cos": 0.922
+ },
+ {
+  "n": 45,
+  "article": "University_of_Chicago",
+  "question": "What administration did Ludwig Mies van der Rohe designa buiding?",
+  "prediction": "the university's School of Social Service Administration",
+  "references": [
+   "School of Social Service Administration",
+   "School of Social Service Administration"
+  ],
+  "f1": 0.909,
+  "cos": 0.927
+ },
+ {
+  "n": 46,
+  "article": "Amazon_rainforest",
+  "question": "In the 1980s what was the population of the amazon region?",
+  "prediction": "200,000.",
+  "references": [
+   "less than 200,000",
+   "less than 200,000"
+  ],
+  "f1": 0.5,
+  "cos": 0.885
+ },
+ {
+  "n": 47,
+  "article": "Fresno,_California",
+  "question": "What did the BankAmericard allow customers do to that they couldn't do with previous financial instruments?",
+  "prediction": "a financial instrument that was usable across a large number of merchants and also allowed cardholders to revolve a balance",
+  "references": [
+   "to revolve a balance",
+   "revolve a balance"
+  ],
+  "f1": 0.3,
+  "cos": 0.73
+ },
+ {
+  "n": 48,
+  "article": "Intergovernmental_Panel_on_Climate_Change",
+  "question": "What report had the correct date?",
+  "prediction": "\"Variations of Snow and Ice in the past and at present on a Global and Regional Scale\"",
+  "references": [
+   "the IPCC from the WWF report",
+   "the WWF report"
+  ],
+  "f1": 0.0,
+  "cos": 0.542
+ },
+ {
+  "n": 49,
+  "article": "Black_Death",
+  "question": "How did the plague infiltrate Alexandria?",
+  "prediction": "y through the port's trade with Constantinople, and ports on the Black Sea",
+  "references": [
+   "port's trade",
+   "trade with Constantinople"
+  ],
+  "f1": 0.429,
+  "cos": 0.8
+ },
+ {
+  "n": 50,
+  "article": "Newcastle_upon_Tyne",
+  "question": "What type of impact can the residents of Newcastle expect the city's noise to have on them?",
+  "prediction": "negative long-term",
+  "references": [
+   "negative",
+   "negative long-term impact on the health"
+  ],
+  "f1": 0.667,
+  "cos": 0.862
+ }
+]

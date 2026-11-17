@@ -1,0 +1,24 @@
+{
+ "method": "One reader (me), each of the 50 sampled exact-match failures in handcheck_sample.json, judged against the question and references. Categories: extra_words (same answer, one span longer or shorter), formatting (same answer, spelling or punctuation form), both_defensible (different spans that each answer the question, or a dropped qualifier that shifts the meaning), different (the prediction answers something else, or answers the question less correctly than the references). Judgement calls exist; the n=50 sample is small.",
+ "categories": {
+  "1": "extra_words", "2": "extra_words", "3": "different", "4": "extra_words", "5": "extra_words",
+  "6": "extra_words", "7": "extra_words", "8": "extra_words", "9": "extra_words", "10": "extra_words",
+  "11": "extra_words", "12": "extra_words", "13": "extra_words", "14": "extra_words", "15": "extra_words",
+  "16": "extra_words", "17": "extra_words", "18": "extra_words", "19": "extra_words", "20": "extra_words",
+  "21": "both_defensible", "22": "different", "23": "extra_words", "24": "extra_words", "25": "extra_words",
+  "26": "extra_words", "27": "extra_words", "28": "extra_words", "29": "extra_words", "30": "extra_words",
+  "31": "extra_words", "32": "extra_words", "33": "extra_words", "34": "different", "35": "extra_words",
+  "36": "extra_words", "37": "extra_words", "38": "extra_words", "39": "formatting", "40": "extra_words",
+  "41": "extra_words", "42": "extra_words", "43": "extra_words", "44": "extra_words", "45": "extra_words",
+  "46": "both_defensible", "47": "extra_words", "48": "different", "49": "extra_words", "50": "extra_words"
+ },
+ "notes": {
+  "3": "Prediction is a loose restatement of the question; one reference is itself off-topic.",
+  "22": "Asked for the brand name; the prediction gives the generic term (PVR) instead of Sky+.",
+  "34": "Asked what type of ages; 'rock units' is not a type of age.",
+  "48": "References name the WWF report; the prediction is a different report title.",
+  "21": "Different parts of the same passage, both about the party's view.",
+  "46": "'200,000' drops 'less than', which changes the claim.",
+  "39": "Possessive 's: the official normaliser turns it into a stray token."
+ }
+}
