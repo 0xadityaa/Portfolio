@@ -13,6 +13,8 @@ A reviewer should be able to point at each of these.
 5. **Limits.** A section that states the strongest objection in its strongest form, linked to someone who holds it; says where the advice stops applying; and names what he did not test.
 6. **An ending that adds.** The last paragraph gives the decision rule, what would change his mind, or what he will measure next.
 
+**Philosophy posts** (tag `philosophy`, usually `syndicate: false`) are the exception: no measurement or artifact is required, and `posts:check` skips the length, link and artifact rules for them. Title, summary, dash and stock-phrase rules still apply. Dashes inside a blockquote are allowed, since quoted text is verbatim. Quote a source in its edition's own translation and link it.
+
 ## Voice
 
 Aditya explaining something to a friend who codes: first person, casual, a little cheeky, sure of his opinion and exact about how far it reaches. It should sound like a person talking, never like documentation. Section headings can be loose too ("The short version", "Where I'd stop trusting this post", "The takeaway").

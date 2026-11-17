@@ -17,7 +17,7 @@ if (!apiKey && !dryRun) {
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const headers = { "Content-Type": "application/json", "api-key": apiKey ?? "" };
 
-const posts = loadPosts().filter((post) => post.data.devto_url);
+const posts = loadPosts().filter((post) => post.data.devto_url && post.data.syndicate !== false);
 if (posts.length === 0) {
   console.log("No posts have a devto_url.");
   process.exit(0);

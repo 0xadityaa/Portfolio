@@ -68,6 +68,7 @@ tags:                            # 1 to 5, lowercase
 draft: true                      # optional; cleared by /publish
 preview: true                    # optional; show on the site before publishedAt (feeds and cross-posting still wait)
 updated: '2026-11-02'            # optional; date of the last substantive edit
+syndicate: false                 # optional; keep the post on this site only, see docs/publishing.md
 image: /images/blog/cover.png    # optional social card override
 ---
 ```

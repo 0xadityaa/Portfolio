@@ -28,6 +28,11 @@ export type BlogPostMetadata = {
    * the RSS feed, the sitemap, llms.txt and cross-posting until that time.
    */
   preview?: boolean;
+  /**
+   * `false` keeps the post on this site only: the Cross-post action skips it
+   * entirely (no dev.to, no manual checklist, no issue). Feeds still include it.
+   */
+  syndicate?: boolean;
   readingTime?: number;
   devto_url?: string;
   medium_url?: string;
