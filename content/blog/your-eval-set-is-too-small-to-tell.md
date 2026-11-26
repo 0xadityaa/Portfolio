@@ -1,13 +1,13 @@
 ---
 title: Your 100-Example Eval Is Lying About That 3-Point Win
-publishedAt: '2026-11-14'
+publishedAt: '2026-11-26T23:24:56.270Z'
 summary: >-
-  On 100 examples, a real 3-point gain shows up as significant 7% of the time. Scoring both systems on the same examples gets you about twice as far.
+  On 100 examples, a real 3-point gain shows up as significant 7% of the time.
+  Scoring both systems on the same examples gets you about twice as far.
 tags:
   - ai
   - evals
   - statistics
-draft: true
 ---
 
 I simulated a system that's truly 3 points better than another. On a 100-example eval, it looked worse or tied one run in three.
