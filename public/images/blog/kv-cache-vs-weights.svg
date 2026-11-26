@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 470" width="800" height="470" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="t">Llama 3.1 8B: weights versus KV cache for four users</title>
+  <desc id="d">Horizontal bars in GiB for Llama 3.1 8B at fp16 with four concurrent full-length users. Weights are 15.0 GiB in every row. The KV cache is 2.0 GiB at 4,096 tokens, 16.0 GiB at 32,768 tokens, and 64.0 GiB at 131,072 tokens, where it is more than four times the weights.</desc>
+  <rect width="800" height="470" fill="#30302E"/>
+  <text x="40" y="52" fill="#FAF9F5" font-size="22" font-weight="600">Weights stay put. The KV cache does not.</text>
+  <text x="40" y="78" fill="#FAF9F5" fill-opacity="0.7" font-size="14">Llama 3.1 8B, fp16, four users each at the full context length. Size in GiB.</text>
+
+  <g font-size="15" fill="#FAF9F5">
+    <!-- 4k -->
+    <text x="40" y="132" font-weight="600">4,096 tokens</text>
+    <rect x="40" y="144" width="122" height="30" rx="3" fill="#FAF9F5" fill-opacity="0.22" stroke="#FAF9F5" stroke-opacity="0.5"/>
+    <text x="172" y="165" fill-opacity="0.8">weights 15.0</text>
+    <rect x="40" y="182" width="16" height="30" rx="3" fill="#FAF9F5"/>
+    <text x="66" y="203" fill-opacity="0.8">KV cache 2.0</text>
+
+    <!-- 32k -->
+    <text x="40" y="246" font-weight="600">32,768 tokens</text>
+    <rect x="40" y="258" width="122" height="30" rx="3" fill="#FAF9F5" fill-opacity="0.22" stroke="#FAF9F5" stroke-opacity="0.5"/>
+    <text x="172" y="279" fill-opacity="0.8">weights 15.0</text>
+    <rect x="40" y="296" width="130" height="30" rx="3" fill="#FAF9F5"/>
+    <text x="180" y="317" fill-opacity="0.8">KV cache 16.0</text>
+
+    <!-- 128k -->
+    <text x="40" y="360" font-weight="600">131,072 tokens</text>
+    <rect x="40" y="372" width="122" height="30" rx="3" fill="#FAF9F5" fill-opacity="0.22" stroke="#FAF9F5" stroke-opacity="0.5"/>
+    <text x="172" y="393" fill-opacity="0.8">weights 15.0</text>
+    <rect x="40" y="410" width="520" height="30" rx="3" fill="#D97757"/>
+    <text x="570" y="431" fill="#D97757" font-weight="600">KV cache 64.0</text>
+  </g>
+  <text x="40" y="458" fill="#FAF9F5" fill-opacity="0.5" font-size="12">source: kv_cache.py, config.json from Hugging Face</text>
+</svg>
