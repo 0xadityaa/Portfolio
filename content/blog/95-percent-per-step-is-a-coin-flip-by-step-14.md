@@ -1,14 +1,14 @@
 ---
 title: Your 95% Reliable Agent Fails Half Its 14-Step Tasks
-publishedAt: '2026-11-14'
+publishedAt: '2026-11-26T23:24:46.550Z'
 summary: >-
-  A 95%-per-step agent finishes 14 steps 49% of the time. In a simulation, checkpoints and idempotency keys beat prompt work when failures are transient.
+  A 95%-per-step agent finishes 14 steps 49% of the time. In a simulation,
+  checkpoints and idempotency keys beat prompt work when failures are transient.
 tags:
   - ai
   - agents
   - reliability
   - distributed-systems
-draft: true
 ---
 
 An agent that's right 95% of the time on every step finishes a 14-step job cleanly only 49% of the time.
