@@ -1,6 +1,6 @@
 # Blog workflow
 
-One post a week, from topic to syndication. Aditya decides at three **gates**; an agent does the work between them. Nothing reaches production or another platform without passing all three.
+One post a week, from topic to syndication. Aditya decides at three **gates**; an agent does the work between them. Gate 3 is now automatic: the `Auto-publish` action publishes on the date in the pull request, and Aditya's lever is the `hold` label.
 
 ```
 topic issue ─▶ [gate 1: topic] ─▶ research ─▶ [gate 2: angle] ─▶ draft ─▶ pull request ─▶ [gate 3: /publish <date>] ─▶ live at that time ─▶ cross-post
@@ -34,7 +34,7 @@ Done when: `npm run posts:check` passes and you can point to each of the six thi
 
 Branch `post/<slug>`, one pull request holding the post and its research note. Fill in the post section of the pull request template, link the topic issue with `Closes #N`, say where each of the six required things is in the post, and list anything you want him to check. The Vercel preview on the pull request shows the post exactly as it will appear, including scheduled posts and drafts.
 
-Then stop. Review comments come back as changes on the same branch. **Approval is Aditya's and he gives it with a comment on the pull request:**
+Put one line in the pull request description: `Publish: 2026-10-15 09:00` (Toronto time; a bare date means the default time). The `Auto-publish` action (`scripts/auto-publish.mjs`, every 20 minutes) merges the pull request when that time is within an hour, setting `publishedAt` to exactly that time. It skips a pull request that is a draft, is labelled `hold`, has a failing check, or changes files outside `content/blog`, `content/research` and `public/images/blog`, and says why in a comment. Review comments come back as changes on the same branch. **Aditya can also publish early by hand with a comment on the pull request:**
 
 ```
 /publish                     the next default slot

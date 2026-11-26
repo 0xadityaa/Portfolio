@@ -45,7 +45,7 @@ To try it safely: Actions, Cross-post, Run workflow, leave "dry run" ticked. Loc
 
 ## When posts go out
 
-Aditya sets the time when he approves: `/publish <date>` on the pull request (`docs/blog/workflow.md`, stage 4). With no date it takes the default slot, Tuesday 09:00 Toronto time, defined in `scripts/lib/schedule.mjs`. The evidence for that slot is weak and says so; revisit it against the site's own analytics after a dozen posts.
+The time is the `Publish:` line in the post's pull request, merged automatically by the Auto-publish action (`docs/blog/workflow.md`, stage 4); `/publish <date>` on the pull request does the same by hand. With no date it takes the default slot, Tuesday 09:00 Toronto time, defined in `scripts/lib/schedule.mjs`. The evidence for that slot is weak and says so; revisit it against the site's own analytics after a dozen posts.
 
 ## After rewriting a published post
 
