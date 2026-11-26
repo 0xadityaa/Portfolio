@@ -1,6 +1,6 @@
 ---
 title: One Long Prompt Can Eat More GPU Than the Whole Model
-publishedAt: '2026-11-14'
+publishedAt: '2026-11-26T23:24:51.429Z'
 summary: >-
   One 128k-token paste needs more GPU memory than Llama 3.1 8B itself: 16 GiB
   against 15.0. Real configs show how many users fit, and why it isn't worse.
@@ -8,7 +8,6 @@ tags:
   - ai
   - llm
   - inference
-draft: true
 ---
 
 One user pasting 128k tokens costs 16 GiB of GPU memory on Llama 3.1 8B. The model itself is 15.0 GiB.
