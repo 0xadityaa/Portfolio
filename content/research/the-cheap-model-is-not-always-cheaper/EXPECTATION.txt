@@ -1,0 +1,28 @@
+Written before running cost_model.py, 2026-11-14.
+
+Prices (copied from the live pages the same day, see prices.json):
+  Claude Haiku 5.5   $0.10 in / $0.50 out per MTok   (cheap)
+  Claude Opus 5.5    $4 in / $20 out per MTok        (expensive)
+  gpt-5.4-mini       $0.75 in / $4.50 out per MTok   (cheap)
+  gpt-5.4            $2.50 in / $15 out per MTok     (expensive)
+
+Request shape: 3,000 input tokens, 500 output tokens.
+By hand: Haiku $0.00055, Opus $0.022 (40x). gpt-5.4-mini $0.0045, gpt-5.4 $0.015 (3.3x).
+
+What I expect:
+1. Break-even failure cost F* (where the expensive model alone becomes cheaper
+   per useful answer) is small for the Claude pair: tens of cents, not dollars,
+   with an assumed 80% cheap / 95% expensive success. It is lower for the OpenAI
+   pair because that pair's price gap is only 3.3x.
+2. F* is very sensitive to the success-rate gap. As the cheap model closes in on
+   the expensive one, F* explodes.
+3. At F = $0 (a free, visible failure that the user just retries) the cheap model
+   wins by roughly the price ratio, for any success rate above a few percent.
+4. A cascade with a decent verifier (95% pass for right answers, 10% pass for wrong
+   ones) beats both single models across a broad middle band of F.
+5. A leaky verifier erases the win. I guess the cascade stops beating the
+   expensive model alone once the verifier passes around half of wrong answers
+   at a failure cost near $1.
+6. I do not expect the cascade to beat the cheap model at F near $0, because it
+   pays for the verifier and the escalations.
+7. Monte Carlo (seeded) should agree with the closed forms within sampling error.
