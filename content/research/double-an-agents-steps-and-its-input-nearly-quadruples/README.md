@@ -26,7 +26,7 @@ python3 make_diagram.py                # writes public/images/blog/agent-input-t
 xmllint --noout ../../../public/images/blog/agent-input-tokens-by-strategy.svg
 ```
 
-The model is deterministic: rerunning it on 2026-11-15 reproduced `results/model.txt` byte for byte.
+The model is deterministic: a rerun on 2026-11-15 reproduced `results/model.txt` byte for byte.
 
 ## How long it takes
 
@@ -61,7 +61,7 @@ Compaction keeps no recent turns word for word, and the summary is assumed lossl
 
 Automatic caching: a breakpoint at the end of every request, plus one after the prefix (the docs recommend a breakpoint at the end of the system prompt so compaction keeps it cached). A request reads the longest prefix of its context that matches an earlier request's full context (or the prefix block) and writes the rest at the 5-minute write price. In `none` that means each step reads the whole previous context and writes only the new reply and tool result. Reading costs 0.05x of input on Sonnet 5.5, per the pricing page footnote.
 
-Assumptions that are mine: every step starts within 5 minutes of the last, so the cache is always warm; the 20-block lookback window in the docs is ignored; the summarisation call is billed as an ordinary request that reads the previous context from cache. Sliding clearing looks bad with caching because it changes a result in the middle of the history on every step, so the match stops there. A movable breakpoint just before the edit would help it, and I did not model one.
+Assumptions: every step starts within 5 minutes of the last, so the cache is always warm; the 20-block lookback window in the docs is ignored; the summarisation call is billed as an ordinary request that reads the previous context from cache. Sliding clearing looks bad with caching because it changes a result in the middle of the history on every step, so the match stops there. A movable breakpoint just before the edit would help it; none is modelled.
 
 ## Where the output goes
 
@@ -74,3 +74,9 @@ Volumes quoted in the post (100-step runs, 30 days, input plus output): runs a d
 | 10 | $6,129 | $515 | $364 |
 | 100 | $61,293 | $5,151 | $3,636 |
 | 1,000 | $612,930 | $51,510 | $36,360 |
+
+## Where this stops holding
+
+- Compaction keeps no recent turns word for word, and the summary is assumed lossless. Neither is true of real summaries.
+- The cache is always warm, and the 20-block lookback is ignored. A slow tool call would cost a full rewrite.
+- The tokeniser is a proxy; real counts are probably higher. Tool-call mix and sizes come from one repository.
