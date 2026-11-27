@@ -8,12 +8,12 @@ Artifact for the post `content/blog/the-cheap-model-is-not-always-cheaper.md`.
 - `cost_model.py`: the calculator, the break-even solver, the cascade (closed form and seeded Monte Carlo), the leak and hard-case sweeps, and the volume tables.
 - `output.txt`: the raw output of `cost_model.py`.
 - `make_chart.py`: draws the SVG chart for the post.
-- `EXPECTATION.txt`: what I expected, written before the first run.
+- `EXPECTATION.txt`: the expectations, written before the first run.
 - `social.md`: cuts for Typefully.
 
 ## Set up
 
-Python 3.12.8 (what I ran; any Python 3.8+ should do) and `xmllint` (ships with macOS; `apt install libxml2-utils` on Debian). The scripts use only the standard library, so there is nothing to install and no virtualenv.
+Python 3.12.8 (what it ran on; any Python 3.8+ should do) and `xmllint` (ships with macOS; `apt install libxml2-utils` on Debian). The scripts use only the standard library, so there is nothing to install and no virtualenv.
 
 ```bash
 git clone https://github.com/0xadityaa/Portfolio.git
@@ -39,7 +39,7 @@ The seed is 20261114, 200,000 tasks per Monte Carlo row. The first command shoul
 
 ## How long it takes
 
-Under two seconds on a laptop CPU for `cost_model.py` (I timed 1.2 s), and about the same for `make_chart.py`.
+Under two seconds on a laptop CPU for `cost_model.py` (timed at 1.2 s), and about the same for `make_chart.py`.
 
 ## What is a price and what is an assumption
 
