@@ -10,6 +10,9 @@ tags:
   - agents
   - reliability
   - distributed-systems
+crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/147'
+devto_url: >-
+  https://dev.to/0xadityaa/your-95-reliable-agent-fails-half-its-14-step-tasks-3d3i
 ---
 
 Suppose you built an AI agent and tested every individual tool call. It gets the step right 95% of the time. You'd ship it, right?

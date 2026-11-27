@@ -4,7 +4,7 @@ Your MCP servers eat 24,000 tokens before you type.
 
 Ten popular servers: 23,895 tokens on every request.
 chrome-devtools alone: 6,751. fetch: 296.
-Against a 2,000-token prompt (my assumption): 92% overhead.
+Against a 2,000-token prompt (assumed): 92% overhead.
 
 How many servers are you running?
 
@@ -14,11 +14,11 @@ How many servers are you running?
 
 Your MCP servers eat 24,000 tokens before you type.
 
-I started 11 popular ones, asked each for its tool list and counted. Here's what ten of them cost on every request ↓
+11 popular servers, each asked for its tool list, every token counted. Here's what ten of them cost on every request ↓
 ---
 Ten servers, 143 tools, 23,895 tokens of definitions.
 
-Against a short 2,000-token prompt (my assumption, not measured):
+Against a short 2,000-token prompt (an assumption, not measured):
 
 → 3 servers: 72% of the input
 → 5 servers: 84%
@@ -46,9 +46,9 @@ Same setup, every call a cache hit at $0.10 per million: $1,433.70 a month. That
 
 But the cache lives 5 minutes by default, one edited tool definition resets it, and the model still reads all 23,895 tokens.
 ---
-Want the script that counts your servers' tokens? Reply MCP and I'll DM it.
+Want the script that counts your servers' tokens? Reply MCP and it lands in your DMs.
 
-It starts each server over stdio, saves the raw tools/list reply and counts it. I didn't run any of this against a live model, so the cost is overhead only.
+It starts each server over stdio, saves the raw tools/list reply and counts it. Nothing ran against a live model, so the cost is overhead only.
 ---
 Rule of thumb: count a server's tokens before you connect it. If it costs more than about a quarter of your typical prompt and you rarely use it, defer it or leave it off.
 
@@ -57,13 +57,13 @@ https://www.0xadityaa.dev/blog/every-mcp-server-taxes-every-prompt
 
 ## Singles
 
-I guessed ten MCP servers would cost 25,000 to 40,000 tokens of tool definitions per request.
+A reasonable guess for ten MCP servers is 25,000 to 40,000 tokens of tool definitions per request.
 
 Measured: 23,895.
 
-Lower than I expected, and still 92% of a short prompt (2,000 tokens, my assumption).
+Lower than the guess, and still 92% of a short prompt (2,000 tokens, assumed).
 ---
-Your MCP client sends every connected tool definition on every request. I measured what that adds, stacking servers in one fixed order:
+Your MCP client sends every connected tool definition on every request. Stacking servers in one fixed order shows what that adds:
 
 - 1 server: 2,925 tokens
 - 3 servers: 5,150
@@ -78,7 +78,7 @@ $28,674 a month to describe tools the model mostly won't call.
 
 That's input overhead alone, priced at $2 per million tokens, before one useful token.
 ---
-Caching saves 95% on tool definitions: $28,674 to $1,433.70 a month in my setup. Until one tool description changes and the cache resets.
+Caching saves 95% on tool definitions: $28,674 to $1,433.70 a month in this setup. Until one tool description changes and the cache resets.
 
 It cuts the price, not the length. The model still reads 23,895 tokens either way.
 ---
@@ -92,20 +92,20 @@ MCP | the script that counts your MCP servers' tool-definition tokens | https://
 
 ## Reply prompts
 
-We counted this: ten popular MCP servers are 23,895 tokens of tool definitions on every request. chrome-devtools is 6,751 of those by itself, fetch is 296. Worth running tools/list before adding the next one.
+Counted: ten popular MCP servers are 23,895 tokens of tool definitions on every request. chrome-devtools is 6,751 of those by itself, fetch is 296. Worth running tools/list before adding the next one.
 
 Caching helps the price, not the length. Ten servers at 20,000 calls a day on Sonnet 5.5: $28,674 a month uncached, $1,433.70 if every call hits the cache. The model reads the same 23,895 tokens either way.
 
-The ten servers I measured expose 143 tools, and Anthropic's tool search docs put the accuracy drop at 30 to 50. Has anyone measured where it bites with real servers? I priced the tokens but didn't test a live model.
+The ten servers measured expose 143 tools, and Anthropic's tool search docs put the accuracy drop at 30 to 50. Has anyone measured where it bites with real servers? The tokens are priced here, but no live model was tested.
 
 ## Substack Note
 
 Ten popular MCP servers add 23,895 tokens to every request, before you type a word.
 
-I started eleven open-source servers on my laptop, asked each for its tool list and counted: 146 tools, 24,395 tokens. chrome-devtools alone is 6,751. fetch is 296. Against a short 2,000-token prompt (my assumption), ten servers are 92% of the input.
+Eleven open-source servers, each asked for its tool list, then counted: 146 tools, 24,395 tokens. chrome-devtools alone is 6,751. fetch is 296. Against a short 2,000-token prompt (assumed), ten servers are 92% of the input.
 
 At 20,000 model calls a day on Sonnet 5.5, that overhead is $28,674 a month. Prompt caching cuts it to $1,433.70 if every call hits the cache, and tool search can shrink what enters the context. Neither makes the tokens free: the model still reads them, and a cache resets the moment a tool definition changes.
 
-I used OpenAI's tokenizer as a proxy and didn't test any of this against a live model. My rule: count a server's tool definitions before you connect it. The client, raw JSON and cost grid are in the post.
+OpenAI's tokenizer stands in for Claude's, and nothing ran against a live model. The rule: count a server's tool definitions before you connect it. The client, raw JSON and cost grid are in the post.
 
 https://www.0xadityaa.dev/blog/every-mcp-server-taxes-every-prompt

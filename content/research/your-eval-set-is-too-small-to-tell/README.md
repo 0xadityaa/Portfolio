@@ -24,7 +24,7 @@ cd content/research/your-eval-set-is-too-small-to-tell
 
 ## Files
 
-- `EXPECTATION.txt`: what I expected, written before the first run.
+- `EXPECTATION.txt`: the expected result, written before the first run.
 - `simulate.py`: the simulation. Only dependency is NumPy.
 - `output.txt`: raw output of the run quoted in the post.
 - `results.json`: the same numbers in machine-readable form.

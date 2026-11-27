@@ -9,6 +9,7 @@ tags:
   - ai
   - evals
   - statistics
+crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/147'
 ---
 
 Picture this: you spend an afternoon tweaking a prompt, run your 100-example eval suite, and watch accuracy jump from 80% to 83%. Three whole points. You merge the PR.
