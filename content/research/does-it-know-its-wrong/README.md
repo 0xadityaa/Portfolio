@@ -9,10 +9,10 @@ Artifact for the post [Does It Know It's Wrong?](https://www.0xadityaa.dev/blog/
 | [`EXPECTATION.txt`](EXPECTATION.txt) | The predictions, written before any run |
 | [`run.py`](run.py) | Generates short answers and saves every token's log probability |
 | [`analyze.py`](analyze.py) | Grades answers, then computes AUROC, ECE, risk-coverage and cutoff tables |
-| [`make_figs.py`](make_figs.py) | Draws the two SVG figures from `results/analysis.json` |
+| [`make_figs.py`](make_figs.py) | Draws the two SVG figures from `results/analysis.json` (hand-corrected grade) |
 | [`results/gen_qwen2.5-1.5b.jsonl`](results/gen_qwen2.5-1.5b.jsonl), [`results/gen_qwen2.5-0.5b.jsonl`](results/gen_qwen2.5-0.5b.jsonl) | Raw output: question, aliases, answer, tokens, log probabilities |
-| [`results/graded_qwen2.5-1.5b.jsonl`](results/graded_qwen2.5-1.5b.jsonl), [`results/graded_qwen2.5-0.5b.jsonl`](results/graded_qwen2.5-0.5b.jsonl) | One line per question: strict match, rule grade, best F1, confidence |
-| [`results/overrides.json`](results/overrides.json) | Hand corrections to the rule grader (9 answers for the 1.5B, 3 for the 0.5B) |
+| [`results/graded_qwen2.5-1.5b.jsonl`](results/graded_qwen2.5-1.5b.jsonl), [`results/graded_qwen2.5-0.5b.jsonl`](results/graded_qwen2.5-0.5b.jsonl) | One line per question: strict match, rule grade, hand-corrected grade, best F1, confidence |
+| [`results/overrides.json`](results/overrides.json) | Hand corrections to the rule grader (5 passes read as wrong and 1 failure read as right for the 1.5B, 3 passes read as wrong for the 0.5B), plus two arguable 1.5B failures left uncredited (`borderline_not_applied`) |
 | [`results/analysis.txt`](results/analysis.txt), [`results/analysis.json`](results/analysis.json) | Every number in the post |
 | [`results/ids.json`](results/ids.json) | The 112 question ids both models answered, in order |
 | `results/run_*.log`, `results/uptime_*.txt` | Run logs and load averages before and after |
@@ -66,7 +66,7 @@ The 1.5B run took about 33 minutes for 112 questions on 4 threads while the mach
 - **Prompt.** Chat template with the system message "Answer the trivia question. Reply with only the answer, a few words, no explanation." Greedy decoding, at most 16 new tokens, left-padded batches of 8. Probabilities come from the raw logits (no repetition penalty, no sampling filters).
 - **bf16.** A first attempt in float32 used about 6 GB for the 1.5B and thrashed the shared machine's swap, so both models ran in bf16 instead. No results from the abandoned attempt are used.
 - **Confidence.** `p_seq` is the product of the answer-token probabilities (the EOS token is excluded). `mean_token_p` is the geometric mean. `shortness` is the negative token count, used as a length baseline.
-- **Grading.** Answers and aliases are normalised the SQuAD way (lowercase, strip punctuation and articles). Strict: the answer equals an alias. Rule: strict, or token F1 of at least 0.5 against any alias, the rule from [Is Exact Match Lying?](https://www.0xadityaa.dev/blog/exact-match-would-fail-the-humans-too). The post's headline numbers use the rule. `overrides.json` marks the rule's passes that were read as wrong and failures read as right; the hand-corrected numbers are in `analysis.txt`.
+- **Grading.** Answers and aliases are normalised the SQuAD way (lowercase, strip punctuation and articles). Strict: the answer equals an alias. Rule: strict, or token F1 of at least 0.5 against any alias, the rule from [Is Exact Match Lying?](https://www.0xadityaa.dev/blog/exact-match-would-fail-the-humans-too). Hand-corrected: the rule grade with the changes in `overrides.json` (rule passes read as wrong, rule failures read as right). Every headline number in the post uses the hand-corrected grade; `analysis.txt` reports the rule and strict graders beside it, and the effect of crediting the two arguable failures.
 - **Intervals.** Percentile bootstrap over questions, 2,000 resamples, seed 7. Accuracy uses a Wilson interval.
 - **Cutoffs.** The "halve the wrong answers" cutoff is picked on the same questions it is reported on. The split-half line in `analysis.txt` repeats the choice 500 times on a random half and reports the other half.
 - **Aliases.** TriviaQA alias lists include odd entries (Wikipedia page titles such as "Administrative divisions of Denmark"). They are used as given.

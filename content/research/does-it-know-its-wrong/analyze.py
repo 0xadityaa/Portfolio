@@ -3,8 +3,11 @@
 usage: python analyze.py RESULTS_DIR   (reads RESULTS_DIR/gen_<tag>.jsonl for each tag in TAGS)
 Writes RESULTS_DIR/analysis.json and RESULTS_DIR/analysis.txt.
 
-Grading: an answer is correct when, after SQuAD-style normalisation, it equals an alias
-(strict), or its token F1 against any alias is at least 0.5 (the rule from the exact-match post).
+Grading: three graders. Strict: after SQuAD-style normalisation the answer equals an alias.
+Rule: strict, or token F1 against any alias is at least 0.5 (the rule from the exact-match post).
+Hand-corrected: the rule grader with the corrections in overrides.json (rule passes read as wrong,
+rule failures read as right). The hand-corrected grader is the primary one; every headline number
+uses it, and the rule and strict graders are reported beside it.
 Confidence signals are computed from the answer-token log probabilities, higher = more confident.
 Intervals are percentile bootstraps over questions (2,000 resamples, fixed seed).
 """
@@ -154,7 +157,14 @@ def analyse(rows, tag):
     for r in rows:
         s, c, b = grade(r["answer"], r["aliases"])
         strict.append(s), ok.append(c), best_f1.append(b)
-    strict, y, best_f1 = np.array(strict), np.array(ok), np.array(best_f1)
+    strict, y_rule, best_f1 = np.array(strict), np.array(ok), np.array(best_f1)
+    ov, ovr, ovb = set(), set(), []
+    ovp = os.path.join(RES, "overrides.json")
+    if os.path.exists(ovp):
+        o_ = json.load(open(ovp)).get(tag, {})
+        ov, ovr = set(o_.get("wrong", [])), set(o_.get("right", []))
+        ovb = [i for i in o_.get("borderline_not_applied", [])]
+    y = (y_rule & np.array([r["id"] not in ov for r in rows])) | np.array([r["id"] in ovr for r in rows])
     sig = {}
     lp = [np.array(r["logprobs"]) for r in rows]
     sig["p_seq"] = np.array([math.exp(x.sum()) if len(x) else 0.0 for x in lp])
@@ -170,26 +180,18 @@ def analyse(rows, tag):
            "empty_answers": int(sum(1 for r in rows if not r["answer"].strip()))}
     k = int(y.sum())
     out["accuracy"] = {"correct": k, "rate": k / n, "wilson95": wilson(k, n)}
+    kr = int(y_rule.sum())
+    out["accuracy_rule"] = {"correct": kr, "rate": kr / n, "wilson95": wilson(kr, n)}
     ks = int(strict.sum())
     out["accuracy_strict"] = {"correct": ks, "rate": ks / n, "wilson95": wilson(ks, n)}
-    out["f1_only_passes"] = int((y & ~strict).sum())
-
-    ov = set()
-    ovp = os.path.join(RES, "overrides.json")
-    if os.path.exists(ovp):
-        o_ = json.load(open(ovp)).get(tag, {})
-        ov = set(o_.get("wrong", []))
-        ovr = set(o_.get("right", []))
-    else:
-        ovr = set()
-    yh = (y & np.array([r["id"] not in ov for r in rows])) | np.array([r["id"] in ovr for r in rows])
-    kh = int(yh.sum())
-    out["hand_corrected"] = {
-        "overridden_to_wrong": int((y & ~yh).sum()), "overridden_to_right": int((~y & yh).sum()), "correct": kh, "rate": kh / n, "wilson95": wilson(kh, n),
-        "auroc_p_seq": auroc(sig["p_seq"], yh),
-        "auroc_p_seq_ci95": boot(lambda idx: auroc(sig["p_seq"][idx], yh[idx]), n, rng),
-        "halve_wrong_right_kept": halve_point(sig["p_seq"], yh)[0],
-        "halve_wrong_coverage": halve_point(sig["p_seq"], yh)[1],
+    out["f1_only_passes"] = int((y_rule & ~strict).sum())
+    hr = halve_point(sig["p_seq"], y_rule)
+    out["rule_grader"] = {
+        "overridden_to_wrong": int((y_rule & ~y).sum()), "overridden_to_right": int((~y_rule & y).sum()),
+        "auroc_p_seq": auroc(sig["p_seq"], y_rule),
+        "auroc_p_seq_ci95": boot(lambda idx: auroc(sig["p_seq"][idx], y_rule[idx]), n, rng),
+        "halve_wrong_right_kept": hr[0], "halve_wrong_coverage": hr[1], "halve_wrong_cutoff": hr[3],
+        "auroc_shortness": auroc(sig["shortness"], y_rule),
     }
     out["auroc"] = {}
     for name, s in sig.items():
@@ -198,6 +200,7 @@ def analyse(rows, tag):
         out["auroc"][name] = {"value": a, "ci95": ci}
         a2 = auroc(s, strict)
         out["auroc"][name]["strict_grader"] = a2
+        out["auroc"][name]["rule_grader"] = auroc(s, y_rule)
     # paired: p_seq vs shortness
     out["auroc_diff_pseq_minus_shortness"] = {
         "value": out["auroc"]["p_seq"]["value"] - out["auroc"]["shortness"]["value"],
@@ -250,6 +253,23 @@ def analyse(rows, tag):
     for k in range(10, n + 1, max(1, n // 100)):
         pts.append((k / n, float(cum_right[k - 1] / k)))
     out["risk_coverage"] = pts
+    # sensitivity: credit the failures a reader could argue for, which the headline grader does not
+    ids = [r["id"] for r in rows]
+    sens = []
+    for bid in ovb:
+        yb = y.copy()
+        yb[ids.index(bid)] = True
+        sens.append({"id": bid, "alone": {"correct": int(yb.sum()), "auroc_p_seq": auroc(sig["p_seq"], yb)}})
+    if ovb:
+        yb = y.copy()
+        for bid in ovb:
+            yb[ids.index(bid)] = True
+        out["borderline_credited"] = {"ids": ovb, "each": sens, "all": {
+            "correct": int(yb.sum()), "rate": float(yb.mean()), "auroc_p_seq": auroc(sig["p_seq"], yb),
+            "halve_wrong_right_kept": halve_point(sig["p_seq"], yb)[0]}}
+    out["rule_grader"]["auroc_diff_pseq_minus_shortness"] = {
+        "value": auroc(sig["p_seq"], y_rule) - auroc(sig["shortness"], y_rule),
+        "ci95": boot(lambda idx: auroc(sig["p_seq"][idx], y_rule[idx]) - auroc(sig["shortness"][idx], y_rule[idx]), n, rng)}
     out["_y"] = y.tolist()
     out["_p_seq"] = sig["p_seq"].tolist()
     return out, y, sig
@@ -270,22 +290,30 @@ def main(res):
             for r, yy in zip(rows, y):
                 s_, c_, b_ = grade(r["answer"], r["aliases"])
                 gf.write(json.dumps({"id": r["id"], "question": r["question"], "answer": r["answer"],
-                                     "aliases_head": r["aliases"][:6], "strict": bool(s_), "correct": bool(c_),
+                                     "aliases_head": r["aliases"][:6], "strict": bool(s_), "rule_correct": bool(c_), "hand_correct": bool(yy),
                                      "best_f1": round(b_, 3), "p_seq": round(math.exp(sum(r["logprobs"])), 4)}) + "\n")
         results[tag] = o
         lines.append(f"=== {tag}: n={o['n']} (truncated at 16 tokens: {o['truncated']}, empty: {o['empty_answers']})")
         a = o["accuracy"]
-        lines.append(f"accuracy (alias or F1>=0.5): {100*a['rate']:.1f}%  ({a['correct']}/{o['n']}), 95% Wilson {100*a['wilson95'][0]:.1f} to {100*a['wilson95'][1]:.1f}")
+        lines.append(f"PRIMARY grader = hand-corrected. accuracy: {100*a['rate']:.1f}%  ({a['correct']}/{o['n']}), 95% Wilson {100*a['wilson95'][0]:.1f} to {100*a['wilson95'][1]:.1f}")
+        a = o["accuracy_rule"]
+        r_ = o["rule_grader"]
+        lines.append(f"rule grader (alias or F1>=0.5): accuracy {100*a['rate']:.1f}%  ({a['correct']}/{o['n']}), 95% Wilson {100*a['wilson95'][0]:.1f} to {100*a['wilson95'][1]:.1f}; AUROC p_seq {r_['auroc_p_seq']:.3f} [{r_['auroc_p_seq_ci95'][0]:.3f}, {r_['auroc_p_seq_ci95'][1]:.3f}]; shortness {r_['auroc_shortness']:.3f}; halving wrong keeps {100*r_['halve_wrong_right_kept']:.1f}% of right at cutoff {r_['halve_wrong_cutoff']:.3f}")
         a = o["accuracy_strict"]
-        lines.append(f"accuracy (strict alias match): {100*a['rate']:.1f}%  ({a['correct']}/{o['n']}); F1-only passes: {o['f1_only_passes']}")
-        lines.append("AUROC (right vs wrong), 95% bootstrap [strict grader]:")
+        lines.append(f"strict alias match: accuracy {100*a['rate']:.1f}%  ({a['correct']}/{o['n']}); rule-only (F1) passes: {o['f1_only_passes']}")
+        dr = r_["auroc_diff_pseq_minus_shortness"]
+        lines.append(f"rule grader: p_seq minus shortness {dr['value']:.3f} [{dr['ci95'][0]:.3f}, {dr['ci95'][1]:.3f}]")
+        lines.append(f"hand corrections to the rule grader: {r_['overridden_to_wrong']} passes read as wrong, {r_['overridden_to_right']} failures read as right")
+        lines.append("AUROC (right vs wrong), hand-corrected, 95% bootstrap  [rule grader] [strict grader]:")
         for name, v in o["auroc"].items():
-            lines.append(f"  {name:16s} {v['value']:.3f} [{v['ci95'][0]:.3f}, {v['ci95'][1]:.3f}]   [{v['strict_grader']:.3f}]")
+            lines.append(f"  {name:16s} {v['value']:.3f} [{v['ci95'][0]:.3f}, {v['ci95'][1]:.3f}]   [{v['rule_grader']:.3f}] [{v['strict_grader']:.3f}]")
         d = o["auroc_diff_pseq_minus_shortness"]
         lines.append(f"  p_seq minus shortness: {d['value']:.3f} [{d['ci95'][0]:.3f}, {d['ci95'][1]:.3f}]")
         e = o["ece_p_seq"]
-        h = o["hand_corrected"]
-        lines.append(f"hand-corrected grader ({h['overridden_to_wrong']} passes read as wrong, {h['overridden_to_right']} failures read as right): accuracy {100*h['rate']:.1f}% ({h['correct']}/{o['n']}), AUROC p_seq {h['auroc_p_seq']:.3f} [{h['auroc_p_seq_ci95'][0]:.3f}, {h['auroc_p_seq_ci95'][1]:.3f}], halving wrong keeps {100*h['halve_wrong_right_kept']:.1f}% of right")
+        if "borderline_credited" in o:
+            bc = o["borderline_credited"]
+            parts = ", ".join(f"{x['id']} alone: AUROC {x['alone']['auroc_p_seq']:.3f}" for x in bc["each"])
+            lines.append(f"sensitivity, failures a reader could credit ({', '.join(bc['ids'])}): {parts}; both: accuracy {100*bc['all']['rate']:.1f}% ({bc['all']['correct']}/{o['n']}), AUROC {bc['all']['auroc_p_seq']:.3f}, halving wrong keeps {100*bc['all']['halve_wrong_right_kept']:.1f}% of right")
         lines.append(f"ECE of p_seq (10 bins): {e['value']:.3f} [{e['ci95'][0]:.3f}, {e['ci95'][1]:.3f}]; mean p_seq {o['mean_p_seq']:.3f} vs accuracy {o['accuracy']['rate']:.3f}")
         lines.append(f"ECE of mean_token_p: {o['ece_mean_token_p']['value']:.3f}")
         lines.append(f"Brier p_seq {o['brier_p_seq']:.3f} vs constant {o['brier_constant']:.3f}")

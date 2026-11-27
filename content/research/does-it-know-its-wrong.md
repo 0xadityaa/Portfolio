@@ -2,7 +2,7 @@
 
 - Topic issue: none (series post #15, backlog order 5)
 - Format: essay (about 1,600 prose words, two figures, one table)
-- Thesis: A small model's probability for its own answer ranks right above wrong (AUROC 0.79 for Qwen2.5-1.5B), and abstaining below 0.225 halves the wrong answers at a 15% cost in right ones, but the number overstates real accuracy, so use it to rank and cut, not to quote.
+- Thesis: A small model's probability for its own answer ranks right above wrong (AUROC 0.84 for Qwen2.5-1.5B, hand-corrected grading), and abstaining below 0.225 halves the wrong answers at a 10% cost in right ones, but the number overstates real accuracy, so use it to rank and cut, not to quote.
 - Reader: an engineer shipping a model that can answer or say "I don't know" (support bot, RAG answerer, router), who has token log probabilities available.
 
 ## What this adds
@@ -25,12 +25,12 @@ Closed-book TriviaQA validation (rc.nocontext, 17,944 questions), a fixed-seed s
 
 | Expectation | Result | Held? |
 | --- | --- | --- |
-| 1.5B accuracy 30 to 40% | 30.4% (22.6 to 39.4), rule grader; 26.8% hand-corrected | Edge of range |
-| 0.5B accuracy 15 to 25% | 14.3% (9.0 to 22.0) | Just below |
-| AUROC 0.75 to 0.85, length under 0.6 | 0.793 (0.689 to 0.883); length 0.581 | Yes |
-| ECE 0.08 to 0.20 | 0.126 (0.101 to 0.221) | Yes |
-| Halving wrong keeps 70 to 80% of right | 85.3% (71.4 to 96.7); split-half 84.5% | No, better |
-| 0.5B AUROC lower by 0.03 to 0.08 | 0.790 vs 0.793; but length baseline 0.754 and confidence adds 0.037 (-0.087 to 0.166) | No |
+| 1.5B accuracy 30 to 40% | 26.8% (19.5 to 35.7), hand-corrected; 30.4% (22.6 to 39.4) with the rule grader | Just below (rule grader: edge of range) |
+| 0.5B accuracy 15 to 25% | 11.6% (6.9 to 18.9), hand-corrected; 14.3% with the rule grader | Below |
+| AUROC 0.75 to 0.85, length under 0.6 | AUROC 0.839 (0.737 to 0.925), length 0.639 (0.530 to 0.746), hand-corrected; rule grader 0.793 and 0.581 | AUROC yes; length no (0.64 hand-corrected, 0.58 rule grader) |
+| ECE 0.08 to 0.20 | 0.144 (0.108 to 0.224) | Yes |
+| Halving wrong keeps 70 to 80% of right | 90.0% (76.7 to 100); split-half 89.5% | No, better |
+| 0.5B AUROC lower by 0.03 to 0.08 | 0.783 vs 0.839 (gap 0.056); length baseline 0.790 and confidence adds -0.007 (-0.143 to 0.134). Rule grader: 0.790 vs 0.793, length 0.754, confidence adds 0.037 (-0.093 to 0.159) | Gap fits, but the intervals overlap almost completely; the grader decides the answer |
 
 ### Environment and raw output
 
@@ -56,7 +56,7 @@ Nothing needed. The post uses first person only for what the run did.
 
 ## Outline
 
-Open on the 9-of-11 and 3-of-26 split. Bold thesis. Short version. How it was measured (formula for the answer probability, grading with the F1 rule and the 8 hand-read passes). Does it separate right from wrong (AUROC, length baseline, grader sensitivity). Is it a real probability (ECE formula, figure 1). What abstaining buys (figure 2, cutoff table, split-half check). Does a smaller model know less (0.5B, length baseline). Limits. Takeaway.
+Open on the 9-of-11 and 2-of-26 split. Bold thesis. Short version. How it was measured (formula for the answer probability, grading: the F1 rule, then my six hand corrections, stated once). Does it separate right from wrong (AUROC, length baseline, grader sensitivity: strict 0.88, corrected 0.84, rule 0.79). Is it a real probability (ECE formula, figure 1). What abstaining buys (figure 2, cutoff table, split-half check). Does a smaller model know less (0.5B, length baseline). Limits. Takeaway.
 
 Figures: `calibration-bands.svg` (share right by confidence band, with the mean stated probability as a tick; clay marks the top band); `abstain-keeps-right.svg` (right kept against wrong given as the cutoff moves; clay marks the halving cutoff).
 

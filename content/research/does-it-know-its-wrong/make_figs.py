@@ -1,4 +1,4 @@
-"""Write the two animated SVG figures from results/analysis.json (the 1.5B run, rule grader).
+"""Write the two animated SVG figures from results/analysis.json (the 1.5B run, hand-corrected grader).
 
 usage: python make_figs.py RESULTS_DIR OUT_DIR
 Outputs OUT_DIR/calibration-bands.svg and OUT_DIR/abstain-keeps-right.svg
