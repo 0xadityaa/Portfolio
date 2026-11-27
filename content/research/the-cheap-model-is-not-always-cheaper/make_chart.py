@@ -1,13 +1,30 @@
-"""Draw cost per useful answer against failure cost as an SVG (standard library only).
+"""Writes the two animated figures for the post into public/images/blog/:
+cost-per-useful-answer.svg (from prices.json and the formulas in cost_model.py)
+and cascade-leak-limit.svg (the f* table in output.txt, section 6).
+Standard library only.
 
-    python3 make_chart.py ../../../public/images/blog/cost-per-useful-answer.svg
+    python3 make_chart.py
 """
 import json
 import os
-import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(HERE, "..", "..", "..", "public", "images", "blog")
 P = json.load(open(os.path.join(HERE, "prices.json")))["models"]
+INK, MUTED, LINE, BG, CLAY = "#FAF9F5", "#B5B3AA", "#474743", "#272725", "#DB8061"
+STYLE = ('<style data-standalone="">text{font-family:"DM Sans",Helvetica,Arial,sans-serif}'
+         '.m{font-family:"DM Mono",Menlo,Consolas,monospace}'
+         '.h{font-family:Newsreader,Georgia,serif;font-weight:500}</style>')
+
+
+def head(h, label):
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" data-viz="" viewBox="0 0 560 {h}" width="560" height="{h}" '
+            f'role="img" aria-label="{label}">{STYLE}<rect width="560" height="{h}" fill="{BG}"/>')
+
+
+def title(t, sub):
+    return (f'<g class="a-fade" style="--d:0s;--t:.5s"><text class="h" x="24" y="42" font-size="24" fill="{INK}">{t}</text>'
+            f'<text x="24" y="66" font-size="15" fill="{MUTED}">{sub}</text></g>')
 
 
 def cost(m, tin, tout):
@@ -31,59 +48,63 @@ def cascade(f, F):
     return (spend + F * bad) / good
 
 
-F_MAX, Y_MAX = 0.50, 0.14
-X0, X1, Y0, Y1 = 90, 760, 400, 70   # plot box in svg pixels
-
-
-def px(F):
-    return X0 + (X1 - X0) * F / F_MAX
-
-
-def py(y):
-    return Y0 - (Y0 - Y1) * y / Y_MAX
-
-
-def path(fn):
-    pts = [(px(i * F_MAX / 100), py(fn(i * F_MAX / 100))) for i in range(101)]
-    return "M" + " L".join(f"{x:.1f},{y:.1f}" for x, y in pts)
-
-
 F_STAR = (c_e / S_E - c_c / S_C) / (1 / S_C - 1 / S_E)
 y_star = single(c_c, S_C, F_STAR)
 
-INK, BG, ACC = "#FAF9F5", "#30302E", "#D97757"
-GRID, CHEAP, CASC = "#4A4A47", "#A8A69E", "#8FBF9F"
+# ---------- Figure 1: cost per useful answer ----------
+L, R, T0, B = 72, 400, 100, 290
+FMAX, YMAX = 0.50, 0.14
+px = lambda F: L + (R - L) * F / FMAX
+py = lambda y: B - (B - T0) * y / YMAX
 
-out = []
-out.append(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 500" width="820" height="500" role="img" aria-labelledby="t d">')
-out.append('<title id="t">Cost per useful answer against the cost of a wrong answer</title>')
-out.append(
-    f'<desc id="d">Line chart. A cheap model alone gets expensive fast as the cost of a wrong answer rises, and crosses the expensive model alone at about {F_STAR:.2f} dollars. '
-    f'A cascade with a good verifier stays lowest from about 3 cents up; a cascade whose verifier passes half of wrong answers climbs above the expensive model alone.</desc>')
-out.append(f'<rect width="820" height="500" fill="{BG}"/>')
-out.append(f'<text x="90" y="38" fill="{INK}" font-family="Georgia, serif" font-size="20">Cost per useful answer, as a wrong answer gets costlier</text>')
-# grid + axes
-for yv in [0, 0.02, 0.04, 0.06, 0.08, 0.10, 0.12, 0.14]:
-    out.append(f'<line x1="{X0}" y1="{py(yv):.1f}" x2="{X1}" y2="{py(yv):.1f}" stroke="{GRID}" stroke-width="1"/>')
-    out.append(f'<text x="{X0-10}" y="{py(yv)+4:.1f}" fill="{INK}" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="end">${yv:.2f}</text>')
-for xv in [0, 0.1, 0.2, 0.3, 0.4, 0.5]:
-    out.append(f'<text x="{px(xv):.1f}" y="{Y0+22}" fill="{INK}" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle">${xv:.2f}</text>')
-out.append(f'<text x="{(X0+X1)//2}" y="{Y0+46}" fill="{INK}" font-family="Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle">Cost of one wrong answer (assumption, swept)</text>')
-out.append(f'<text transform="translate(26,{(Y0+Y1)//2}) rotate(-90)" fill="{INK}" font-family="Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle">Cost per useful answer</text>')
-# lines
-out.append(f'<path d="{path(lambda F: single(c_c, S_C, F))}" fill="none" stroke="{CHEAP}" stroke-width="2.5"/>')
-out.append(f'<path d="{path(lambda F: single(c_e, S_E, F))}" fill="none" stroke="{INK}" stroke-width="2.5"/>')
-out.append(f'<path d="{path(lambda F: cascade(0.10, F))}" fill="none" stroke="{CASC}" stroke-width="2.5"/>')
-out.append(f'<path d="{path(lambda F: cascade(0.50, F))}" fill="none" stroke="{CASC}" stroke-width="2.5" stroke-dasharray="7 5"/>')
-# crossover
-out.append(f'<circle cx="{px(F_STAR):.1f}" cy="{py(y_star):.1f}" r="7" fill="none" stroke="{ACC}" stroke-width="3"/>')
-out.append(f'<text x="{px(F_STAR)-4:.1f}" y="{py(y_star)-48:.1f}" text-anchor="end" fill="{ACC}" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="bold">break-even at ${F_STAR:.3f}</text>')
-# direct labels
-out.append(f'<text x="{px(0.50)-6:.1f}" y="{py(single(c_c, S_C, 0.50))-10:.1f}" fill="{CHEAP}" font-family="Helvetica, Arial, sans-serif" font-size="13" text-anchor="end">cheap alone (80% right)</text>')
-out.append(f'<text x="{px(0.0)+8:.1f}" y="{py(single(c_e, S_E, 0.0))-22:.1f}" fill="{INK}" font-family="Helvetica, Arial, sans-serif" font-size="13" text-anchor="start">expensive alone (95%)</text>')
-out.append(f'<text x="{px(0.50)-6:.1f}" y="{py(cascade(0.50, 0.50))-10:.1f}" fill="{CASC}" font-family="Helvetica, Arial, sans-serif" font-size="13" text-anchor="end">cascade, leaky check (passes 50% of wrong)</text>')
-out.append(f'<text x="{px(0.50)-6:.1f}" y="{py(cascade(0.10, 0.50))+38:.1f}" fill="{CASC}" font-family="Helvetica, Arial, sans-serif" font-size="13" text-anchor="end">cascade, good check (passes 10% of wrong)</text>')
-out.append(f'<text x="90" y="{Y0+72}" fill="{CHEAP}" font-family="Helvetica, Arial, sans-serif" font-size="11.5">Claude Haiku 5.5 vs Opus 5.5, 3,000 in / 500 out tokens, prices checked 2026-11-14. Success rates and the failure cost are assumptions.</text>')
-out.append("</svg>")
-open(sys.argv[1], "w").write("\n".join(out) + "\n")
-print(f"wrote {sys.argv[1]}; break-even {F_STAR:.4f}")
+
+def path(fn):
+    pts = [f"{px(i*FMAX/50):.1f} {py(fn(i*FMAX/50)):.1f}" for i in range(51)]
+    return "M" + "L".join(pts)
+
+
+f1 = head(344, f"Line chart of cost per useful answer as the cost of a wrong answer rises from 0 to 50 cents. The cheap model alone crosses the expensive model alone at {F_STAR:.3f} dollars. A cascade with a check that passes 10 percent of wrong answers stays lowest; one that passes 50 percent climbs above the expensive model alone.")
+f1 += title("The cheap model loses at 11 cents a failure", "Cost per useful answer. Haiku 5.5 vs Opus 5.5, assumed 80% and 95% right.")
+for yv in (0.05, 0.10):
+    f1 += (f'<path class="a-fade" style="--d:.3s;--t:.5s" d="M{L} {py(yv):.1f}H{R}" stroke="{LINE}" stroke-width="1" stroke-dasharray="3 4"/>'
+           f'<text class="m a-fade" style="--d:.4s;--t:.5s" x="{L-8}" y="{py(yv)+5:.1f}" text-anchor="end" font-size="13" fill="{MUTED}">${yv:.2f}</text>')
+f1 += f'<text class="m a-fade" style="--d:.4s;--t:.5s" x="{L-8}" y="{B+5}" text-anchor="end" font-size="13" fill="{MUTED}">$0</text>'
+f1 += f'<path class="a-draw" pathLength="1" style="--d:.15s;--t:.5s" d="M{L} {B}H{R}" stroke="{MUTED}" stroke-width="1.5" stroke-linecap="round" fill="none"/>'
+for xv in (0, 0.1, 0.2, 0.3, 0.4, 0.5):
+    f1 += f'<text class="m a-fade" style="--d:.4s;--t:.5s" x="{px(xv):.1f}" y="{B+22}" text-anchor="middle" font-size="13" fill="{MUTED}">${xv:.1f}</text>'
+f1 += f'<text class="a-fade" style="--d:.4s;--t:.5s" x="{R}" y="{B+44}" text-anchor="end" font-size="13" fill="{MUTED}">cost of one wrong answer</text>'
+series = [("cheap alone", MUTED, "", lambda F: single(c_c, S_C, F), .6),
+          ("Opus alone", INK, "", lambda F: single(c_e, S_E, F), .9),
+          ("cascade, 50% leak", MUTED, ' ', lambda F: cascade(.5, F), 1.2),
+          ("cascade, 10% leak", INK, ' ', lambda F: cascade(.1, F), 1.5)]
+for lab, col, dash, fn, d in series:
+    f1 += (f'<path class="a-draw" pathLength="1" style="--d:{d}s;--t:1s" d="{path(fn)}" fill="none" stroke="{col}" stroke-width="2" '
+           f'stroke-linecap="round" stroke-linejoin="round"{dash}/>')
+    f1 += f'<text class="a-fade" style="--d:{d+.8:.1f}s;--t:.4s" x="{R+10}" y="{py(fn(FMAX))+5:.1f}" font-size="14" fill="{col}">{lab}</text>'
+f1 += (f'<g class="a-fade" style="--d:2.4s;--t:.4s"><path d="M{px(F_STAR):.1f} {py(y_star)-9:.1f}V128" stroke="{CLAY}" stroke-width="1" stroke-dasharray="3 4"/>'
+       f'<g class="a-pop" style="--d:2.5s;--t:.5s"><circle cx="{px(F_STAR):.1f}" cy="{py(y_star):.1f}" r="5" fill="{CLAY}"/></g>'
+       f'<text x="{L+12}" y="120" font-size="15" font-weight="500" fill="{CLAY}">break-even at ${F_STAR:.3f}</text></g>')
+f1 += '</svg>\n'
+open(os.path.join(OUT, "cost-per-useful-answer.svg"), "w").write(f1)
+
+# ---------- Figure 2: how much leak the cascade survives ----------
+# output.txt section 6, Anthropic pair: f* by failure cost
+rows = [("$0.05", 100, "wins at any leak"), ("$0.25", 53.3, "53%"), ("$1", 28.3, "28%"), ("$5", 21.7, "22%")]
+x0, K = 92, 300 / 100
+f2 = head(278, "Bars of the highest share of wrong answers the check can pass before the cascade stops beating Opus alone: it never stops at 5 cents a wrong answer, 53 percent at 25 cents, 28 percent at 1 dollar and 22 percent at 5 dollars.")
+f2 += title("A leaky check costs the cascade its win", "Share of wrong answers the check may pass and still beat Opus.")
+f2 += f'<text class="a-fade" style="--d:.3s;--t:.4s" x="24" y="100" font-size="13" fill="{MUTED}">cost of a wrong answer</text>'
+f2 += f'<path class="a-draw" pathLength="1" style="--d:.15s;--t:.5s" d="M{x0} 108V232" stroke="{MUTED}" stroke-width="1.5" stroke-linecap="round" fill="none"/>'
+for i, (lab, val, txt) in enumerate(rows):
+    y = 114 + i * 32
+    focal = i == 2
+    col = CLAY if focal else MUTED
+    d = .5 + .25 * i
+    w = val * K
+    f2 += f'<text class="m a-fade" style="--d:{d:.2f}s;--t:.4s" x="{x0-10}" y="{y+17}" text-anchor="end" font-size="15" fill="{INK}">{lab}</text>'
+    f2 += f'<rect class="a-growx" style="--d:{d:.2f}s;--t:.6s" x="{x0}" y="{y}" width="{w:.1f}" height="24" rx="2" fill="{col}"/>'
+    f2 += f'<text class="m a-fade" style="--d:{d+.3:.2f}s;--t:.4s" x="{x0+w+8:.1f}" y="{y+17}" font-size="14" fill="{CLAY if focal else INK}">{txt}</text>'
+f2 += f'<text class="a-fade" style="--d:1.9s;--t:.5s" x="24" y="266" font-size="15" fill="{MUTED}">The pricier the failure, the less leak you can afford.</text>'
+f2 += '</svg>\n'
+open(os.path.join(OUT, "cascade-leak-limit.svg"), "w").write(f2)
+print(f"wrote figures; break-even {F_STAR:.4f}")

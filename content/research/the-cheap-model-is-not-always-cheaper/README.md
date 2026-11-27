@@ -7,7 +7,7 @@ The artifact behind my post `content/blog/the-cheap-model-is-not-always-cheaper.
 - `prices.json`: per-million-token prices copied from the live pricing pages on 2026-11-14, with each source URL.
 - `cost_model.py`: the calculator, the break-even solver, the cascade (closed form and seeded Monte Carlo), the leak and hard-case sweeps, and the volume tables.
 - `output.txt`: the raw output of `cost_model.py`.
-- `make_chart.py`: draws the SVG chart for the post.
+- `make_chart.py`: draws the two SVG figures for the post.
 - `EXPECTATION.txt`: my expectations, written before the first run.
 - `social.md`: cuts for Typefully.
 
@@ -31,8 +31,8 @@ From this folder:
 
 ```bash
 python3 cost_model.py > output.txt
-python3 make_chart.py ../../../public/images/blog/cost-per-useful-answer.svg
-xmllint --noout ../../../public/images/blog/cost-per-useful-answer.svg
+python3 make_chart.py
+xmllint --noout ../../../public/images/blog/cost-per-useful-answer.svg ../../../public/images/blog/cascade-leak-limit.svg
 ```
 
 The seed is 20261114, 200,000 tasks per Monte Carlo row. The first command should reproduce the committed `output.txt` byte for byte.

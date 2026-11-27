@@ -53,7 +53,7 @@ At 11 cents. Below that Haiku wins, above it Opus does. Here is cost per useful 
 
 At $0, Haiku is 33 times cheaper per useful answer. At $5, it's 4.4 times more expensive. The lines cross at $0.114.
 
-![Chart: cost per useful answer against the cost of a wrong answer. The cheap model alone crosses the expensive model alone at $0.114; a cascade with a good check stays lowest, while a cascade with a leaky check climbs above the expensive model](/images/blog/cost-per-useful-answer.svg)
+![Line chart of cost per useful answer as the cost of a wrong answer rises from 0 to 50 cents. The cheap model alone crosses the expensive model alone at 0.114 dollars. A cascade with a check that passes 10 percent of wrong answers stays lowest; one that passes 50 percent climbs above the expensive model alone.](/images/blog/cost-per-useful-answer.svg "Haiku 5.5 and Opus 5.5, 3,000 tokens in and 500 out, prices as of 14 November 2026. Success rates (80% and 95%) and the failure cost are assumptions. From [`cost_model.py`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/the-cheap-model-is-not-always-cheaper/cost_model.py) and [`output.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/the-cheap-model-is-not-always-cheaper/output.txt).")
 
 The success-rate gap matters more than the price gap. Shrink it to one point (Haiku at 94%) and it takes a $2.02 failure to flip the choice. The same sums on gpt-5.4-mini and gpt-5.4 ([OpenAI pricing](https://developers.openai.com/api/docs/pricing), only 3.3 times apart) cross at $0.051. The [README](https://github.com/0xadityaa/Portfolio/blob/main/content/research/the-cheap-model-is-not-always-cheaper/README.md) has the break-even table for both pairs.
 
@@ -89,6 +89,8 @@ It erases the win, and sooner than you'd guess. My guess was that about half of 
 | $0.25 | 53% |
 | $1 | 28% |
 | $5 | 22% |
+
+![Bars of the highest share of wrong answers the check can pass before the cascade stops beating Opus alone: it never stops at 5 cents a wrong answer, 53 percent at 25 cents, 28 percent at 1 dollar and 22 percent at 5 dollars.](/images/blog/cascade-leak-limit.svg "Anthropic pair, check passes 95% of right answers, success rates assumed. From section 6 of [`output.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/the-cheap-model-is-not-always-cheaper/output.txt).")
 
 The pricier the failure, the less leak you can afford. At $5 the check must catch about four wrong answers in five. A check that waves wrong answers through is a smoke alarm with a dead battery: the cascade looks insured and isn't.
 
