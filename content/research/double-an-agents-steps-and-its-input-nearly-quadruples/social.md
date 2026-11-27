@@ -27,7 +27,7 @@ Code and data: https://github.com/0xadityaa/Portfolio/tree/main/content/research
 
 $20.43 to $1.72.
 
-That's a simulated 100-step agent run on Sonnet 5.5 with caching off against on, cache assumed always warm. The usual guess is that caching barely helps short runs. At 10 steps it still cuts $0.39 to $0.10.
+That's a simulated 100-step agent run on Sonnet 5.5 with caching off against on, cache assumed always warm. A reasonable guess is that caching barely helps short runs. At 10 steps it still cuts $0.39 to $0.10.
 ---
 Clearing old tool results cuts 100-step agent input from 10.1M tokens to 3.7M.
 
