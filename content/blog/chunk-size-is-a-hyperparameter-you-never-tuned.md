@@ -40,7 +40,7 @@ No, that's a cost trick. Retrieve five chunks and BM25's recall@5 goes from 76.6
 
 ![Bars of tokens handed to the model when BM25 retrieves its top 5 chunks, from 319 at 64-token chunks to 4,988 at 1,024-token chunks, with recall at 5 rising from 76.6 to 95.3 percent.](/images/blog/fixed-k-more-text.svg "BM25 at k = 5, no overlap, mean tokens handed over. From the fixed-k table in [`results/analysis.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/chunk-size-is-a-hyperparameter-you-never-tuned/results/analysis.txt).")
 
-The fair test holds the bill still. Tokens are what you pay for, and a longer prompt makes the model worse at [using what's in the middle](https://arxiv.org/abs/2307.03172). So I set the budget at about 2,000 tokens, with `k` set to 2,000 divided by the chunk size: 31 chunks of 64 tokens, down to 2 chunks of 1,024.
+The fair test holds the bill still. Tokens are what you pay for, and a longer prompt makes the model worse at [using what's in the middle](https://arxiv.org/abs/2307.03172). So I set the budget at about 2,000 tokens, with $$k$$ set to 2,000 divided by the chunk size: 31 chunks of 64 tokens, down to 2 chunks of 1,024.
 
 | Chunk size | k | BM25 | Embeddings |
 | --- | --- | --- | --- |
