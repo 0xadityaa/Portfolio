@@ -1,11 +1,11 @@
 # 4-bit quantization: memory arithmetic and a rounding experiment
 
-The artifact behind the post "What 4-Bit Quantization Actually Costs You". Two parts:
+The artifact behind my post on what 4-bit quantization costs. Two parts:
 
 1. `memory.py`: weight memory at fp16, int8 and int4 (group size 128) for four real model configs, against 24, 48 and 80 GB cards. Standard library only.
 2. `quant_experiment.py`: plain round-to-nearest (RTN) quantization of every transformer-block linear weight in Qwen2.5-0.5B on CPU: reconstruction error, where the error lands, output error on real activations, and WikiText-2 perplexity.
 
-Written and run on 2026-11-14: Python 3.12.8, torch 2.7.1, transformers 4.52.4, safetensors 0.5.3, numpy 2.3.1, pandas 2.2.3, pyarrow 19.0.1, Apple M2 (8 cores, 16 GB), CPU only.
+I wrote and ran everything on 2026-11-14: Python 3.12.8, torch 2.7.1, transformers 4.52.4, safetensors 0.5.3, numpy 2.3.1, pandas 2.2.3, pyarrow 19.0.1, Apple M2 (8 cores, 16 GB), CPU only.
 
 ## 1. Set up
 
@@ -106,7 +106,7 @@ From [arXiv 2404.14047](https://arxiv.org/abs/2404.14047). The paper rounds to o
 
 ## Files
 
-- `EXPECTATION.txt`: written before running anything.
+- `EXPECTATION.txt`: my guesses, written before I ran anything.
 - `fetch.py`, `memory.py`, `quant_experiment.py`: the code. `make_diagram.py` redraws `public/images/blog/weight-memory-vs-cards.svg` from `memory.json`.
 - `configs/`: pinned configs and parameter counts.
 - `output-*.txt`, `results-*.json`, `memory.json`: raw outputs.

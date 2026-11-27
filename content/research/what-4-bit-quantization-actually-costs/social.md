@@ -2,17 +2,17 @@
 
 4-bit saves up to 72% of weight memory. 1% of input channels carry 38% of the error.
 
-Plain rounding on Qwen2.5-0.5B: perplexity 10,816,108 with one scale per matrix, 20.5 with one per 128 weights. Where the damage lands ↓
+I rounded Qwen2.5-0.5B with plain rounding: perplexity 10,816,108 with one scale per matrix, 20.5 with one per 128 weights. Where the damage lands ↓
 
 [image: /images/blog/weight-memory-vs-cards.svg]
 ---
-Same 4 bits, same model, plain rounding. Only one thing changes: how many weights share a scale.
+Same 4 bits, same model, plain rounding. One thing changes: how many weights share a scale.
 
 → one scale per 128 weights: perplexity 20.5
 → one scale per matrix: 10,816,108
 → unquantized: 17.2
 ---
-It's tempting to guess that the top 1% of weights carry 5% to 15% of the error. They carry 1% to 2%.
+I guessed the top 1% of weights would carry 5% to 15% of the error. They carry 1% to 2%.
 
 They hurt by stretching the range. Keep them exact, pick the range from the rest: per-tensor int4 weight error falls from 69.4% to 10.8%.
 ---
@@ -33,7 +33,7 @@ Groups of 128, Qwen2.5-0.5B: int8 weight error 0.64%, int4 10.79%. Perplexity +0
 
 Going from 8 to 4 bits is not a 2x step.
 ---
-Most people say 4-bit makes a model 4x smaller. Counted from real configs, int4 with groups of 128 saves 64% on Llama 3.1 8B and 72% on Llama 3.1 70B.
+"4-bit makes a model 4x smaller" is wrong. I counted from real configs: int4 with groups of 128 saves 64% on Llama 3.1 8B and 72% on Llama 3.1 70B.
 
 Scales and fp16 embeddings eat the rest.
 ---
@@ -57,7 +57,7 @@ Protect what the activations multiply.
 
 4-bit weights save up to 72% of memory, and 1% of input channels carry about 38% of the error.
 
-Group size decides whether 4-bit gives a model or noise: perplexity 20.5 against 10,816,108 on the same model.
+Group size decides whether 4-bit gives you a model or noise: I measured perplexity 20.5 against 10,816,108 on the same model.
 
 <BLOG_URL>
 
@@ -69,9 +69,9 @@ What group size is your 4-bit setup running, and did you ever compare it against
 
 ## Substack Note
 
-10,816,108. That's the perplexity of Qwen2.5-0.5B after every weight in its transformer blocks was rounded to 4 bits, with one scale for each whole matrix. Give every 128 weights their own scale instead, same four bits, and it's 20.5. The unquantized model scores 17.2.
+10,816,108. That's the perplexity of Qwen2.5-0.5B after I rounded every weight in its transformer blocks to 4 bits, with one scale for each whole matrix. Give every 128 weights their own scale instead, same four bits, and it's 20.5. The unquantized model scores 17.2.
 
-It's tempting to guess that the biggest 1% of weights carry 5% to 15% of the error. They carry 1% to 2%. What does concentrate it is activations: 1% of input channels carry about 38% of the error that reaches the output. That's the gap GPTQ and AWQ exist to close.
+I guessed the biggest 1% of weights would carry 5% to 15% of the error. They carry 1% to 2%. What does concentrate it is activations: 1% of input channels carry about 38% of the error that reaches the output. That's the gap GPTQ and AWQ exist to close.
 
 The memory side is kinder. Llama 3.1 70B drops from 131.4 GiB to 37.0 GiB at int4 with groups of 128 and fits a 48 GB card, with room for about 18k tokens of KV cache for one user.
 
