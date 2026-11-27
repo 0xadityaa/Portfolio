@@ -1,5 +1,5 @@
 ---
-title: Prompt Caching Can Make Your Bill 14% Bigger
+title: 'Does Prompt Caching Always Save?'
 publishedAt: '2026-11-14'
 summary: >-
   Prompt caching cut the simulated input bill 88%, yet below 3 requests an hour
