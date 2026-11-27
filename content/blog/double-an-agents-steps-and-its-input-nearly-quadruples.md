@@ -46,7 +46,7 @@ Input tokens billed in total, caching off. The first row matches n(P+U) + g·n(n
 
 Each one flattens it, in a different place.
 
-![Chart: cumulative input tokens against step for five strategies. With no management the total reaches 10.1 million tokens at step 100. Clearing old tool results or compacting every 25 steps ends near 3.6 to 3.8 million, and compacting at 100k tokens ends at 5.7 million](/images/blog/agent-input-tokens-by-strategy.svg)
+![Lines of cumulative input tokens by step. With no management the total reaches 10.1 million at step 100, 55 times the 0.18 million at step 10. Compacting at 100k ends at 5.7 million; clearing or compacting every 25 steps ends near 3.6 to 3.8 million.](/images/blog/agent-input-tokens-by-strategy.svg "Modelled, not a live run: Sonnet 5.5, 8,000-token prefix, 1,837 tokens of history per step. The three grey lines are the sliding clear, the 50k-trigger clear and compact every 25 steps. Series in [`series.json`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/double-an-agents-steps-and-its-input-nearly-quadruples/results/series.json).")
 
 **Clearing** swaps old tool results for a placeholder. Anthropic's [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) does it on the server once input passes a trigger (100,000 tokens by default), keeping the latest few. The history stops growing and the curve turns into a line. My model covers a sliding window and the documented trigger shape.
 
@@ -73,6 +73,8 @@ Total for a 100-step run, input plus output, Sonnet 5.5 prices checked 2026-11-1
 Even at 10 steps it cut the bill from $0.39 to $0.10. Before the run, I guessed in [`EXPECTATION.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/double-an-agents-steps-and-its-input-nearly-quadruples/EXPECTATION.txt) that it might barely help. It does not, because the 0.05x read price swamps the 1.25x write premium.
 
 Now the sliding clear, the obvious design. With caching on, it's nearly worthless: $7.20 against $1.72 for doing nothing. Each step edits the middle of the history, so everything after the edit has to be rewritten. Anthropic's docs warn about this and suggest `clear_at_least` so you clear in big batches.
+
+![Pairs of bars for the 100-step bill with caching off and on. No management falls from $20.43 to $1.72, compacting every 25 steps from $7.48 to $1.21, and a sliding clear only from $7.61 to $7.20.](/images/blog/agent-caching-vs-clearing.svg "Modelled 100-step run, input plus output, Sonnet 5.5 prices checked 2026-11-14, cache assumed always warm. Table in [`model.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/double-an-agents-steps-and-its-input-nearly-quadruples/results/model.txt).")
 
 Batching helps without making clearing free: with tool results doubled, the 50k-trigger clear cost $3.89 of input with caching against $2.65 for doing nothing.
 
