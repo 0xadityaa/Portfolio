@@ -38,7 +38,7 @@ I ran four arms with greedy decoding and the same instruction text. A is the ins
 | C Constrained | 120 of 120 | 100% | 29.2% | 163 / 34 |
 | D 3-shot + constrained | 120 of 120 | 100% | 32.5% | 694 / 26 |
 
-![Bar chart of four setups on 120 messages. Schema-valid output is 57.5% for instruction only and 100% for 3-shot, constrained, and both. All five fields right stays between 26.7% and 32.5% in every setup.](/images/blog/valid-json-vs-right-answers.svg)
+![Paired bars for four setups on 120 messages. Schema-valid output is 57.5% for instruction only and 100% for the other three. All five fields right is 26.7%, 30.8%, 29.2% and 32.5%.](/images/blog/valid-json-vs-right-answers.svg "120 invented support messages, Qwen2.5-0.5B-Instruct, greedy decoding. Instruction-only is scored with fences stripped. Numbers from [`output.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/100-percent-valid-json-only-1-in-3-answers-right/output.txt).")
 
 ## What gets a model to valid JSON: the examples or the mask?
 
@@ -64,6 +64,8 @@ Because "high" is a legal answer. The model picked it for every message in A and
 | B 3-shot | 118 of 120 | 31.7% |
 | C Constrained | 118 of 120 | 30.8% |
 | D 3-shot + constrained | 114 of 120 | 33.3% |
+
+![Bars of how often priority is right: 30.0%, 31.7%, 30.8% and 33.3% across the four setups, against 40% for always answering medium.](/images/blog/valid-json-priority.svg "Truth is 36 high, 48 medium and 36 low of 120, so always medium scores 40% and always high 30%. Numbers from [`output.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/100-percent-valid-json-only-1-in-3-answers-right/output.txt).")
 
 Every arm sits below the best constant guess. The three examples cover a high, a medium and a low and still didn't teach the difference. Everything else was nearly solved: B and D get the other four fields right 99% of the time. Format was never the weak part, and a schema check can't see the weak part, because every wrong answer is a well-formed one.
 
