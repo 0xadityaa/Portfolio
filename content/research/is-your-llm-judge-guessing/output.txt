@@ -1,0 +1,71 @@
+==============================================================================
+raw-0.5b.jsonl (all pairs) | 825 pairs in 655 matchups, 1106 non-tie human votes
+Agreement with humans (per vote, 95% CI, matchup bootstrap)
+  order 1 (original)       51.4% [48.5, 54.5]
+  order 2 (swapped)        48.6% [45.5, 51.5]
+  margin averaged          63.2% [59.5, 66.8]
+  consistent pairs only    n/a (no pairs)
+  flipped pairs only (o1)  51.4% [48.4, 54.4]
+  human vs human          82.6% [77.5, 87.4] (236 pairs with 2+ votes)
+  humans pick first answer 51.4% of votes
+  order 1 re-centred       51.1% [48.0, 54.1]
+  order 2 re-centred       53.2% [50.0, 56.2]
+  'pick the longer answer' 73.2% [70.0, 76.5]
+  averaged verdict = longer answer in 63.6% of pairs; corr(margin, log length ratio) 0.19
+Position bias
+  picks A, order 1         100.0% [100.0, 100.0]
+  picks A, order 2         100.0% [100.0, 100.0]
+  picks A, both orders     100.0% [100.0, 100.0]
+Flip rate (same position both orders)
+  observed                 100.0% [100.0, 100.0]
+  if orders independent   100.0%
+  of which both-A / both-B 100.0% / 0.0%
+  consistent share         0.0% [0.0, 0.0]
+  flip rate by confidence tercile (min |margin| over both orders, low to high): 100% (n=275), 100% (n=275), 100% (n=275)
+  median |margin| 1.91; mean A+B probability mass 0.9994
+==============================================================================
+raw-0.5b.jsonl (same 100 pairs as raw-1.5b.jsonl) | 100 pairs in 98 matchups, 134 non-tie human votes
+Agreement with humans (per vote, 95% CI, matchup bootstrap)
+  order 1 (original)       53.0% [43.1, 63.2]
+  order 2 (swapped)        47.0% [36.9, 57.4]
+  margin averaged          64.9% [55.0, 74.0]
+  consistent pairs only    n/a (no pairs)
+  flipped pairs only (o1)  53.0% [42.7, 62.9]
+  order 1 re-centred       52.2% [41.8, 62.7]
+  order 2 re-centred       53.0% [42.6, 63.0]
+  'pick the longer answer' 68.7% [58.5, 78.7]
+  averaged verdict = longer answer in 65.0% of pairs; corr(margin, log length ratio) 0.33
+Position bias
+  picks A, order 1         100.0% [100.0, 100.0]
+  picks A, order 2         100.0% [100.0, 100.0]
+  picks A, both orders     100.0% [100.0, 100.0]
+Flip rate (same position both orders)
+  observed                 100.0% [100.0, 100.0]
+  if orders independent   100.0%
+  of which both-A / both-B 100.0% / 0.0%
+  consistent share         0.0% [0.0, 0.0]
+  flip rate by confidence tercile (min |margin| over both orders, low to high): 100% (n=34), 100% (n=33), 100% (n=33)
+  median |margin| 1.89; mean A+B probability mass 0.9995
+==============================================================================
+raw-1.5b.jsonl (all pairs scored) | 100 pairs in 98 matchups, 134 non-tie human votes
+Agreement with humans (per vote, 95% CI, matchup bootstrap)
+  order 1 (original)       48.5% [38.5, 58.8]
+  order 2 (swapped)        64.2% [53.9, 74.3]
+  margin averaged          73.1% [63.0, 82.7]
+  consistent pairs only    65.5% [48.1, 83.3]
+  flipped pairs only (o1)  36.7% [24.7, 49.4]
+  order 1 re-centred       71.6% [62.6, 79.7]
+  order 2 re-centred       63.4% [53.1, 73.8]
+  'pick the longer answer' 68.7% [58.3, 78.6]
+  averaged verdict = longer answer in 84.0% of pairs; corr(margin, log length ratio) 0.77
+Position bias
+  picks A, order 1         25.0% [16.2, 33.7]
+  picks A, order 2         33.0% [24.0, 42.6]
+  picks A, both orders     29.0% [22.5, 35.9]
+Flip rate (same position both orders)
+  observed                 60.0% [50.5, 69.7]
+  if orders independent   58.5%
+  of which both-A / both-B 9.0% / 51.0%
+  consistent share         40.0% [30.5, 50.0]
+  flip rate by confidence tercile (min |margin| over both orders, low to high): 68% (n=34), 55% (n=33), 58% (n=33)
+  median |margin| 0.78; mean A+B probability mass 0.9997
