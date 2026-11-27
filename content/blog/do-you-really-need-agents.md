@@ -1,5 +1,5 @@
 ---
-title: Do You Really Need AI Agents?
+title: 'Do You Really Need Agents?'
 publishedAt: '2025-03-30'
 summary: >-
   Usually not. Most LLM features are cheaper, faster, and easier to trust as a

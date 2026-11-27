@@ -55,6 +55,7 @@ for (const post of posts) {
         .map((tag) => tag.toLowerCase().replace(/[^a-z0-9]/g, ""))
         .filter(Boolean)
         .slice(0, 4),
+      published: data.draft !== true,
     },
   });
 

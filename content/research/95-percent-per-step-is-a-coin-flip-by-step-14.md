@@ -12,7 +12,7 @@ Prior art, all checked 2026-11-14:
 - [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents) (Anthropic): names compounding errors, sandbox testing, stopping conditions, checkpoints. Gives no numbers.
 - [τ-bench](https://arxiv.org/abs/2406.12045): measures reliability across repeated trials with pass^k, on real model runs. Does not separate retry, checkpoint, and idempotency.
 - [Measuring AI Ability to Complete Long Software Tasks](https://arxiv.org/abs/2503.14499) (METR): task length at 50% and 80% success. Does not say what to do about the gap.
-- His own [Do You Really Need AI Agents?](../blog/do-you-really-need-agents.md), whose limits section asked for a run that reports error rate. This post is the error-rate half, simulated.
+- His own [Do You Really Need Agents?](../blog/do-you-really-need-agents.md), whose limits section asked for a run that reports error rate. This post is the error-rate half, simulated.
 
 What it adds: one table that puts the failure-handling strategies (retries, persistent failures, checkpoints, non-idempotent steps) side by side on the same seeded task, with calls per completed task as the cost, so the reader can see which lever moves the number.
 

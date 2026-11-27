@@ -1,12 +1,20 @@
 /**
- * Calculate reading time based on word count
- * Average reading speed: 200 words per minute
+ * Calculate reading time from the prose a reader actually reads.
+ * Strips code blocks, image lines, HTML tags, table rows, link URLs and bare
+ * URLs, then counts words at 230 wpm and rounds up.
  */
 export function calculateReadingTime(content: string): number {
-  const wordsPerMinute = 200;
-  const wordCount = content.trim().split(/\s+/).length;
-  const readingTime = Math.ceil(wordCount / wordsPerMinute);
-  return readingTime;
+  const wordsPerMinute = 230;
+  const text = content
+    .replace(/^---[\s\S]*?\n---\n/, "")
+    .replace(/```[\s\S]*?```/g, "")
+    .replace(/^!\[.*$/gm, "")
+    .replace(/<[^>]+>/g, "")
+    .replace(/^\|.*$/gm, "")
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/https?:\/\/\S+/g, "");
+  const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
+  return Math.ceil(wordCount / wordsPerMinute);
 }
 
 /**

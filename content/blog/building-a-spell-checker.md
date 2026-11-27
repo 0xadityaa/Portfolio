@@ -1,5 +1,5 @@
 ---
-title: 'I Built a Spell Checker to Watch an Algorithm Think'
+title: How Spell Checkers Think
 publishedAt: '2024-11-11'
 summary: 'A spell checker is edit distance plus a dictionary. Here''s how Levenshtein distance works, with code and a visualizer that shows the matrix filling in.'
 tags:
@@ -8,6 +8,7 @@ tags:
 updated: '2026-10-10'
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
 devto_url: 'https://dev.to/0xadityaa/building-a-spell-checker-3i19'
+draft: true
 ---
 
 Hey fellow devs! 👋 Let me tell you about my little adventure with the [Levenshtein distance algorithm](https://en.wikipedia.org/wiki/Levenshtein_distance). You know those moments when you find something that makes you go *"wait, that's actually pretty cool"*? This was one of those.

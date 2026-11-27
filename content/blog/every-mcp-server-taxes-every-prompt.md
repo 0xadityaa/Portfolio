@@ -1,9 +1,10 @@
 ---
-title: 'Your MCP Servers Eat 24,000 Tokens Before You Type'
+title: 'What Do MCP Servers Cost?'
 publishedAt: '2026-11-16T20:17:56.100Z'
+updated: '2026-11-27'
 summary: >-
   Ten popular MCP servers add 23,895 tokens to every request, 92% of a short
-  prompt. Caching cuts the price 95%, not the length.
+  prompt. Caching cuts the bill 95%, not the context length.
 tags:
   - mcp
   - llm
@@ -13,32 +14,30 @@ devto_url: 'https://dev.to/0xadityaa/your-mcp-servers-eat-24000-tokens-before-yo
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/143'
 ---
 
-Ten MCP servers add 23,895 tokens to every request, before you've typed a word.
+Back when I wrote [What Exactly Is MCP?](/blog/what-exactly-is-mcp), I tossed in one casual line about how connecting ten servers makes your model burn tokens reading tool menus. I never actually measured it.
 
-Is that a rounding error or a real bill? I started eleven servers on my laptop to find out.
+Recently I got curious enough to stop guessing. I booted up eleven popular MCP servers on my laptop, asked each one for its tool list, and counted the tokens.
 
-If you're running ten servers, every model call starts with a 24k-token bill, even when the model never touches a tool. In [What Exactly Is MCP?](/blog/what-exactly-is-mcp) I wrote one line about that cost and never measured it. On 14 November 2026 I asked each server for its tool list and counted the tokens.
-
-My claim: **tool definitions are a fixed cost on every request, they're easy to never measure, and past a handful of servers they're most of what you send.**
+**Ten MCP servers add 23,895 tokens to every single request before you've typed a single word.** Tool definitions are a quiet fixed tax on every turn, and past a handful of servers, they're almost the entire prompt you're sending.
 
 ## The short version
 
-- Eleven servers, 146 tools, 24,395 tokens of definitions. Ten of them: 23,895.
-- `chrome-devtools` is 6,751 tokens. `fetch` is 296. Tool count and schema size matter more than server count.
-- Against a short 2,000-token prompt, five servers are 84% of the input and ten are 92%.
-- At 20,000 calls a day on Sonnet 5.5, ten servers cost $28,674 a month uncached. Caching cuts that to $1,433.70. It doesn't make the tokens free.
+- Across eleven servers (146 tools total), definitions came to 24,395 tokens. Ten of them add up to 23,895.
+- `chrome-devtools` alone is 6,751 tokens, while `fetch` is just 296. Schema bloat matters way more than raw server count.
+- Next to a normal 2,000-token prompt, five servers eat 84% of your input, and ten servers eat 92%.
+- At 20,000 calls a day on Sonnet 5.5, ten servers cost $28,674 a month uncached. Prompt caching cuts that to $1,433.70, but it doesn't shrink what the model has to read.
 
-## How do you count a tool menu?
+## How I actually counted the menu
 
-You ask for it. An [MCP server](https://modelcontextprotocol.io/specification/latest/server/tools) advertises its tools through a `tools/list` request, and the reply holds each tool's name, description and a JSON Schema for its arguments. Your client pastes that list into every request it sends to the model. That's the tax.
+Every [MCP server](https://modelcontextprotocol.io/specification/latest/server/tools) advertises what it can do via a `tools/list` request. Back comes a big JSON payload containing every tool's name, description, and argument schema. Your client silently glues that entire menu onto every request it sends to the model.
 
-I wrote a small dependency-free Node client that starts a server over stdio and saves the raw reply. I pointed it at the [reference servers](https://github.com/modelcontextprotocol/servers) (`filesystem`, `memory`, `everything`, `sequential-thinking`, `fetch`, `git`, `time`) plus `github`, [Playwright](https://github.com/microsoft/playwright-mcp), [Context7](https://github.com/upstash/context7) and [Chrome DevTools](https://github.com/ChromeDevTools/chrome-devtools-mcp). Then I counted tokens with [tiktoken](https://github.com/openai/tiktoken)'s `o200k_base`. The client, raw JSON and commands are in [the artifact folder](https://github.com/0xadityaa/Portfolio/tree/main/content/research/every-mcp-server-taxes-every-prompt).
+On 14 November 2026, I wrote a tiny dependency-free Node script ([`list-tools.mjs`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/every-mcp-server-taxes-every-prompt/list-tools.mjs)) that spins up a server over stdio and dumps its raw `tools/list` reply. I ran it against the [reference servers](https://github.com/modelcontextprotocol/servers) (`filesystem`, `memory`, `everything`, `sequential-thinking`, `fetch`, `git`, `time`) plus `github`, [Playwright](https://github.com/microsoft/playwright-mcp), [Context7](https://github.com/upstash/context7), and [Chrome DevTools](https://github.com/ChromeDevTools/chrome-devtools-mcp). Then I counted the tokens with [tiktoken](https://github.com/openai/tiktoken)'s `o200k_base` ([`count-tokens.py`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/every-mcp-server-taxes-every-prompt/count-tokens.py)). The script, the [raw JSON](https://github.com/0xadityaa/Portfolio/tree/main/content/research/every-mcp-server-taxes-every-prompt/raw), and exact commands are all sitting in [the artifact folder](https://github.com/0xadityaa/Portfolio/tree/main/content/research/every-mcp-server-taxes-every-prompt).
 
-Before running it I wrote down a guess: ten servers at 25,000 to 40,000 tokens. The real number came in lower, because my "heavy" servers weren't as heavy as I'd guessed.
+Before running it, I guessed ten servers would land somewhere between 25,000 and 40,000 tokens. It came in just under that, mostly because a couple of servers I expected to be big were lean.
 
-## Which server is the fat one?
+## Which servers are eating all the tokens?
 
-`chrome-devtools`, by a distance. It's 6,751 tokens, and `fetch` is 296.
+`chrome-devtools` is the biggest at 6,751 tokens. `fetch` is the smallest at 296.
 
 | Server | Tools | Tokens |
 | --- | ---: | ---: |
@@ -54,29 +53,31 @@ Before running it I wrote down a guess: ten servers at 25,000 to 40,000 tokens. 
 | `sequential-thinking` | 1 | 489 |
 | `fetch` | 1 | 296 |
 
-Tools average 100 to 200 tokens each, but a few are fat. `context7`'s `resolve-library-id` alone is 608 tokens, in a server with two tools.
+Most tools average 100 to 200 tokens, though a few individual schemas are much bigger. `context7`'s `resolve-library-id` alone is 608 tokens, inside a server that only has two tools.
 
-Stack them in that order and it climbs fast: 2,925 tokens for one server, 5,150 for three, 10,417 for five, 23,895 for ten. Order matters, so I also averaged over every possible pick. The mean five-server setup is 11,089 tokens, ranging from 3,782 to 18,892. The two browser servers alone are 10,685.
+Stacked, they add up fast: 2,925 tokens for one server, 5,150 for three, 10,417 for five, and 23,895 for ten. Since pick order matters, I also averaged across every possible combination of five servers. The mean five-server setup lands at 11,089 tokens (ranging from 3,782 to 18,892). The two browser servers alone come to 10,685 tokens.
 
-![Bar chart: tool definitions from 1, 3, 5 and 10 MCP servers cost 2,925, 5,150, 10,417 and 23,895 tokens on every request, against a 2,000-token example prompt for scale](/images/blog/tool-definitions-per-request.svg)
+![Bars growing as servers are added: 2,925 tokens for one, 5,150 for three, 10,417 for five, 23,895 for ten](/images/blog/mcp-server-climb.svg "Running total of tool-definition tokens as servers are added, in the order listed in [`results.md`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/every-mcp-server-taxes-every-prompt/results.md). The shares assume the same 2,000-token prompt.")
 
-## Why does it matter more than it looks?
+## What the ratio looks like
 
-Because it's a ratio, not a number. 23,895 tokens looks tiny next to a 200,000-token window. Next to your actual question it isn't. With a 2,000-token prompt (my number, not a measured one), three servers are 72% of the input, five are 84%, and ten are 92%. It's like handing the waiter a menu twelve times longer than your order, every time you sit down.
+In isolation, 23,895 tokens sounds tiny next to a 200,000-token context window. That's the trap. Compare it against your actual prompt, and the picture flips completely.
 
-And you pay whether or not the model touches a single tool. Anthropic's [pricing page](https://platform.claude.com/docs/en/about-claude/pricing) says tool use is billed as input tokens, including the `tools` parameter.
+![A short 2,000-token prompt as a small sliver beside 23,895 tokens of tool definitions from ten MCP servers, 92 percent of the request](/images/blog/tool-definitions-per-request.svg "Eleven servers were measured. This stack is the ten without `time`: 23,895 tokens across 143 tools. The 2,000-token prompt is an assumed size, picked for scale.")
 
-There's a cost I didn't price, too. Models use information in the middle of a long context [worse than at the edges](https://arxiv.org/abs/2307.03172). And Anthropic's [tool search docs](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool) say tool selection accuracy degrades past 30 to 50 tools. My ten-server setup has 143.
+The orange sliver on the left is your actual 2,000-token question (an illustrative prompt size I picked for scale). Everything else is tool schemas. Three servers make up 72% of the request, five make up 84%, and ten make up 92%. It's like walking into a diner for a coffee and handing the waiter a twelve-page binder every single time you ask for a refill.
 
-Now the money.
+And yes, you pay for that binder even when the model never calls a single tool. Anthropic's [pricing page](https://platform.claude.com/docs/en/about-claude/pricing) confirms that the `tools` parameter is billed straight as input tokens.
 
-## What does it cost in dollars?
+There is also an accuracy tax I didn't put a dollar sign on. Models are measurably [worse at pulling details from the middle of a long context](https://arxiv.org/abs/2307.03172), and Anthropic's [tool search docs](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool) explicitly warn that tool selection degrades once you cross 30 to 50 tools. My ten-server setup had 143.
 
-Overhead tokens, times model calls a day, times 30, times the input price. I copied prices on 2026-11-14: [Anthropic](https://platform.claude.com/docs/en/about-claude/pricing) lists Claude Sonnet 5.5 at $2 per million input tokens and $0.10 for a cache hit. [OpenAI](https://developers.openai.com/api/docs/pricing) lists gpt-5.5 at $5.00 and $0.50 cached.
+## What this turns into on your monthly invoice
 
-"Calls" means model calls, not sessions. An agent that loops six times sends your tools six times. I picked 1,000, 20,000 and 500,000 calls a day as a side project, a small product and a large one.
+The math is simple: overhead tokens times model calls per day times 30 days times input price. I pulled prices on 2026-11-14: [Anthropic](https://platform.claude.com/docs/en/about-claude/pricing) lists Claude Sonnet 5.5 at $2 per million input tokens and $0.10 for a cache hit, and [OpenAI](https://developers.openai.com/api/docs/pricing) lists gpt-5.5 at $5.00 and $0.50 cached.
 
-Ten servers, 23,895 tokens, monthly, overhead only:
+Remember, "calls" means *model calls*, not user sessions. If your agent loops six times to answer one question, it sends that entire 23,895-token menu six times. I picked 1,000, 20,000, and 500,000 calls a day to represent a side project, a growing product, and a busy production app.
+
+Here is the monthly bill for ten servers (23,895 tokens), overhead only:
 
 | Model | Calls/day | Uncached | Fully cached |
 | --- | ---: | ---: | ---: |
@@ -85,37 +86,39 @@ Ten servers, 23,895 tokens, monthly, overhead only:
 | Sonnet 5.5 | 500,000 | $716,850.00 | $35,842.50 |
 | gpt-5.5 | 20,000 | $71,685.00 | $7,168.50 |
 
-Three servers (5,150 tokens) on Sonnet 5.5 come to $309, $6,180 and $154,500 uncached. The full grid, with Opus 5.5 and gpt-6.1-sol, is in `results.md` in the folder.
+Even a modest three-server setup (5,150 tokens) on Sonnet 5.5 comes out to $309, $6,180, and $154,500 a month uncached. (I put the full grid, including Opus 5.5 and gpt-6.1-sol, in [`results.md`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/every-mcp-server-taxes-every-prompt/results.md) in the repo.)
 
-"Fully cached" is a lower bound: every call a cache read, no write charges. Which brings me to the best argument against me.
+"Fully cached" is the optimistic floor: every single call hits cache, zero write fees. Which brings me to the best pushback against this whole post.
 
-## Doesn't caching fix this?
+## Wait, doesn't prompt caching solve this?
 
-Mostly, on price. That's the strongest objection, so here it is properly.
+On price, it solves most of it. That's the strongest counterargument, so it gets full credit.
 
-Tool definitions sit at the front of the request, and [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) works on prefixes in the order tools, system, messages. A stable tool list is a perfect candidate. On Sonnet 5.5 a hit costs $0.10 per million against $2, so 95% off. [OpenAI](https://developers.openai.com/api/docs/guides/prompt-caching) caches automatically from 1,024 tokens and includes tool definitions in the prefix.
+Tool definitions sit right at the front of the request, and [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) caches prefixes in the exact order of tools, system prompt, and messages. A static tool list is the textbook use case. On Sonnet 5.5, a cache read drops the price by 95% ($0.10 per million instead of $2). [OpenAI](https://developers.openai.com/api/docs/guides/prompt-caching) caches prefixes automatically starting at 1,024 tokens, tool definitions included.
 
-Then there's [tool search](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool). You mark tools `defer_loading: true` and only the few the model searches for enter its context. Anthropic's [engineering post](https://www.anthropic.com/engineering/advanced-tool-use) reports one five-server setup going from about 77,000 tokens to about 8,700, and Opus 4 accuracy from 49% to 74%. The same post calls that an 85% cut. Take 85% off my ten servers and 23,895 becomes about 3,600. That's my arithmetic, not something I ran.
+![Monthly bill falls from $28,674 to $1,433.70 with caching, while the 23,895 tokens read per call stay the same](/images/blog/mcp-bill-vs-menu.svg "Monthly overhead for the ten-server stack at 20,000 calls a day on Sonnet 5.5, uncached against fully cached. Fully cached is the optimistic floor: every call hits the cache, with no write fees.")
 
-Both are real wins. Neither makes the tax zero:
+There is also [tool search](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool), where you mark tools `defer_loading: true` so only the ones the model asks for enter its context. Anthropic's [engineering post](https://www.anthropic.com/engineering/advanced-tool-use) showed a five-server setup dropping from roughly 77,000 tokens to 8,700 (an 85% cut), while Opus 4 accuracy jumped from 49% to 74%. Apply that same 85% cut to my ten-server stack and 23,895 tokens shrinks to about 3,600. (That's just my back-of-the-envelope math, not a live run.)
 
-- **Caching has a short life and a fragile key.** The default Anthropic lifetime is 5 minutes, and [changing any tool definition](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) invalidates the cache. A server that returns a different list per user throws it away.
-- **Caching cuts the price, not the length.** The model still reads every token.
-- **Tool search still sends everything.** Anthropic's docs say you send every definition in the `tools` array on every request. Deferral controls what enters the context, not the payload.
-- **Someone has to turn them on.** A chat app that connects ten servers may do neither.
+Both are real wins. Neither removes the tax:
 
-## Where does this post stop being true?
+- **Caches expire fast and break easily.** Anthropic's default cache TTL is 5 minutes, and [tweaking a single tool definition](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) busts the whole prefix. Any server that returns user-specific tool lists throws caching out the window.
+- **Caching cuts the invoice, not the context.** The model still reads all 143 tool schemas on every turn.
+- **Tool search still ships the payload.** Anthropic's docs note that you still send every definition in the `tools` array on each request; deferral controls what enters the model's attention, not what goes over the wire.
+- **It isn't automatic everywhere.** Plenty of desktop chat apps that let you toggle on ten MCP servers do neither.
 
-**Caching may already have fixed your bill.** With a stable tool list and steady traffic, the cached column is your real one, and I wouldn't touch it. That's the [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) case above, and it's the strongest objection I have. One or two small servers, or prompts that are already large, are rounding errors too.
+## Where I'd stop trusting this post
 
-**My counter is a proxy.** `o200k_base` is OpenAI's tokenizer, not Claude's. Trust the ranking and the order of magnitude, not the exact figure in a budget. Your provider's `usage` field is the real number.
+**Prompt caching might already be saving you.** If you have steady traffic and a stable tool list, your real bill looks like the cached column, not the scary uncached one. And if you only connect one or two tiny servers, or your prompts are already 30k tokens long, this is noise.
 
-**Eleven servers I picked.** They're popular and credential-free, which is a bias. Servers behind logins often have more tools, not fewer. And `github` here is the old reference server, not the current one, which I didn't measure.
+**My tokenizer is a proxy.** `o200k_base` is OpenAI's tokenizer, not Claude's. Trust the relative ranking and order of magnitude, then check your own provider's `usage` field before putting numbers in a budget.
 
-**Nothing ran against a live model.** I priced the overhead. I didn't measure latency or whether the model picks worse tools with ten servers. The accuracy figures are Anthropic's own.
+**I only picked eleven credential-free servers.** That biases my sample toward simpler tools. Enterprise servers sitting behind OAuth logins usually ship *more* tools, not fewer. Also, the `github` server I measured is the older reference one, not the newer official release.
 
-## What should you do tomorrow?
+**I didn't run a live model.** I measured tokens and did the pricing arithmetic, not end-to-end latency or tool-calling accuracy. The accuracy numbers come straight from Anthropic's own write-up.
 
-Before you connect another server, run its `tools/list` and count the tokens. It's ten lines of code, and the folder has a client you can copy. My rule of thumb, not a sourced threshold: if a server costs more than about a quarter of your typical prompt and you use it in a small share of requests, defer it or leave it off by default.
+## The takeaway
 
-What would change my mind: a real workload showing cache hit rates above 90% and no accuracy loss at 100-plus tools.
+Before you plug a new MCP server into your agent, run its `tools/list` and count the tokens first. It takes ten lines of code (feel free to grab [my script](https://github.com/0xadityaa/Portfolio/blob/main/content/research/every-mcp-server-taxes-every-prompt/list-tools.mjs) from the repo). My personal rule of thumb: if a server eats more than a quarter of my typical prompt and only gets used on a fraction of turns, I defer it or keep it turned off until I actually need it.
+
+If someone shows me a real production workload holding 90%+ cache hits with zero accuracy dip past 100 tools, I'll happily eat my words. Until then, check the menu size before you hand it to your model.
