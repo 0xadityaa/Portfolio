@@ -8,7 +8,7 @@ GitHub is the whole platform. Content is Markdown in the repo, review happens in
 
 - Install with `npm install --force` (the React 19 peer ranges need it; Vercel does the same).
 - Before opening a pull request, run `npm run posts:check && npm run typecheck && npm run build`. CI runs the same three.
-- Work on a branch and open a pull request. Merging is Aditya's call: a merge is a production deploy. A blog post is approved by his `/publish` comment on its pull request, never by an agent.
+- Work on a branch and open a pull request. Merging is Aditya's call: a merge is a production deploy. Blog posts are the exception: a post's pull request carries a `Publish: YYYY-MM-DD HH:MM` line (Toronto time) and the `Auto-publish` action merges it within an hour of that time, with no human step. Aditya stops one by labelling the pull request `hold`. A post pull request that touches anything outside the post still needs him.
 - Secrets live in GitHub Actions secrets and Vercel env vars. Refer to them by name only.
 
 ## Where things are

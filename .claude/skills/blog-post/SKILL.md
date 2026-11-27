@@ -14,4 +14,4 @@ The process is `docs/blog/workflow.md`. Read it first, then work its stages in o
 5. **Check.** `npm run posts:check && npm run build`. Then find each of the six things `style.md` requires and fix the post until all six are there.
 6. **Pull request.** Branch `post/<slug>`, fill in the template's post section, `Closes #<topic issue>`. Report the pull request link and the preview URL of the post.
 
-Stop at the pull request. Aditya approves by commenting `/publish <date>` on it; scheduling, merging, and cross-posting happen on their own after that.
+Stop at the pull request, with a `Publish: YYYY-MM-DD HH:MM` line (Toronto time) in its description. The `Auto-publish` action merges it within an hour of that time and cross-posting follows, with no further step. Aditya can still comment `/publish <date>` to publish early, or label the pull request `hold` to stop it.
