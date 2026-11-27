@@ -1,0 +1,45 @@
+ 3/50 What is the capital of Brazil? Answer with just  greedy 'Brasília'       greedy=1 T0.2=1.00 T0.7=0.73 T1=0.67 T1.5=0.20  [70s]
+21/50 Which organelle is called the powerhouse of the  greedy 'The organelle ' greedy=1 T0.2=1.00 T0.7=0.67 T1=0.50 T1.5=0.10  [148s]
+22/50 How many continents are there? Answer with just  greedy 'There are 5 co' greedy=0 T0.2=0.03 T0.7=0.20 T1=0.20 T1.5=0.13  [231s]
+44/50 What is 91 - 47? Answer with just the number.    greedy '91 - 47 = 44'   greedy=1 T0.2=1.00 T0.7=0.90 T1=0.87 T1.5=0.50  [300s]
+
+mean accuracy over 50 questions, with 95% bootstrap interval over questions (10,000 resamples)
+  greedy           0.740  [0.620, 0.860]
+  T=0.2            0.747  [0.628, 0.859]
+  T=0.7            0.707  [0.607, 0.801]
+  T=1.0            0.647  [0.548, 0.740]
+  T=1.5            0.383  [0.297, 0.471]
+
+difference from greedy (setting minus greedy), paired over questions
+  T=0.2            +0.007  [-0.013, +0.029]  questions better 5, worse 4, same 41
+  T=0.7            -0.033  [-0.083, +0.016]  questions better 11, worse 23, same 16
+  T=1.0            -0.093  [-0.158, -0.031]  questions better 11, worse 28, same 11
+  T=1.5            -0.357  [-0.455, -0.261]  questions better 9, worse 37, same 4
+
+questions greedy gets wrong: 13 of 50
+  T=0.2            mean accuracy on those: 0.059; questions where sampling got >=20% right: 2
+  T=0.7            mean accuracy on those: 0.167; questions where sampling got >=20% right: 5
+  T=1.0            mean accuracy on those: 0.151; questions where sampling got >=20% right: 5
+  T=1.5            mean accuracy on those: 0.062; questions where sampling got >=20% right: 1
+questions greedy gets right: 37 of 50
+  T=0.2            mean accuracy on those: 0.988
+  T=0.7            mean accuracy on those: 0.896
+  T=1.0            mean accuracy on those: 0.821
+  T=1.5            mean accuracy on those: 0.496
+
+wrong-for-greedy questions:
+   What is the capital of Australia? Answer with just the city  | greedy said 'Sydney' | T=0.7 acc 0.4
+   What is the capital of Morocco? Answer with just the city na | greedy said 'Marrakech' | T=0.7 acc 0.13333333333333333
+   What is the capital of Nigeria? Answer with just the city na | greedy said 'Istanbul' | T=0.7 acc 0.1
+   What is the hardest natural substance? Answer with just one  | greedy said 'Silicon.' | T=0.7 acc 0.1
+   Which element has atomic number 1? Answer with just the elem | greedy said 'Iron' | T=0.7 acc 0.1
+   Which element has atomic number 6? Answer with just the elem | greedy said 'Iron' | T=0.7 acc 0.1
+   How many continents are there? Answer with just the number. | greedy said 'There are 5 continents: Asia, Africa, North America, South America, and Europe.' | T=0.7 acc 0.2
+   Which country has the largest area? Answer with just the cou | greedy said 'China' | T=0.7 acc 0.23333333333333334
+   Who wrote Romeo and Juliet? Answer with just the surname. | greedy said 'Boccaccio' | T=0.7 acc 0.23333333333333334
+   Who painted the Mona Lisa? Answer with just the surname or f | greedy said 'Francesco del Giocondo' | T=0.7 acc 0.43333333333333335
+   Who was the first person to walk on the Moon? Answer with ju | greedy said 'Yuan Longping' | T=0.7 acc 0.0
+   What is 125 + 387? Answer with just the number. | greedy said '1632' | T=0.7 acc 0.0
+   Which data structure is last in, first out? Answer with just | greedy said 'Queue' | T=0.7 acc 0.13333333333333333
+
+seconds 301; torch 2.7.1; threads 4

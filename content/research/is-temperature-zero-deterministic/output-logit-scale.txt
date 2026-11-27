@@ -1,0 +1,4 @@
+top-1 logit at the first generated position, 200 prompts: min 15.62, median 20.13, max 26.13
+  logit  18.04: bf16 spacing 0.1250
+  logit  20.13: bf16 spacing 0.1250
+  logit  23.42: bf16 spacing 0.1250

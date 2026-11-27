@@ -1,0 +1,5 @@
+uptime before: 22:05  up 39 days,  1:16, 1 user, load averages: 19.74 16.28 13.01
+uptime after determinism.py: 23:22  up 39 days,  2:32, 1 user, load averages: 96.48 78.70 53.20
+uptime after sweep50.py (finished):  5:34  up 39 days,  8:45, 1 user, load averages: 17.26 12.47 11.65
+uptime before sweep50 redo of 4 questions: 18:33  up 39 days, 21:43, 1 user, load averages: 19.91 27.40 29.11
+uptime after redo: 18:38  up 39 days, 21:49, 1 user, load averages: 36.14 32.95 30.99
