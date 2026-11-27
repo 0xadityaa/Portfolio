@@ -319,10 +319,6 @@ export const DATA = {
       ],
       links: [
         {
-          type: "Devlog",
-          href: "/blog/implementing-a-json-parser",
-        },
-        {
           type: "Source",
           href: "https://github.com/0xadityaa/json-parser",
         },

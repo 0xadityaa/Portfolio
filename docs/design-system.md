@@ -100,7 +100,7 @@ Shared hand for all of it: ivory strokes at 2 to 2.5px with round caps and joins
 
 ## Voice and content
 
-- **Casual, first person, a bit cheeky,** like an engineer talking to a friend who codes. He rejected two other registers: terse and factual ("walls of text", "too professional"), and polished marketing ("marketing slop").
+- **Casual, a bit cheeky,** like an engineer talking to a peer who codes. Articles, social posts and READMEs are first person: technical, blunt, witty and never weird (see `docs/blog/style.md`). He rejected two other registers: terse and factual ("walls of text", "too professional"), and polished marketing ("marketing slop").
 - A joke never replaces the fact. Every line still says what the thing is.
 - Short sentences, contractions, plain words. Commas, colons and periods where an em dash would go. No emoji in interface text.
 - **Prose over bullets** in descriptions. He asked for bullet points to be removed from a product description.
@@ -108,7 +108,7 @@ Shared hand for all of it: ivory strokes at 2 to 2.5px with round caps and joins
 - Section titles are one or two plain words: "Building", "Writing", "Open source work".
 - **Numbers carry their conditions.** A stat is a real measurement with what it was measured on, in the label itself. Do not claim "state of the art" as a bare label; say what was beaten, by how much, on how many samples.
 - Do not invent the owner's experiences, opinions or numbers. Take them from the repository or ask.
-- Articles: a question or claim as the title, the thesis in the first few paragraphs, a "The short version" section of three or four bullets near the top, one diagram, a "Where I'd stop trusting this post" section, and an ending that gives a rule to act on. A product may be mentioned once, as where the evidence came from. No call to action.
+- Articles: a question or claim as the title, the thesis in the first few paragraphs, a "The short version" section of three or four bullets near the top, one diagram, a short "Where this stops holding" section, and an ending that gives a rule to act on. A product may be mentioned once, as where the evidence came from. No call to action.
 
 ## Structure
 

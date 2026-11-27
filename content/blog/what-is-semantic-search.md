@@ -1,5 +1,5 @@
 ---
-title: 'Semantic Search: What It Is and How I Built It'
+title: 'What Is Semantic Search?'
 publishedAt: '2025-04-06'
 summary: >-
   Semantic search matches meaning, not keywords. The embedding model was the
