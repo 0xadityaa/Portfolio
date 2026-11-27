@@ -57,7 +57,7 @@ https://www.0xadityaa.dev/blog/every-mcp-server-taxes-every-prompt
 
 ## Singles
 
-The usual guess for ten MCP servers is 25,000 to 40,000 tokens of tool definitions per request.
+A reasonable guess for ten MCP servers is 25,000 to 40,000 tokens of tool definitions per request.
 
 Measured: 23,895.
 
