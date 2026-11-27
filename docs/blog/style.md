@@ -10,24 +10,33 @@ A reviewer should be able to point at each of these.
 2. **An artifact.** Something that did not exist before the post: a measurement, runnable code, a cost calculation with its inputs, a table he compiled, a diagram of his system. The post is the write-up of the artifact. A topic with no artifact becomes a note (see Formats) or waits until it has one.
 3. **Numbers with their papers.** Every cost, speed, or scale claim carries a number, a unit, a link to its source, and the date it was checked. A post about cost shows the arithmetic at three volumes (small, medium, large) so the reader can find themselves on it.
 4. **Links as the evidence trail.** Each named service, pattern, spec, and price links to its primary source at first mention. Expect five or more per 1,000 words.
-5. **Limits.** A section that states the strongest objection in its strongest form, linked to someone who holds it; says where the advice stops applying; and names what he did not test.
-6. **An ending that adds.** The last paragraph gives the decision rule, what would change his mind, or what he will measure next.
+5. **Where this stops holding.** A short section, two to four lines: the strongest objection in its strongest form (linked to someone who holds it), where the advice stops applying, and what was not covered.
+6. **An ending that adds.** The last paragraph gives the decision rule, what would change the conclusion, or what gets measured next.
 
 **Philosophy posts** (tag `philosophy`, usually `syndicate: false`) are the exception: no measurement or artifact is required, and `posts:check` skips the length, link and artifact rules for them. Title, summary, dash and stock-phrase rules still apply. Dashes inside a blockquote are allowed, since quoted text is verbatim. Quote a source in its edition's own translation and link it.
 
 ## Voice
 
-Aditya explaining something to a friend who codes: first person, casual, a little cheeky, sure of his opinion and exact about how far it reaches. It should sound like a person talking, never like documentation. Section headings can be loose too ("The short version", "Where I'd stop trusting this post", "The takeaway").
+Confident, impersonal, no hedging. A sharp engineer talking to a peer who is short on time: direct, a little cheeky, sure. It overrides any older guidance that asks for first person. Never write as Aditya: no "I", "I'm", "I've", "I'd", "my" or "me" in post bodies, headings, summaries, alt text, research READMEs, `social.md`, X posts or Substack Notes. Also no "we", "our" or "us" standing in for the author. A quoted source that says "I" stays as written.
 
-- **Open on what happened.** A real moment with a rough date ("In March our queue bill tripled"), from him. A thought experiment is fine when it is called one.
-- **Size the claim to the evidence.** "I have seen this in one system." "I have not load-tested this." A threshold is either sourced or marked as his rule of thumb.
-- **Short sentences, plain words, contractions.** One idea per paragraph, four sentences at most. Say it once.
-- **Concrete over grand.** "Twelve Lambda invocations per order" beats "significant fan-out".
+- **Say it with "you", plain fact, or the artifact.** "Ten MCP servers add 23,895 tokens to every request." "The script counts the tokens." "The simulation runs 5,000 trials." Name what was measured and at what size, then move on.
+- **Guess, then measure becomes belief, then number.** "The usual guess is 25,000 to 40,000. The real number is 23,895." Never invent who holds the belief. "Most people do X. Measured, it's Y."
+- **Open on the claim or the moment.** A real event with a rough date is fine when the post's facts include it, told without "I". A thought experiment is fine when it is called one.
+- **Size the claim to the evidence, once.** State the sample size and interval near the result and do not re-hedge the same number later. A threshold is either sourced or labelled a rule of thumb.
+- **No shrinking frames.** Cut "this is a test", "just an example", "toy example", "a quick experiment", "a simple demo", "only a simulation, but", "for illustration purposes".
+- **No scattered hedges.** "To be fair", "of course", "it's worth noting", "one caveat", "admittedly", "to be clear" stay out of the body. Caveats that change what the reader does go in one short section.
+- **No throat-clearing openers or summary closers:** "In this post", "Let's", "In conclusion", "To sum up", "Hopefully this helps".
+- **Vary the rhythm.** Not three sentences in a row with the same shape, not "X. Y. Z. That's the point.", and prose where a list reads worse. Short sentences, plain words, contractions, one idea per paragraph.
+- **Concrete over grand.** "Twelve Lambda invocations per order" beats "significant fan-out". Strong verbs, concrete nouns, numbers early.
 - **Fresh phrasing.** Where a stock phrase comes to mind ("hot take", "the hard way", "nobody talks about", "game changer", "everyone and their dog"), write the specific thing it was standing in for. `npm run posts:check` flags these.
 - **Commas, colons, and periods** do the work an em dash would.
 - **Define a term in one clause** the first time it appears.
-- **Humour is welcome** when it is his and it is quick. Visuals earn their place by carrying a point: a diagram, a chart, real output. No GIFs or memes: he had them all removed in October 2026.
+- **Humour is welcome** when it is quick. Visuals earn their place by carrying a point: a diagram, a chart, real output. No GIFs or memes.
 - **Sequels say so.** Link the earlier post in the first paragraph with one sentence on what changed.
+- **Headings** are plain: "The short version", "Where this stops holding", "Not covered", "The takeaway".
+- **Aditya's own product (Hivemind):** third person is fine ("Aditya built...", "Hivemind does..."). Keep it factual, never press-release.
+
+Truth rules do not change: never change, round or invent numbers, and keep comparisons like-for-like.
 
 ## Formats
 
@@ -43,7 +52,7 @@ No fixed template. A shape that works for an essay:
 1. Opening: what happened, then the thesis.
 2. The artifact: what he built or measured, how, and the result, with the diagram or table.
 3. What it means: two to four `##` sections. Headings are questions or plain statements in sentence case.
-4. Limits.
+4. Where this stops holding.
 5. The ending.
 
 Every post has a short version near the top, under the heading "The short version": three or four bullets a reader could stop at. Posts end on the real ending: no sign-off line. The site adds his animated signature under every post.
@@ -58,4 +67,4 @@ Every post has a short version near the top, under the heading "The short versio
 
 ## Before the pull request
 
-Read the draft aloud once and rewrite any sentence he would not say. Then check the six things in "What every post has" one by one and write, in the pull request, where each one is.
+Read the draft once and rewrite any sentence that slips into first person or hedges. Then check the six things in "What every post has" one by one and write, in the pull request, where each one is.

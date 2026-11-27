@@ -4,6 +4,7 @@ publishedAt: '2026-11-26T23:24:46.550Z'
 summary: >-
   A 95%-per-step agent finishes 14 steps 49% of the time. In a simulation,
   checkpoints and idempotency keys beat prompt work when failures are transient.
+updated: '2026-11-26'
 tags:
   - ai
   - agents
@@ -20,9 +21,9 @@ That's a coin flip from a model you'd happily call reliable. So what buys the ot
 
 The arithmetic is one line: 0.95 to the power of 14. If your agent chains ten or more tool calls, it's already running on you.
 
-In [Do You Really Need AI Agents?](/blog/do-you-really-need-agents) I said a fair comparison would report tokens, seconds, and error rate. This is a partial sequel, and only about the error rate. I wrote a seeded simulation of a many-step task and tried five ways of handling failure. It's a model, not a measurement of any real LLM.
+[Do You Really Need AI Agents?](/blog/do-you-really-need-agents) said a fair comparison would report tokens, seconds, and error rate. This is a partial sequel, and only about the error rate. A seeded simulation of a many-step task tries five ways of handling failure.
 
-My claim: **per-step reliability compounds, so long runs fail often even with a good model. Retries only help when failures are transient and steps are safe to repeat. When they are, checkpoints and shorter loops buy back more reliability than a better prompt.**
+The claim: **per-step reliability compounds, so long runs fail often even with a good model. Retries only help when failures are transient and steps are safe to repeat. When they are, checkpoints and shorter loops buy back more reliability than a better prompt.**
 
 ## The short version
 
@@ -41,9 +42,9 @@ A run drops to 50% after `ln 0.5 / ln p` steps: 6.6 at 90%, 13.5 at 95%, 69 at 9
 
 Researchers hit the same wall from the other side. [τ-bench](https://arxiv.org/abs/2406.12045) scores customer-service agents on whether the database ends in the right state, and adds pass^k: the chance the agent solves the same task in all k trials. The paper reports gpt-4o at about 61% on its retail tasks for one trial, and under 25% for eight.
 
-## What did I simulate?
+## What does the simulation do?
 
-A task is `n` steps in a row. Each model call attempts one step and succeeds with probability `p`. I ran 20,000 tasks for 5, 10, 20, and 40 steps at `p` of 0.90, 0.95, and 0.99, with a fixed seed. At 95% and 20 steps the no-retry run finished 35.5%, against a predicted 35.8%. The script, raw output, and full table are [in the repo](https://github.com/0xadityaa/Portfolio/tree/main/content/research/95-percent-per-step-is-a-coin-flip-by-step-14).
+A task is `n` steps in a row. Each model call attempts one step and succeeds with probability `p`. The run covers 20,000 tasks for 5, 10, 20, and 40 steps at `p` of 0.90, 0.95, and 0.99, with a fixed seed. At 95% and 20 steps the no-retry run finished 35.5%, against a predicted 35.8%. The script, raw output, and full table are [in the repo](https://github.com/0xadityaa/Portfolio/tree/main/content/research/95-percent-per-step-is-a-coin-flip-by-step-14).
 
 Five strategies: no retries, retry twice on transient failures, retry twice with half the failures persistent, checkpoint every five steps and resume, and retries on steps that aren't idempotent. Checkpoint and restart runs are capped at 3n calls.
 
@@ -65,7 +66,7 @@ The transient row is the dream. Make half the failures persistent and it collaps
 
 At 90% and 40 steps it's starker. No retries finish 1.5% of runs, transient retries 95.8%, persistent ones 12.6%.
 
-That's the cheap part. Now the part that actually saves you.
+Retries are the cheap part. Checkpoints do the real saving.
 
 ## What do checkpoints buy?
 
@@ -81,24 +82,21 @@ What about a better prompt? Say prompt work moves you from 95% to 99% per step, 
 
 You get the same side effect twice. A step times out after the action landed, the retry does it again, and now there are two charges, two emails, or two tickets.
 
-At 95% and 20 steps, with half of failures being such timeouts, that was 0.537 duplicates per run, and 41.1% of runs had at least one. At 90% and 40 steps: 2.156 per run, 88.0% with at least one. Half being timeouts is my assumption, so trust the shape.
+At 95% and 20 steps, with half of failures being such timeouts, that was 0.537 duplicates per run, and 41.1% of runs had at least one. At 90% and 40 steps: 2.156 per run, 88.0% with at least one. Half being timeouts is an assumption, so trust the shape.
 
-The old fix is [idempotency](https://en.wikipedia.org/wiki/Idempotence), and [Stripe's version](https://docs.stripe.com/api/idempotent_requests) is the one to copy. The client sends an `Idempotency-Key` header, the server saves the first response for that key, and a retry gets the saved response instead of repeating the work. Keys can be pruned after 24 hours. With keys, my simulated runs had zero duplicates at no change in calls.
+The old fix is [idempotency](https://en.wikipedia.org/wiki/Idempotence), and [Stripe's version](https://docs.stripe.com/api/idempotent_requests) is the one to copy. The client sends an `Idempotency-Key` header, the server saves the first response for that key, and a retry gets the saved response instead of repeating the work. Keys can be pruned after 24 hours. With keys, the simulated runs had zero duplicates at no change in calls.
 
 If an agent can call a tool that moves money or sends a message, the tool needs a key. The agent can't be trusted to remember it already did it.
 
-## Where I'd stop trusting this post
+## Where this stops holding
 
-**Steps aren't independent coin flips.** The strongest objection. A strong model often notices a bad result and tries something else, so real curves are flatter than `p^n`. [METR's study of task length](https://arxiv.org/abs/2503.14499) found models got better at adapting to mistakes, and that the task length they finish at 50% reliability has doubled roughly every seven months since 2019. That paper is from March 2025, so lean on the trend. Two things keep me from dropping the model: METR's 80% horizons are 4 to 6 times shorter than its 50% ones, and [Huang et al.](https://arxiv.org/abs/2310.01798) found models can't reliably fix their own reasoning without external feedback. Recovery works when a test fails. It does less when the mistake is silent. τ-bench shows the flattening too: identical 61% coins would pass all eight trials 1.9% of the time (0.61^8), but the paper reports under 25%, because tasks vary.
-
-**I assumed failures are detected.** My simulation knows instantly when a step fails. A real agent can take a wrong step and carry on confidently. Retries and checkpoints don't fix that. Verification does: tests, schema checks, a second pair of eyes.
-
-**The numbers are mine to set.** Persistent share, timeout share, a checkpoint every five steps, the 3n cap. The shape holds. The percentages don't transfer.
-
-**I didn't run a real model.** No tokens, no seconds, no LLM.
+- **Steps aren't independent coin flips.** The strongest objection. A strong model often notices a bad result and tries something else, so real curves are flatter than `p^n`. [METR's study of task length](https://arxiv.org/abs/2503.14499) found models got better at adapting to mistakes, and that the task length they finish at 50% reliability has doubled roughly every seven months since 2019. That paper is from March 2025, so lean on the trend. Two things keep the model standing: METR's 80% horizons are 4 to 6 times shorter than its 50% ones, and [Huang et al.](https://arxiv.org/abs/2310.01798) found models can't reliably fix their own reasoning without external feedback. Recovery works when a test fails. It does less when the mistake is silent. τ-bench shows the flattening too: identical 61% coins would pass all eight trials 1.9% of the time (0.61^8), but the paper reports under 25%, because tasks vary.
+- **Failures are detected instantly.** A real agent can take a wrong step and carry on confidently. Retries and checkpoints don't fix that. Verification does: tests, schema checks, a second pair of eyes.
+- **The knobs are set by hand.** Persistent share, timeout share, a checkpoint every five steps, the 3n cap. The shape holds. The percentages don't transfer.
+- **No real model ran.** No tokens, no seconds, no LLM.
 
 ## The takeaway
 
 Tomorrow, before you make an agent run longer, work out `p^n` with the per-step success you honestly believe. If it's under 90%, skip the prompt rewrite. Cut the run into segments that save state and can be verified, give every side-effect tool an idempotency key, and add retries only for errors you can show are transient.
 
-That's a rule of thumb from a simulation, not a production system. What would change my mind: a real agent on a real task with detected failures and a much flatter curve than `p^n`.
+That's a rule of thumb from a simulation, not a production result. What would change the conclusion: a real agent on a real task with detected failures and a much flatter curve than `p^n`.

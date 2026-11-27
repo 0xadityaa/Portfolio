@@ -14,7 +14,7 @@ What context cap are you running?
 
 One long prompt eats more GPU than the model.
 
-On Llama 3.1 8B, one user at 128k tokens needs 16 GiB of KV cache. The weights are 15.0 GiB. I worked it out from the real config.json files (arithmetic, no inference run). Here's what it does to one card ↓
+On Llama 3.1 8B, one user at 128k tokens needs 16 GiB of KV cache. The weights are 15.0 GiB. The numbers come from the real config.json files (arithmetic, no inference run). Here's what it does to one card ↓
 ---
 Same model, same 80 GB card:
 
@@ -38,13 +38,13 @@ Llama 3.1 8B shares 8 KV heads across 32 query heads. Without that, one 128k use
 
 On the 70B it's 8x: 40 GiB per user as shipped, 320 GiB without.
 ---
-The strongest objection: this is arithmetic, not a benchmark.
+The strongest objection: it's arithmetic, not a benchmark.
 
-An fp8 cache halves it (7 users at 128k, not 3). Prefix caching shares common prompts. I also didn't subtract activations or framework overhead.
+An fp8 cache halves it (7 users at 128k, not 3). Prefix caching shares common prompts. Activations and framework overhead aren't subtracted either.
 
 Those discount the bill. They don't remove it.
 ---
-Want the KV cache calculator? Reply KV and I'll DM it.
+Want the KV cache calculator? Reply KV and it lands in your DMs.
 
 It reads Hugging Face config.json files and prints cache per user and how many full-length users fit on your GPUs. Standard-library Python.
 ---
@@ -62,7 +62,7 @@ Same Llama 3.1 8B, same 80 GB card, same code. The only thing that changed is ho
 
 Your context cap sets your capacity.
 ---
-Most people size a GPU for the model. I computed the cache from config.json instead:
+Most people size a GPU for the model. Computed from config.json, the cache says otherwise:
 
 → Llama 3.1 8B at 128k: 16 GiB per user
 → Its weights: 15.0 GiB
@@ -74,7 +74,7 @@ Eight users at 128k on Llama 3.1 8B is 128 GiB of KV cache.
 
 The model itself is 15.0 GiB.
 
-That's the real cost of "just allow long context".
+That's the real cost of allowing long context.
 ---
 Grouped-query attention cuts Llama 3.1 8B's KV cache 4x.
 
@@ -106,6 +106,6 @@ That's the KV cache: the keys and values a server saves for every token it has a
 
 Grouped-query attention is why it isn't worse. Llama 3.1 8B shares 8 key/value heads across 32 query heads, so without it one 128k user would need 64 GiB.
 
-This is arithmetic from real config files, not a benchmark. I haven't run it on a GPU, and fp8 cache and prefix sharing move the numbers. The table and the caveats are in the post.
+This is arithmetic from real config files, not a benchmark. No GPU run happened, and fp8 cache and prefix sharing move the numbers. The table and the caveats are in the post.
 
 https://www.0xadityaa.dev/blog/your-context-window-is-a-memory-bill

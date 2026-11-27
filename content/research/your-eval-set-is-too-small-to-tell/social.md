@@ -14,7 +14,7 @@ How many examples do you ship prompt changes on?
 
 Your 100-example eval is lying about that 3-point win.
 
-I simulated it 5,000 times. The truly better system looked worse or tied in a third of runs. Here's what it takes to see a 3-point gain ↓
+5,000 simulated runs. The truly better system looked worse or tied in a third of runs. Here's what it takes to see a 3-point gain ↓
 ---
 Two systems, 83% vs 80% true accuracy. 100 examples, 5,000 runs.
 
@@ -26,7 +26,7 @@ At 500 examples 21%. At 1,000, 40%.
 ---
 Cheapest fix: score both systems on the same examples and compare pair by pair. Shared difficulty cancels.
 
-Same 100 examples, outcomes correlated at 0.5 (my assumption):
+Same 100 examples, outcomes correlated at 0.5 (assumed):
 
 → Two separate totals: clear win in 2.2% of runs
 → Pair by pair: 11.1%
@@ -39,13 +39,13 @@ Examples needed to catch the gap 80% of the time:
 5 points: 933, or 465 paired
 10 points: 202, or 101 paired
 
-Paired figures assume the 0.5 correlation. I didn't measure it on a real eval.
+Paired figures assume the 0.5 correlation. It isn't measured on a real eval.
 ---
 Strongest objection, Hamel Husain's: early on, reading real outputs beats chasing a metric. He's right. This is for choosing between two candidates on a number.
 
-Also, simulated binary scores on independent examples. Real evals are noisier.
+Simulated binary scores on independent examples. Real evals are noisier.
 ---
-Want the simulation and the sample-size table? Reply EVAL and I'll DM it.
+Want the simulation and the sample-size table? Reply EVAL and it lands in your DMs.
 ---
 Rule of thumb: look up the gap you care about. If your eval has fewer examples than the table says, don't call it a win. Read the outputs. If you can, score both systems on the same examples.
 
@@ -100,18 +100,18 @@ EVAL | the eval-size simulation with raw output and the sample-size table | http
 
 ## Reply prompts
 
-In my simulation, a real 3-point gain on a 100-example eval showed a clear win (95% interval above zero) in 7% of runs. Do you score candidates on the same examples every time?
+In a 5,000-run simulation, a real 3-point gain on a 100-example eval showed a clear win (95% interval above zero) in 7% of runs. Do you score candidates on the same examples every time?
 
 On small evals: the 95% interval on a 3-point difference at 100 examples came out 21 points wide. Pair-by-pair comparison on the same examples cut it about 30%.
 
-Re "we went from 80 to 83": in my simulation a truly better system looked worse or tied on one 100-example eval in three. How many examples was this run on?
+Re "we went from 80 to 83": in a 5,000-run simulation a truly better system looked worse or tied on one 100-example eval in three. How many examples was this run on?
 
 ## Substack Note
 
 On 100 examples, a system that's truly 3 points better looked worse or tied in one run out of three.
 
-I simulated it: two systems, 83% against 80%, 5,000 runs at each eval size. At 100 examples the better one scored higher 68% of the time and lower 26%. The 95% interval on the gap was 21 points wide, and only 7% of runs could say "better" with it above zero. At 1,000 examples that rose to 40%.
+The simulation: two systems, 83% against 80%, 5,000 runs at each eval size. At 100 examples the better one scored higher 68% of the time and lower 26%. The 95% interval on the gap was 21 points wide, and only 7% of runs could say "better" with it above zero. At 1,000 examples that rose to 40%.
 
-The cheapest fix is to score both systems on the same examples and compare them pair by pair. Most examples are easy or hard for both, so that noise cancels. With outcomes correlated at 0.5 (my assumption), the interval got about 30% narrower and the examples needed for a 3-point gap halved, to about 1,350.
+The cheapest fix is to score both systems on the same examples and compare them pair by pair. Most examples are easy or hard for both, so that noise cancels. With outcomes correlated at 0.5 (assumed), the interval got about 30% narrower and the examples needed for a 3-point gap halved, to about 1,350.
 
 Simulation, raw output and full tables: https://www.0xadityaa.dev/blog/your-eval-set-is-too-small-to-tell

@@ -8,7 +8,7 @@ Python 3 standard library only (written and run on Python 3.12.8, macOS). There 
 
 ```bash
 cd content/research/your-context-window-is-a-memory-bill
-python3 --version    # 3.12.8 is what I used
+python3 --version    # 3.12.8 is what was used
 ```
 
 ## Fetch the data
@@ -31,7 +31,7 @@ python3 kv_cache.py --bytes 1 > output-fp8-kv-1gpu.txt   # one byte per cached v
 
 ## How long it takes
 
-Each `kv_cache.py` run finishes in well under a second (0.15 s wall on my laptop). `fetch.py` takes a few seconds on a normal connection. The three committed `output-*.txt` files are byte-identical to a fresh run, which I checked on 2026-11-15.
+Each `kv_cache.py` run finishes in well under a second (0.15 s wall on a laptop). `fetch.py` takes a few seconds on a normal connection. The three committed `output-*.txt` files are byte-identical to a fresh run, checked on 2026-11-15.
 
 ## Files
 

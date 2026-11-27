@@ -2,8 +2,9 @@
 title: 5% a Day Sounds Gentle. It Isn't.
 publishedAt: '2026-10-10T05:18:22Z'
 summary: >-
-  I found a tiny age penalty in my ranking code: 5% a day. After six months it
-  scored a perfect match at 0.0001. The maths, and why my tests never noticed.
+  A tiny age penalty in ranking code, 5% a day, scored a perfect match at 0.0001
+  after six months. The maths, and why the tests never noticed.
+updated: '2026-11-26'
 tags:
   - algorithms
   - retrieval
@@ -13,18 +14,16 @@ crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/122'
 devto_url: 'https://dev.to/0xadityaa/5-a-day-sounds-gentle-it-isnt-1f9h'
 ---
 
-I found a bug recently that I can't stop thinking about, mostly because it was one innocent-looking line.
+One innocent-looking line in a ranking function was quietly destroying every note older than a month.
 
-I've been building a memory layer for AI tools ([Hivemind](https://gethivemind.xyz), if you're curious). Part of its job is ranking: you ask a question, it scores every saved note, and the best ones get sent to the model. Somewhere in that scoring was a small age penalty. Older notes lose 5% of their score per day. Recent stuff matters more. Seems fair.
+[Hivemind](https://gethivemind.xyz), the memory layer for AI tools that Aditya is building, ranks saved notes: you ask a question, it scores every note, and the best ones get sent to the model. Somewhere in that scoring sat a small age penalty. Older notes lose 5% of their score per day. Recent stuff matters more. Seems fair.
 
-It was quietly destroying everything older than a month.
-
-The lesson I took, and the reason I'm writing this down: **compounding turns "a little" into "everything" much faster than your gut says, and a test can only catch a bug its data is able to express.**
+The lesson: **compounding turns "a little" into "everything" much faster than your gut says, and a test can only catch a bug its data is able to express.**
 
 ## The short version
 
 - A 5% daily penalty compounds. It halves a score every 13.5 days and leaves one ten-thousandth after six months.
-- In my ranking code that meant any note older than a couple of months could never win, however well it matched.
+- In the ranking code that meant any note older than a couple of months could never win, however well it matched.
 - The benchmark missed it because every test note was the same age: zero.
 - The fix is a half-life in months with a floor underneath, and a test input where age actually varies.
 
@@ -57,23 +56,23 @@ So one piece of code was carefully deciding which notes deserved to live forever
 
 ## And there was a second one hiding next to it
 
-While I was in there I found its sibling.
+Next to it sat a sibling bug.
 
-The system is supposed to fit the most useful notes into a fixed token budget. I'd been calling that a [knapsack](https://en.wikipedia.org/wiki/Knapsack_problem): pick the most valuable set that fits. What the code actually did was sort by score and fill from the top until the budget ran out.
+The system is supposed to fit the most useful notes into a fixed token budget. That's a [knapsack](https://en.wikipedia.org/wiki/Knapsack_problem) problem: pick the most valuable set that fits. What the code actually did was sort by score and fill from the top until the budget ran out.
 
 That's not packing. That's top-k with a cutoff. Cost never enters into it, so one 2,000-token note scoring 0.9 would shove out twenty 100-token notes scoring 0.85. Same budget. One answer where there could've been twenty.
 
 ## Why didn't the tests catch any of this?
 
-This is the bit that gets me, because I had a benchmark and it looked great.
+The benchmark looked great, which is the unsettling part.
 
-It looked great because every note in a benchmark run gets loaded at the same moment. Every age is zero. Every multiplier is 1. I could have set the decay to 99% a day and the score wouldn't have moved.
+It looked great because every note in a benchmark run gets loaded at the same moment. Every age is zero. Every multiplier is 1. Set the decay to 99% a day and the score wouldn't have moved.
 
 Same story for the packing bug. If your test notes are all about the same length, "sort by score" and "pack by value" pick nearly the same set.
 
 The benchmark wasn't wrong. It just had no way to see the thing that was broken.
 
-## What I changed
+## The fix
 
 **Age is a nudge now.** A half-life measured in months, with a floor that age can never push a note below:
 
@@ -105,20 +104,17 @@ A year-old note keeps about half its weight. If it's the best match, it still wi
 
 **Packing actually packs.** Candidates get ranked by value per token (score divided by size) and added greedily, then a swap pass puts back any high-value note the small ones were blocking. It takes microseconds on fifty candidates.
 
-## Where I'd stop trusting this post
+## Where this stops holding
 
-**Every constant in there is a guess.** 180 days and 0.35 aren't measured truths. They live in one config so I can sweep them later, and I fully expect them to move.
-
-**Greedy isn't optimal.** Value-per-token plus a swap gets within a constant factor of the best possible set. Exact dynamic programming is affordable at this size. I haven't seen it change a result, so I haven't switched.
-
-**More notes isn't always better.** Twenty small notes mean twenty things for the model to read, and models are [worse at the middle of a long context](https://arxiv.org/abs/2307.03172). Packing is only half the job. Ordering matters too.
-
-**Sometimes you want things to fade fast.** If it's a scratchpad for this week's task, steep decay is a feature. My bug wasn't that decay existed. It ran on everything, including stuff the system had already decided to keep.
+- **Every constant is a guess.** 180 days and 0.35 aren't measured truths. They live in one config so they can be swept later, and they will probably move.
+- **Greedy isn't optimal.** Value-per-token plus a swap gets within a constant factor of the best possible set. Exact dynamic programming is affordable at this size, but it hasn't changed a result yet, so greedy stays.
+- **More notes isn't always better.** Twenty small notes mean twenty things for the model to read, and models are [worse at the middle of a long context](https://arxiv.org/abs/2307.03172). Packing is only half the job. Ordering matters too.
+- **Sometimes you want things to fade fast.** For a scratchpad of this week's task, steep decay is a feature. The bug wasn't that decay existed. It ran on everything, including stuff the system had already decided to keep.
 
 ## The takeaway
 
-Two habits I'm keeping.
+Two habits worth stealing.
 
-First, whenever I see "a small percentage, repeatedly", I stop and work out the half-life. It takes one line and it has embarrassed me every time.
+First, whenever you see "a small percentage, repeatedly", work out the half-life. It takes one line, and the answer is rarely gentle.
 
-Second, for every signal that feeds a ranking, I go find the test input where that signal isn't a constant. If I can't find one, the signal is untested, however green the suite looks.
+Second, for every signal that feeds a ranking, find the test input where that signal isn't a constant. If there isn't one, the signal is untested, however green the suite looks.
