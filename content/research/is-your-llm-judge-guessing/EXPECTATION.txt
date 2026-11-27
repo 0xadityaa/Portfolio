@@ -1,0 +1,21 @@
+Expectation, written 2026-11-26 before any judge run.
+
+Setup: Qwen2.5-0.5B-Instruct and Qwen2.5-1.5B-Instruct as pairwise judges on
+turn-1 pairs from lmsys/mt_bench_human_judgments (human split). Each pair is
+scored twice, once per answer order, from the logits of the tokens "A" and "B".
+
+1. Agreement with humans (non-tie human votes, original order):
+   0.5B: 55% to 62%. Close enough to the 50% coin that the interval will
+   straddle or barely clear it.
+   1.5B: 60% to 68%.
+2. Position bias: both models prefer the first-listed answer. The 0.5B judge
+   picks position A in 65% to 85% of all verdicts. The 1.5B judge in 55% to 70%.
+3. Flip rate (the verdict changes when only the order changes, i.e. the judge
+   picks the same position in both orders):
+   0.5B: 40% to 60%. 1.5B: 25% to 45%.
+4. Keeping only order-consistent verdicts raises agreement a few points
+   (+2 to +8) and drops a large share of the data (the flip rate itself).
+5. Averaging the A-minus-B logit margin over both orders beats either single
+   order on agreement with humans, by 1 to 5 points.
+6. Risk: the 0.5B judge may be at chance in both orders. Then flips measure
+   noise, not bias, and the post says so. Agreement with humans comes first.

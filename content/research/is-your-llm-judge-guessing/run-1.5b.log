@@ -1,0 +1,13 @@
+pairs with a non-tie vote: 961; within 1000 tokens: 825
+seeded subset: 100
+already scored: 0; to score: 100
+10/100 pairs, 57s elapsed, load 60.8
+20/100 pairs, 118s elapsed, load 69.7
+30/100 pairs, 176s elapsed, load 63.6
+40/100 pairs, 250s elapsed, load 34.7
+50/100 pairs, 300s elapsed, load 22.9
+60/100 pairs, 369s elapsed, load 22.2
+70/100 pairs, 456s elapsed, load 15.7
+80/100 pairs, 548s elapsed, load 45.6
+90/100 pairs, 694s elapsed, load 74.5
+100/100 pairs, 901s elapsed, load 74.8
