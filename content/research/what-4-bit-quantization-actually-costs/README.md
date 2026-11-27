@@ -9,7 +9,7 @@ Written and run on 2026-11-14: Python 3.12.8, torch 2.7.1, transformers 4.52.4, 
 
 ## 1. Set up
 
-Python 3.12 on any machine; no GPU needed. `memory.py` and `fetch.py` use only the standard library. The experiment needs these exact versions (the ones I ran):
+Python 3.12 on any machine; no GPU needed. `memory.py` and `fetch.py` use only the standard library. The experiment needs these exact versions (the ones it was run with):
 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
@@ -51,13 +51,13 @@ About 22 minutes for all three experiment steps on an Apple M2 (8 cores, CPU onl
 
 ## Method and what it leaves out
 
-- RTN, asymmetric, min/max range, no calibration and no error correction. This is the naive baseline GPTQ and AWQ are written against. I did not run GPTQ or AWQ.
+- RTN, asymmetric, min/max range, no calibration and no error correction. This is the naive baseline GPTQ and AWQ are written against. GPTQ and AWQ were not run.
 - Fake quantization: weights are rounded to the integer grid and dequantized to fp32. The numbers are the error the grid causes, not the behaviour of a real int4 kernel. Scales and zero points stay fp32 (checkpoints store fp16).
 - Quantized: the 168 linear matrices inside the 24 blocks (357.8M of 494M parameters). Embeddings, norms and biases are untouched.
 - "tensor" is one scale per matrix, "channel" one per output row, "g128" one per 128 consecutive input weights. "keep 1%" leaves the top 1% of entries (by weight magnitude, or by input-channel activation) exact and picks the range from the rest. Its storage cost (values plus indices) is not counted in the memory table.
 - The activation experiment feeds each matrix the clean fp32 input the unquantized model produces. Errors do not propagate between layers, so it understates what a whole quantized model does.
 - Perplexity: non-overlapping 1,024-token windows of the WikiText-2 test text (joined with blank lines), first N windows only. The baseline is the bf16 checkpoint upcast to fp32.
-- Memory arithmetic: see the docstring of `memory.py`. The 2 GiB reserve for activations and overhead is my assumption, not a measurement.
+- Memory arithmetic: see the docstring of `memory.py`. The 2 GiB reserve for activations and overhead is an assumption, not a measurement.
 
 ## Tables moved out of the post
 
