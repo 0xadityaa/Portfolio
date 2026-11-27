@@ -44,7 +44,7 @@ Not at this budget. All four pipelines land within 2.1 points of each other, and
 
 Stacking both is the only combination that clearly beats BM25 alone: 2.1 points [0.8, 3.4]. More than half of that, 1.2 points, comes from the fusion step alone, which costs a 56 ms query embedding. Switch to 128-token chunks and fusion alone adds 3.7 points over BM25 [2.6, 4.9], with nothing slower than a vector lookup.
 
-Latency is the median of three passes over 30 queries, one query at a time, with the machine's load average at 21 at the start and 17 at the end. The quietest pass ran the 20-chunk reranker in 440 ms, so 862 ms is the high end. The model card lists 1,800 documents a second on a V100 GPU, so the 15x is a CPU ratio.
+Latency is the median of three passes over 30 queries, one query at a time, on 4 CPU threads. The model card lists 1,800 documents a second on a V100 GPU, so the 14.6x is a CPU ratio.
 
 ## Where does a reranker earn its keep?
 
@@ -58,7 +58,7 @@ Not measurably. On the first 150 questions, with the reranker reading the top 10
 
 ## Does it also break things?
 
-Yes, in numbers that match the lift. After BM25 the reranker rescued 55 questions and broke 35, from 148 first-stage misses. After RRF it rescued 58 and broke 43 (128 misses). The net, 20 and 15 questions out of 1,675, is the 1.2 and 0.9. SQuAD questions share words with their answers, which is exactly what BM25 rewards.
+Yes, nearly as often as it helps. After BM25 the reranker rescued 55 questions and broke 35, from 148 first-stage misses. After RRF it rescued 58 and broke 43 (128 misses). The net, 20 and 15 questions out of 1,675, is the 1.2 and 0.9.
 
 ## Does a weak first stage need it more?
 
@@ -66,10 +66,14 @@ It did in the 300 questions that also ran the bge-small arm. Reranking bge-small
 
 ## Where this stops holding
 
-The reranker was trained on MS MARCO web queries, and SQuAD questions were written with the paragraph open, which rewards keyword matching. [BEIR](https://arxiv.org/abs/2104.08663), a heterogeneous zero-shot benchmark, reports that "re-ranking and late-interaction-based models on average achieve the best zero-shot performances," at high computational cost, and [Nogueira and Cho](https://arxiv.org/abs/1901.04085) beat the previous best MS MARCO system by 27% relative in MRR@10 with a BERT reranker. Anthropic's [contextual retrieval](https://www.anthropic.com/news/contextual-retrieval) pipeline reranks 150 candidates down to 20 and took top-20 failures from 5.7% to 1.9%, 2.9% before the reranker. A larger reranker, a harder corpus or a bigger pool could all land above this. Those weren't run, nor was a reranker at 128 tokens, tuned fusion weights, or a generator reading the chunks.
+The latencies were measured at machine load 15 to 44, so they're the high end: the quietest pass ran the 20-chunk reranker in 440 ms against the 862 ms median. The ratio shrinks on a quiet machine and on a GPU, and it grows with the pool.
+
+The reranker was trained on MS MARCO web queries, and SQuAD questions were written with the paragraph open, which rewards keyword matching. [BEIR](https://arxiv.org/abs/2104.08663), a heterogeneous zero-shot benchmark, reports that "re-ranking and late-interaction-based models on average achieve the best zero-shot performances," at high computational cost. [Nogueira and Cho](https://arxiv.org/abs/1901.04085) beat the previous best MS MARCO system by 27% relative in MRR@10 with a BERT reranker, and Anthropic's [contextual retrieval](https://www.anthropic.com/news/contextual-retrieval) pipeline, which reranks 150 candidates down to 20, took top-20 failures from 2.9% to 1.9% with the reranker. A larger reranker, a harder corpus or a bigger pool could land above these results.
+
+Not covered: a reranker at 128 tokens, tuned fusion weights, and a generator reading the chunks.
 
 ## The takeaway
 
 Fuse first. RRF takes a few lines of code and a query embedding, and it recovered 1.2 of the full pipeline's 2.1-point gain over BM25 here. Add a reranker when only one to four chunks reach the model, when the top result is the one that matters, or when the first stage is weak. At eight chunks or more, measure before paying 860 ms.
 
-Measuring takes more questions than most eval sets hold: a 1-point lift needed 1,675 paired questions to come out with an interval of [0.0, 2.3], and [Your 100-Example Eval Is Lying About That 3-Point Win](/blog/your-eval-set-is-too-small-to-tell) explains why a 100-question eval can't see it. Everything is in the [artifact folder](https://github.com/0xadityaa/Portfolio/tree/main/content/research/a-reranker-ties-fusion-at-15-times-the-latency). A 5-point lift on a corpus without keyword overlap would overturn the "fuse first" rule.
+Measuring takes more questions than most eval sets hold: a 1-point lift needed 1,675 paired questions to come out with an interval of [0.0, 2.3], and [Your 100-Example Eval Is Lying About That 3-Point Win](/blog/your-eval-set-is-too-small-to-tell) explains why a 100-question eval can't see it. Everything is in the [artifact folder](https://github.com/0xadityaa/Portfolio/tree/main/content/research/a-reranker-ties-fusion-at-15-times-the-latency).

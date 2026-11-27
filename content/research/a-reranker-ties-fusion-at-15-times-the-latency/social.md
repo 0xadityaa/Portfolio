@@ -22,9 +22,9 @@ RRF alone is right 63.0% of the time. Add the reranker and it's 72.1% (+9.1 poin
 
 BM25's own top chunk is right 71.1%, reranked 72.2%. The reranker is an ordering tool.
 ---
-The strongest case for rerankers: BEIR reports re-ranking models are best zero-shot on average, at high compute cost.
+BEIR reports that re-ranking models are the best zero-shot on average, at high compute cost.
 
-This cross-encoder has 22.7M parameters and trained on MS MARCO. SQuAD questions share words with their answers, which favors BM25.
+This 22.7M-parameter cross-encoder trained on MS MARCO. SQuAD questions were written with the paragraph open, which rewards keywords. A harder corpus could favor the reranker.
 ---
 Fuse first. Add a reranker when one to four chunks reach the model, or when the top result is the one that matters.
 
