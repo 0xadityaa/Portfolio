@@ -1,5 +1,5 @@
 ---
-title: Microservices? Do You Really Need Them?
+title: 'Do You Need Microservices?'
 publishedAt: '2026-06-17'
 summary: >-
   Split a monolith and every multi-step operation becomes a distributed

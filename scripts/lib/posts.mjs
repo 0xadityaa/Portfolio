@@ -35,3 +35,43 @@ export function saveFrontmatter(post, changes) {
 export function absolutize(markdown) {
   return markdown.replace(/\]\(\/(?!\/)/g, `](${SITE_URL}/`);
 }
+
+/**
+ * dev.to has no `$$` syntax: it renders math through KaTeX liquid tags.
+ * `$$x$$` inside a line becomes an inline tag, a `$$` fence becomes a block tag.
+ * Fenced code is left alone. `{{` is split because liquid would read it as output.
+ * Docs: https://dev.to/p/editor_guide (KaTeX section).
+ */
+export function toDevtoMath(markdown) {
+  const safe = (tex) => tex.replace(/\{\{/g, "{ {");
+  let inCode = false;
+  let inMath = false;
+  return markdown
+    .split("\n")
+    .map((line) => {
+      if (!inMath && /^\s*(```|~~~)/.test(line)) inCode = !inCode;
+      if (inCode) return line;
+      if (/^\$\$\s*$/.test(line)) {
+        inMath = !inMath;
+        return inMath ? "{% katex %}" : "{% endkatex %}";
+      }
+      if (inMath) return safe(line);
+      return line.replace(/\$\$(.+?)\$\$/g, (_m, tex) => `{% katex inline %}${safe(tex.trim())}{% endkatex %}`);
+    })
+    .join("\n");
+}
+
+/** Medium has no math: show the LaTeX source as code. */
+export function toCodeMath(markdown) {
+  let inMath = false;
+  return markdown
+    .split("\n")
+    .map((line) => {
+      if (/^\$\$\s*$/.test(line)) {
+        inMath = !inMath;
+        return inMath ? "```latex" : "```";
+      }
+      return inMath ? line : line.replace(/\$\$(.+?)\$\$/g, (_m, tex) => "`" + tex.trim() + "`");
+    })
+    .join("\n");
+}

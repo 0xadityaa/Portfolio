@@ -1,0 +1,11 @@
+ok    filesystem            16 tools  7.9s
+ok    memory                 9 tools  6.5s
+ok    sequential-thinking    1 tools  6.9s
+ok    everything            16 tools  28.3s
+ok    github                26 tools  9.7s
+ok    playwright            25 tools  5.4s
+ok    context7               2 tools  10.0s
+ok    chrome-devtools       33 tools  4.5s
+ok    fetch                  1 tools  12.1s
+ok    git                   14 tools  6.0s
+ok    time                   3 tools  6.9s
