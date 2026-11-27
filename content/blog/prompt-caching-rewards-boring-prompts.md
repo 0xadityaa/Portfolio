@@ -57,7 +57,7 @@ The hit rate matched 1 minus e to the power of minus rate times TTL, within nois
 
 Those are six of the rates I ran. The full output is in [`results/simulation.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/prompt-caching-rewards-boring-prompts/results/simulation.txt) and [`results/simulation.csv`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/prompt-caching-rewards-boring-prompts/results/simulation.csv).
 
-![Chart: cost per request against requests per hour on a log scale. The 5-minute cache is above the no-cache line until 2.8 requests an hour, the 1-hour cache until 0.72, and both fall to about one eighth of the no-cache cost](/images/blog/cache-cost-vs-traffic.svg)
+![Line chart on a log scale of request rate. Against no cache, the 5-minute cache costs more below 2.8 requests an hour and the 1-hour cache below 0.72. Both settle at 87.7 percent cheaper.](/images/blog/cache-cost-vs-traffic.svg "Input cost per request against no cache, Sonnet 5.5, 6,000 static and 500 per-request tokens. Curves from the analytic model in [`cost_model.py`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/prompt-caching-rewards-boring-prompts/cost_model.py), which the simulation matches within noise ([`results/simulation.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/prompt-caching-rewards-boring-prompts/results/simulation.txt)).")
 
 As a monthly bill, input only, 30 days: one request an hour costs $9.36 with no cache, $10.68 on the 5-minute cache and $7.24 on the 1-hour one. One a minute costs $561.60, $73.31 and $69.12. Ten a minute costs $5,616.00, then $691.20 either way.
 
@@ -80,6 +80,8 @@ My test prompt is a support bot for a made-up camping shop: five tool definition
 | Tool list shuffled each request, value at bottom | 46 | 2.7% | $1.991 |
 
 "Blended price" applies Sonnet 5.5's $2.00 and $0.10 to the cacheable and uncacheable parts, assuming every request reads the cache. Top versus bottom is a tenfold gap, from moving one line.
+
+![Bars of how much of a 1,716-token prompt can be cached by where the timestamp and name sit: 35.7 percent at the top of the system prompt, 52.6 in the middle, 98.4 at the bottom, 98.5 in the user message and 2.7 when tools are shuffled each request.](/images/blog/cache-prompt-order.svg "Mean longest identical prefix over 200 random request pairs, o200k_base tokens; blended price at Sonnet 5.5 rates, assuming every request reads the cache. From [`results/prompt_order.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/prompt-caching-rewards-boring-prompts/results/prompt_order.txt).")
 
 Even at the very top, the tools stay cacheable because they render first. That's the 612. Under OpenAI's 1,024-token minimum it would be zero.
 
