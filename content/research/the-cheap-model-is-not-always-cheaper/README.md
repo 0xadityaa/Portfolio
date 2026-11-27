@@ -1,6 +1,6 @@
 # Cost per useful answer: calculator and cascade simulation
 
-Artifact for the post `content/blog/the-cheap-model-is-not-always-cheaper.md`.
+The artifact behind my post `content/blog/the-cheap-model-is-not-always-cheaper.md`.
 
 ## Files
 
@@ -8,7 +8,7 @@ Artifact for the post `content/blog/the-cheap-model-is-not-always-cheaper.md`.
 - `cost_model.py`: the calculator, the break-even solver, the cascade (closed form and seeded Monte Carlo), the leak and hard-case sweeps, and the volume tables.
 - `output.txt`: the raw output of `cost_model.py`.
 - `make_chart.py`: draws the SVG chart for the post.
-- `EXPECTATION.txt`: the expectations, written before the first run.
+- `EXPECTATION.txt`: my expectations, written before the first run.
 - `social.md`: cuts for Typefully.
 
 ## Set up
