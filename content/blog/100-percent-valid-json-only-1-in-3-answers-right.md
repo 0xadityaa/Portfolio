@@ -1,5 +1,5 @@
 ---
-title: 100% Valid JSON, Only 1 in 3 Answers Right
+title: 'Is Valid JSON Enough?'
 publishedAt: '2026-12-31'
 summary: >-
   Constrained decoding and 3-shot prompts both took a 0.5B model to 100% schema-valid JSON on 120 messages. Neither lifted all-five-fields-right above 33%.

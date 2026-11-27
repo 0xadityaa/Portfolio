@@ -1,6 +1,6 @@
 # Structured-output run: instruction, 3-shot, constrained decoding
 
-The artifact behind the post "100% Valid JSON, Only 1 in 3 Answers Right". I ran four setups that extract five fields from 120 invented customer messages with Qwen2.5-0.5B-Instruct on CPU, and scored them on format and on content. Three of the four setups were 100% schema-valid, and none got all five fields right more than 32.5% of the time.
+The artifact behind the post "Is Valid JSON Enough?". I ran four setups that extract five fields from 120 invented customer messages with Qwen2.5-0.5B-Instruct on CPU, and scored them on format and on content. Three of the four setups were 100% schema-valid, and none got all five fields right more than 32.5% of the time.
 
 ## Run it
 

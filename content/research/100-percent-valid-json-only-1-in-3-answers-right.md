@@ -1,4 +1,4 @@
-# 100% Valid JSON, Only 1 in 3 Answers Right
+# Is Valid JSON Enough?
 
 - Topic issue: none (series post 12, from the AI-engineering syllabus; the syllabus site was used as a topic list only)
 - Format: essay
