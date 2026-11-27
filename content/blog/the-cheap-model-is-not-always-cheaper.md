@@ -32,11 +32,11 @@ One request, 3,000 tokens in and 500 out, priced from the [Anthropic pricing pag
 
 Everything spent, failures included, divided by the answers that worked:
 
-```text
-cost per useful answer = (c + (1 - s) × F) / s
-```
+$$
+\text{cost per useful answer} = \frac{c + (1 - s) \times F}{s}
+$$
 
-Here `c` is one request's cost, `s` is the share that come back right, and `F` is what each wrong one costs downstream: a human fixing it, a refund, a user who leaves. In this setup every wrong answer gets delivered and nothing catches it, which is the harshest case for the cheap model.
+Here $$c$$ is one request's cost, $$s$$ is the share that come back right, and $$F$$ is what each wrong one costs downstream: a human fixing it, a refund, a user who leaves. In this setup every wrong answer gets delivered and nothing catches it, which is the harshest case for the cheap model.
 
 ## At what failure cost does the cheap model stop winning?
 
