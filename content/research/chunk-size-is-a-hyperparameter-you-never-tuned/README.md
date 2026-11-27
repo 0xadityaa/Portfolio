@@ -19,7 +19,7 @@ Question: does the chunk size you pick move retrieval quality as much as the ret
 - `EXPECTATION.txt`: my expectations, written before the first retrieval ran.
 - `run.py`: chunking, retrieval, ranks. Took about 30 minutes on an M2 laptop under load, most of it embedding.
 - `analyze.py`: tables and 95% article-cluster bootstrap intervals (2,000 resamples, seed 20261114).
-- `make_chart.py`: draws `public/images/blog/chunk-size-equal-budget.svg`.
+- `make_chart.py`: draws the three figures in `public/images/blog/` (`chunk-size-equal-budget.svg`, `chunk-size-vs-retriever.svg`, `fixed-k-more-text.svg`).
 - `results/`: `ranks.npz` (per-question ranks), `stats.json` (chunk counts, mean cumulative tokens, truncation share), `analysis.txt` and `analysis.json` (the tables), `run.log` (raw output of the run).
 - `social.md`: social cuts for the post.
 
@@ -40,7 +40,7 @@ shasum -a 256 data/dev-v1.1.json   # 95aa6a52d5d6a735563366753ca50492a658031da74
 R=content/research/chunk-size-is-a-hyperparameter-you-never-tuned
 venv/bin/python $R/run.py data cache $R/results       # downloads bge-small weights on first use
 venv/bin/python $R/analyze.py $R/results
-venv/bin/python $R/make_chart.py $R/results public/images/blog/chunk-size-equal-budget.svg
+venv/bin/python $R/make_chart.py $R/results public/images/blog
 ```
 
 Runtime: about 30 minutes on an M2 laptop CPU for `run.py`, almost all of it embedding the chunks; `analyze.py` takes a minute or so and `make_chart.py` seconds. Downloads: the 4.8 MB dataset, the bge-small weights (about 130 MB) and the tiktoken `o200k_base` vocabulary, each fetched on first use.

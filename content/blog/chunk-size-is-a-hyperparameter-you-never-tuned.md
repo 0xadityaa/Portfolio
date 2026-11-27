@@ -38,6 +38,8 @@ I [wrote my expectations down first](https://github.com/0xadityaa/Portfolio/blob
 
 No, that's a cost trick. Retrieve five chunks and BM25's recall@5 goes from 76.6% at 64 tokens to 95.3% at 1,024. It looks like a free win until you see that the 1,024 row hands the model 4,988 tokens and the 64 row hands it 319. More text, more hits. That's the cheap part. (The full k = 5 table is in the [README](https://github.com/0xadityaa/Portfolio/blob/main/content/research/chunk-size-is-a-hyperparameter-you-never-tuned/README.md).)
 
+![Bars of tokens handed to the model when BM25 retrieves its top 5 chunks, from 319 at 64-token chunks to 4,988 at 1,024-token chunks, with recall at 5 rising from 76.6 to 95.3 percent.](/images/blog/fixed-k-more-text.svg "BM25 at k = 5, no overlap, mean tokens handed over. From the fixed-k table in [`results/analysis.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/chunk-size-is-a-hyperparameter-you-never-tuned/results/analysis.txt).")
+
 The fair test holds the bill still. Tokens are what you pay for, and a longer prompt makes the model worse at [using what's in the middle](https://arxiv.org/abs/2307.03172). So I set the budget at about 2,000 tokens, with `k` set to 2,000 divided by the chunk size: 31 chunks of 64 tokens, down to 2 chunks of 1,024.
 
 | Chunk size | k | BM25 | Embeddings |
@@ -48,11 +50,13 @@ The fair test holds the bill still. Tokens are what you pay for, and a longer pr
 | 512 | 4 | 91.7% | 73.1% |
 | 1,024 | 2 | 88.1% | 51.4% |
 
-![Line chart of recall at a 2,000-token context by chunk size. BM25 stays between 87 and 92 percent at every size from 64 to 1,024 tokens. The embedding model falls from 90 percent at 64 tokens to 51 percent at 1,024.](/images/blog/chunk-size-equal-budget.svg)
+![Line chart of recall at a 2,000-token context by chunk size. BM25 stays between 87 and 92 percent at every size from 64 to 1,024 tokens. The embedding model falls from 90.1 percent at 64 tokens to 51.4 percent at 1,024.](/images/blog/chunk-size-equal-budget.svg "Recall at a 2,000-token budget, k = 2,000 divided by chunk size, no overlap, strict span match. Embedder truncation shares from [`results/stats.json`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/chunk-size-is-a-hyperparameter-you-never-tuned/results/stats.json); the rest from [`results/analysis.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/chunk-size-is-a-hyperparameter-you-never-tuned/results/analysis.txt).")
 
 Two retrievers, two different curves. BM25 likes 128 to 512, and 256 versus 512 is half a point, inside the noise. The embedding model likes the small end, and every step up from 128 costs it more: 5.5 points, then 11.1, then 21.7.
 
 Each at its best size, BM25 got 92.2% and the embedder 90.1%. That's the 2.1-point gap, with a 95% interval of 1.1 to 3.1.
+
+![Bars of recall change at a 2,000-token budget in points. Changing chunk size moves BM25 by 5.3 points and the embedding model by 5.9 over the sizes it reads in full. Swapping the retriever, each at its best size, moves it by 2.1.](/images/blog/chunk-size-vs-retriever.svg "Best size minus worst size per retriever, and the gap between retrievers each at its best size. From the spread section of [`results/analysis.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/chunk-size-is-a-hyperparameter-you-never-tuned/results/analysis.txt).")
 
 ## Is the 39-point drop a chunk-size effect?
 
