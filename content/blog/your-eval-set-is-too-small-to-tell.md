@@ -1,5 +1,5 @@
 ---
-title: 'Is Your Eval Too Small?'
+title: Is Your Eval Too Small?
 publishedAt: '2026-11-26T23:24:56.270Z'
 updated: '2026-11-27'
 summary: >-
@@ -10,6 +10,7 @@ tags:
   - evals
   - statistics
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/147'
+devto_url: 'https://dev.to/0xadityaa/is-your-eval-too-small-436g'
 ---
 
 Picture this: you spend an afternoon tweaking a prompt, run your 100-example eval suite, and watch accuracy jump from 80% to 83%. Three whole points. You merge the PR.
