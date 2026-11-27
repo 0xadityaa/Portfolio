@@ -37,17 +37,21 @@ After publishing it writes the URL into the post's frontmatter and commits to `m
 
 A backlog drains slowly on purpose: at most `CROSSPOST_MAX` API publishes per run (default 1), oldest post first, and a platform that answers with an error is left alone until the next run. dev.to rate-limits after two posts in quick succession, so twelve posts take about three hours.
 
+**Site-only posts.** Put `syndicate: false` in a post's frontmatter and the Cross-post action ignores it completely: nothing to dev.to, no Medium, Substack or Hacker News lines, no `crosspost` issue, and `update-devto.mjs` skips it too. The post still appears on the site, in `/rss.xml`, in `/llms.txt` and at `<url>.md`. Use it for writing that does not belong on tech channels, such as the philosophy posts (tag `philosophy`, which also gives the post its own "Philosophy" filter on `/blog`). Social posts for those go through Typefully by hand, and a Substack issue is pasted in manually.
+
 To try it safely: Actions, Cross-post, Run workflow, leave "dry run" ticked. Locally: `npm run crosspost -- --dry-run`.
 
 `CROSSPOST_SINCE` and `CROSSPOST_MAX` are repository variables (Settings, Secrets and variables, Actions, Variables). `CROSSPOST_SINCE` is set to 2024-01-01 so the whole archive is syndicated. To keep one post off a platform, put any placeholder in its field, for example `devto_url: skip`.
 
 ## When posts go out
 
-Aditya sets the time when he approves: `/publish <date>` on the pull request (`docs/blog/workflow.md`, stage 4). With no date it takes the default slot, Tuesday 09:00 Toronto time, defined in `scripts/lib/schedule.mjs`. The evidence for that slot is weak and says so; revisit it against the site's own analytics after a dozen posts.
+The time is the `Publish:` line in the post's pull request, merged automatically by the Auto-publish action (`docs/blog/workflow.md`, stage 4); `/publish <date>` on the pull request does the same by hand. With no date it takes the default slot, Tuesday 09:00 Toronto time, defined in `scripts/lib/schedule.mjs`. The evidence for that slot is weak and says so; revisit it against the site's own analytics after a dozen posts.
 
 ## After rewriting a published post
 
 The Cross-post action only publishes; it never edits a copy that already exists. When a post that has a `devto_url` changes, run the **Update dev.to copies** workflow by hand (`gh workflow run update-devto.yml -f dry_run=false`). It pushes the current title, summary, tags and body to each existing dev.to article. Medium and Substack copies are edited by hand.
+
+A post with `draft: true` is unpublished on dev.to the next time update-devto runs, and published again when `draft` is removed.
 
 ## The GitHub profile README
 

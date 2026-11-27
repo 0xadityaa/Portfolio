@@ -1,9 +1,10 @@
 ---
-title: 5% a Day Sounds Gentle. It Isn't.
+title: 'Is 5% a Day Gentle?'
 publishedAt: '2026-10-10T05:18:22Z'
+updated: '2026-11-27'
 summary: >-
-  I found a tiny age penalty in my ranking code: 5% a day. After six months it
-  scored a perfect match at 0.0001. The maths, and why my tests never noticed.
+  I found a tiny 5% daily age penalty in my ranking code. After six months it
+  crushed a perfect match to 0.0001. Here is the math and why my tests missed it.
 tags:
   - algorithms
   - retrieval
@@ -13,28 +14,28 @@ crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/122'
 devto_url: 'https://dev.to/0xadityaa/5-a-day-sounds-gentle-it-isnt-1f9h'
 ---
 
-I found a bug recently that I can't stop thinking about, mostly because it was one innocent-looking line.
+I found a bug recently that I still find funny, mostly because it looked harmless when I wrote it.
 
-I've been building a memory layer for AI tools ([Hivemind](https://gethivemind.xyz), if you're curious). Part of its job is ranking: you ask a question, it scores every saved note, and the best ones get sent to the model. Somewhere in that scoring was a small age penalty. Older notes lose 5% of their score per day. Recent stuff matters more. Seems fair.
+While building [Hivemind](https://gethivemind.xyz), my side-project memory layer for AI tools, I had a ranking function that scores every saved note and picks the best ones to send to the model. Tucked inside that scoring math was one tiny line: an age penalty. Older notes lose 5% of their score per day. Recent context usually matters more, right? Five percent sounds gentle, almost polite.
 
-It was quietly destroying everything older than a month.
+It was erasing every note older than a month.
 
-The lesson I took, and the reason I'm writing this down: **compounding turns "a little" into "everything" much faster than your gut says, and a test can only catch a bug its data is able to express.**
+**Compounding turns "a little" into "basically zero" much faster than intuition expects, and a test suite can only catch bugs your test data can express.**
 
 ## The short version
 
-- A 5% daily penalty compounds. It halves a score every 13.5 days and leaves one ten-thousandth after six months.
-- In my ranking code that meant any note older than a couple of months could never win, however well it matched.
-- The benchmark missed it because every test note was the same age: zero.
-- The fix is a half-life in months with a floor underneath, and a test input where age actually varies.
+- A 5% daily penalty compounds into a half-life of just 13.5 days. After six months, a note keeps one ten-thousandth of its original score.
+- In my ranking code, a perfect match from two months ago could almost never beat a mediocre note from this morning.
+- My benchmark stayed green because every test note had the exact same age: zero.
+- I fixed it with a 180-day half-life, a hard floor at 0.35, and test inputs where age actually varies.
 
-## How bad can 5% be?
+## Wait, how bad can 5% really be?
 
-Bad. The trick is that it's 5% of what's left, every single day. That's [exponential decay](https://en.wikipedia.org/wiki/Exponential_decay), the same maths as radioactive stuff.
+Worse than it sounds. It isn't 5% once. It's 5% of whatever is left, every single day, stacked on top of itself. That's [exponential decay](https://en.wikipedia.org/wiki/Exponential_decay), the same math that governs radioactive isotopes.
 
-Go on, guess what a note is worth after six months. "Maybe a third" feels about right, doesn't it? Here's the real answer:
+Guess first: if a note loses 5% a day, how much of its score is left after six months? "Maybe a third?" sounds plausible. Here is what happens:
 
-| Age of the note | Score multiplier (0.95 ^ days) |
+| Age of the note | Score multiplier ($$0.95^{\text{days}}$$) |
 | --- | --- |
 | 1 day | 0.95 |
 | 7 days | 0.70 |
@@ -43,39 +44,39 @@ Go on, guess what a note is worth after six months. "Maybe a third" feels about 
 | 180 days | 0.0001 |
 | 365 days | 0.00000001 |
 
-After a month, a note has lost four fifths of its score. After six months it's worth one ten-thousandth of an identical note written today. It could match the question word for word and still lose to basically anything from this week.
+After thirty days, your note has already lost four fifths of its score. After six months, it is worth one ten-thousandth of an identical note written today. It could match your question word for word and still lose to basically anything you typed this week.
 
-A handy way to feel this: 5% a day is a [half-life](https://en.wikipedia.org/wiki/Half-life) of about 13.5 days. Every two weeks, half of what was left is gone. Thirteen halvings in six months. Nothing survives thirteen halvings.
+The shortcut: convert any daily percentage into its [half-life](https://en.wikipedia.org/wiki/Half-life). The formula is $$\frac{\ln 0.5}{\ln 0.95}$$, and for 5% a day it gives **13.5 days**. It's the same formula that gave the 95% agent its coin-flip step in [the reliability post](/blog/95-percent-per-step-is-a-coin-flip-by-step-14). Every two weeks the score halves. Six months is thirteen halvings in a row. Fold a piece of paper in half thirteen times and see what's left.
 
-## The funny part
+## Two subsystems that disagreed
 
-A different part of the same system was doing the exact opposite.
+While that one line was erasing old notes, another part of my codebase was doing the opposite.
 
-It tracked how often each note got used, and after five uses it promoted the note to a "long-term" tier. The comment in the code literally called it earned permanence.
+I had written a promotion system that tracked how often a note got retrieved. After five uses, it promoted that note to a "long-term" tier. My own code comment called it *earned permanence*.
 
-So one piece of code was carefully deciding which notes deserved to live forever. And another piece, a single multiplication nobody had looked at in ages, was killing them anyway. Two subsystems, opposite policies, and the quiet one won.
+So one subsystem promoted my most important notes to live forever, while another, a single multiplication I hadn't looked at in weeks, zeroed them out anyway. The silent one won.
 
-## And there was a second one hiding next to it
+## A second bug, ten lines away
 
-While I was in there I found its sibling.
+Since I was already in the ranking file, I kept reading and found a second bug.
 
-The system is supposed to fit the most useful notes into a fixed token budget. I'd been calling that a [knapsack](https://en.wikipedia.org/wiki/Knapsack_problem): pick the most valuable set that fits. What the code actually did was sort by score and fill from the top until the budget ran out.
+After scoring the notes, my code has to pack the best ones into a fixed token budget. I had been calling this a [knapsack](https://en.wikipedia.org/wiki/Knapsack_problem) packer: pick the highest-value combination that fits. What my code did was sort by raw score and shovel notes in from the top until the budget ran out.
 
-That's not packing. That's top-k with a cutoff. Cost never enters into it, so one 2,000-token note scoring 0.9 would shove out twenty 100-token notes scoring 0.85. Same budget. One answer where there could've been twenty.
+That isn't knapsack packing. That's just top-k with a ceiling. Token size never entered the math, so one bloated 2,000-token note scoring 0.90 would shove out twenty crisp 100-token notes scoring 0.85. Same budget, one note instead of twenty.
 
-## Why didn't the tests catch any of this?
+![Two bars with the same token budget: sorting by raw score fills it with one 2,000-token note scoring 0.90; packing by value per token fills it with twenty 100-token notes scoring 0.85](/images/blog/top-k-vs-value-per-token.svg "Illustrative, using the example above. See the [research note](https://github.com/0xadityaa/Portfolio/blob/main/content/research/five-percent-a-day-sounds-gentle.md).")
 
-This is the bit that gets me, because I had a benchmark and it looked great.
+## Why did my benchmark miss all of this?
 
-It looked great because every note in a benchmark run gets loaded at the same moment. Every age is zero. Every multiplier is 1. I could have set the decay to 99% a day and the score wouldn't have moved.
+This part humbled me. I had a benchmark, and the numbers looked great.
 
-Same story for the packing bug. If your test notes are all about the same length, "sort by score" and "pack by value" pick nearly the same set.
+They looked great because a benchmark loads every test note at the exact same timestamp. Every note had `age = 0`. Every multiplier evaluated to `1`. I could have set the decay to 99% per day and the score wouldn't have moved by a decimal.
 
-The benchmark wasn't wrong. It just had no way to see the thing that was broken.
+Same story with the packing bug. When all your benchmark notes are roughly the same length, "sort by raw score" and "pack by value per token" pick almost the same set. The test suite wasn't lying. It had no way to express the bug.
 
-## What I changed
+## How I fixed both of them
 
-**Age is a nudge now.** A half-life measured in months, with a floor that age can never push a note below:
+First, I turned age from an executioner into a nudge. Long-term notes don't decay at all, and normal notes follow a 180-day half-life with a floor of 0.35 so age can never bury a great match:
 
 ```ts
 // Simplified from the real thing.
@@ -89,7 +90,11 @@ function recencyMultiplier(tier: Tier, days: number): number {
 }
 ```
 
-Same ages, both curves:
+The difference across a full year:
+
+![Score multiplier against note age over 365 days: 0.95 to the power of days is half gone by day 13.5 and near zero by six months; the 180-day half-life with a 0.35 floor keeps 68 percent at day 180 and 51 percent at a year](/images/blog/decay-curves.svg "Before is 0.95 to the power of days. After is the 180-day half-life with a 0.35 floor, normal tier. Sources in the [research note](https://github.com/0xadityaa/Portfolio/blob/main/content/research/five-percent-a-day-sounds-gentle.md).")
+
+The numbers side by side:
 
 | Age of the note | Before | After |
 | --- | --- | --- |
@@ -99,26 +104,24 @@ Same ages, both curves:
 | 180 days | 0.0001 | 0.68 |
 | 365 days | 0.00000001 | 0.51 |
 
-![Chart: with 5% daily decay a note's score is near zero within two months, while a 180-day half-life with a 0.35 floor still keeps 0.68 after six months](/images/blog/decay-curves.svg)
+The floor does the work: the multiplier approaches 0.35 as age grows and never goes below it. A year-old note still holds half its weight (0.51). If it's the best answer to your question, it still wins.
 
-A year-old note keeps about half its weight. If it's the best match, it still wins.
-
-**Packing actually packs.** Candidates get ranked by value per token (score divided by size) and added greedily, then a swap pass puts back any high-value note the small ones were blocking. It takes microseconds on fifty candidates.
+For the packing bug, I switched to ranking candidates by value per token (score divided by size), filling greedily, and running a quick swap pass so small notes can't block one high-value note. On fifty candidates, it runs in microseconds.
 
 ## Where I'd stop trusting this post
 
-**Every constant in there is a guess.** 180 days and 0.35 aren't measured truths. They live in one config so I can sweep them later, and I fully expect them to move.
+**Those constants are educated guesses.** A 180-day half-life and a 0.35 floor aren't laws of physics. I put them in one config file so I can tune them once I have real longitudinal data, and I expect them to move.
 
-**Greedy isn't optimal.** Value-per-token plus a swap gets within a constant factor of the best possible set. Exact dynamic programming is affordable at this size. I haven't seen it change a result, so I haven't switched.
+**Greedy plus swap isn't mathematically optimal.** Exact [dynamic programming](https://en.wikipedia.org/wiki/Dynamic_programming) is cheap enough at fifty items, and I could switch to it. I haven't yet because I haven't seen it change a real output.
 
-**More notes isn't always better.** Twenty small notes mean twenty things for the model to read, and models are [worse at the middle of a long context](https://arxiv.org/abs/2307.03172). Packing is only half the job. Ordering matters too.
+**Stuffing in more notes isn't always better.** Twenty tiny notes give the model twenty separate threads to juggle, and LLMs still struggle with [facts tucked in the middle of a long context](https://arxiv.org/abs/2307.03172). Packing the right set is only half the puzzle; ordering them matters too.
 
-**Sometimes you want things to fade fast.** If it's a scratchpad for this week's task, steep decay is a feature. My bug wasn't that decay existed. It ran on everything, including stuff the system had already decided to keep.
+**Sometimes fast decay is a feature.** If you're building a scratchpad for this week's sprint, you *want* last month's notes to fade away. My mistake wasn't adding decay. My mistake was applying steep decay to everything, including long-term facts.
 
 ## The takeaway
 
-Two habits I'm keeping.
+This bug left me with two habits.
 
-First, whenever I see "a small percentage, repeatedly", I stop and work out the half-life. It takes one line and it has embarrassed me every time.
+First, whenever I catch myself writing "a small percentage, applied repeatedly", I stop and calculate the half-life right there. It takes ten seconds and has saved me from bad math more than once.
 
-Second, for every signal that feeds a ranking, I go find the test input where that signal isn't a constant. If I can't find one, the signal is untested, however green the suite looks.
+Second, for every signal inside a ranking function, I check whether my test data actually varies on that axis. If a signal is constant across your test set, it's untested, however green CI looks.

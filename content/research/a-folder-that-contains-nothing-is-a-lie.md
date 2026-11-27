@@ -1,4 +1,4 @@
-# Research note: A Folder That Contains Nothing Is a Lie
+# Research note: Empty Folders Are Lies
 
 Written 10 October 2026, revised the same day after Aditya's review: the first draft read as marketing, so the post now leads with the question and mentions Hivemind once, as the side project the evidence came from.
 

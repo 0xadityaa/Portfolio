@@ -145,6 +145,26 @@
   @apply tabular-nums;
 }
 
+/* Math: native MathML from rehype-katex, so no KaTeX stylesheet or webfonts. */
+.prose math {
+  font-family: "STIX Two Math", "Latin Modern Math", "Cambria Math", math;
+  font-size: 1.12em;
+  color: hsl(var(--foreground));
+}
+/* Display math arrives as a bare span.katex directly under the article. */
+.prose > .katex {
+  @apply my-6 block overflow-x-auto overflow-y-hidden py-1 text-center;
+}
+.prose math[display="block"] {
+  display: inline-block;
+  font-size: 1.15em;
+  text-align: left;
+}
+.prose td math,
+.prose th math {
+  font-size: 1.05em;
+}
+
 /* Callouts */
 blockquote[data-callout] {
   @apply border-l-2 border-foreground/20 bg-card p-4 my-6 text-sm leading-relaxed rounded-r-lg;
@@ -255,5 +275,117 @@ body::before {
   *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Blog figures: inline SVGs that play once on scroll. See docs/visuals.md. */
+.viz-frame {
+  @apply overflow-hidden rounded-2xl border border-border;
+}
+.viz-frame svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.viz text {
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+.viz .m {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+.viz .h {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.viz figcaption {
+  @apply mt-3 text-[13px] leading-relaxed text-muted-foreground;
+}
+.viz figcaption code {
+  @apply text-[0.92em];
+}
+
+/* The animation classes only act once the script has marked the figure
+   .js-anim, and run when it adds .in-view. Hidden states come from the paused
+   animation's first keyframe, so no-JS and reduced motion see the final frame. */
+@media (prefers-reduced-motion: no-preference) {
+  .viz {
+    --ease: cubic-bezier(0.65, 0, 0.35, 1);
+    --out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .viz.js-anim :is(.a-draw, .a-growx, .a-growy, .a-morphx, .a-fade, .a-pop) {
+    animation-duration: var(--t, 0.6s);
+    animation-delay: var(--d, 0s);
+    animation-fill-mode: both;
+    animation-play-state: paused;
+    animation-timing-function: var(--out);
+  }
+  .viz.js-anim.in-view :is(.a-draw, .a-growx, .a-growy, .a-morphx, .a-fade, .a-pop) {
+    animation-play-state: running;
+  }
+  .viz.js-anim :is(.a-growx, .a-morphx) {
+    transform-box: fill-box;
+    transform-origin: 0 50%;
+  }
+  .viz.js-anim .a-growy {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+  }
+  .viz.js-anim .a-pop {
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+  }
+  .viz.js-anim .a-draw {
+    stroke-dasharray: 1;
+    animation-name: viz-draw;
+    animation-timing-function: var(--ease);
+  }
+  .viz.js-anim .a-growx {
+    animation-name: viz-growx;
+  }
+  .viz.js-anim .a-growy {
+    animation-name: viz-growy;
+  }
+  .viz.js-anim .a-morphx {
+    animation-name: viz-morphx;
+    animation-timing-function: var(--ease);
+  }
+  .viz.js-anim .a-fade {
+    animation-name: viz-fade;
+  }
+  .viz.js-anim .a-pop {
+    animation-name: viz-pop;
+  }
+  @keyframes viz-draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+  }
+  @keyframes viz-growx {
+    from {
+      transform: scaleX(0);
+    }
+  }
+  @keyframes viz-growy {
+    from {
+      transform: scaleY(0);
+    }
+  }
+  @keyframes viz-morphx {
+    from {
+      transform: scaleX(var(--from, 1));
+    }
+  }
+  @keyframes viz-fade {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+  }
+  @keyframes viz-pop {
+    40% {
+      transform: scale(1.12);
+    }
   }
 }

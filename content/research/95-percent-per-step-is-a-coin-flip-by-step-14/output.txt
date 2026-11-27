@@ -1,0 +1,160 @@
+seed=20261114 trials_per_cell=20000 retries=2 persistent_share=0.5 timeout_share=0.5 checkpoint_every=5
+
+## Closed form: p^n (probability every step succeeds, no retries)
+
+| p \ steps | 5 | 10 | 20 | 40 | steps until success falls to 50% |
+| --- | --- | --- | --- | --- | --- |
+| 0.90 | 0.590 | 0.349 | 0.122 | 0.015 | 6.6 |
+| 0.95 | 0.774 | 0.599 | 0.358 | 0.129 | 13.5 |
+| 0.99 | 0.951 | 0.904 | 0.818 | 0.669 | 69.0 |
+
+0.95^14 = 0.4877
+
+## Simulation
+
+success = completed tasks / tasks. calls/done = total model calls / completed tasks. dupes/task = duplicate side effects per task (all tasks). dupe% = share of tasks with at least one duplicate.
+
+### p=0.90, steps=5  (closed form: a=0.590, b=0.995, c=0.772)
+
+| strategy | success | calls/done | dupes/task | dupe% |
+| --- | --- | --- | --- | --- |
+| a  no retries | 0.589 | 6.9 | 0.000 | 0.0% |
+| b  retry x2, all failures transient | 0.995 | 5.6 | 0.000 | 0.0% |
+| c  retry x2, half of failures persistent | 0.770 | 6.8 | 0.000 | 0.0% |
+| d0 restart from step 1 (cap 3n calls) | 0.970 | 7.0 | 0.000 | 0.0% |
+| d  checkpoint every 5 steps, resume (cap 3n calls) | 0.971 | 7.1 | 0.000 | 0.0% |
+| e  retry x2, non-idempotent, half of failures are timeouts | 0.995 | 5.6 | 0.276 | 23.8% |
+| e2 same as e, with idempotency keys | 0.995 | 5.6 | 0.000 | 0.0% |
+
+### p=0.90, steps=10  (closed form: a=0.349, b=0.990, c=0.596)
+
+| strategy | success | calls/done | dupes/task | dupe% |
+| --- | --- | --- | --- | --- |
+| a  no retries | 0.348 | 18.7 | 0.000 | 0.0% |
+| b  retry x2, all failures transient | 0.990 | 11.2 | 0.000 | 0.0% |
+| c  retry x2, half of failures persistent | 0.596 | 15.5 | 0.000 | 0.0% |
+| d0 restart from step 1 (cap 3n calls) | 0.872 | 19.6 | 0.000 | 0.0% |
+| d  checkpoint every 5 steps, resume (cap 3n calls) | 0.992 | 13.9 | 0.000 | 0.0% |
+| e  retry x2, non-idempotent, half of failures are timeouts | 0.990 | 11.2 | 0.539 | 41.0% |
+| e2 same as e, with idempotency keys | 0.990 | 11.2 | 0.000 | 0.0% |
+
+### p=0.90, steps=20  (closed form: a=0.122, b=0.980, c=0.355)
+
+| strategy | success | calls/done | dupes/task | dupe% |
+| --- | --- | --- | --- | --- |
+| a  no retries | 0.120 | 72.6 | 0.000 | 0.0% |
+| b  retry x2, all failures transient | 0.980 | 22.5 | 0.000 | 0.0% |
+| c  retry x2, half of failures persistent | 0.357 | 41.5 | 0.000 | 0.0% |
+| d0 restart from step 1 (cap 3n calls) | 0.548 | 84.1 | 0.000 | 0.0% |
+| d  checkpoint every 5 steps, resume (cap 3n calls) | 0.999 | 27.8 | 0.000 | 0.0% |
+| e  retry x2, non-idempotent, half of failures are timeouts | 0.982 | 22.4 | 1.076 | 65.4% |
+| e2 same as e, with idempotency keys | 0.978 | 22.4 | 0.000 | 0.0% |
+
+### p=0.90, steps=40  (closed form: a=0.015, b=0.961, c=0.126)
+
+| strategy | success | calls/done | dupes/task | dupe% |
+| --- | --- | --- | --- | --- |
+| a  no retries | 0.015 | 672.6 | 0.000 | 0.0% |
+| b  retry x2, all failures transient | 0.958 | 45.4 | 0.000 | 0.0% |
+| c  retry x2, half of failures persistent | 0.126 | 158.6 | 0.000 | 0.0% |
+| d0 restart from step 1 (cap 3n calls) | 0.128 | 894.7 | 0.000 | 0.0% |
+| d  checkpoint every 5 steps, resume (cap 3n calls) | 1.000 | 55.5 | 0.000 | 0.0% |
+| e  retry x2, non-idempotent, half of failures are timeouts | 0.964 | 45.2 | 2.156 | 88.0% |
+| e2 same as e, with idempotency keys | 0.962 | 45.3 | 0.000 | 0.0% |
+
+### p=0.95, steps=5  (closed form: a=0.774, b=0.999, c=0.881)
+
+| strategy | success | calls/done | dupes/task | dupe% |
+| --- | --- | --- | --- | --- |
+| a  no retries | 0.772 | 5.8 | 0.000 | 0.0% |
+| b  retry x2, all failures transient | 0.999 | 5.3 | 0.000 | 0.0% |
+| c  retry x2, half of failures persistent | 0.879 | 5.8 | 0.000 | 0.0% |
+| d0 restart from step 1 (cap 3n calls) | 0.996 | 5.9 | 0.000 | 0.0% |
+| d  checkpoint every 5 steps, resume (cap 3n calls) | 0.996 | 5.8 | 0.000 | 0.0% |
+| e  retry x2, non-idempotent, half of failures are timeouts | 0.999 | 5.3 | 0.133 | 12.2% |
+| e2 same as e, with idempotency keys | 0.999 | 5.3 | 0.000 | 0.0% |
+
+### p=0.95, steps=10  (closed form: a=0.599, b=0.999, c=0.776)
+
+| strategy | success | calls/done | dupes/task | dupe% |
+| --- | --- | --- | --- | --- |
+| a  no retries | 0.599 | 13.4 | 0.000 | 0.0% |
+| b  retry x2, all failures transient | 0.999 | 10.5 | 0.000 | 0.0% |
+| c  retry x2, half of failures persistent | 0.775 | 12.4 | 0.000 | 0.0% |
+| d0 restart from step 1 (cap 3n calls) | 0.979 | 13.6 | 0.000 | 0.0% |
+| d  checkpoint every 5 steps, resume (cap 3n calls) | 1.000 | 11.7 | 0.000 | 0.0% |
+| e  retry x2, non-idempotent, half of failures are timeouts | 0.999 | 10.5 | 0.254 | 22.4% |
+| e2 same as e, with idempotency keys | 0.998 | 10.5 | 0.000 | 0.0% |
+
+### p=0.95, steps=20  (closed form: a=0.358, b=0.998, c=0.602)
+
+| strategy | success | calls/done | dupes/task | dupe% |
+| --- | --- | --- | --- | --- |
+| a  no retries | 0.355 | 36.1 | 0.000 | 0.0% |
+| b  retry x2, all failures transient | 0.998 | 21.1 | 0.000 | 0.0% |
+| c  retry x2, half of failures persistent | 0.604 | 28.3 | 0.000 | 0.0% |
+| d0 restart from step 1 (cap 3n calls) | 0.888 | 37.4 | 0.000 | 0.0% |
+| d  checkpoint every 5 steps, resume (cap 3n calls) | 1.000 | 23.4 | 0.000 | 0.0% |
+| e  retry x2, non-idempotent, half of failures are timeouts | 0.997 | 21.1 | 0.537 | 41.1% |
+| e2 same as e, with idempotency keys | 0.997 | 21.1 | 0.000 | 0.0% |
+
+### p=0.95, steps=40  (closed form: a=0.129, b=0.995, c=0.362)
+
+| strategy | success | calls/done | dupes/task | dupe% |
+| --- | --- | --- | --- | --- |
+| a  no retries | 0.126 | 137.4 | 0.000 | 0.0% |
+| b  retry x2, all failures transient | 0.994 | 42.2 | 0.000 | 0.0% |
+| c  retry x2, half of failures persistent | 0.366 | 75.4 | 0.000 | 0.0% |
+| d0 restart from step 1 (cap 3n calls) | 0.578 | 156.5 | 0.000 | 0.0% |
+| d  checkpoint every 5 steps, resume (cap 3n calls) | 1.000 | 46.8 | 0.000 | 0.0% |
+| e  retry x2, non-idempotent, half of failures are timeouts | 0.996 | 42.2 | 1.050 | 65.0% |
+| e2 same as e, with idempotency keys | 0.995 | 42.2 | 0.000 | 0.0% |
+
+### p=0.99, steps=5  (closed form: a=0.951, b=1.000, c=0.975)
+
+| strategy | success | calls/done | dupes/task | dupe% |
+| --- | --- | --- | --- | --- |
+| a  no retries | 0.954 | 5.1 | 0.000 | 0.0% |
+| b  retry x2, all failures transient | 1.000 | 5.1 | 0.000 | 0.0% |
+| c  retry x2, half of failures persistent | 0.975 | 5.2 | 0.000 | 0.0% |
+| d0 restart from step 1 (cap 3n calls) | 1.000 | 5.2 | 0.000 | 0.0% |
+| d  checkpoint every 5 steps, resume (cap 3n calls) | 1.000 | 5.2 | 0.000 | 0.0% |
+| e  retry x2, non-idempotent, half of failures are timeouts | 1.000 | 5.1 | 0.026 | 2.6% |
+| e2 same as e, with idempotency keys | 1.000 | 5.0 | 0.000 | 0.0% |
+
+### p=0.99, steps=10  (closed form: a=0.904, b=1.000, c=0.951)
+
+| strategy | success | calls/done | dupes/task | dupe% |
+| --- | --- | --- | --- | --- |
+| a  no retries | 0.900 | 10.6 | 0.000 | 0.0% |
+| b  retry x2, all failures transient | 1.000 | 10.1 | 0.000 | 0.0% |
+| c  retry x2, half of failures persistent | 0.948 | 10.5 | 0.000 | 0.0% |
+| d0 restart from step 1 (cap 3n calls) | 1.000 | 10.6 | 0.000 | 0.0% |
+| d  checkpoint every 5 steps, resume (cap 3n calls) | 1.000 | 10.3 | 0.000 | 0.0% |
+| e  retry x2, non-idempotent, half of failures are timeouts | 1.000 | 10.1 | 0.052 | 5.0% |
+| e2 same as e, with idempotency keys | 1.000 | 10.1 | 0.000 | 0.0% |
+
+### p=0.99, steps=20  (closed form: a=0.818, b=1.000, c=0.905)
+
+| strategy | success | calls/done | dupes/task | dupe% |
+| --- | --- | --- | --- | --- |
+| a  no retries | 0.817 | 22.3 | 0.000 | 0.0% |
+| b  retry x2, all failures transient | 1.000 | 20.2 | 0.000 | 0.0% |
+| c  retry x2, half of failures persistent | 0.903 | 21.4 | 0.000 | 0.0% |
+| d0 restart from step 1 (cap 3n calls) | 0.999 | 22.3 | 0.000 | 0.0% |
+| d  checkpoint every 5 steps, resume (cap 3n calls) | 1.000 | 20.6 | 0.000 | 0.0% |
+| e  retry x2, non-idempotent, half of failures are timeouts | 1.000 | 20.2 | 0.098 | 9.2% |
+| e2 same as e, with idempotency keys | 1.000 | 20.2 | 0.000 | 0.0% |
+
+### p=0.99, steps=40  (closed form: a=0.669, b=1.000, c=0.818)
+
+| strategy | success | calls/done | dupes/task | dupe% |
+| --- | --- | --- | --- | --- |
+| a  no retries | 0.673 | 49.4 | 0.000 | 0.0% |
+| b  retry x2, all failures transient | 1.000 | 40.4 | 0.000 | 0.0% |
+| c  retry x2, half of failures persistent | 0.816 | 45.1 | 0.000 | 0.0% |
+| d0 restart from step 1 (cap 3n calls) | 0.991 | 49.8 | 0.000 | 0.0% |
+| d  checkpoint every 5 steps, resume (cap 3n calls) | 1.000 | 41.2 | 0.000 | 0.0% |
+| e  retry x2, non-idempotent, half of failures are timeouts | 1.000 | 40.4 | 0.200 | 18.1% |
+| e2 same as e, with idempotency keys | 1.000 | 40.4 | 0.000 | 0.0% |
+
