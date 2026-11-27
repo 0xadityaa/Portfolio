@@ -41,7 +41,7 @@ The parameter counts come from four real `config.json` files (pinned in [`config
 
 Savings grow with size because the fp16 embeddings shrink as a share.
 
-![Horizontal bars of weight memory in GiB at fp16, int8 and int4 for four models, with dashed lines for 24, 48 and 80 GB cards; Llama 3.1 70B at int4 is 37.0 GiB, highlighted, and fits a 48 GB card](/images/blog/weight-memory-vs-cards.svg)
+![Horizontal bars of weight memory in GiB at fp16, int8 and int4 for four models, with dashed lines for 24, 48 and 80 GB cards. Llama 3.1 70B falls from 131.4 GiB at fp16 to 37.0 at int4, which fits a 48 GB card.](/images/blog/weight-memory-vs-cards.svg "Weight memory in GiB with groups of 128, embeddings and output head in fp16; card lines are 24, 48 and 80 GB converted to GiB. From [`output-memory.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/what-4-bit-quantization-actually-costs/output-memory.txt).")
 
 ## Does it fit on a card?
 
@@ -70,6 +70,8 @@ The test in [`quant_experiment.py`](https://github.com/0xadityaa/Portfolio/blob/
 | int4 g128 | 10.79% | 8.21% | 20.49 (+19.4%) |
 | int4 per-tensor, top 1% weights kept exact | 10.84% | 8.21% | 20.89 (+21.7%) |
 
+![Bars of output error for round-to-nearest quantization of Qwen2.5-0.5B. At 8 bits the error is 3.51, 0.64 and 0.49 percent for per tensor, per channel and groups of 128. At 4 bits it is 50.68, 10.79 and 8.21 percent, and perplexity is 10,816,108, 31.76 and 20.49.](/images/blog/quant-error-by-scale.svg "Output error on 2,048 WikiText-2 tokens and perplexity on eight 1,024-token windows. From [`output-activations.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/what-4-bit-quantization-actually-costs/output-activations.txt) and [`output-ppl.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/what-4-bit-quantization-actually-costs/output-ppl.txt).")
+
 **Going from 8 to 4 bits costs 17x the error, not 2x.** Int8 g128 is 0.64% and int4 g128 is 10.79%, about 255 steps against 15.
 
 **Granularity barely matters at 8 bits and decides everything at 4.** At int8 the three choices sit within 3.4%. At int4 they run from 20 to ten million.
@@ -87,6 +89,8 @@ The ones that get multiplied by big activations. [LLM.int8()](https://arxiv.org/
 [AWQ](https://arxiv.org/abs/2306.00978) turns that into a test. Its Table 1 keeps 1% of weights in fp16 on OPT-6.7B at 3 bits. Perplexity is 10.86 in fp16 and 23.54 with round-to-nearest. Keep the 1% chosen by activation: 11.39. By weight magnitude: 22.37. At random: 24.23.
 
 I ran the same idea on Qwen. I took the 1% of input channels with the largest mean squared activation and asked how much of the activation-weighted rounding error sits there. At int4 it's 30.4% per-tensor, 38.6% per-channel and 38.4% at g128 ([`output-activations.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/what-4-bit-quantization-actually-costs/output-activations.txt) lists them, with the raw numbers in [`results-activations.json`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/what-4-bit-quantization-actually-costs/results-activations.json)). I ignore cross terms, so it's an estimate: 1% of the channels, about 38% of the error. That's the gap AWQ and GPTQ go after.
+
+![Bars of the share of int4 rounding error carried by 1 percent of the weights or channels. Spread evenly it would be 1 percent. The largest 1 percent of weights carry 2.19 percent. The 1 percent of input channels with the largest activations carry 38.4 percent.](/images/blog/top-channels-error-share.svg "Int4 with groups of 128. Weight size: share of squared weight error ([`output-weights.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/what-4-bit-quantization-actually-costs/output-weights.txt)). Activation: share of activation-weighted error, cross terms ignored ([`output-activations.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/what-4-bit-quantization-actually-costs/output-activations.txt)).")
 
 I also ran AWQ's keep-1% test on Qwen at int4 g128. Output error fell from 8.21% to 6.42% keeping channels by activation, 6.82% by weight magnitude, and 8.16% at random. Random fails, as AWQ says. Magnitude lands close, probably because dropping the largest weight in a group shrinks its range.
 
