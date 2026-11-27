@@ -7,8 +7,8 @@
  *
  * A post is due on a platform when it is not a draft, its publish time has
  * passed, it is live on the site, and its frontmatter has no URL for that
- * platform yet. Published URLs are written back to the frontmatter, which is
- * what makes a rerun safe. Platforms without an API (or without a secret) are
+ * platform yet. A post with `syndicate: false` is skipped entirely. Published
+ * URLs are written back to the frontmatter, which is what makes a rerun safe. Platforms without an API (or without a secret) are
  * collected into one GitHub issue per run as a manual checklist.
  */
 import { absolutize, loadPosts, publishTime, saveFrontmatter } from "./lib/posts.mjs";
@@ -83,6 +83,7 @@ for (const post of posts) {
   const { data } = post;
   const due =
     !data.draft &&
+    data.syndicate !== false &&
     publishTime(data.publishedAt) <= new Date() &&
     publishTime(data.publishedAt) >= since;
   if (!due) continue;

@@ -44,13 +44,18 @@ for (const post of loadPosts()) {
   if (String(data.title).length > 60) fail("title is over 60 characters");
   if (String(data.summary).length > 160) fail("summary is over 160 characters");
   if (data.tags?.length > 5) fail("more than 5 tags");
-  if (/[—–]/.test(content) || /[—–]/.test(`${data.title}${data.summary}`)) {
+  // Quoted text is verbatim, so dashes inside a blockquote are not ours to change.
+  const unquoted = content.replace(/^>.*$/gm, "");
+  if (/[—–]/.test(unquoted) || /[—–]/.test(`${data.title}${data.summary}`)) {
     fail("contains an em or en dash; use a comma, colon, or period");
   }
   const prose = content.replace(/```[\s\S]*?```/g, "");
   for (const phrase of STOCK_PHRASES) {
     if (prose.toLowerCase().includes(phrase)) fail(`stock phrase "${phrase}"; write the specific thing instead`);
   }
+  // Philosophy essays have no measurement to write up, so the engineering
+  // rules (length, evidence links, artifact) do not apply to them.
+  if (data.tags?.includes("philosophy")) continue;
   const words = prose.split(/\s+/).filter(Boolean).length;
   if (words < 400 || words > 3000) {
     fail(`is ${words} words; a note is 400 to 900 and an essay 1,500 to 3,000`);

@@ -1,5 +1,5 @@
 ---
-title: 'Hoisting in JavaScript, Without the Hand-Waving'
+title: 'What Is Hoisting, Really?'
 publishedAt: '2024-09-30'
 summary: 'JavaScript registers every declaration before it runs any code. That one fact explains undefined from var, callable functions, and the temporal dead zone.'
 tags:
@@ -7,6 +7,7 @@ tags:
 updated: '2026-10-10'
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
 devto_url: 'https://dev.to/0xadityaa/hoisting-in-javascript-76h'
+draft: true
 ---
 
 ## What is hoisting?
