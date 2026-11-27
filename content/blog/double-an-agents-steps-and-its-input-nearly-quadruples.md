@@ -18,7 +18,7 @@ Three fixes are meant to tame that, all priced here. One of them quietly undoes 
 
 If your agent makes dozens of tool calls per task, input is the part of the bill that grows fastest. Every step of an agent loop is a fresh request carrying the whole history, so the total grows with the square of the steps. The numbers come from a priced model, not a live API run. The claim: **the input bill of a long agent run is quadratic, and the three common fixes (clear old tool results, compact, cache) bend it differently, so pick the one that matches what your loop repeats.**
 
-Five strategies are priced on Claude Sonnet 5.5 at 10, 25, 50 and 100 steps. The code, the tool outputs I tokenised and the raw results are in [the artifact folder](https://github.com/0xadityaa/Portfolio/tree/main/content/research/double-an-agents-steps-and-its-input-nearly-quadruples).
+Five strategies are priced on Claude Sonnet 5.5 at 10, 25, 50 and 100 steps. The code, the tokenised tool outputs and the raw results are in [the artifact folder](https://github.com/0xadityaa/Portfolio/tree/main/content/research/double-an-agents-steps-and-its-input-nearly-quadruples).
 
 ## The short version
 
