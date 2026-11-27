@@ -1,0 +1,1852 @@
+{
+ "What is the capital of Australia? Answer with just the city name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 1,
+   "sample": "Sydney"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 12,
+   "acc": 0.4,
+   "distinct": 2,
+   "sample": "Sydney"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 12,
+   "acc": 0.4,
+   "distinct": 2,
+   "sample": "Sydney"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 10,
+   "acc": 0.3333333333333333,
+   "distinct": 8,
+   "sample": "Sydney"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 10,
+   "acc": 0.3333333333333333,
+   "distinct": 21,
+   "sample": "Home-II\u5927\u57ce\u5e02"
+  }
+ },
+ "What is the capital of Canada? Answer with just the city name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": " Ottawa"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 29,
+   "acc": 0.9666666666666667,
+   "distinct": 2,
+   "sample": " Ottawa"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 24,
+   "acc": 0.8,
+   "distinct": 2,
+   "sample": "Ottawa"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 22,
+   "acc": 0.7333333333333333,
+   "distinct": 5,
+   "sample": "Toronto"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 6,
+   "acc": 0.2,
+   "distinct": 22,
+   "sample": "Toronto"
+  }
+ },
+ "What is the capital of Turkey? Answer with just the city name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": " Ankara"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": " Ankara"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 26,
+   "acc": 0.8666666666666667,
+   "distinct": 4,
+   "sample": "Ankara"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 20,
+   "acc": 0.6666666666666666,
+   "distinct": 9,
+   "sample": " Ankara"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 6,
+   "acc": 0.2,
+   "distinct": 25,
+   "sample": "Parallel Alright. Throughout world book_Total comprehension"
+  }
+ },
+ "What is the capital of Switzerland? Answer with just the city name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Bern"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Bern"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Bern"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 26,
+   "acc": 0.8666666666666667,
+   "distinct": 4,
+   "sample": "Bern"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 11,
+   "acc": 0.36666666666666664,
+   "distinct": 21,
+   "sample": "Bern"
+  }
+ },
+ "What is the capital of New Zealand? Answer with just the city name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": " Wellington"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": " Wellington"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 27,
+   "acc": 0.9,
+   "distinct": 5,
+   "sample": " Wellington"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 20,
+   "acc": 0.6666666666666666,
+   "distinct": 10,
+   "sample": "New Zealand's capital is Auckland."
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 9,
+   "acc": 0.3,
+   "distinct": 24,
+   "sample": "Islamabad, Pakistan"
+  }
+ },
+ "What is the capital of Pakistan? Answer with just the city name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Islamabad"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Islamabad"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 29,
+   "acc": 0.9666666666666667,
+   "distinct": 2,
+   "sample": "Islamabad"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 28,
+   "acc": 0.9333333333333333,
+   "distinct": 3,
+   "sample": "Islamabad"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 10,
+   "acc": 0.3333333333333333,
+   "distinct": 24,
+   "sample": "Islamabad"
+  }
+ },
+ "What is the capital of Morocco? Answer with just the city name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 1,
+   "sample": " Marrakech"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 5,
+   "sample": " Marrakech"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 4,
+   "acc": 0.13333333333333333,
+   "distinct": 14,
+   "sample": " Marrakech"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 1,
+   "acc": 0.03333333333333333,
+   "distinct": 23,
+   "sample": "Khartoum"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 1,
+   "acc": 0.03333333333333333,
+   "distinct": 29,
+   "sample": "Constanten\u652f\u90e8 \u0644\u0639\u0628\u0629 \ub3d9 '+' Child Learning"
+  }
+ },
+ "What is the capital of Nigeria? Answer with just the city name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 1,
+   "sample": "Istanbul"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 1,
+   "sample": "Istanbul"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 3,
+   "acc": 0.1,
+   "distinct": 13,
+   "sample": " Abuja"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 3,
+   "acc": 0.1,
+   "distinct": 25,
+   "sample": "London"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 1,
+   "acc": 0.03333333333333333,
+   "distinct": 28,
+   "sample": "Ivanp\u76ee\u7779\u76ee\u524d\u4e3a\u6b62\\Query\u4e2d\u56fd\u4f20\u7edf\u7a0b\u5e8f"
+  }
+ },
+ "What is the capital of Vietnam? Answer with just the city name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Hanoi"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Hanoi"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 26,
+   "acc": 0.8666666666666667,
+   "distinct": 2,
+   "sample": "Hanoi"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 20,
+   "acc": 0.6666666666666666,
+   "distinct": 5,
+   "sample": "Hanoi"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 9,
+   "acc": 0.3,
+   "distinct": 21,
+   "sample": " Hanoi"
+  }
+ },
+ "What is the capital of Peru? Answer with just the city name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Lima"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 24,
+   "acc": 0.8,
+   "distinct": 2,
+   "sample": "Lima"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 20,
+   "acc": 0.6666666666666666,
+   "distinct": 3,
+   "sample": "Cusco"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 21,
+   "acc": 0.7,
+   "distinct": 6,
+   "sample": "Peru's capital city is Lima."
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 6,
+   "acc": 0.2,
+   "distinct": 26,
+   "sample": "S\u9b1fota(strait of spanske"
+  }
+ },
+ "What is the capital of Scotland? Answer with just the city name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Edinburgh"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Edinburgh"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 29,
+   "acc": 0.9666666666666667,
+   "distinct": 2,
+   "sample": "Edinburgh"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 25,
+   "acc": 0.8333333333333334,
+   "distinct": 5,
+   "sample": " Edinburgh"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 8,
+   "acc": 0.26666666666666666,
+   "distinct": 23,
+   "sample": "Scottish Red Rack chairman_CATEGORY;Secondary"
+  }
+ },
+ "Which planet is closest to the Sun? Answer with just the planet name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Mercury"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Mercury"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Mercury"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 27,
+   "acc": 0.9,
+   "distinct": 2,
+   "sample": "Mercury"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 22,
+   "acc": 0.7333333333333333,
+   "distinct": 9,
+   "sample": "Mercury"
+  }
+ },
+ "Which planet is the largest? Answer with just the planet name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Jupiter"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Jupiter"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 27,
+   "acc": 0.9,
+   "distinct": 4,
+   "sample": "Jupiter"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 26,
+   "acc": 0.8666666666666667,
+   "distinct": 3,
+   "sample": "Jupiter"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 7,
+   "acc": 0.23333333333333334,
+   "distinct": 23,
+   "sample": "Jupyter parenthesis galaxy Evola\u015fma v\u00fccuduna"
+  }
+ },
+ "What is the chemical symbol for gold? Answer with just the symbol.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Au"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Au"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Au"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Au"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 26,
+   "acc": 0.8666666666666667,
+   "distinct": 6,
+   "sample": "Au"
+  }
+ },
+ "What is the chemical symbol for sodium? Answer with just the symbol.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Na"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Na"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Na"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Na"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 25,
+   "acc": 0.8333333333333334,
+   "distinct": 12,
+   "sample": "Na"
+  }
+ },
+ "What is the largest ocean on Earth? Answer with just the ocean name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Pacific Ocean"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 25,
+   "acc": 0.8333333333333334,
+   "distinct": 3,
+   "sample": "Pacific Ocean"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 13,
+   "acc": 0.43333333333333335,
+   "distinct": 8,
+   "sample": "Indian Ocean"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 10,
+   "acc": 0.3333333333333333,
+   "distinct": 12,
+   "sample": "Atlantic Ocean"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 4,
+   "acc": 0.13333333333333333,
+   "distinct": 26,
+   "sample": "Pacific Ocean."
+  }
+ },
+ "What is the hardest natural substance? Answer with just one word.": {
+  "greedy": {
+   "n": 1,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 1,
+   "sample": "Silicon."
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 2,
+   "acc": 0.06666666666666667,
+   "distinct": 4,
+   "sample": "Silicon."
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 3,
+   "acc": 0.1,
+   "distinct": 11,
+   "sample": "Silicon."
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 3,
+   "acc": 0.1,
+   "distinct": 22,
+   "sample": "apples"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 30,
+   "sample": "GlassscanprobablycrapIELossof"
+  }
+ },
+ "Which element has atomic number 1? Answer with just the element name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 1,
+   "sample": "Iron"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 2,
+   "sample": "Iron"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 3,
+   "acc": 0.1,
+   "distinct": 7,
+   "sample": "Carbon"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 15,
+   "sample": "Helium"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 1,
+   "acc": 0.03333333333333333,
+   "distinct": 29,
+   "sample": "\uc18cbuat\u501f\u9274\u4ee5\u4e0a\u8bf4\u660e\u7ed9\u51fa\u662f\u4e00\u4e2ad\u00ed"
+  }
+ },
+ "Which element has atomic number 6? Answer with just the element name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 1,
+   "sample": "Iron"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 1,
+   "acc": 0.03333333333333333,
+   "distinct": 2,
+   "sample": "Iron"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 3,
+   "acc": 0.1,
+   "distinct": 6,
+   "sample": "Iron"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 6,
+   "acc": 0.2,
+   "distinct": 8,
+   "sample": "Iron"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 25,
+   "sample": "Iron"
+  }
+ },
+ "What is the longest river in Africa? Answer with just the river name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": " Nile"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 2,
+   "sample": " Nile"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 27,
+   "acc": 0.9,
+   "distinct": 6,
+   "sample": " Nile"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 14,
+   "acc": 0.4666666666666667,
+   "distinct": 20,
+   "sample": "Danube"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 29,
+   "sample": "South Yorkshire Cro Dip Canyon/emourke."
+  }
+ },
+ "What is the tallest mountain above sea level? Answer with just the mountain name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Mount Everest"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Mount Everest"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 28,
+   "acc": 0.9333333333333333,
+   "distinct": 6,
+   "sample": "Mount Everest"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 18,
+   "acc": 0.6,
+   "distinct": 15,
+   "sample": "Everest, which stands at the summit"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 5,
+   "acc": 0.16666666666666666,
+   "distinct": 28,
+   "sample": "Likapphire Mountain_Location \u0438 retrieved Pixela"
+  }
+ },
+ "Which country has the largest area? Answer with just the country name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 1,
+   "sample": "China"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 1,
+   "sample": "China"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 7,
+   "acc": 0.23333333333333334,
+   "distinct": 3,
+   "sample": "China"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 8,
+   "acc": 0.26666666666666666,
+   "distinct": 6,
+   "sample": "Russia"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 3,
+   "acc": 0.1,
+   "distinct": 18,
+   "sample": "Canada"
+  }
+ },
+ "What is the currency of Japan? Answer with just the currency name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Yen"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Yen"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 28,
+   "acc": 0.9333333333333333,
+   "distinct": 5,
+   "sample": "Yen"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 29,
+   "acc": 0.9666666666666667,
+   "distinct": 7,
+   "sample": "Yen"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 17,
+   "acc": 0.5666666666666667,
+   "distinct": 26,
+   "sample": "kir queueshen skin ox Handling acted peach"
+  }
+ },
+ "What is the official language of Brazil? Answer with just the language name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Portuguese"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Portuguese"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 29,
+   "acc": 0.9666666666666667,
+   "distinct": 3,
+   "sample": "Portuguese"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 29,
+   "acc": 0.9666666666666667,
+   "distinct": 3,
+   "sample": "Portuguese"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 17,
+   "acc": 0.5666666666666667,
+   "distinct": 17,
+   "sample": "\u897f\u73ed\u7259/T\u1ecbnas"
+  }
+ },
+ "Who wrote Romeo and Juliet? Answer with just the surname.": {
+  "greedy": {
+   "n": 1,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 1,
+   "sample": "Boccaccio"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 3,
+   "sample": "Boccaccio"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 7,
+   "acc": 0.23333333333333334,
+   "distinct": 16,
+   "sample": "Shak"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 5,
+   "acc": 0.16666666666666666,
+   "distinct": 24,
+   "sample": "Vitaliberty"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 2,
+   "acc": 0.06666666666666667,
+   "distinct": 29,
+   "sample": "Fran_questions_again_areas_reruitment.Topic cared"
+  }
+ },
+ "Who painted the Mona Lisa? Answer with just the surname or first name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 1,
+   "sample": "Francesco del Giocondo"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 7,
+   "acc": 0.23333333333333334,
+   "distinct": 2,
+   "sample": "Francesco del Giocondo"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 13,
+   "acc": 0.43333333333333335,
+   "distinct": 13,
+   "sample": "Francesco del Candolo"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 13,
+   "acc": 0.43333333333333335,
+   "distinct": 21,
+   "sample": "Da Vinci."
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 1,
+   "acc": 0.03333333333333333,
+   "distinct": 30,
+   "sample": "Bro.Meri\u7455\u75b5-Ilya\u5f00\u529e\u4e86"
+  }
+ },
+ "Who developed the theory of general relativity? Answer with just the surname.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Einstein"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Einstein"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 15,
+   "acc": 0.5,
+   "distinct": 9,
+   "sample": "Einstein"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 10,
+   "acc": 0.3333333333333333,
+   "distinct": 21,
+   "sample": "DeSoto"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 3,
+   "acc": 0.1,
+   "distinct": 29,
+   "sample": " dataGridViewApplications trilogysend only. GenerTextEdit"
+  }
+ },
+ "Who was the first person to walk on the Moon? Answer with just the surname.": {
+  "greedy": {
+   "n": 1,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 1,
+   "sample": "Yuan Longping"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 4,
+   "sample": "Yuan Longping"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 18,
+   "sample": "Gordie Thorne"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 1,
+   "acc": 0.03333333333333333,
+   "distinct": 25,
+   "sample": "Gangyi Liu"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 30,
+   "sample": "G header_tail_aninteger mx numpy psycopg"
+  }
+ },
+ "In what year did World War II end? Answer with just the year.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "1945"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "1945"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "1945"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "1945"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 25,
+   "acc": 0.8333333333333334,
+   "distinct": 11,
+   "sample": "1945"
+  }
+ },
+ "In what year did the Berlin Wall fall? Answer with just the year.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "1989"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "1989"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 28,
+   "acc": 0.9333333333333333,
+   "distinct": 2,
+   "sample": "1989"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 28,
+   "acc": 0.9333333333333333,
+   "distinct": 3,
+   "sample": "1989"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 18,
+   "acc": 0.6,
+   "distinct": 15,
+   "sample": "1989 BTW Constantin Dam"
+  }
+ },
+ "What is 17 * 24? Answer with just the number.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "408"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 29,
+   "acc": 0.9666666666666667,
+   "distinct": 2,
+   "sample": "408"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 20,
+   "acc": 0.6666666666666666,
+   "distinct": 4,
+   "sample": "208"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 17,
+   "acc": 0.5666666666666667,
+   "distinct": 6,
+   "sample": "504"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 10,
+   "acc": 0.3333333333333333,
+   "distinct": 20,
+   "sample": "384"
+  }
+ },
+ "What is 19 * 21? Answer with just the number.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "399"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "399"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 28,
+   "acc": 0.9333333333333333,
+   "distinct": 3,
+   "sample": "399"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 28,
+   "acc": 0.9333333333333333,
+   "distinct": 3,
+   "sample": "399"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 17,
+   "acc": 0.5666666666666667,
+   "distinct": 13,
+   "sample": "399"
+  }
+ },
+ "What is 23 * 7? Answer with just the number.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "161"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "161"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 27,
+   "acc": 0.9,
+   "distinct": 2,
+   "sample": "161"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 26,
+   "acc": 0.8666666666666667,
+   "distinct": 2,
+   "sample": "161"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 12,
+   "acc": 0.4,
+   "distinct": 13,
+   "sample": "161"
+  }
+ },
+ "What is 13 * 13? Answer with just the number.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "169"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "169"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 29,
+   "acc": 0.9666666666666667,
+   "distinct": 2,
+   "sample": "169"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 29,
+   "acc": 0.9666666666666667,
+   "distinct": 2,
+   "sample": "169"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 23,
+   "acc": 0.7666666666666667,
+   "distinct": 8,
+   "sample": "169"
+  }
+ },
+ "What is 125 + 387? Answer with just the number.": {
+  "greedy": {
+   "n": 1,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 1,
+   "sample": "1632"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 1,
+   "sample": "1632"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 2,
+   "sample": "1632"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 4,
+   "sample": "1632"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 10,
+   "sample": "412"
+  }
+ },
+ "What is 1000 - 357? Answer with just the number.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "643"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "643"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "643"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "643"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 24,
+   "acc": 0.8,
+   "distinct": 7,
+   "sample": "643"
+  }
+ },
+ "What is 56 * 4? Answer with just the number.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "224"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "224"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "224"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 29,
+   "acc": 0.9666666666666667,
+   "distinct": 2,
+   "sample": "224"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 28,
+   "acc": 0.9333333333333333,
+   "distinct": 7,
+   "sample": "224"
+  }
+ },
+ "What is 45 * 12? Answer with just the number.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "540"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "540"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "540"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 29,
+   "acc": 0.9666666666666667,
+   "distinct": 2,
+   "sample": "540"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 20,
+   "acc": 0.6666666666666666,
+   "distinct": 12,
+   "sample": "\u043f\u0443\u0441\u0442\u043d\u043e\u0435"
+  }
+ },
+ "What is 87 + 68? Answer with just the number.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "155"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "155"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "155"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "155"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 26,
+   "acc": 0.8666666666666667,
+   "distinct": 5,
+   "sample": "155"
+  }
+ },
+ "What is 144 / 12? Answer with just the number.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "12"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "12"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 2,
+   "sample": "12"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 3,
+   "sample": "12"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 29,
+   "acc": 0.9666666666666667,
+   "distinct": 9,
+   "sample": "12"
+  }
+ },
+ "What is 38 * 5? Answer with just the number.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "190"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "190"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "190"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "190"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 24,
+   "acc": 0.8,
+   "distinct": 6,
+   "sample": "190"
+  }
+ },
+ "Which HTTP status code means Not Found? Answer with just the number.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "404"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "404"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "404"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 23,
+   "acc": 0.7666666666666667,
+   "distinct": 4,
+   "sample": "404"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 15,
+   "acc": 0.5,
+   "distinct": 17,
+   "sample": "404"
+  }
+ },
+ "Which data structure is last in, first out? Answer with just one word.": {
+  "greedy": {
+   "n": 1,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 1,
+   "sample": "Queue"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 1,
+   "sample": "Queue"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 4,
+   "acc": 0.13333333333333333,
+   "distinct": 5,
+   "sample": "LIFO"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 3,
+   "acc": 0.1,
+   "distinct": 8,
+   "sample": "Queue"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 1,
+   "acc": 0.03333333333333333,
+   "distinct": 20,
+   "sample": "Linked List"
+  }
+ },
+ "Which keyword defines a function in Python? Answer with just the keyword.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "def"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "def"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 26,
+   "acc": 0.8666666666666667,
+   "distinct": 5,
+   "sample": "function"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 26,
+   "acc": 0.8666666666666667,
+   "distinct": 6,
+   "sample": "function"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 13,
+   "acc": 0.43333333333333335,
+   "distinct": 22,
+   "sample": "Pylineno_unknown_coordinate emphasizes Python functions for"
+  }
+ },
+ "Which TCP port does HTTPS use by default? Answer with just the number.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "443"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "443"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "443"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "443"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 26,
+   "acc": 0.8666666666666667,
+   "distinct": 15,
+   "sample": "443\u7684\u505a\u6cd5underlogithub.com"
+  }
+ },
+ "Which TCP port does SSH use by default? Answer with just the number.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "22"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "22"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "22"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "22"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 26,
+   "acc": 0.8666666666666667,
+   "distinct": 7,
+   "sample": "22"
+  }
+ },
+ "What is the capital of Brazil? Answer with just the city name.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Bras\u00edlia"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "Bras\u00edlia"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 22,
+   "acc": 0.7333333333333333,
+   "distinct": 2,
+   "sample": "Bras\u00edlia"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 20,
+   "acc": 0.6666666666666666,
+   "distinct": 10,
+   "sample": " Bras\u00edlia"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 6,
+   "acc": 0.2,
+   "distinct": 20,
+   "sample": "Barbbazine\u062c\u064a\u0644glyasco\uff0c\u9ed8\u8ba4\u4e0b\u4ee4la l\u1ed9\u3057\u3066\u304f\u308c\uff0e"
+  }
+ },
+ "Which organelle is called the powerhouse of the cell? Answer with just one word.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "The organelle called the powerhouse of the cell is the mitochondrion."
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 3,
+   "sample": "Mitochondria"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 20,
+   "acc": 0.6666666666666666,
+   "distinct": 8,
+   "sample": "Powerhouse"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 15,
+   "acc": 0.5,
+   "distinct": 16,
+   "sample": "Mitochondria"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 3,
+   "acc": 0.1,
+   "distinct": 27,
+   "sample": "Nucleus"
+  }
+ },
+ "How many continents are there? Answer with just the number.": {
+  "greedy": {
+   "n": 1,
+   "correct": 0,
+   "acc": 0.0,
+   "distinct": 1,
+   "sample": "There are 5 continents: Asia, Africa, North America, South America, and Europe."
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 1,
+   "acc": 0.03333333333333333,
+   "distinct": 5,
+   "sample": "There are 5 continents: Asia, Africa, North America, South America, and Europe."
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 6,
+   "acc": 0.2,
+   "distinct": 18,
+   "sample": "There are 6 continents."
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 6,
+   "acc": 0.2,
+   "distinct": 29,
+   "sample": "There are 7 continents: Africa, Antarctica, Asia, Australia, Europe, North and South America."
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 4,
+   "acc": 0.13333333333333333,
+   "distinct": 28,
+   "sample": "10\u70ed\u8840_worker Glenma Westernemia contributors ochelligent format for textarea assist activists examine radicals secret newsletter fighters \uc815\ubcf4 degradation inheritance"
+  }
+ },
+ "What is 91 - 47? Answer with just the number.": {
+  "greedy": {
+   "n": 1,
+   "correct": 1,
+   "acc": 1.0,
+   "distinct": 1,
+   "sample": "91 - 47 = 44"
+  },
+  "T=0.2": {
+   "n": 30,
+   "correct": 30,
+   "acc": 1.0,
+   "distinct": 2,
+   "sample": "91 - 47 = 44"
+  },
+  "T=0.7": {
+   "n": 30,
+   "correct": 27,
+   "acc": 0.9,
+   "distinct": 4,
+   "sample": "91 - 47 = 44"
+  },
+  "T=1.0": {
+   "n": 30,
+   "correct": 26,
+   "acc": 0.8666666666666667,
+   "distinct": 6,
+   "sample": "44"
+  },
+  "T=1.5": {
+   "n": 30,
+   "correct": 15,
+   "acc": 0.5,
+   "distinct": 15,
+   "sample": "91 - 47 equals 44."
+  }
+ }
+}

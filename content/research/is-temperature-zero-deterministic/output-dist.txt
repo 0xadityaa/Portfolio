@@ -1,0 +1,52 @@
+
+=== What is the capital of France? Answer with one word.
+greedy (T=0) picks: 'Paris'
+T=0.2              entropy  0.00 bits  top1 1.000  top10 mass 1.000
+   'Paris':1.000  ' Paris':0.000  'L':0.000  '巴黎':0.000  'Le':0.000  ' paris':0.000
+T=0.7              entropy  0.01 bits  top1 0.999  top10 mass 1.000
+   'Paris':0.999  ' Paris':0.000  'L':0.000  '巴黎':0.000  'Le':0.000  ' paris':0.000
+T=1.0              entropy  0.15 bits  top1 0.987  top10 mass 0.998
+   'Paris':0.987  ' Paris':0.004  'L':0.003  '巴黎':0.002  'Le':0.001  ' paris':0.001
+T=1.5              entropy  2.20 bits  top1 0.820  top10 mass 0.897
+   'Paris':0.820  ' Paris':0.020  'L':0.016  '巴黎':0.012  'Le':0.007  ' paris':0.006
+T=1.0, top-p 0.9   entropy  0.00 bits  top1 1.000  top10 mass 1.000  nucleus 1 tokens
+   'Paris':1.000  '&':0.000  '#':0.000  "'":0.000  '*':0.000  '%':0.000
+
+=== Name a color. Answer with one word.
+greedy (T=0) picks: 'Red'
+T=0.2              entropy  0.00 bits  top1 1.000  top10 mass 1.000
+   'Red':1.000  'Blue':0.000  'Purple':0.000  'Yellow':0.000  'Green':0.000  'Pink':0.000
+T=0.7              entropy  0.62 bits  top1 0.894  top10 mass 0.999
+   'Red':0.894  'Blue':0.082  'Purple':0.011  'Yellow':0.009  'Green':0.001  'Pink':0.001
+T=1.0              entropy  1.41 bits  top1 0.753  top10 mass 0.985
+   'Red':0.753  'Blue':0.142  'Purple':0.035  'Yellow':0.030  'Green':0.008  'Pink':0.006
+T=1.5              entropy  4.44 bits  top1 0.449  top10 mass 0.790
+   'Red':0.449  'Blue':0.147  'Purple':0.058  'Yellow':0.052  'Green':0.021  'Pink':0.018
+T=1.0, top-p 0.9   entropy  0.84 bits  top1 0.810  top10 mass 1.000  nucleus 3 tokens
+   'Red':0.810  'Blue':0.152  'Purple':0.038  "'":0.000  '#':0.000  '&':0.000
+
+=== Pick a number between 1 and 10. Answer with just the number.
+greedy (T=0) picks: '7'
+T=0.2              entropy  0.15 bits  top1 0.982  top10 mass 1.000
+   '7':0.982  '8':0.012  '3':0.005  '4':0.001  '5':0.000  '9':0.000
+T=0.7              entropy  2.11 bits  top1 0.542  top10 mass 1.000
+   '7':0.542  '8':0.155  '3':0.121  '4':0.066  '5':0.054  '9':0.030
+T=1.0              entropy  2.59 bits  top1 0.397  top10 mass 0.999
+   '7':0.397  '8':0.165  '3':0.139  '4':0.091  '5':0.079  '9':0.052
+T=1.5              entropy  3.54 bits  top1 0.273  top10 mass 0.959
+   '7':0.273  '8':0.152  '3':0.136  '4':0.102  '5':0.093  '9':0.071
+T=1.0, top-p 0.9   entropy  2.25 bits  top1 0.430  top10 mass 1.000  nucleus 6 tokens
+   '7':0.430  '8':0.179  '3':0.150  '4':0.098  '5':0.086  '9':0.057
+
+=== Give me one word that describes the ocean.
+greedy (T=0) picks: 'Ocean'
+T=0.2              entropy  0.08 bits  top1 0.992  top10 mass 1.000
+   'Ocean':0.992  'M':0.004  'Peace':0.004  'E':0.001  'Depth':0.000  'O':0.000
+T=0.7              entropy  2.33 bits  top1 0.588  top10 mass 0.946
+   'Ocean':0.588  'M':0.121  'Peace':0.119  'E':0.070  'Depth':0.014  'O':0.012
+T=1.0              entropy  4.74 bits  top1 0.336  top10 mass 0.728
+   'Ocean':0.336  'M':0.111  'Peace':0.110  'E':0.076  'Depth':0.024  'O':0.021
+T=1.5              entropy  9.78 bits  top1 0.090  top10 mass 0.279
+   'Ocean':0.090  'M':0.043  'Peace':0.043  'E':0.033  'Depth':0.016  'O':0.014
+T=1.0, top-p 0.9   entropy  3.67 bits  top1 0.373  top10 mass 0.808  nucleus 61 tokens
+   'Ocean':0.373  'M':0.123  'Peace':0.122  'E':0.084  'Depth':0.027  'O':0.024

@@ -1,0 +1,42 @@
+Written 2026-11-15 before running anything.
+
+Model: Qwen2.5-0.5B-Instruct, CPU, 4 threads.
+
+1. Distributions. Lowering temperature sharpens: entropy at T=0.2 near zero for
+   confident prompts (capital city), still a few bits for open prompts ("name a
+   colour"). At T=1.5 the top-1 probability drops sharply and entropy roughly
+   doubles for open prompts. Top-p 0.9 at T=1.0 keeps 1 token for a confident
+   prompt and 5 to 40 tokens for an open one.
+
+2. Sampling 100 completions on one short-answer prompt: at T=0.2 almost all
+   answers identical (1 to 2 distinct). At T=1.0 a handful of distinct
+   answers. At T=1.5 many distinct answers and lower accuracy than at T=0.2
+   (several points to tens of points). Top-p 0.9 at T=1.0 recovers most of
+   the accuracy lost at plain T=1.0.
+
+3. Determinism. Greedy repeated 20 times on the same machine: identical every
+   time. Summing the same 1e6 float32 numbers in a different order: results
+   differ in the 6th to 7th significant digit. Same forward pass at batch size
+   1 vs a larger batch: max logit difference around 1e-5 in fp32 and around
+   1e-1 in bf16. In fp32 the greedy text will almost never change between
+   batch sizes; in bf16 a minority of prompts (maybe 1 in 10 to 1 in 3)
+   diverge somewhere in 64 tokens.
+
+Addendum, written 2026-11-26 before the 50-question run and before any
+determinism.py output existed.
+
+4. 50 short-answer questions (questions.py), 50 samples per setting. Greedy has
+   the highest mean accuracy or is within a point or two of T=0.2. Mean
+   accuracy at T=0.7 is 5 to 10 points below greedy, at T=1.5 about 25 points
+   below. A minority of questions (3 to 8 of 50) are ones greedy gets wrong
+   while sampling at T=0.7 gets at least a fifth right. Australia is an
+   exception, not the rule.
+5. determinism.py on 200 prompts x 64 tokens, batch 1 vs batch 8: fp32 flips
+   0 to 5 prompts of 200; bf16 flips 20 to 80 (10% to 40%). Flips start at
+   positions where the top two logits are within a few hundredths.
+
+Change of plan, 2026-11-26: the first sweep (50 samples x 6 settings) ran at
+about 190 s per question because the machine's load average was 20 to 110, so
+it was stopped after 9 of 50 questions and the budget cut to 30 samples per
+setting, 8 new tokens, and no top-p arm. The earlier three-prompt run
+(output-sample.txt, 100 samples) keeps the top-p arm.

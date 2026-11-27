@@ -1,0 +1,94 @@
+ 1/50 What is the capital of Australia? Answer with ju greedy 'Sydney'         greedy=0 T0.2=0.40 T0.7=0.40 T1=0.33 T1.5=0.33  [64s]
+ 2/50 What is the capital of Canada? Answer with just  greedy 'Ottawa'         greedy=1 T0.2=0.97 T0.7=0.80 T1=0.73 T1.5=0.20  [136s]
+ 3/50 What is the capital of Brazil? Answer with just  greedy 'Brasília'       greedy=0 T0.2=0.00 T0.7=0.10 T1=0.13 T1.5=0.07  [202s]
+ 4/50 What is the capital of Turkey? Answer with just  greedy 'Ankara'         greedy=1 T0.2=1.00 T0.7=0.87 T1=0.67 T1.5=0.20  [287s]
+ 5/50 What is the capital of Switzerland? Answer with  greedy 'Bern'           greedy=1 T0.2=1.00 T0.7=1.00 T1=0.87 T1.5=0.37  [358s]
+ 6/50 What is the capital of New Zealand? Answer with  greedy 'Wellington'     greedy=1 T0.2=1.00 T0.7=0.90 T1=0.67 T1.5=0.30  [431s]
+ 7/50 What is the capital of Pakistan? Answer with jus greedy 'Islamabad'      greedy=1 T0.2=1.00 T0.7=0.97 T1=0.93 T1.5=0.33  [507s]
+ 8/50 What is the capital of Morocco? Answer with just greedy 'Marrakech'      greedy=0 T0.2=0.00 T0.7=0.13 T1=0.03 T1.5=0.03  [584s]
+ 9/50 What is the capital of Nigeria? Answer with just greedy 'Istanbul'       greedy=0 T0.2=0.00 T0.7=0.10 T1=0.10 T1.5=0.03  [663s]
+10/50 What is the capital of Vietnam? Answer with just greedy 'Hanoi'          greedy=1 T0.2=1.00 T0.7=0.87 T1=0.67 T1.5=0.30  [746s]
+11/50 What is the capital of Peru? Answer with just th greedy 'Lima'           greedy=1 T0.2=0.80 T0.7=0.67 T1=0.70 T1.5=0.20  [824s]
+12/50 What is the capital of Scotland? Answer with jus greedy 'Edinburgh'      greedy=1 T0.2=1.00 T0.7=0.97 T1=0.83 T1.5=0.27  [900s]
+13/50 Which planet is closest to the Sun? Answer with  greedy 'Mercury'        greedy=1 T0.2=1.00 T0.7=1.00 T1=0.90 T1.5=0.73  [958s]
+14/50 Which planet is the largest? Answer with just th greedy 'Jupiter'        greedy=1 T0.2=1.00 T0.7=0.90 T1=0.87 T1.5=0.23  [1039s]
+15/50 What is the chemical symbol for gold? Answer wit greedy 'Au'             greedy=1 T0.2=1.00 T0.7=1.00 T1=1.00 T1.5=0.87  [1095s]
+16/50 What is the chemical symbol for sodium? Answer w greedy 'Na'             greedy=1 T0.2=1.00 T0.7=1.00 T1=1.00 T1.5=0.83  [1160s]
+17/50 What is the largest ocean on Earth? Answer with  greedy 'Pacific Ocean'  greedy=1 T0.2=0.83 T0.7=0.43 T1=0.33 T1.5=0.13  [1238s]
+18/50 What is the hardest natural substance? Answer wi greedy 'Silicon.'       greedy=0 T0.2=0.07 T0.7=0.10 T1=0.10 T1.5=0.00  [1341s]
+19/50 Which element has atomic number 1? Answer with j greedy 'Iron'           greedy=0 T0.2=0.00 T0.7=0.10 T1=0.00 T1.5=0.03  [1428s]
+20/50 Which element has atomic number 6? Answer with j greedy 'Iron'           greedy=0 T0.2=0.03 T0.7=0.10 T1=0.20 T1.5=0.00  [1516s]
+21/50 Which organelle is called the powerhouse of the  greedy 'The organelle ' greedy=0 T0.2=0.50 T0.7=0.27 T1=0.33 T1.5=0.10  [1607s]
+22/50 How many continents are there? Answer with just  greedy 'There are 5 co' greedy=0 T0.2=0.03 T0.7=0.20 T1=0.20 T1.5=0.13  [1688s]
+23/50 What is the longest river in Africa? Answer with greedy 'Nile'           greedy=1 T0.2=1.00 T0.7=0.90 T1=0.47 T1.5=0.00  [1774s]
+24/50 What is the tallest mountain above sea level? An greedy 'Mount Everest'  greedy=1 T0.2=1.00 T0.7=0.93 T1=0.60 T1.5=0.17  [1872s]
+25/50 Which country has the largest area? Answer with  greedy 'China'          greedy=0 T0.2=0.00 T0.7=0.23 T1=0.27 T1.5=0.10  [1961s]
+26/50 What is the currency of Japan? Answer with just  greedy 'Yen'            greedy=1 T0.2=1.00 T0.7=0.93 T1=0.97 T1.5=0.57  [2052s]
+27/50 What is the official language of Brazil? Answer  greedy 'Portuguese'     greedy=1 T0.2=1.00 T0.7=0.97 T1=0.97 T1.5=0.57  [2096s]
+28/50 Who wrote Romeo and Juliet? Answer with just the greedy 'Boccaccio'      greedy=0 T0.2=0.00 T0.7=0.23 T1=0.17 T1.5=0.07  [2142s]
+29/50 Who painted the Mona Lisa? Answer with just the  greedy 'Francesco del ' greedy=0 T0.2=0.23 T0.7=0.43 T1=0.43 T1.5=0.03  [2476s]
+30/50 Who developed the theory of general relativity?  greedy 'Einstein'       greedy=1 T0.2=1.00 T0.7=0.50 T1=0.33 T1.5=0.10  [2561s]
+31/50 Who was the first person to walk on the Moon? An greedy 'Yuan Longping'  greedy=0 T0.2=0.00 T0.7=0.00 T1=0.03 T1.5=0.00  [2623s]
+32/50 In what year did World War II end? Answer with j greedy '1945'           greedy=1 T0.2=1.00 T0.7=1.00 T1=1.00 T1.5=0.83  [2704s]
+33/50 In what year did the Berlin Wall fall? Answer wi greedy '1989'           greedy=1 T0.2=1.00 T0.7=0.93 T1=0.93 T1.5=0.60  [2783s]
+34/50 What is 17 * 24? Answer with just the number.    greedy '408'            greedy=1 T0.2=0.97 T0.7=0.67 T1=0.57 T1.5=0.33  [2874s]
+35/50 What is 19 * 21? Answer with just the number.    greedy '399'            greedy=1 T0.2=1.00 T0.7=0.93 T1=0.93 T1.5=0.57  [2941s]
+36/50 What is 23 * 7? Answer with just the number.     greedy '161'            greedy=1 T0.2=1.00 T0.7=0.90 T1=0.87 T1.5=0.40  [2995s]
+37/50 What is 13 * 13? Answer with just the number.    greedy '169'            greedy=1 T0.2=1.00 T0.7=0.97 T1=0.97 T1.5=0.77  [3050s]
+38/50 What is 125 + 387? Answer with just the number.  greedy '1632'           greedy=0 T0.2=0.00 T0.7=0.00 T1=0.00 T1.5=0.00  [3099s]
+39/50 What is 1000 - 357? Answer with just the number. greedy '643'            greedy=1 T0.2=1.00 T0.7=1.00 T1=1.00 T1.5=0.80  [3147s]
+40/50 What is 56 * 4? Answer with just the number.     greedy '224'            greedy=1 T0.2=1.00 T0.7=1.00 T1=0.97 T1.5=0.93  [3195s]
+41/50 What is 45 * 12? Answer with just the number.    greedy '540'            greedy=1 T0.2=1.00 T0.7=1.00 T1=0.97 T1.5=0.67  [3247s]
+42/50 What is 87 + 68? Answer with just the number.    greedy '155'            greedy=1 T0.2=1.00 T0.7=1.00 T1=1.00 T1.5=0.87  [3292s]
+43/50 What is 144 / 12? Answer with just the number.   greedy '12'             greedy=1 T0.2=1.00 T0.7=1.00 T1=1.00 T1.5=0.97  [3343s]
+44/50 What is 91 - 47? Answer with just the number.    greedy '91 - 47 ='      greedy=0 T0.2=0.03 T0.7=0.20 T1=0.27 T1.5=0.07  [3406s]
+45/50 What is 38 * 5? Answer with just the number.     greedy '190'            greedy=1 T0.2=1.00 T0.7=1.00 T1=1.00 T1.5=0.80  [3470s]
+46/50 Which HTTP status code means Not Found? Answer w greedy '404'            greedy=1 T0.2=1.00 T0.7=1.00 T1=0.77 T1.5=0.50  [3535s]
+47/50 Which data structure is last in, first out? Answ greedy 'Queue'          greedy=0 T0.2=0.00 T0.7=0.13 T1=0.10 T1.5=0.03  [3596s]
+48/50 Which keyword defines a function in Python? Answ greedy 'def'            greedy=1 T0.2=1.00 T0.7=0.87 T1=0.87 T1.5=0.43  [3666s]
+49/50 Which TCP port does HTTPS use by default? Answer greedy '443'            greedy=1 T0.2=1.00 T0.7=1.00 T1=1.00 T1.5=0.87  [3731s]
+50/50 Which TCP port does SSH use by default? Answer w greedy '22'             greedy=1 T0.2=1.00 T0.7=1.00 T1=1.00 T1.5=0.87  [3776s]
+
+mean accuracy over 50 questions, with 95% bootstrap interval over questions (10,000 resamples)
+  greedy           0.680  [0.540, 0.800]
+  T=0.2            0.697  [0.574, 0.815]
+  T=0.7            0.672  [0.566, 0.771]
+  T=1.0            0.621  [0.519, 0.717]
+  T=1.5            0.372  [0.284, 0.462]
+
+difference from greedy (setting minus greedy), paired over questions
+  T=0.2            +0.017  [-0.008, +0.049]  questions better 7, worse 4, same 39
+  T=0.7            -0.008  [-0.059, +0.041]  questions better 14, worse 20, same 16
+  T=1.0            -0.059  [-0.127, +0.003]  questions better 14, worse 25, same 11
+  T=1.5            -0.308  [-0.405, -0.214]  questions better 12, worse 34, same 4
+
+questions greedy gets wrong: 16 of 50
+  T=0.2            mean accuracy on those: 0.081; questions where sampling got >=20% right: 3
+  T=0.7            mean accuracy on those: 0.171; questions where sampling got >=20% right: 7
+  T=1.0            mean accuracy on those: 0.169; questions where sampling got >=20% right: 7
+  T=1.5            mean accuracy on those: 0.065; questions where sampling got >=20% right: 1
+questions greedy gets right: 34 of 50
+  T=0.2            mean accuracy on those: 0.987
+  T=0.7            mean accuracy on those: 0.908
+  T=1.0            mean accuracy on those: 0.833
+  T=1.5            mean accuracy on those: 0.517
+
+wrong-for-greedy questions:
+   What is the capital of Australia? Answer with just the city  | greedy said 'Sydney' | T=0.7 acc 0.4
+   What is the capital of Brazil? Answer with just the city nam | greedy said 'Brasília' | T=0.7 acc 0.1
+   What is the capital of Morocco? Answer with just the city na | greedy said 'Marrakech' | T=0.7 acc 0.13333333333333333
+   What is the capital of Nigeria? Answer with just the city na | greedy said 'Istanbul' | T=0.7 acc 0.1
+   What is the hardest natural substance? Answer with just one  | greedy said 'Silicon.' | T=0.7 acc 0.1
+   Which element has atomic number 1? Answer with just the elem | greedy said 'Iron' | T=0.7 acc 0.1
+   Which element has atomic number 6? Answer with just the elem | greedy said 'Iron' | T=0.7 acc 0.1
+   Which organelle is called the powerhouse of the cell? Answer | greedy said 'The organelle called the powerhouse of' | T=0.7 acc 0.26666666666666666
+   How many continents are there? Answer with just the number. | greedy said 'There are 5 continents: Asia,' | T=0.7 acc 0.2
+   Which country has the largest area? Answer with just the cou | greedy said 'China' | T=0.7 acc 0.23333333333333334
+   Who wrote Romeo and Juliet? Answer with just the surname. | greedy said 'Boccaccio' | T=0.7 acc 0.23333333333333334
+   Who painted the Mona Lisa? Answer with just the surname or f | greedy said 'Francesco del Giocondo' | T=0.7 acc 0.43333333333333335
+   Who was the first person to walk on the Moon? Answer with ju | greedy said 'Yuan Longping' | T=0.7 acc 0.0
+   What is 125 + 387? Answer with just the number. | greedy said '1632' | T=0.7 acc 0.0
+   What is 91 - 47? Answer with just the number. | greedy said '91 - 47 =' | T=0.7 acc 0.2
+   Which data structure is last in, first out? Answer with just | greedy said 'Queue' | T=0.7 acc 0.13333333333333333
+
+seconds 3779; torch 2.7.1; threads 4
