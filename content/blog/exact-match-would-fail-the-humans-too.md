@@ -1,5 +1,5 @@
 ---
-title: Your Eval Metric Would Flunk 18% of Human Answers
+title: Is Exact Match Lying?
 publishedAt: '2026-11-14'
 summary: >-
   Exact match fails 18% of correct human answers. Token F1 at 0.5 fixes most of that, then passes 74 of 100 hand-written near-miss wrong answers.
