@@ -12,7 +12,7 @@ image: /images/blog/building-in-silence.jpg
 syndicate: false
 ---
 
-We live in a culture that demands immediate proof of concept. If you cannot show the metrics, the revenue, or the applause, the world assumes you are failing.
+Culture demands immediate proof of concept. If you cannot show the metrics, the revenue, or the applause, the world assumes you are failing.
 
 Vincent van Gogh completely rejected this idea.
 
@@ -24,7 +24,7 @@ Van Gogh was tapping into an ancient framework for resilience. Here is the three
 
 ## 1. Know the Difference Between Value and Validation
 
-We constantly confuse instrumental value (what the market currently rewards) with intrinsic value (what a thing actually is by its nature). When an untrained eye looks at a young sprout and calls it a weed, that is a failure of perception in the observer. It is never a flaw in the seed.
+People constantly confuse instrumental value (what the market currently rewards) with intrinsic value (what a thing actually is by its nature). When an untrained eye looks at a young sprout and calls it a weed, that is a failure of perception in the observer. It is never a flaw in the seed.
 
 ## 2. Master the Dichotomy of Control
 

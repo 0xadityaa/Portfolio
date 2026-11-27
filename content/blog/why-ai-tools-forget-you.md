@@ -3,7 +3,8 @@ title: Why Does Every AI Tool Forget You?
 publishedAt: '2026-10-10T05:08:22Z'
 summary: >-
   LLMs don't remember anything. "Memory" is text an app quietly pastes into your
-  prompt. How that works, why it stays stuck in one app, and what I measured.
+  prompt. How that works, why it stays stuck in one app, and what retrieval scores.
+updated: '2026-11-26'
 tags:
   - ai
   - llm
@@ -13,18 +14,18 @@ devto_url: 'https://dev.to/0xadityaa/why-does-every-ai-tool-forget-you-3i26'
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/122'
 ---
 
-Here's something that kept bugging me. I tell Claude Code how my project is set up. The next day I open Cursor and explain it again. Then I paste the same paragraph into ChatGPT, because of course it has no idea either.
+Tell Claude Code how your project is set up. The next day, open Cursor and explain it again. Then paste the same paragraph into ChatGPT, because of course it has no idea either.
 
 These tools are scary smart. So why do they all have the memory of a goldfish?
 
-I went digging, and the answer is simpler than I expected: **a language model doesn't remember anything, ever. Every "memory" feature is an app pasting text into your prompt before the model sees it.** Once that clicks, a lot of weird behaviour starts to make sense.
+The answer is simpler than it looks: **a language model doesn't remember anything, ever. Every "memory" feature is an app pasting text into your prompt before the model sees it.** Once that clicks, a lot of weird behaviour starts to make sense.
 
 ## The short version
 
 - A model keeps no state between calls. A chat only feels continuous because the app resends the conversation every time.
 - "Memory" is a search over saved notes, plus a paste into your prompt.
 - Those notes live inside each app, which is why your other tools know nothing.
-- I compared four ways of choosing what to paste. Fusing keyword and meaning search found the right note 79.5% of the time, at one fortieth the tokens of pasting everything.
+- Four ways of choosing what to paste were compared. Fusing keyword and meaning search found the right note 79.5% of the time, at one fortieth the tokens of pasting everything.
 
 ## Wait, the model really remembers nothing?
 
@@ -48,7 +49,7 @@ When a tool says it remembers you, here's what's actually happening:
 
 That's it. It's [retrieval-augmented generation](https://en.wikipedia.org/wiki/Retrieval-augmented_generation) pointed at your own notes. The model isn't remembering. It's reading a cheat sheet somebody slipped it.
 
-## Then why doesn't my other tool know?
+## Then why doesn't your other tool know?
 
 Because the cheat sheet lives inside the app that wrote it.
 
@@ -56,15 +57,15 @@ ChatGPT's notes sit on OpenAI's servers. Your editor keeps its own rules file. Y
 
 This is the gap [MCP](https://modelcontextprotocol.io) is nudging at. If tools can call out to a shared server, the cheat sheet doesn't have to live inside any one of them.
 
-## The part I got curious about
+## How do you pick what to paste?
 
 Saving sentences is easy. The hard part is step two: picking what to paste.
 
 Paste too little and the model doesn't know the thing. Paste too much and you've burned your context window on trivia, and models are measurably [worse at using stuff buried in the middle](https://arxiv.org/abs/2307.03172) of a long prompt anyway.
 
-So I wanted a number. How often does a search actually bring back the note that contains the answer?
+The number that matters: how often does a search bring back the note that contains the answer?
 
-I've been building a memory layer on the side (it's called [Hivemind](https://gethivemind.xyz), and it's the shared cheat sheet idea from the last section). I pointed it at [LoCoMo](https://arxiv.org/abs/2402.17753), a public benchmark of long conversations with questions about them, and compared three ways of picking ten notes per question. Same 1,536 questions for each.
+[Hivemind](https://gethivemind.xyz), the memory layer Aditya is building, is the shared cheat sheet idea from the last section. It was pointed at [LoCoMo](https://arxiv.org/abs/2402.17753), a public benchmark of long conversations with questions about them, and three ways of picking ten notes per question were compared. Same 1,536 questions for each.
 
 | How the notes get picked | Found the note with the answer | Tokens pasted per question |
 | --- | --- | --- |
@@ -73,7 +74,7 @@ I've been building a memory layer on the side (it's called [Hivemind](https://ge
 | Meaning search (embeddings) | 70.4% | 389 |
 | Both searches fused, then filtered and packed | 79.5% | 465 |
 
-Three things surprised me.
+Three results stand out.
 
 **Pasting everything "wins", and it's a trap.** You find the answer 99.7% of the time because the answer is in there somewhere, under 18,000 tokens of everything else. That's forty times the cost per question, every question.
 
@@ -81,18 +82,15 @@ Three things surprised me.
 
 **Neither search wins alone.** Fusing the two beat the better one by nine points. They fail on different questions, so together they cover for each other.
 
-## Where I'd stop trusting this post
+## Where this stops holding
 
-**That's retrieval, not answers.** "The note came back" isn't "the model answered right". When I measured the full loop with a tiny model answering, accuracy dropped a lot. Finding the note is necessary. It isn't sufficient.
-
-**One benchmark, in English, run offline.** LoCoMo is chatty conversation. Your codebase notes aren't. Against the live service, on a smaller sample, the same pipeline scored 78.2%, and I wrote up [the caveats](https://gethivemind.xyz/docs/concepts/evidence) for that one too.
-
-**I built one of the rows.** I tried to keep the comparison fair: same questions, same store, same number of notes. You should still read it knowing who ran it.
-
-**Bigger context windows change the maths.** As windows grow and tokens get cheaper, "paste everything" gets less silly. I don't think it wins, because attention is the scarce thing, not space. But I could be wrong about where the line ends up.
+- **This is retrieval, not answers.** "The note came back" isn't "the model answered right". In the full loop, with a tiny model answering, accuracy dropped a lot. Finding the note is necessary. It isn't sufficient.
+- **One benchmark, in English, run offline.** LoCoMo is chatty conversation. Codebase notes aren't. Against the live service, on a smaller sample, the same pipeline scored 78.2%, and [the caveats](https://gethivemind.xyz/docs/concepts/evidence) for that run are written up too.
+- **One row is Hivemind's.** Same questions, same store, same number of notes for every row, and you should still read the table knowing who ran it.
+- **Bigger context windows change the maths.** As windows grow and tokens get cheaper, "paste everything" gets less silly. It probably still loses, because attention is the scarce thing, not space, but where the line ends up is open.
 
 ## The takeaway
 
 Your AI tools don't have bad memories. They have no memories, and a thin layer of search-and-paste on top that happens to be locked inside each app.
 
-If you want to see it for yourself, try this. Tell one tool a fact. Open a different tool and ask a question that depends on it. Wherever that breaks is exactly where the cheat sheet stops, and now you know why.
+To see it for yourself, tell one tool a fact. Open a different tool and ask a question that depends on it. Wherever that breaks is exactly where the cheat sheet stops, and now you know why.

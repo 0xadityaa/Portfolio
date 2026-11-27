@@ -3,24 +3,24 @@ title: Microservices? Do You Really Need Them?
 publishedAt: '2026-06-17'
 summary: >-
   Split a monolith and every multi-step operation becomes a distributed
-  transaction. Here's why I'd hand that job to an orchestrator.
+  transaction. Here's why an orchestrator should own that job.
 tags:
   - microservices
   - architecture
   - saga
   - distributed-systems
-updated: '2026-10-10'
+updated: '2026-11-26'
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
 devto_url: 'https://dev.to/0xadityaa/microservices-do-you-really-need-them-4gfd'
 ---
 
 Feels like every team runs [microservices](https://martinfowler.com/articles/microservices.html) now. Split the monolith, they said. It'll scale better, they said. And honestly, they're not wrong. But chopping your app into a pile of independent services is the easy part. Keeping those services in sync when something blows up halfway through? That's the actual job.
 
-I've spent the past year as an associate engineer shipping and scaling production microservices, working closely with solution architects and principal engineers. And early on, one thing really bugged me. Our UI called an orchestrator, and the orchestrator called the real service. Why the extra hop? Just call the service directly. One less network call, less latency, simpler everything... right?
+One question comes up early. The UI calls an orchestrator, and the orchestrator calls the real service. Why the extra hop? Just call the service directly. One less network call, less latency, simpler everything... right?
 
-Boy, was I wrong.
+Wrong, and the reason is the rest of this post.
 
-So, do you really need microservices? **Only if you're ready to own distributed transactions, because that's what you sign up for the second each service gets its own database.** And once you're there, my claim is that an orchestrated saga is how you run them. One component that owns the workflow beats a bunch of services reacting to each other's events.
+So, do you really need microservices? **Only if you're ready to own distributed transactions, because that's what you sign up for the second each service gets its own database.** And once you're there, an orchestrated saga is how you run them. One component that owns the workflow beats a bunch of services reacting to each other's events.
 
 ## The short version
 
@@ -54,7 +54,7 @@ Services publish events. Other services listen and react. No central controller,
 
 **The good part:** services truly don't know about each other. On paper it's clean, pure microservices.
 
-**The bad part:** once a workflow grows past 3 or 4 services (my rule of thumb, not a measured threshold), debugging turns into a murder mystery. There's no single place to check where a transaction is. You're stitching together logs from six services and praying the timestamps line up. And cyclic dependencies creep in, because services start listening to each other's failure events just to compensate for them.
+**The bad part:** once a workflow grows past 3 or 4 services (a rule of thumb, not a measured threshold), debugging turns into a murder mystery. There's no single place to check where a transaction is. You're stitching together logs from six services and praying the timestamps line up. And cyclic dependencies creep in, because services start listening to each other's failure events just to compensate for them.
 
 ### Orchestration
 
@@ -76,11 +76,11 @@ Orchestrator  -> UI           : order-42 rejected: out of stock
 
 With choreography the same five steps still exist. They're just scattered across the event handlers of three services, and no file has them in order.
 
-## Back to my "why the extra hop?" question
+## Back to the extra hop
 
-Here's why calling the service directly would have been worse.
+Calling the service directly would be worse.
 
-When our UI calls the orchestrator, the orchestrator isn't a middleman forwarding traffic. It's running a multi-step transaction that might touch 3 or 4 services. If the UI called each service itself, the UI would have to run the saga: decide what to call next, handle partial failures, send the compensation calls. You'd be building an orchestrator in your frontend. Please don't.
+When the UI calls the orchestrator, the orchestrator isn't a middleman forwarding traffic. It's running a multi-step transaction that might touch 3 or 4 services. If the UI called each service itself, the UI would have to run the saga: decide what to call next, handle partial failures, send the compensation calls. You'd be building an orchestrator in your frontend. Please don't.
 
 Route through the orchestrator and the UI stays dumb and focused. The orchestrator stays smart and focused. Each service stays dumb and focused. Everybody has one job. That "extra network call" isn't overhead. It's the architecture doing its job.
 
@@ -94,17 +94,13 @@ Route through the orchestrator and the UI stays dumb and focused. The orchestrat
 
 **Easier testing.** Mock the service replies and you can test the whole workflow. No need to spin up the entire event mesh.
 
-## Where I'd stop trusting this post
+## Where this stops holding
 
-**The best objection: the orchestrator is a single point of failure and a bottleneck.** AWS says so in its own [guidance on saga orchestration](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/saga-orchestration.html). Fair hit. Every workflow now leans on one component, so it has to persist its state, survive a restart mid-saga, and scale with all your traffic. That's why teams reach for a durable workflow engine like [AWS Step Functions](https://aws.amazon.com/step-functions/) or [Temporal](https://docs.temporal.io/) instead of rolling their own, and that's real operational weight choreography doesn't carry.
-
-**Simple flows don't need it.** Two or three services and no compensation logic? [Choreography](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/saga-choreography.html) is less to build and less to run.
-
-**Orchestrators attract business logic.** Keep yours to sequencing and compensation. Once pricing rules and validation move in, you've rebuilt the monolith with extra network calls.
-
-**You might not need the split at all.** Martin Fowler's [MonolithFirst](https://martinfowler.com/bliki/MonolithFirst.html) points out that most successful microservice systems started as a monolith that got too big. A single database transaction is still the cheapest saga there is.
-
-**And this isn't a benchmark.** The comparison comes from working inside an orchestrated system and from reading, not from running both styles side by side on the same workflow.
+- **The best objection: the orchestrator is a single point of failure and a bottleneck.** AWS says so in its own [guidance on saga orchestration](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/saga-orchestration.html). Every workflow now leans on one component, so it has to persist its state, survive a restart mid-saga, and scale with all your traffic. That's why teams reach for a durable workflow engine like [AWS Step Functions](https://aws.amazon.com/step-functions/) or [Temporal](https://docs.temporal.io/) instead of rolling their own, and that's real operational weight choreography doesn't carry.
+- **Simple flows don't need it.** Two or three services and no compensation logic? [Choreography](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/saga-choreography.html) is less to build and less to run.
+- **Orchestrators attract business logic.** Keep yours to sequencing and compensation. Once pricing rules and validation move in, you've rebuilt the monolith with extra network calls.
+- **You might not need the split at all.** Martin Fowler's [MonolithFirst](https://martinfowler.com/bliki/MonolithFirst.html) points out that most successful microservice systems started as a monolith that got too big. A single database transaction is still the cheapest saga there is.
+- **No benchmark.** The comparison rests on reading and on experience with an orchestrated system, not on running both styles side by side on the same workflow.
 
 ## The takeaway
 
@@ -112,4 +108,4 @@ Choreography is a fine place to start. Orchestration is where a microservices se
 
 Lots of teams start with choreography because it feels elegant. And for simple stuff, it is. But complexity always shows up eventually, and then you're spending more time debugging event flows than building features. An orchestrator forces your business logic to be explicit, visible, and testable. That's not overhead. That's just being kind to future you.
 
-My rule: if a business operation needs a compensating step in more than one service, give it an orchestrator. Future you, and whoever's on call, will say thanks.
+The rule: if a business operation needs a compensating step in more than one service, give it an orchestrator. Future you, and whoever's on call, will say thanks.

@@ -4,7 +4,7 @@ Measures how many tokens the tool definitions of 11 open-source MCP servers cost
 
 ## Files
 
-- `EXPECTATION.txt`: what I expected, written before running anything.
+- `EXPECTATION.txt`: the expected range, written before running anything.
 - `servers.json`: the 11 servers, with pinned versions where npm gave one (the three `uvx` servers were not pinned; versions are in the raw files).
 - `list-tools.mjs`: dependency-free Node client. Spawns each server over stdio, sends `initialize`, `notifications/initialized`, then pages through `tools/list`. Saves the raw result.
 - `raw/*.tools.json`: the raw `tools/list` results. `raw/run-log.txt`: the run log.
@@ -13,7 +13,7 @@ Measures how many tokens the tool definitions of 11 open-source MCP servers cost
 
 ## Reproduce
 
-**1. Set up.** Node 22 (I used v22.23.1), `uv` for `uvx`, Python 3.12 (I used 3.12.8) and `tiktoken==0.14.0`. Keep the virtualenv outside the repo.
+**1. Set up.** Node 22 (v22.23.1 was used), `uv` for `uvx`, Python 3.12 (3.12.8 was used) and `tiktoken==0.14.0`. Keep the virtualenv outside the repo.
 
 ```bash
 mkdir -p /tmp/mcp-sandbox            # the filesystem server needs a directory to expose; servers.json points here
@@ -32,7 +32,7 @@ node list-tools.mjs servers.json raw > raw/run-log.txt
 
 The first command writes `raw/*.tools.json`. The second reads them and writes `results.json` and `results.md`. If you use a different sandbox directory, change its path in `servers.json`.
 
-**4. How long.** About 70 seconds for the Node step on my laptop (each server takes 4 to 28 seconds to start, mostly downloading). Slow networks take longer, because the client waits up to 180 seconds per server. The counting step takes about 3 seconds. No GPU and no API key. I reran both steps on 2026-11-15: `results.md` and `results.json` came out byte-identical, and every raw file matched except `filesystem`, which echoes back the sandbox path.
+**4. How long.** About 70 seconds for the Node step on a laptop (each server takes 4 to 28 seconds to start, mostly downloading). Slow networks take longer, because the client waits up to 180 seconds per server. The counting step takes about 3 seconds. No GPU and no API key. Both steps were rerun on 2026-11-15: `results.md` and `results.json` came out byte-identical, and every raw file matched except `filesystem`, which echoes back the sandbox path.
 
 ## What is counted
 
