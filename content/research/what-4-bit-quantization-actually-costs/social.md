@@ -12,7 +12,7 @@ Same 4 bits, same model, plain rounding. Only one thing changes: how many weight
 → one scale per matrix: 10,816,108
 → unquantized: 17.2
 ---
-The usual guess is that the top 1% of weights carry 5% to 15% of the error. They carry 1% to 2%.
+It's tempting to guess that the top 1% of weights carry 5% to 15% of the error. They carry 1% to 2%.
 
 They hurt by stretching the range. Keep them exact, pick the range from the rest: per-tensor int4 weight error falls from 69.4% to 10.8%.
 ---
@@ -71,7 +71,7 @@ What group size is your 4-bit setup running, and did you ever compare it against
 
 10,816,108. That's the perplexity of Qwen2.5-0.5B after every weight in its transformer blocks was rounded to 4 bits, with one scale for each whole matrix. Give every 128 weights their own scale instead, same four bits, and it's 20.5. The unquantized model scores 17.2.
 
-The usual guess is that the biggest 1% of weights carry 5% to 15% of the error. They carry 1% to 2%. What does concentrate it is activations: 1% of input channels carry about 38% of the error that reaches the output. That's the gap GPTQ and AWQ exist to close.
+It's tempting to guess that the biggest 1% of weights carry 5% to 15% of the error. They carry 1% to 2%. What does concentrate it is activations: 1% of input channels carry about 38% of the error that reaches the output. That's the gap GPTQ and AWQ exist to close.
 
 The memory side is kinder. Llama 3.1 70B drops from 131.4 GiB to 37.0 GiB at int4 with groups of 128 and fits a 48 GB card, with room for about 18k tokens of KV cache for one user.
 
