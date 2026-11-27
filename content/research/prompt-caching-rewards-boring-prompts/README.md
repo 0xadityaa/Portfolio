@@ -1,6 +1,6 @@
 # Prompt caching artifact
 
-Three small scripts behind the post "Prompt Caching Rewards Boring Prompts". Everything is seeded, runs offline (except the first tiktoken vocabulary download), and uses only the standard library, NumPy, and tiktoken.
+Three scripts behind the post "Prompt Caching Rewards Boring Prompts". Everything is seeded, runs offline (except the first tiktoken vocabulary download), and uses only the standard library, NumPy, and tiktoken.
 
 Prices and rules were copied from the live vendor pages on 2026-11-14 and are recorded, with their URLs, in `prices.json`. `EXPECTATION.txt` was written before the first run.
 
