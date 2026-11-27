@@ -1,5 +1,5 @@
 ---
-title: 4-Bit Saves Up to 72% Memory. 1% of the Model Pays for It
+title: 'What Does 4-Bit Really Cost?'
 publishedAt: '2026-11-14'
 summary: >-
   Plain 4-bit rounding took a small model from perplexity 17 to 10.8 million. One setting brought it back to 20.5, and 1% of channels carry 38% of the error.
