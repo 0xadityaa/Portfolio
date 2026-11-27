@@ -69,7 +69,7 @@ Nothing used. The post's first-person statements describe the artifact (what was
 1. Thesis in the first 150 words: the bold sentence after the first two paragraphs.
 2. Artifact: `content/research/is-your-llm-judge-guessing/`, linked in "How did I score a judge without generating a word?" and in both figure captions.
 3. Numbers with sources: every number is from `output.txt`; outside claims link their arXiv abstracts.
-4. Links: 14 external or repo links.
+4. Links: 11 distinct links (dataset, three arXiv papers, five repo files, two earlier posts, plus the Qwen model cards in the README).
 5. Where this stops holding: "Where I'd stop trusting this post".
 6. Ending that adds: "The takeaway" gives the decision rule and what would change the conclusion.
 
