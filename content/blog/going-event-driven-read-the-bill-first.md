@@ -1,5 +1,5 @@
 ---
-title: Going Event-Driven? Read the Bill First.
+title: 'Should You Go Event-Driven?'
 publishedAt: '2026-06-19'
 summary: >-
   Events are billed per event, per consumer, and per kilobyte. I did the math at
@@ -54,9 +54,9 @@ So one "Order Placed" event with 12 consumers costs this much per million events
 
 | Line item | Calculation | Cost per 1M events |
 | --- | --- | --- |
-| Publish to EventBridge | 1M x $1.00/M | $1.00 |
-| Lambda requests | 12M x $0.20/M | $2.40 |
-| Lambda compute | 12M x 0.0125 GB-s x $0.0000166667 | $2.50 |
+| Publish to EventBridge | $$1\text{M} \times \$1.00/\text{M}$$ | $1.00 |
+| Lambda requests | $$12\text{M} \times \$0.20/\text{M}$$ | $2.40 |
+| Lambda compute | $$12\text{M} \times 0.0125\ \text{GB-s} \times \$0.0000166667$$ | $2.50 |
 | **Total** | | **$5.90** |
 
 And here it is at three volumes:
@@ -66,6 +66,8 @@ And here it is at three volumes:
 | 1 million | $1.41 | $5.90 | $8.90 |
 | 100 million | $141 | $590 | $890 |
 | 1 billion | $1,408 | $5,900 | $8,900 |
+
+![Stacked bars of cost per million events for one consumer, 12 consumers and 12 consumers with a 256 KB payload, split into EventBridge publish and Lambda consumers](/images/blog/event-bill-per-million.svg "A model from public AWS list prices in US East, checked 9 October 2026, free tier ignored. The 128 MB and 100 ms per consumer are my assumptions, as in the tables above.")
 
 Three things jump out.
 

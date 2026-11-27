@@ -6,5 +6,5 @@
 - Topic issue: #
 - Research note: content/research/<slug>.md
 - Needs from Aditya before merge:
-Aditya approves by commenting `/publish` or `/publish YYYY-MM-DD` on this pull request.
+Add a line `Publish: YYYY-MM-DD HH:MM` (Toronto time) to this description; Auto-publish merges it then. Label `hold` stops it.
 -->
