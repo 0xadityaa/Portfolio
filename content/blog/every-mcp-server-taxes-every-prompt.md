@@ -35,7 +35,7 @@ You ask for it. An [MCP server](https://modelcontextprotocol.io/specification/la
 
 A dependency-free Node client starts each server over stdio and saves the raw reply. It ran against the [reference servers](https://github.com/modelcontextprotocol/servers) (`filesystem`, `memory`, `everything`, `sequential-thinking`, `fetch`, `git`, `time`) plus `github`, [Playwright](https://github.com/microsoft/playwright-mcp), [Context7](https://github.com/upstash/context7) and [Chrome DevTools](https://github.com/ChromeDevTools/chrome-devtools-mcp). Tokens were counted with [tiktoken](https://github.com/openai/tiktoken)'s `o200k_base`. The client, raw JSON and commands are in [the artifact folder](https://github.com/0xadityaa/Portfolio/tree/main/content/research/every-mcp-server-taxes-every-prompt).
 
-The usual guess for ten servers is 25,000 to 40,000 tokens. The real number is lower, because the "heavy" servers aren't as heavy as their reputation.
+A reasonable guess for ten servers is 25,000 to 40,000 tokens. The real number is lower, because the "heavy" servers aren't as heavy as their reputation.
 
 ## Which server is the fat one?
 
