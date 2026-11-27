@@ -9,14 +9,14 @@ Question: does the chunk size you pick move retrieval quality as much as the ret
 - Takes the 48 articles in SQuAD v1.1 dev and joins each article's paragraphs into one document (330,249 tokens in all, o200k_base).
 - Cuts each document into fixed windows of 64, 128, 256, 512 and 1,024 tokens, with 0% and 15% overlap.
 - Retrieves over the whole corpus of chunks, for all 10,570 dev questions, with:
-  - BM25 (my own implementation, Lucene-style idf, k1 = 1.2, b = 0.75, lowercase alphanumeric tokens, no stemming, no stop words).
+  - BM25 (a local implementation, Lucene-style idf, k1 = 1.2, b = 0.75, lowercase alphanumeric tokens, no stemming, no stop words).
   - `BAAI/bge-small-en-v1.5` (33M parameters, 384 dimensions, cosine similarity, query instruction prefix on, 512-token limit), on CPU.
 - A hit means a retrieved chunk fully contains a gold answer span (`span`, the primary measure). It also records the looser "the answer string appears anywhere in a retrieved chunk" (`string`).
 - Records, for every question, the rank of the first hit in the top 100, so recall@k for any k, and the mean number of tokens handed to the model for the top k.
 
 ## Files
 
-- `EXPECTATION.txt`: what I expected, written before the first retrieval ran.
+- `EXPECTATION.txt`: the expectations, written before the first retrieval ran.
 - `run.py`: chunking, retrieval, ranks. Took about 30 minutes on an M2 laptop under load, most of it embedding.
 - `analyze.py`: tables and 95% article-cluster bootstrap intervals (2,000 resamples, seed 20261114).
 - `make_chart.py`: draws `public/images/blog/chunk-size-equal-budget.svg`.
@@ -72,7 +72,7 @@ Corpus and retrievers: SQuAD v1.1 dev ([Rajpurkar et al., 2016](https://arxiv.or
 | 512 | 93.1% | 77.1% | 2,530 |
 | 1,024 | 95.3% | 71.3% | 4,988 |
 
-I expected embedding recall to rise with size. It sat between 76.7% and 78.3% from 64 to 512 tokens, then dropped at 1,024.
+The expectation was that embedding recall rises with size. It sat between 76.7% and 78.3% from 64 to 512 tokens, then dropped at 1,024.
 
 ### Equal 2,000-token budget, details
 
