@@ -1,5 +1,5 @@
 ---
-title: "You Tuned the Wrong RAG Setting (It's Chunk Size)"
+title: 'Did You Tune Chunk Size?'
 publishedAt: '2026-11-14'
 summary: >-
   Across 10,570 SQuAD questions, chunk size moved recall 5 to 6 points. Swapping the retriever, each at its best size, moved it 2.
