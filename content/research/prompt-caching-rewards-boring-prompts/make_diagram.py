@@ -11,13 +11,13 @@ import cost_model as cm
 HERE = pathlib.Path(__file__).parent
 OUT = HERE.parent.parent.parent / "public" / "images" / "blog"
 INK, MUTED, LINE, BG, CLAY = "#FAF9F5", "#B5B3AA", "#474743", "#272725", "#DB8061"
-STYLE = ('<style data-standalone>text{font-family:"DM Sans",Helvetica,Arial,sans-serif}'
+STYLE = ('<style data-standalone="">text{font-family:"DM Sans",Helvetica,Arial,sans-serif}'
          '.m{font-family:"DM Mono",Menlo,Consolas,monospace}'
          '.h{font-family:Newsreader,Georgia,serif;font-weight:500}</style>')
 
 
 def head(h, label):
-    return (f'<svg xmlns="http://www.w3.org/2000/svg" data-viz viewBox="0 0 560 {h}" width="560" height="{h}" '
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" data-viz="" viewBox="0 0 560 {h}" width="560" height="{h}" '
             f'role="img" aria-label="{label}">{STYLE}<rect width="560" height="{h}" fill="{BG}"/>')
 
 
