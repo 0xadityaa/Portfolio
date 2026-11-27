@@ -49,7 +49,7 @@ It swaps one error for another. To price the swap, I wrote 100 wrong answers int
 
 I wrote them to sit close to the truth, on purpose, which favours my thesis. As a contrast, I paired every question with a random answer from another article, and nothing passed, on any metric (0.0%). Softness only hurts on near misses.
 
-![Bar chart: exact match fails 18% of correct human answers and passes 0% of wrong ones; F1 at 0.5 fails 6% and passes 74%; cosine at 0.90 fails 12% and passes 37%; cosine at 0.95 fails 16% and passes 17%](/images/blog/exact-match-vs-wrong-answers.svg)
+![Paired bars for five scoring rules: share of correct human answers failed, and of 100 hand-written wrong answers passed. Exact match 18% and 0; F1 at 0.5 5.6% and 74; F1 at 0.8 13.4% and 23; cosine at 0.90 11.9% and 37; cosine at 0.95 16.3% and 17.](/images/blog/exact-match-vs-wrong-answers.svg "34,723 human answers (leave-one-out) and 100 hand-written near-miss wrong answers, bge-small-en-v1.5 for cosine. Numbers from [`analysis.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/exact-match-would-fail-the-humans-too/results/analysis.txt).")
 
 Exact match let through none of the 100. F1 at 0.5 let through 74, and 23 at 0.8. Cosine let through 69 at 0.80, 37 at 0.90 and 17 at 0.95. By type, out of 10 each:
 
@@ -73,6 +73,8 @@ So is there a setting that dodges both problems?
 ## Is there a threshold that works?
 
 No. Think of a smoke alarm: the sensitive one screams at toast, the dull one sleeps through the fire. I swept both metrics. The best single cosine threshold, the one that minimises the worse of the two error rates, is 0.96. It fails 17.6% of correct answers and lets 14% of wrong ones through. F1 at 0.9 lands in the same place (17.0% and 14%). No setting got under 10% on both.
+
+![Scatter of correct answers failed against wrong answers passed across thresholds. Cosine and F1 both fall from the top left to the bottom right; nothing reaches the corner under 10% on both axes.](/images/blog/exact-match-threshold-sweep.svg "Cosine thresholds 0.80 to 0.98 and F1 thresholds 0.1 to 1.0, same data as above. Sweeps are in [`analysis.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/exact-match-would-fail-the-humans-too/results/analysis.txt).")
 
 Cosine isn't clueless. A random correct human answer scores above a random wrong one 89.7% of the time (87.0% for F1). The two distributions overlap, so any cut-off gives something up.
 
