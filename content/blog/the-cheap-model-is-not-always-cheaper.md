@@ -1,5 +1,5 @@
 ---
-title: The 40x Cheaper Model Might Be Costing You More
+title: 'Is the Cheap Model Cheaper?'
 publishedAt: '2026-11-14'
 summary: >-
   Haiku 5.5 is 40x cheaper than Opus 5.5 per request, yet at $5 a wrong answer it costs 4.4x more per useful answer. The success rates are assumed.
