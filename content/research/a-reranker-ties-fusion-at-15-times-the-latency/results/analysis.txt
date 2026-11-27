@@ -1,0 +1,95 @@
+== Setup == sample drawn=2000 of 10570 questions, seed=20261115; fully scored at pool 20: 1675; pool-50 subsample: 150
+first stages: BM25 (own code), bge-small; rrf_k=60; cross-encoder=cross-encoder/ms-marco-MiniLM-L-6-v2; threads=4; run took 35.4 min, 42822 pairs scored in this run
+size 128: chunks=2606 mean_tokens=126.7 span_gold_ceiling=98.4%
+size 256: chunks=1314 mean_tokens=251.3 span_gold_ceiling=99.4%
+
+== Recall at an equal token budget, 256-token chunks, first 1675 questions, strict span hit, 95% article-cluster CI ==
+budget | k | pipeline | recall % [CI] | mean tokens handed over
+500 | 2 | BM25 | 81.8 [78.7, 84.9] | 509
+500 | 2 | bge-small | 60.7 [56.8, 64.9] | 505
+500 | 2 | RRF | 78.1 [75.2, 81.4] | 509
+500 | 2 | BM25 + rerank (pool 20) | 81.9 [79.5, 84.3] | -
+500 | 2 | RRF + rerank (pool 20) | 81.7 [79.3, 84.1] | -
+1000 | 4 | BM25 | 87.3 [84.5, 89.8] | 1019
+1000 | 4 | bge-small | 75.0 [71.9, 78.5] | 1009
+1000 | 4 | RRF | 86.7 [84.2, 89.2] | 1018
+1000 | 4 | BM25 + rerank (pool 20) | 88.5 [86.5, 90.5] | -
+1000 | 4 | RRF + rerank (pool 20) | 89.1 [87.3, 91.0] | -
+2000 | 8 | BM25 | 91.2 [88.8, 93.2] | 2036
+2000 | 8 | bge-small | 83.8 [80.9, 86.7] | 2020
+2000 | 8 | RRF | 92.4 [90.5, 94.1] | 2033
+2000 | 8 | BM25 + rerank (pool 20) | 92.4 [90.6, 94.1] | -
+2000 | 8 | RRF + rerank (pool 20) | 93.3 [91.6, 94.9] | -
+
+== Same, 128-token first stages (no reranker at 128), first 1675 questions ==
+500 | 4 | BM25 | 82.2 [79.1, 85.0]
+500 | 4 | bge-small | 74.3 [71.1, 77.7]
+500 | 4 | RRF | 84.5 [82.3, 86.9]
+1000 | 8 | BM25 | 86.1 [83.7, 88.5]
+1000 | 8 | bge-small | 83.0 [80.4, 85.6]
+1000 | 8 | RRF | 90.6 [88.8, 92.5]
+2000 | 16 | BM25 | 90.5 [88.3, 92.5]
+2000 | 16 | bge-small | 89.0 [86.8, 91.2]
+2000 | 16 | RRF | 94.2 [93.0, 95.3]
+
+== Paired differences in percentage points (95% CI), first 1675 questions, pool 20 ==
+budget 500 (k=2): RRF minus BM25 = -3.6 [-6.1, -1.4]  (question-level [-5.5, -1.9])
+budget 500 (k=2): reranker lift on BM25 = 0.1 [-2.2, 2.3]  (question-level [-1.9, 2.1])
+budget 500 (k=2): reranker lift on RRF = 3.6 [1.5, 5.4]  (question-level [1.6, 5.6])
+budget 500 (k=2): RRF + rerank minus BM25 alone = -0.1 [-2.4, 2.1]  (question-level [-2.1, 2.0])
+budget 500 (k=2): RRF + rerank minus BM25 + rerank = -0.2 [-0.8, 0.4]  (question-level [-0.9, 0.5])
+budget 500 (k=2): BM25 + rerank minus RRF alone = 3.8 [1.6, 5.6]  (question-level [1.8, 5.7])
+budget 1000 (k=4): RRF minus BM25 = -0.5 [-2.2, 1.2]  (question-level [-2.0, 1.0])
+budget 1000 (k=4): reranker lift on BM25 = 1.3 [-0.3, 2.9]  (question-level [-0.3, 2.7])
+budget 1000 (k=4): reranker lift on RRF = 2.4 [0.7, 4.0]  (question-level [0.8, 4.1])
+budget 1000 (k=4): RRF + rerank minus BM25 alone = 1.9 [0.3, 3.5]  (question-level [0.2, 3.5])
+budget 1000 (k=4): RRF + rerank minus BM25 + rerank = 0.6 [-0.1, 1.4]  (question-level [-0.2, 1.4])
+budget 1000 (k=4): BM25 + rerank minus RRF alone = 1.8 [0.3, 3.2]  (question-level [0.4, 3.3])
+budget 2000 (k=8): RRF minus BM25 = 1.2 [-0.2, 2.6]  (question-level [-0.1, 2.4])
+budget 2000 (k=8): reranker lift on BM25 = 1.2 [0.0, 2.3]  (question-level [0.1, 2.3])
+budget 2000 (k=8): reranker lift on RRF = 0.9 [-0.5, 2.1]  (question-level [-0.3, 2.1])
+budget 2000 (k=8): RRF + rerank minus BM25 alone = 2.1 [0.8, 3.4]  (question-level [0.7, 3.5])
+budget 2000 (k=8): RRF + rerank minus BM25 + rerank = 0.9 [0.2, 1.6]  (question-level [0.0, 1.8])
+budget 2000 (k=8): BM25 + rerank minus RRF alone = 0.0 [-1.3, 1.3]  (question-level [-1.1, 1.1])
+
+-- same, 128-token chunks (k=16, 2,000 tokens): RRF minus BM25 = 3.7 [2.6, 4.9]  (question-level [2.7, 4.8])
+
+== Rescued and broken by the reranker (budget 2000, k=8, pool 20), first 1675 questions ==
+BM25 -> rerank: rescued 55, broken 35, still missed 93; first-stage misses 148 of 1675
+RRF -> rerank: rescued 58, broken 43, still missed 70; first-stage misses 128 of 1675
+
+== Recall@1 (the best single chunk), first 1675 questions ==
+BM25 | 71.1 [68.1, 74.4] | + rerank (pool 20) | 72.2 [69.8, 74.7] | lift 1.1 [-1.4, 3.4]
+RRF | 63.0 [59.8, 66.6] | + rerank (pool 20) | 72.1 [69.6, 74.7] | lift 9.1 [6.3, 11.6]
+
+== Pool depth on the first 150 questions (budget 2000, k=8): the first stage, then reranking its top 10, 20 or 50 ==
+BM25 | first stage 91.3 [86.0, 96.0] | pool 10: 91.3 [85.3, 96.5] | pool 20: 92.7 [87.5, 96.9] | pool 50: 93.3 [87.8, 97.8]
+   chance the gold chunk is in the pool at all: top10: 92.0, top20: 94.7, top50: 96.7
+RRF | first stage 92.7 [88.7, 96.4] | pool 10: 93.3 [88.0, 97.7] | pool 20: 93.3 [87.9, 97.9] | pool 50: 93.3 [88.0, 97.8]
+   chance the gold chunk is in the pool at all: top10: 94.7, top20: 97.3, top50: 98.0
+
+-- paired pool-50 vs pool-20 on the first 150 questions (k=8):
+BM25: pool 50 minus pool 20 = 0.7 [-2.3, 3.6]
+BM25: reranker (pool 50) lift over first stage = 2.0 [-1.3, 5.4]  (question-level [-2.0, 6.0])
+RRF: pool 50 minus pool 20 = 0.0 [-1.9, 2.0]
+RRF: reranker (pool 50) lift over first stage = 0.7 [-3.8, 5.0]  (question-level [-3.3, 5.3])
+-- the same two lifts at pool 20 on those 150 questions, for a like-for-like read:
+BM25: reranker (pool 20) lift over first stage = 1.3 [-1.4, 4.8]  (question-level [-2.0, 4.7])
+RRF: reranker (pool 20) lift over first stage = 0.7 [-3.8, 4.9]  (question-level [-4.0, 4.7])
+
+== Weak first stage (bge-small alone), first 300 questions, budget 2000 ==
+bge-small -> rerank (pool 20) lift = 6.0 [2.4, 10.0]  (question-level [3.0, 9.3]); first stage 83.7 [79.0, 88.2], reranked 89.7 [86.0, 93.3]
+BM25 -> rerank (pool 20) lift on the same questions = 2.7 [0.4, 5.4]  (question-level [0.3, 5.0])
+lift on bge-small minus lift on BM25 = 3.3 [-0.3, 7.2]
+
+== Latency per query, one query at a time, 256-token chunks, 4 CPU threads, median of 3 pass medians over 30 queries (ms) ==
+uptime before: 22:05  up 39 days,  1:16, 1 user, load averages: 20.73 16.27 12.95
+uptime after:  22:10  up 39 days,  1:20, 1 user, load averages: 16.87 16.14 13.80
+BM25 query | 2.4
+bge-small query embedding + dense search | 56.5
+RRF fusion | 0.3
+cross-encoder, 10 chunks | 496.7
+cross-encoder, 20 chunks | 861.7
+cross-encoder, 50 chunks | 2123.5
+BM25 + dense + RRF together: 59.1 ms; cross-encoder (pool 20) is 14.6x that, pool 50 is 35.9x
+BM25 alone: 2.4 ms; cross-encoder pool 20 is 356x BM25 alone

@@ -1,0 +1,9 @@
+articles=48 questions=10570
+sample of 300 questions, seed 20261115
+W1115 16:24:58.486000 45254 torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 3872.07it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/105 [00:00<?, ?it/s]Loading weights: 100%|██████████| 105/105 [00:00<00:00, 2432.58it/s]
+pass 1: bm25 7.9 ms, dense 150.7 ms, rrf 0.4 ms, ce50 5957.5 ms, ce20 2506.6 ms
+/Users/adityanegandhi/miniconda3/lib/python3.12/multiprocessing/resource_tracker.py:254: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

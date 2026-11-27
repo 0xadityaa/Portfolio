@@ -1,0 +1,23 @@
+Written 2026-11-15, before running any reranker.
+
+Setup: same as the chunk-size post (series post 8): SQuAD v1.1 dev, 48 articles, joined
+paragraphs, fixed o200k_base token chunks, strict span-containment hit, retrieval over the whole
+chunk corpus. Chunk sizes 128 and 256, no overlap, 2,000-token budget (k = 16 and 8).
+Five pipelines: BM25, bge-small, RRF of the two (k=60), BM25 top 50 -> cross-encoder
+(cross-encoder/ms-marco-MiniLM-L-6-v2), RRF top 50 -> cross-encoder. A seeded random sample of
+2,000 questions (the full 10,570 is too slow with a reranker on a shared CPU).
+
+Expected (earlier full-set numbers: BM25 91.1 / 92.2, bge-small 89.7 / 84.2 at 128 / 256):
+1. RRF beats the better single retriever by 1 to 3 points at both sizes, and by more at 256,
+   where bge-small is weaker.
+2. The reranker adds more on top: BM25 -> rerank and RRF -> rerank both end above 94% at 128 and
+   256. RRF -> rerank is the best pipeline, by about 1 point over BM25 -> rerank.
+3. The reranker helps most where the first stage was weakest: the lift from reranking is larger
+   for the weaker first stage (bge-small at 256) than for the stronger one (BM25).
+4. Latency: reranking 50 chunks of 256 tokens on 4 CPU threads takes 0.3 to 1 second per query,
+   at least 10 times the bge-small query embedding. At 128 tokens it is about half of that.
+5. A reranker on keyword-heavy SQuAD adds less than it would on MS MARCO-style data; the lift
+   over BM25 alone is expected to be under 5 points.
+
+What would be surprising: reranking a deeper pool making recall worse, or RRF losing to BM25 at
+128 tokens.

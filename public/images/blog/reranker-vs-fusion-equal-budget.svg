@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 500" width="940" height="500" role="img" aria-label="Bar chart of recall at equal token budgets, 256-token chunks, 1,675 SQuAD questions. At 2,000 tokens BM25 gets 91.2 percent, RRF 92.4, BM25 with a reranker 92.4 and RRF with a reranker 93.3: RRF alone ties BM25 plus reranker. At 500 tokens the reranked pipelines reach 81.9 and 81.7, against 78.1 for RRF alone.">
+<rect width="940" height="500" fill="#30302E"/>
+<text x="40" y="34" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="16" fill="#FAF9F5">At 2,000 tokens, RRF alone ties BM25 plus a reranker</text>
+<text x="40" y="54" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" fill="#B0AEA5">Recall at an equal token budget, 256-token chunks, SQuAD v1.1 dev, 1,675 questions, strict span hit, reranker reads the top 20</text>
+<path d="M80 380.0H900" stroke="#4A4A45" stroke-width="1"/>
+<text x="68" y="384.0" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#B0AEA5">70%</text>
+<path d="M80 290.0H900" stroke="#4A4A45" stroke-width="1"/>
+<text x="68" y="294.0" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#B0AEA5">80%</text>
+<path d="M80 200.0H900" stroke="#4A4A45" stroke-width="1"/>
+<text x="68" y="204.0" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#B0AEA5">90%</text>
+<path d="M80 110.0H900" stroke="#4A4A45" stroke-width="1"/>
+<text x="68" y="114.0" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#B0AEA5">100%</text>
+<rect x="104.7" y="273.9" width="50" height="106.1" fill="#FAF9F5" opacity="0.8"/>
+<text x="129.7" y="267.9" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#FAF9F5">81.8</text>
+<text x="129.7" y="396" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="11" fill="#B0AEA5">BM25</text>
+<rect x="162.7" y="306.7" width="50" height="73.3" fill="#FAF9F5" opacity="0.8"/>
+<text x="187.7" y="300.7" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#FAF9F5">78.1</text>
+<text x="187.7" y="396" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="11" fill="#B0AEA5">RRF</text>
+<rect x="220.7" y="272.8" width="50" height="107.2" fill="#D97757" opacity="1"/>
+<text x="245.7" y="266.8" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#D97757">81.9</text>
+<text x="245.7" y="396" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="11" fill="#B0AEA5">BM25</text>
+<text x="245.7" y="409" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="11" fill="#B0AEA5">+ rerank</text>
+<rect x="278.7" y="274.4" width="50" height="105.6" fill="#D97757" opacity="1"/>
+<text x="303.7" y="268.4" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#D97757">81.7</text>
+<text x="303.7" y="396" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="11" fill="#B0AEA5">RRF</text>
+<text x="303.7" y="409" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="11" fill="#B0AEA5">+ rerank</text>
+<text x="216.7" y="440" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" fill="#FAF9F5">500 tokens of context (k = 2)</text>
+<rect x="378.0" y="224.4" width="50" height="155.6" fill="#FAF9F5" opacity="0.8"/>
+<text x="403.0" y="218.4" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#FAF9F5">87.3</text>
+<text x="403.0" y="396" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="11" fill="#B0AEA5">BM25</text>
+<rect x="436.0" y="229.3" width="50" height="150.7" fill="#FAF9F5" opacity="0.8"/>
+<text x="461.0" y="223.3" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#FAF9F5">86.7</text>
+<text x="461.0" y="396" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="11" fill="#B0AEA5">RRF</text>
+<rect x="494.0" y="213.2" width="50" height="166.8" fill="#D97757" opacity="1"/>
+<text x="519.0" y="207.2" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#D97757">88.5</text>
+<text x="519.0" y="396" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="11" fill="#B0AEA5">BM25</text>
+<text x="519.0" y="409" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="11" fill="#B0AEA5">+ rerank</text>
+<rect x="552.0" y="207.8" width="50" height="172.2" fill="#D97757" opacity="1"/>
+<text x="577.0" y="201.8" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#D97757">89.1</text>
+<text x="577.0" y="396" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="11" fill="#B0AEA5">RRF</text>
+<text x="577.0" y="409" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="11" fill="#B0AEA5">+ rerank</text>
+<text x="490.0" y="440" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" fill="#FAF9F5">1,000 tokens of context (k = 4)</text>
+<rect x="651.3" y="189.5" width="50" height="190.5" fill="#FAF9F5" opacity="0.8"/>
+<text x="676.3" y="183.5" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#FAF9F5">91.2</text>
+<text x="676.3" y="396" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="11" fill="#B0AEA5">BM25</text>
+<rect x="709.3" y="178.8" width="50" height="201.2" fill="#FAF9F5" opacity="0.8"/>
+<text x="734.3" y="172.8" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#FAF9F5">92.4</text>
+<text x="734.3" y="396" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="11" fill="#B0AEA5">RRF</text>
+<rect x="767.3" y="178.8" width="50" height="201.2" fill="#D97757" opacity="1"/>
+<text x="792.3" y="172.8" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#D97757">92.4</text>
+<text x="792.3" y="396" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="11" fill="#B0AEA5">BM25</text>
+<text x="792.3" y="409" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="11" fill="#B0AEA5">+ rerank</text>
+<rect x="825.3" y="170.7" width="50" height="209.3" fill="#D97757" opacity="1"/>
+<text x="850.3" y="164.7" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" fill="#D97757">93.3</text>
+<text x="850.3" y="396" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="11" fill="#B0AEA5">RRF</text>
+<text x="850.3" y="409" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="11" fill="#B0AEA5">+ rerank</text>
+<text x="763.3" y="440" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" fill="#FAF9F5">2,000 tokens of context (k = 8)</text>
+<text x="80" y="486" font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif" font-size="11" fill="#B0AEA5">Axis starts at 70%. Orange bars are reranked pipelines. Intervals are in the post and results/analysis.txt.</text>
+</svg>

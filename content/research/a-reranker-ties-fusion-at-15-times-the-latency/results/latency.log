@@ -1,0 +1,12 @@
+articles=48 questions=10570
+sample of 2000 questions, seed 20261115, time budget 45.0 min
+W1126 22:04:37.726000 46433 torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 7696.75it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/105 [00:00<?, ?it/s]Loading weights: 100%|██████████| 105/105 [00:00<00:00, 6160.50it/s]
+uptime before: 22:05  up 39 days,  1:16, 1 user, load averages: 20.73 16.27 12.95
+pass 1: bm25 0.9 ms, dense 22.2 ms, rrf 0.1 ms, ce10 246.5 ms, ce20 439.5 ms, ce50 1048.4 ms, ce50_p95 1744.0 ms
+pass 2: bm25 2.8 ms, dense 56.5 ms, rrf 0.3 ms, ce10 496.7 ms, ce20 865.5 ms, ce50 2232.1 ms, ce50_p95 2669.9 ms
+pass 3: bm25 2.4 ms, dense 57.7 ms, rrf 0.3 ms, ce10 503.9 ms, ce20 861.7 ms, ce50 2123.5 ms, ce50_p95 2883.0 ms
+uptime after: 22:10  up 39 days,  1:20, 1 user, load averages: 16.87 16.14 13.80
+{"queries": 30, "passes": 3, "threads": 4, "uptime_before": "22:05  up 39 days,  1:16, 1 user, load averages: 20.73 16.27 12.95", "uptime_after": "22:10  up 39 days,  1:20, 1 user, load averages: 16.87 16.14 13.80", "pass_medians_ms": [{"bm25": 0.8621040033176541, "dense": 22.20043755369261, "rrf": 0.13595802010968328, "ce10": 246.54858355643228, "ce20": 439.4876044825651, "ce50": 1048.4462709864601, "ce50_p95": 1743.987147527514}, {"bm25": 2.8423125040717423, "dense": 56.46222899667919, "rrf": 0.2697500749491155, "ce10": 496.74639553995803, "ce20": 865.4986254987307, "ce50": 2232.0698329713196, "ce50_p95": 2669.879916968057}, {"bm25": 2.419124939478934, "dense": 57.71750002168119, "rrf": 0.25147892301902175, "ce10": 503.8801665068604, "ce20": 861.738478532061, "ce50": 2123.522187524941, "ce50_p95": 2882.9740378016136}], "median_of_passes_ms": {"bm25": 2.419124939478934, "dense": 56.46222899667919, "rrf": 0.25147892301902175, "ce10": 496.74639553995803, "ce20": 861.738478532061, "ce50": 2123.522187524941, "ce50_p95": 2669.879916968057}, "first_stage_ms": 59.13283285917714, "ce50_over_first_stage": 35.911051185084226, "ce20_over_first_stage": 14.57292737157143, "ce50_over_dense_query": 37.6096060190935}
