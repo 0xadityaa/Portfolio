@@ -44,7 +44,7 @@ The catch is that the fee comes due again every time the cache goes cold. How of
 
 At low traffic, nearly every time. My simulation draws [Poisson](https://en.wikipedia.org/wiki/Poisson_point_process) arrivals (random, at a fixed average rate) for a year per rate, against a prompt of 6,000 static tokens and 500 per-request tokens. A request hits if the gap since the last one is shorter than the TTL.
 
-The hit rate matched 1 minus e to the power of minus rate times TTL, within noise. That's a napkin formula for your own traffic.
+The hit rate matched $$1 - e^{-\text{rate} \times \text{TTL}}$$, within noise. That's a napkin formula for your own traffic.
 
 | Requests per hour | 5-min hit rate | 5-min cost vs no cache | 1-hour hit rate | 1-hour cost vs no cache |
 | ---: | ---: | ---: | ---: | ---: |
