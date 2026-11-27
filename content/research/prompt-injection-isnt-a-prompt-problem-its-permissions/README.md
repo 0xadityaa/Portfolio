@@ -1,6 +1,6 @@
 # Prompt injection benchmark on a 0.5B model
 
-How often does a small instruct model obey an instruction hidden in a document it was asked to summarise, and how much do the usual prompt-level defences change that? Companion to the post `content/blog/prompt-injection-isnt-a-prompt-problem-its-permissions.md`.
+How often does a small instruct model obey an instruction hidden in a document it was asked to summarise, and how much do the usual prompt-level defences change that? My benchmark for the post `content/blog/prompt-injection-isnt-a-prompt-problem-its-permissions.md`.
 
 **Read this first:** the model is Qwen2.5-0.5B-Instruct. Frontier models are much more resistant to plain injections and behave differently. These numbers are about this model and this setup, not about GPT-class or Claude-class models. The post cites published benchmarks (AgentDojo and others) for those.
 
@@ -11,7 +11,7 @@ Everything here is harmless by design. The injections ask for the word `PWNED` o
 | File | What it is |
 | --- | --- |
 | `EXPECTATION.txt` | Predictions, written before any run |
-| `documents.py` | The 40 benign documents, the 6 injection templates, the fake key |
+| `documents.py` | The 40 benign documents, the 6 injection templates, the fake key I planted |
 | `bench.py` | Builds the prompts for 4 defences, generates, writes one JSON line per output |
 | `analyse.py` | Scores outputs, computes intervals and paired differences |
 | `results/results_qwen2.5-0.5b.jsonl` | The 192 raw generations behind the post |
