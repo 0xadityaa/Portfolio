@@ -27,7 +27,7 @@ for label, valid, allr, y in rows:
     svg.append(f'<text x="{X0 + BARW * valid / 100 + 8:.1f}" y="{y + 15}" font-size="13" fill="{INK}">{valid:.1f}%</text>')
     svg.append(f'<rect x="{X0}" y="{y + 24}" width="{BARW * allr / 100:.1f}" height="20" fill="{ACC}"/>')
     svg.append(f'<text x="{X0 + BARW * allr / 100 + 8:.1f}" y="{y + 39}" font-size="13" fill="{INK}">{allr:.1f}%</text>')
-svg.append(f'<line x1="{X0}" y1="112" x2="{X0}" y2="{y}" stroke="{INK}" opacity="0.4"/>')
+svg.append(f'<line x1="{X0}" y1="112" x2="{X0}" y2="{y + 44}" stroke="{INK}" opacity="0.4"/>')
 svg.append(f'<text x="30" y="{H - 14}" font-size="12" fill="{INK}" opacity="0.7">Raw output, no stripping: A parses 0 of 120 (all fenced). B, C, D are unchanged.</text>')
 svg.append("</svg>")
 out = os.path.join(HERE, "..", "..", "..", "public", "images", "blog", "valid-json-vs-right-answers.svg")

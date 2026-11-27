@@ -24,6 +24,6 @@
 <text x="678.0" y="333" font-size="13" fill="#FAF9F5">100.0%</text>
 <rect x="230" y="342" width="143.0" height="20" fill="#D97757"/>
 <text x="381.0" y="357" font-size="13" fill="#FAF9F5">32.5%</text>
-<line x1="230" y1="112" x2="230" y2="318" stroke="#FAF9F5" opacity="0.4"/>
+<line x1="230" y1="112" x2="230" y2="362" stroke="#FAF9F5" opacity="0.4"/>
 <text x="30" y="386" font-size="12" fill="#FAF9F5" opacity="0.7">Raw output, no stripping: A parses 0 of 120 (all fenced). B, C, D are unchanged.</text>
 </svg>
