@@ -1,6 +1,6 @@
 # Chunk-size sweep: BM25 and bge-small on SQuAD v1.1 dev
 
-Companion to the post `content/blog/chunk-size-is-a-hyperparameter-you-never-tuned.md`.
+The artifact behind my post `content/blog/chunk-size-is-a-hyperparameter-you-never-tuned.md`.
 
 Question: does the chunk size you pick move retrieval quality as much as the retriever does, and does the best size depend on the retriever?
 
@@ -16,7 +16,7 @@ Question: does the chunk size you pick move retrieval quality as much as the ret
 
 ## Files
 
-- `EXPECTATION.txt`: the expectations, written before the first retrieval ran.
+- `EXPECTATION.txt`: my expectations, written before the first retrieval ran.
 - `run.py`: chunking, retrieval, ranks. Took about 30 minutes on an M2 laptop under load, most of it embedding.
 - `analyze.py`: tables and 95% article-cluster bootstrap intervals (2,000 resamples, seed 20261114).
 - `make_chart.py`: draws `public/images/blog/chunk-size-equal-budget.svg`.

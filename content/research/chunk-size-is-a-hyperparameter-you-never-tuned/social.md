@@ -1,8 +1,8 @@
 ## Thread
 
-Chunk size moved RAG recall 5 to 6 points. Swapping the retriever moved it 2.
+I found chunk size moved RAG recall 5 to 6 points. Swapping the retriever moved it 2.
 
-10,570 SQuAD questions, same 2,000-token context. Chunk size is the setting most pipelines copy from a tutorial ↓
+I ran 10,570 SQuAD questions at the same 2,000-token context. Chunk size is the setting most pipelines copy from a tutorial ↓
 
 [image: /images/blog/chunk-size-equal-budget.svg]
 ---
@@ -54,7 +54,7 @@ For keyword search, 256 versus 512 sits inside the noise.
 
 ## Link post
 
-Chunk size moved retrieval recall 5 to 6 points. Swapping the retriever, each at its best size, moved it 2.1.
+In my sweep, chunk size moved retrieval recall 5 to 6 points. Swapping the retriever, each at its best size, moved it 2.1.
 
 The setting most RAG pipelines copy from a tutorial is the one doing more work.
 
@@ -68,9 +68,9 @@ What chunk size is your RAG pipeline running in prod, and has anyone tested anot
 
 ## Substack Note
 
-Swapping the retriever moved recall by 2 points. Changing the chunk size moved it by 5 to 6. Guess which one most pipelines copy from a tutorial.
+Swapping the retriever moved my recall by 2 points. Changing the chunk size moved it by 5 to 6. Guess which one most pipelines copy from a tutorial.
 
-The sweep: the 10,570 questions in SQuAD v1.1 dev, 48 articles cut into chunks of 64 to 1,024 tokens, retrieved with BM25 and a small embedding model, with the context held at about 2,000 tokens. BM25 was flat from 128 to 512. The embedder peaked at 64 to 128 and fell to 73.1% at 512. Over the sizes it reads in full, its spread is about 6 points. The steeper drop at 1,024 is mostly its 512-token input limit, not chunk size.
+My sweep: the 10,570 questions in SQuAD v1.1 dev, 48 articles cut into chunks of 64 to 1,024 tokens, retrieved with BM25 and a small embedding model, with the context held at about 2,000 tokens. BM25 was flat from 128 to 512. The embedder peaked at 64 to 128 and fell to 73.1% at 512. Over the sizes it reads in full, its spread is about 6 points. The steeper drop at 1,024 is mostly its 512-token input limit, not chunk size.
 
 So 512 cost BM25 half a point and the embedder 17, partly from that same limit.
 
