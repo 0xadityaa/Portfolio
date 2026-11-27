@@ -1,0 +1,21 @@
+Written 2026-11-14 before running any of the scripts.
+
+Cost model (Anthropic, Claude Sonnet 5.5, $2 base input, $2.50 5m write, $4 1h write, $0.10 read):
+  I expect one cache write to pay for itself after a single read at the 5-minute
+  TTL, and after two reads at the 1-hour TTL.
+  (5m: write premium 0.50 vs saving 1.90 per read, so about 0.26 reads;
+   1h: premium 2.00 vs saving 1.90, so about 1.05 reads.)
+
+Simulation (Poisson arrivals, 6,000 static + 500 per-request tokens, TTL refreshed on hit):
+  I expect the hit rate to follow 1 - exp(-rate * TTL), so the 5-minute cache is
+  warm most of the time above about 12 requests an hour and nearly useless below
+  about 1 an hour. I expect the 1-hour TTL to beat the 5-minute TTL at low
+  traffic and the two to converge at high traffic. I expect the 5-minute cache
+  to cost MORE than no cache below roughly 2 to 3 requests an hour, and the
+  1-hour cache to cost more than no cache only below roughly 1 request an hour.
+
+Prompt order demo (tiktoken o200k_base as a proxy):
+  Putting a timestamp or user name at the top of the system prompt should leave
+  only the tool definitions cacheable (tools render before the system prompt).
+  Putting it at the bottom should leave almost everything cacheable (over 95%).
+  Shuffling the tool list per request should leave close to nothing cacheable.

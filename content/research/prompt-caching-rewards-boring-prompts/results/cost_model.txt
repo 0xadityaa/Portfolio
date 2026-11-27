@@ -1,0 +1,16 @@
+Prices checked 2026-11-14, USD per million input tokens
+
+Break-even: reads needed after one write for the write to pay for itself
+model                 TTL        write    read  reads (exact)  reads (whole)    rate for cache to beat no-cache (req/hour)
+Claude Sonnet 5.5     5m         2.500   0.100           0.26              1                                          2.80
+Claude Sonnet 5.5     1h         4.000   0.100           1.05              2                                          0.72
+Claude Sonnet 4.6     5m         3.750   0.300           0.28              1                                          2.94
+Claude Sonnet 4.6     1h         6.000   0.300           1.11              2                                          0.75
+OpenAI gpt-5.5        5m         5.000   0.500           0.00              0                                          0.00
+OpenAI gpt-6.1-sol    30m        2.500   0.100           0.26              1                                          0.47
+OpenAI gpt-6.1-sol    12h        5.000   0.100           1.58              2                                          0.08
+
+Sonnet 5.5: 5-minute and 1-hour TTL cost the same at 0.53 requests/hour (above that the 1-hour cache is cheaper per request; below it the 5-minute cache is, though both cost more than no cache there).
+
+Gemini 3.1 Pro Preview (explicit caching, prompts up to 200k): storage 4.5 per MTok-hour, saving 1.80 per MTok per hit.
+  A cache kept for one hour needs 2.50 hits per hour to pay for its storage (creation cost not modelled; the docs page did not state it).
