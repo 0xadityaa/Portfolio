@@ -1,29 +1,14 @@
-## Hook
-
-The 40x cheaper model might be costing you more.
-
-Haiku 5.5: $0.00055 a request. Opus 5.5: $0.022.
-
-At $5 a wrong answer, Haiku costs 4.4x more per useful answer.
-
-Success rates assumed: 80% vs 95%.
-
-What does one wrong answer cost you?
-
-[image: public/images/blog/cost-per-useful-answer.svg]
-
 ## Thread
 
-The 40x cheaper model might be costing you more.
+Haiku 5.5 is 40x cheaper than Opus 5.5 per request. At $5 a wrong answer, it costs 4.4x more per useful answer.
 
-Haiku 5.5 and Opus 5.5, priced per useful answer, not per request. Success rates are assumed, not measured. Here's where the price list stops deciding it ↓
+Assumed success rates: 80% against 95%. Where the price list stops deciding ↓
+
+[image: /images/blog/cost-per-useful-answer.svg]
 ---
-You're not buying requests. You're buying right answers:
+The unit is cost per useful answer: spend plus the cost of wrong answers, divided by right answers.
 
-(spend + wrong answers x cost of each) / right answers
-
-Assumed 80% vs 95% right:
-→ wrong answer free: Haiku is 33x cheaper per useful answer
+→ wrong answer free: Haiku is 33x cheaper
 → wrong answer $5: Haiku is 4.4x pricier
 → break-even: $0.114
 ---
@@ -33,93 +18,65 @@ The quality gap moves that line more than the price gap. Opus held at an assumed
 → Haiku at 90%: $0.386
 → Haiku at 94%: $2.02
 ---
-Then a cascade: Haiku answers, a Haiku-priced check decides whether to escalate to Opus.
+A cascade (Haiku answers, a Haiku-priced check decides whether to escalate to Opus) was cheapest from $0.025 to $5 a failure, with a check that passes 10% of wrong answers.
 
-With an assumed 10% leak, it was cheapest from $0.025 to $5 a failure.
-
-Caveat: only the cascade gets a check, so that isn't like-for-like. Opus plus the same check wasn't run.
+At a 28% leak and $1 a failure, it loses to Opus alone.
 ---
-A leaky check erases the win.
+Price one wrong answer before you price the token. Cheap and retryable: buy the cheap model. Over ten cents and silent: compare cost per useful answer.
 
-At $1 a wrong answer, a check that passes more than 28% of wrong answers loses to Opus alone. At $5 the limit is 22%.
-
-The usual guess is about 50%.
----
-Strongest objection: a wrong answer is often free and visible. The user frowns and asks again. Below about $0.025 a failure, Haiku alone was cheapest.
-
-Want the cost-per-useful-answer script and the cascade simulation? Reply COST and I'll DM it.
----
-Rule of thumb: price one wrong answer before the token. Cheap and retryable, buy the cheap model. Over ten cents and silent, compare cost per useful answer.
-
-Full write-up, code and raw output:
-https://www.0xadityaa.dev/blog/the-cheap-model-is-not-always-cheaper
+Full post: <BLOG_URL>
+Code and data: https://github.com/0xadityaa/Portfolio/tree/main/content/research/the-cheap-model-is-not-always-cheaper
 
 ## Singles
 
-A 40x price gap, and the cheap model still loses.
+A 40x cheaper model, and it loses.
 
-Same request, assumed 80% vs 95% right:
-→ wrong answer free: Haiku 5.5 is 33x cheaper per useful answer
-→ wrong answer $5: Haiku is 4.4x pricier
+Same request, assumed 80% against 95% right: Haiku 5.5 is 33x cheaper per useful answer when a wrong answer is free, and 4.4x pricier at $5.
 
-The price list never changed. Your failure cost did.
-
+The price list never changed. The failure cost did.
 ---
+The usual guess is that a cascade's check can wave through about half of wrong answers and still win.
 
-Most model choices start at the price list. Start at cost per useful answer.
+At $1 a wrong answer, the limit is 28%. At $5, 22%.
 
-Break-even cost of a wrong answer, Opus 5.5 held at an assumed 95%:
-→ Haiku 5.5 at 60%: $0.036
-→ at 90%: $0.386
-→ at 94%: $2.02
-
-The quality gap decides it, not the 40x.
-
+A leaky check is a smoke alarm with a dead battery.
 ---
+Haiku 5.5 needs to be right 94% of the time for a $2.02 failure to flip the choice against Opus. At 60% right, a $0.036 failure does it.
 
-100M useful answers, $0.25 per wrong answer, assumed 80% vs 95% right.
-
-All-in cost, damage included, not an invoice:
-→ Haiku 5.5 alone: $6.3M
-→ Opus 5.5 alone: $3.6M
-→ cheap-first cascade, 10%-leak check: $1.4M
-
-Only the cascade gets a check. Price the check before crediting it.
-
+The quality gap sets the break-even, not the 40x.
 ---
+A cascade saves money only if escalated tasks stay easy for Opus.
 
-Haiku 5.5 is 40x cheaper per request than Opus 5.5. Until a wrong answer costs more than 11 cents.
+At $1 a failure and a 10% leak: $0.038 per useful answer if Opus holds 95% on them, $0.075 at 80%, a loss at 70%.
 
-Past that, on an assumed 80% vs 95% right, Opus is cheaper per useful answer.
-
-Know your failure cost before you read the price list.
-
+Tasks Haiku fumbles skew hard.
 ---
-
 If the user can just ask again, ignore all of this.
 
-On assumed 80% vs 95% rates, Haiku 5.5 alone was cheapest below about $0.025 a wrong answer. The cascade only pays once failures are silent and cost more.
+Below about $0.025 a wrong answer, Haiku 5.5 alone was the cheapest option on assumed 80% against 95% rates.
 
-## CTA
+## Link post
 
-COST | the cost-per-useful-answer script and cascade simulation | https://github.com/0xadityaa/Portfolio/tree/main/content/research/the-cheap-model-is-not-always-cheaper
+At $5 a wrong answer, the 40x cheaper model costs 4.4x more per useful answer.
 
-## Reply prompts
+Cost per useful answer is the number that decides model choice, and a cascade beats both models only if its check is reliable.
 
-On "use the cheapest model that works": in this model, with Haiku 5.5 at an assumed 80% right and Opus 5.5 at 95%, Opus is cheaper per useful answer once a wrong answer costs more than $0.114. What does a wrong answer cost where you run it?
+<BLOG_URL>
 
-If you route cheap-first with a verifier: in this model, at $1 a wrong answer, a verifier that passes more than 28% of wrong answers loses to the big model alone (rates assumed). Has anyone measured their verifier's false-positive rate on real traffic?
+[image: /images/blog/cost-per-useful-answer.svg]
 
-On price per token: same 3,000-in, 500-out request, assumed 80% vs 95% right. Free wrong answers make Haiku 5.5 33x cheaper per useful answer than Opus 5.5. At $5 a wrong answer it's 4.4x pricier.
+## Question
+
+What does one wrong answer cost where you run your LLM, and did that decide which model you picked?
 
 ## Substack Note
 
 At $5 a wrong answer, Haiku 5.5 costs 4.4 times more per useful answer than Opus 5.5, even though it's 40 times cheaper per request ($0.00055 against $0.022 for 3,000 tokens in and 500 out).
 
-You aren't buying requests, you're buying useful answers. The real unit is what you spent plus what the wrong answers cost you, divided by the answers that were right.
+You're buying useful answers, not requests. The real unit is spend plus the cost of the wrong answers, divided by the answers that were right.
 
-A seeded script sweeps it. The success rates are assumptions, not measurements: Haiku right 80% of the time, Opus 95%. On those, a wrong answer costing more than 11 cents makes Opus cheaper. A cheap-first cascade with a decent check beat both, but a check passing more than 28% of wrong answers lost to Opus alone at $1 a failure. The usual guess is 50%.
+A seeded script sweeps it on assumed success rates: Haiku right 80% of the time, Opus 95%. On those, a wrong answer costing more than 11 cents makes Opus cheaper. A cheap-first cascade with a decent check beat both, but a check passing more than 28% of wrong answers lost to Opus alone at $1 a failure. The usual guess is 50%.
 
-If a wrong answer is free and the user just asks again, buy the cheap model and move on. Tables, limits and code are in the post.
+If a wrong answer is free and the user just asks again, buy the cheap model and move on.
 
-https://www.0xadityaa.dev/blog/the-cheap-model-is-not-always-cheaper
+<BLOG_URL>
