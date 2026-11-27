@@ -1,6 +1,6 @@
 ## Thread
 
-10x the agent steps, 55x the input tokens: 0.18M at 10 steps, 10.1M at 100. One of the three common fixes quietly undoes another.
+I priced an agent loop. 10x the steps meant 55x the input tokens: 0.18M at 10 steps, 10.1M at 100. Then I priced the three common fixes. One of them quietly undoes another.
 
 [image: /images/blog/agent-input-tokens-by-strategy.svg]
 ---
@@ -27,13 +27,13 @@ Code and data: https://github.com/0xadityaa/Portfolio/tree/main/content/research
 
 $20.43 to $1.72.
 
-That's a simulated 100-step agent run on Sonnet 5.5 with caching off against on, cache assumed always warm. A reasonable guess is that caching barely helps short runs. At 10 steps it still cuts $0.39 to $0.10.
+That's my simulated 100-step agent run on Sonnet 5.5, caching off against on, cache assumed always warm. I guessed caching would barely help short runs. At 10 steps it still cuts $0.39 to $0.10.
 ---
 Clearing old tool results cuts 100-step agent input from 10.1M tokens to 3.7M.
 
 Until caching is on. Then clearing one result per step costs $7.20 and doing nothing costs $1.72.
 
-Under caching, a clear that fires every step is a regression.
+A clear that fires every step, under caching, is a regression.
 ---
 3.4x, then 3.7x.
 
@@ -60,12 +60,12 @@ When your agent loop clears or compacts context, do you do it every step or in b
 
 ## Substack Note
 
-Ten times the agent steps, 55 times the input tokens: 0.18 million at 10 steps, 10.1 million at 100.
+Ten times the agent steps meant 55 times the input tokens in my model: 0.18 million at 10 steps, 10.1 million at 100.
 
-A simulation of a 100-step agent loop on Claude Sonnet 5.5 prices the usual fixes, with the cache assumed always warm. Caching cut the bill from $20.43 to $1.72. Add the obvious cleanup on top, clearing one old tool result per step, and it climbs back to $7.20.
+I simulated a 100-step agent loop on Claude Sonnet 5.5 and priced the usual fixes, with the cache assumed always warm. Caching cut the bill from $20.43 to $1.72. Add the obvious cleanup on top, clearing one old tool result per step, and it climbs back to $7.20.
 
 The reason: a per-step clear edits the middle of the history, so the cache rewrites everything after the edit. Clearing in big batches avoids most of that.
 
-The model has no quality term, and a cached run still fills the context window.
+My model has no quality term, and a cached run still fills the context window.
 
 <BLOG_URL>

@@ -11,14 +11,13 @@ tags:
   - caching
 draft: true
 ---
+Ten times the steps, 55 times the input tokens: 0.18 million at 10 steps, 10.1 million at 100. That is what I got when I priced an agent loop.
 
-Ten times the steps, 55 times the input tokens: 0.18 million at 10 steps, 10.1 million at 100.
+Three fixes are meant to tame that, and I priced all of them. One of them quietly undoes another.
 
-Three fixes are meant to tame that, all priced here. One of them quietly undoes another.
+If your agent makes dozens of tool calls per task, input is the part of the bill that grows fastest. Every step of an agent loop is a fresh request carrying the whole history, so the total grows with the square of the steps. The numbers come from a priced model, not a live API run. **The input bill of a long agent run is quadratic, and the three common fixes (clear old tool results, compact, cache) bend it differently, so pick the one that matches what your loop repeats.**
 
-If your agent makes dozens of tool calls per task, input is the part of the bill that grows fastest. Every step of an agent loop is a fresh request carrying the whole history, so the total grows with the square of the steps. The numbers come from a priced model, not a live API run. The claim: **the input bill of a long agent run is quadratic, and the three common fixes (clear old tool results, compact, cache) bend it differently, so pick the one that matches what your loop repeats.**
-
-Five strategies are priced on Claude Sonnet 5.5 at 10, 25, 50 and 100 steps. The code, the tokenised tool outputs and the raw results are in [the artifact folder](https://github.com/0xadityaa/Portfolio/tree/main/content/research/double-an-agents-steps-and-its-input-nearly-quadruples).
+I priced five strategies on Claude Sonnet 5.5 at 10, 25, 50 and 100 steps. The model is [`model.py`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/double-an-agents-steps-and-its-input-nearly-quadruples/model.py), the prices are in [`prices.json`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/double-an-agents-steps-and-its-input-nearly-quadruples/prices.json), the tokenised tool outputs are in [`samples/`](https://github.com/0xadityaa/Portfolio/tree/main/content/research/double-an-agents-steps-and-its-input-nearly-quadruples/samples), and the full output is [`results/model.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/double-an-agents-steps-and-its-input-nearly-quadruples/results/model.txt).
 
 ## The short version
 
@@ -31,7 +30,7 @@ Five strategies are priced on Claude Sonnet 5.5 at 10, 25, 50 and 100 steps. The
 
 Because step n resends everything steps 1 to n-1 produced. Picture a support agent rereading the whole ticket thread before typing each reply. Add up 1 + 2 + ... + n and you get n²/2.
 
-For realistic sizes, six tool outputs were captured from this repo (file reads, a grep, a directory listing, a commit log, a check run) and counted with [tiktoken](https://github.com/openai/tiktoken)'s `o200k_base`: 8 to 3,559 tokens each, averaging 1,587 in a fixed ten-step cycle. With a 250-token reply, the history grows 1,837 tokens a step on top of an 8,000-token system prompt and tools. [Ten MCP servers](/blog/every-mcp-server-taxes-every-prompt) came to 23,895 tokens in an earlier count, so 8,000 is small.
+For realistic sizes, I captured six tool outputs from this repo (file reads, a grep, a directory listing, a commit log, a check run) and counted them with [tiktoken](https://github.com/openai/tiktoken)'s `o200k_base`: 8 to 3,559 tokens each, averaging 1,587 in a fixed ten-step cycle. With a 250-token reply, the history grows 1,837 tokens a step on top of an 8,000-token system prompt and tools. [Ten MCP servers](/blog/every-mcp-server-taxes-every-prompt) came to 23,895 tokens in an earlier count, so 8,000 is small.
 
 | Strategy | 10 steps | 25 steps | 50 steps | 100 steps |
 | --- | ---: | ---: | ---: | ---: |
@@ -49,9 +48,9 @@ Each one flattens it, in a different place.
 
 ![Chart: cumulative input tokens against step for five strategies. With no management the total reaches 10.1 million tokens at step 100. Clearing old tool results or compacting every 25 steps ends near 3.6 to 3.8 million, and compacting at 100k tokens ends at 5.7 million](/images/blog/agent-input-tokens-by-strategy.svg)
 
-**Clearing** swaps old tool results for a placeholder. Anthropic's [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) does it on the server once input passes a trigger (100,000 tokens by default), keeping the latest few. The history stops growing and the curve turns into a line. The model covers a sliding window and the documented trigger shape.
+**Clearing** swaps old tool results for a placeholder. Anthropic's [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) does it on the server once input passes a trigger (100,000 tokens by default), keeping the latest few. The history stops growing and the curve turns into a line. My model covers a sliding window and the documented trigger shape.
 
-**Compaction** swaps the whole history for a summary. [Anthropic's compaction](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold) can fire at a token threshold (150,000 by default, 50,000 at least). The summarising call is billed like any other request, and the model counts it: three calls in 100 steps, $0.46 of a $7.48 bill, with a 4,000-token summary (the docs' example shows 3,500).
+**Compaction** swaps the whole history for a summary. [Anthropic's compaction](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold) can fire at a token threshold (150,000 by default, 50,000 at least). The summarising call is billed like any other request, and I counted it: three calls in 100 steps, $0.46 of a $7.48 bill, with a 4,000-token summary (the docs' example shows 3,500).
 
 **Caching** doesn't remove a single token. It changes the price of the ones you already sent. On [Sonnet 5.5](https://platform.claude.com/docs/en/about-claude/pricing) a cache read costs $0.10 per million against $2.00 for fresh input, and a 5-minute write costs $2.50. With automatic caching the [breakpoint moves with the conversation](https://platform.claude.com/docs/en/build-with-claude/prompt-caching), so each step reads the old history and writes only the new tail. The traffic side is in [the caching post](/blog/prompt-caching-rewards-boring-prompts).
 
@@ -71,7 +70,7 @@ Caching, and not close. The worst cached run is cheaper than the best uncached o
 
 Total for a 100-step run, input plus output, Sonnet 5.5 prices checked 2026-11-14. Caching on assumes every step lands inside the 5-minute window.
 
-Even at 10 steps it cut the bill from $0.39 to $0.10. The pre-run guess in `EXPECTATION.txt` was that it might barely help, but the 0.05x read price swamps the 1.25x write premium.
+Even at 10 steps it cut the bill from $0.39 to $0.10. Before the run, I guessed in [`EXPECTATION.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/double-an-agents-steps-and-its-input-nearly-quadruples/EXPECTATION.txt) that it might barely help. It does not, because the 0.05x read price swamps the 1.25x write premium.
 
 Now the sliding clear, the obvious design. With caching on, it's nearly worthless: $7.20 against $1.72 for doing nothing. Each step edits the middle of the history, so everything after the edit has to be rewritten. Anthropic's docs warn about this and suggest `clear_at_least` so you clear in big batches.
 
@@ -85,7 +84,7 @@ Over 30 days of 100-step runs, cache assumed warm:
 | 100 | $61,293 | $5,151 | $3,636 |
 | 1,000 | $612,930 | $51,510 | $36,360 |
 
-That's the cheap part. The window is next.
+That covers the bill. The window is next.
 
 ## Does the 200k window still matter?
 
@@ -93,15 +92,15 @@ Only for runs with big tool results. With the measured mix, no management ends a
 
 Sonnet 5.5's window is [1M tokens](https://platform.claude.com/docs/en/build-with-claude/context-windows), so 200k is the yardstick: the limit on older models. At 1,837 tokens a step, 1M is 540 steps away.
 
-## Where this stops holding
+## Where I'd stop trusting this post
 
-- **Caching shrinks the price, not the window or the quality bill.** A cached 100-step run costs $1.72 and a cached 10-step run $0.10, so the quadratic barely shows in dollars. Cached tokens still fill the window: the context-windows docs say caching changes what you pay, [not whether tokens count](https://platform.claude.com/docs/en/build-with-claude/context-windows). Anthropic says accuracy and recall degrade as context grows, [Chroma tested 18 models](https://www.trychroma.com/research/context-rot) and found performance varies with input length even on simple tasks, and [Lost in the Middle](https://arxiv.org/abs/2307.03172) reports that performance can drop when relevant information moves position. Latency is not measured.
-- **There's no quality term.** A 4,000-token summary is assumed to lose nothing the agent needs, and cleared results are never re-read. Real summaries drop things. Anthropic's [context engineering post](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) calls clearing the "safest lightest touch" and says to tune compaction for recall first.
-- **Sizes come from one repo.** Three strategies were rerun with tool results at half and double size, and the picture held apart from the clearing result above. The tokeniser is a proxy too: Anthropic's pricing page says newer Claude models produce roughly 30% more tokens for the same text, so these counts are probably low.
-- **The cache is always warm.** Every step is assumed to land inside the 5-minute window, and the 20-block lookback the docs describe is ignored. A slow tool call would cost a full rewrite.
+- **Caching shrinks the price, not the window or the quality bill.** A cached 100-step run costs $1.72 and a cached 10-step run $0.10, so the quadratic barely shows in dollars. Cached tokens still fill the window: the context-windows docs say caching changes what you pay, [not whether tokens count](https://platform.claude.com/docs/en/build-with-claude/context-windows). Anthropic says accuracy and recall degrade as context grows, [Chroma tested 18 models](https://www.trychroma.com/research/context-rot) and found performance varies with input length even on simple tasks, and [Lost in the Middle](https://arxiv.org/abs/2307.03172) reports that performance can drop when relevant information moves position. I didn't measure latency.
+- **There's no quality term.** I assumed a 4,000-token summary loses nothing the agent needs, and that cleared results are never re-read. Real summaries drop things. Anthropic's [context engineering post](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) calls clearing the "safest lightest touch" and says to tune compaction for recall first.
+- **Sizes come from one repo.** I reran three strategies with tool results at half and double size, and the picture held apart from the clearing result above. The tokeniser is a proxy too: Anthropic's pricing page says newer Claude models produce roughly 30% more tokens for the same text, so these counts are probably low.
+- **The cache is always warm.** I assumed every step lands inside the 5-minute window and ignored the 20-block lookback the docs describe. A slow tool call would cost a full rewrite.
 
-## What to do tomorrow
+## The takeaway
 
 If every step of your loop resends a stable history, turn caching on first and check your usage fields for cache reads. If it piles up big tool results nobody reads again, clear them in batches, and never one at a time under caching. If it runs long enough that early decisions can be summarised, compact. Caching is the money tool; clearing and compaction are window and quality tools.
 
-A real 100-step run whose usage fields disagree with this curve would change the advice.
+If someone shows me a real 100-step run whose usage fields disagree with this curve, I'll change the advice.

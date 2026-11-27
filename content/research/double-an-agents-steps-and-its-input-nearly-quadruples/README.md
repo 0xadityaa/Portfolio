@@ -1,6 +1,6 @@
 # Agent-loop input model
 
-A model of an agent loop that resends its history on every step, priced on Claude Sonnet 5.5 for five context strategies, with and without prompt caching. It backs the post `content/blog/double-an-agents-steps-and-its-input-nearly-quadruples.md`. No live API calls: every number is arithmetic on the inputs below.
+My model of an agent loop that resends its history on every step, priced on Claude Sonnet 5.5 for five context strategies, with and without prompt caching. It backs the post `content/blog/double-an-agents-steps-and-its-input-nearly-quadruples.md`. No live API calls: every number is arithmetic on the inputs below.
 
 ## Set up
 
@@ -39,7 +39,7 @@ About 25 seconds for `model.py` on a laptop CPU (the first run also downloads th
 | Prefix (system prompt + tool definitions) | 8,000 tokens | About 2k of instructions plus 6k of tools. Ten MCP servers measured 23,895 tokens in the MCP post, so this is small. Swept at 2k, 8k and 24k in `results/model.txt`. |
 | First user message | 500 tokens | Rounded. |
 | Assistant reply per step | 250 tokens | A sentence of narration plus one tool call. |
-| Tool results | `samples/*.txt`, tokenised | Real outputs captured from this repository: three `cat -n` file reads (3,825 to 12,585 bytes), a `grep -rn`, an `ls -la`, a commit log with `--stat`, and a `check-posts` run. 8 to 3,559 tokens. |
+| Tool results | `samples/*.txt`, tokenised | Real outputs I captured from this repository: three `cat -n` file reads (3,825 to 12,585 bytes), a `grep -rn`, an `ls -la`, a commit log with `--stat`, and a `check-posts` run. 8 to 3,559 tokens. |
 | Tool call mix | fixed 10-step cycle, see `CYCLE` in `model.py` | Agents read and search far more than they run checks. Mean 1,587 tokens per result. This choice sets the slope; the sensitivity section reruns at 0.5x and 2x. |
 | Cleared result | 20 tokens | A short placeholder, as in the docs' description of context editing. |
 | Compaction summary | 4,000 tokens | The threshold-compaction docs show a 3,500-output-token example. |
@@ -55,7 +55,7 @@ About 25 seconds for `model.py` on a laptop CPU (the first run also downloads th
 - `compact every 25 steps`: before step 26, 51, 76 an extra call sends the whole current context and returns a 4,000-token summary. Context restarts as prefix + summary. The extra call's input and output are billed.
 - `compact at 100k`: same, when the next request would reach 100,000 tokens.
 
-Compaction keeps no recent turns word for word, and the summary is assumed lossless. Neither is true of real summaries.
+Compaction keeps no recent turns word for word, and I assumed the summary is lossless. Neither is true of real summaries.
 
 ## How caching is modelled
 
