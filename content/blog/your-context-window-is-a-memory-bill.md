@@ -1,5 +1,5 @@
 ---
-title: 'What Does Context Really Cost?'
+title: What Does Context Really Cost?
 publishedAt: '2026-11-26T23:24:51.429Z'
 updated: '2026-11-27'
 summary: >-
@@ -10,6 +10,7 @@ tags:
   - llm
   - inference
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/147'
+devto_url: 'https://dev.to/0xadityaa/what-does-context-really-cost-1kek'
 ---
 
 Here is a number I did not expect: if one user pastes a 128k-token prompt into Llama 3.1 8B, that single request eats **16 GiB of GPU memory**. The entire Llama 3.1 8B model only weighs **15.0 GiB**.
