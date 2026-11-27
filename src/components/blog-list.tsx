@@ -20,6 +20,7 @@ const BLOG_TAG_CATEGORY_MAP: Record<string, string> = {
   "architecture": "Engineering", "system-design": "Engineering", "patterns": "Engineering",
   "testing": "Engineering", "performance": "Engineering", "security": "Engineering",
   "microservices": "Engineering", "distributed-systems": "Engineering",
+  "philosophy": "Philosophy", "stoicism": "Philosophy",
   "algorithms": "Computer science", "dsa": "Computer science", "computer science": "Computer science",
 };
 

@@ -1,4 +1,5 @@
 import { CopyCodeHandler } from "@/components/copy-code-handler";
+import { FigureMotion } from "@/components/figure-motion";
 import { PostCover } from "@/components/post-cover";
 import { Signature } from "@/components/signature";
 import { getAllBlogPosts, getPost } from "@/data/blog";
@@ -124,6 +125,7 @@ export default async function BlogPost(props: BlogParams) {
         dangerouslySetInnerHTML={{ __html: post.source }}
       />
       <CopyCodeHandler />
+      <FigureMotion />
       <Signature />
 
       <footer className="mt-16 space-y-3 text-sm leading-relaxed text-muted-foreground">

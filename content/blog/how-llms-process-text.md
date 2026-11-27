@@ -1,5 +1,5 @@
 ---
-title: LLMs Don't Read Your Prompt. They Count It.
+title: 'How Do LLMs Read Text?'
 publishedAt: '2025-09-28'
 summary: >-
   A model never sees your text. It sees a list of integers called tokens, and

@@ -23,7 +23,7 @@ export async function GET() {
 
   const items = await Promise.all(
     posts.map(async ({ slug, metadata }) => {
-      const post = await getPost(slug);
+      const post = await getPost(slug, { figures: false });
       const url = `${DATA.url}/blog/${slug}`;
       return `
     <item>

@@ -1,0 +1,7 @@
+Written 2026-11-14 before running anything.
+
+Expectation: most servers will cost between 500 and 3,000 tokens of tool
+definitions each. A few (the browser ones, GitHub, "everything") will be much
+bigger, 5,000 to 15,000. Ten servers together will land somewhere around 25,000
+to 40,000 tokens. I expect the median server to be small and the total to be
+dominated by two or three heavy ones.

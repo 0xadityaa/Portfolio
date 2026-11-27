@@ -1,0 +1,38 @@
+name: Auto-publish
+# Publishes scheduled posts with no human step. A post's pull request carries a
+# line `Publish: 2026-11-30 09:00` (Toronto time). When that time is within an
+# hour, this sets publishedAt, merges, and the site shows the post at that time.
+# Label a pull request `hold` to stop it. See scripts/auto-publish.mjs.
+on:
+  schedule:
+    - cron: "*/20 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Only report what would be published
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: auto-publish
+
+jobs:
+  auto-publish:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - run: npm install --no-save --no-audit --no-fund gray-matter
+      - run: git config user.name "github-actions[bot]" && git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - run: node scripts/auto-publish.mjs ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run && '--dry-run' || '' }}
