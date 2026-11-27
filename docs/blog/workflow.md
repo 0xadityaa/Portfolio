@@ -59,7 +59,7 @@ The `Cross-post` action runs hourly. Once the post is live it publishes to every
 
 ```yaml
 ---
-title: A claim or a question, 60 characters at most
+title: 3 to 5 words, conversational, often a question
 publishedAt: '2026-10-15T13:00:00Z' # set by /publish; a bare date means 12:00 UTC
 summary: >-
   160 characters at most, stating what the reader walks away with.

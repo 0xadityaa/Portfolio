@@ -27,5 +27,6 @@ GitHub is the whole platform. Content is Markdown in the repo, review happens in
 - Why the writing rules and the publish slot are what they are: `docs/research/`.
 - Cross-posting, secrets, adding a platform, or a failed Cross-post run: `docs/publishing.md`.
 - Drafting or scheduling social posts (X, Substack Notes) through Typefully: the `typefully` skill in `.claude/skills/typefully/`, plus the "Social posts" section of `docs/publishing.md`. Agents create drafts; Aditya schedules or approves the schedule.
+- Adding a chart or diagram to a post (animated SVG figures): `docs/visuals.md`.
 - Changing how the site looks or renders: `docs/site.md` for the design rules and the performance budget.
 - Reproducing this look and voice on another product, or handing the design to another agent: `docs/design-system.md`. It is self-contained: tokens, type, components, artwork, motion, voice, and what Aditya rejected.

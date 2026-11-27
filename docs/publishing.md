@@ -51,6 +51,8 @@ The time is the `Publish:` line in the post's pull request, merged automatically
 
 The Cross-post action only publishes; it never edits a copy that already exists. When a post that has a `devto_url` changes, run the **Update dev.to copies** workflow by hand (`gh workflow run update-devto.yml -f dry_run=false`). It pushes the current title, summary, tags and body to each existing dev.to article. Medium and Substack copies are edited by hand.
 
+A post with `draft: true` is unpublished on dev.to the next time update-devto runs, and published again when `draft` is removed.
+
 ## The GitHub profile README
 
 The "Writing" list on github.com/0xadityaa is rewritten from `/rss.xml` by a workflow in the profile repository (`0xadityaa/0xadityaa`, `.github/workflows/latest-posts.yml`). It runs hourly, so a new post shows up there within the hour with nothing to configure.

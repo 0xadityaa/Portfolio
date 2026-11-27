@@ -8,6 +8,7 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 import { calculateReadingTime } from "@/lib/blog-utils";
+import { inlineFigures } from "@/lib/figures";
 
 /** Posts are plain Markdown files: content/blog/<slug>.md. See docs/blog/workflow.md. */
 const POSTS_DIR = path.join(process.cwd(), "content", "blog");
@@ -93,7 +94,7 @@ function readPost(slug: string) {
   return isVisible(metadata) ? { slug, metadata, markdown: content.trim() } : null;
 }
 
-export async function markdownToHTML(markdown: string) {
+export async function markdownToHTML(markdown: string, options: { figures?: boolean } = {}) {
   const p = await unified()
     .use(remarkParse)
     // Tables, strikethrough, and autolinks, as on GitHub and dev.to.
@@ -119,8 +120,8 @@ export async function markdownToHTML(markdown: string) {
 
   // Add copy buttons to code blocks, and keep images from blocking render.
   let index = 0;
-  return p
-    .toString()
+  const html = options.figures ? inlineFigures(p.toString()) : p.toString();
+  return html
     .replace(/<img /g, '<img loading="lazy" decoding="async" ')
     .replace(
       /<pre([^>]*)><code([^>]*)>([\s\S]*?)<\/code><\/pre>/g,
@@ -147,10 +148,17 @@ export async function markdownToHTML(markdown: string) {
     );
 }
 
-export async function getPost(slug: string): Promise<BlogPost | null> {
+/** `figures: false` keeps animated SVG figures as plain images, for feeds. */
+export async function getPost(
+  slug: string,
+  options: { figures?: boolean } = {}
+): Promise<BlogPost | null> {
   const post = readPost(slug);
   if (!post) return null;
-  return { ...post, source: await markdownToHTML(post.markdown) };
+  return {
+    ...post,
+    source: await markdownToHTML(post.markdown, { figures: options.figures ?? true }),
+  };
 }
 
 /** Posts whose publish time has passed: what the RSS feed, sitemap and llms.txt list. */
