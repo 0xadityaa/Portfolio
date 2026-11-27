@@ -11,7 +11,7 @@ Qwen2.5-0.5B: AUROC 0.78. But ranking its answers by shortness alone gets 0.79, 
 ---
 Log the probability of every answer, rank by it, and pick the cutoff on graded examples you didn't tune on.
 
-Full post: https://www.0xadityaa.dev/blog/does-it-know-its-wrong
+Full post: <BLOG_URL>
 Code and data: https://github.com/0xadityaa/Portfolio/tree/main/content/research/does-it-know-its-wrong
 
 ## Singles
@@ -30,7 +30,7 @@ A 1.5B model that abstains below 0.225 confidence keeps 90% of its right answers
 
 It's the cheapest "I don't know" there is: one log probability and a threshold.
 
-https://www.0xadityaa.dev/blog/does-it-know-its-wrong
+<BLOG_URL>
 
 [image: /images/blog/abstain-keeps-right.svg]
 
@@ -46,4 +46,4 @@ The number isn't a real probability. It averaged 0.39 and the hit rate was 0.27,
 
 Full write-up, with code and data:
 
-https://www.0xadityaa.dev/blog/does-it-know-its-wrong
+<BLOG_URL>
