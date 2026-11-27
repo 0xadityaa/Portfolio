@@ -2,7 +2,7 @@
 title: Is Temperature Zero Deterministic?
 publishedAt: '2026-11-27'
 summary: >-
-  Greedy repeated itself 20 of 20 times on one machine. Batched in bf16, 75 of 200 prompts changed text, and T=0.7 scored within 3.3 points of greedy.
+  Greedy repeated itself 20 of 20 times on one machine. Batched in bf16, 75 of 200 prompts changed text (fp32: 0), and T=0.7 scored within 3.3 points of greedy.
 tags:
   - llm
   - sampling
@@ -22,7 +22,7 @@ So is temperature zero the safe setting? Is it even repeatable? I ran [Qwen2.5-0
 ## The short version
 
 - On 50 factual questions, greedy scored 74.0% and T=0.7 scored 70.7%. The 3.3-point gap has a 95% interval of -8.3 to +1.6, so it could be zero.
-- Greedy was wrong on 13 of the 50 and stayed wrong every time. Sampling at T=0.7 got 16.7% of those right, and lost 10.4 points on the 37 that greedy got right.
+- Greedy was wrong on 13 of the 50. Sampling at T=0.7 got 16.7% of those right, and lost 10.4 points on the 37 that greedy got right.
 - Same prompt, same machine, greedy run 20 times: one distinct output, on all three prompts.
 - Batched with other prompts, fp32 changed 0 of 200 outputs and bf16 changed 75 (37.5%). In 43 of those 75 the top two tokens were exactly tied.
 
@@ -54,7 +54,7 @@ Not reliably, and not by much either way. I wrote [50 short-answer questions](ht
 
 ![Horizontal bars of mean accuracy over 50 questions: greedy 74.0 percent, temperature 0.2 74.7, 0.7 70.7, 1.0 64.7 and 1.5 38.3 percent.](/images/blog/temperature-accuracy-by-setting.svg "Mean accuracy over 50 questions, 30 samples per sampled setting, Qwen2.5-0.5B-Instruct on CPU. Raw numbers in [`results-sweep50.json`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/is-temperature-zero-deterministic/results-sweep50.json).")
 
-Up to 0.7, nothing separates sampling from greedy. That matches [Renze and Guven](https://arxiv.org/abs/2402.05201), who found no significant effect on problem-solving accuracy for temperatures from 0.0 to 1.0. I had predicted T=0.7 would land five to ten points under greedy. It landed 3.3 under, inside the noise. I was wrong.
+Up to 0.7, I can't separate sampling from greedy. That matches [Renze and Guven](https://arxiv.org/abs/2402.05201), who found no significant effect on problem-solving accuracy for temperatures from 0.0 to 1.0. I had predicted T=0.7 would land five to ten points under greedy. It landed 3.3 under, inside the noise. I was wrong.
 
 The split underneath is more interesting than the average. Greedy was right on 37 questions and wrong on 13. On the 37, sampling at T=0.7 kept 89.6%, so it broke about one answer in ten that greedy had right. On the 13, it got 16.7%. Back to Australia: the model's top token is Sydney, so greedy says Sydney forever, while Canberra is a real runner-up that sampling occasionally lets through. For "Who was the first person to walk on the Moon?" greedy said Yuan Longping and T=0.7 never got it right either. Sampling only rescues questions where the right answer already has real probability.
 
@@ -94,7 +94,7 @@ The vendors say it plainly. Anthropic's [glossary](https://platform.claude.com/d
 
 **One small model on one CPU.** A 0.5B model's mistakes aren't a frontier model's mistakes, and a GPU kernel has its own summation order. I'd expect the shape of the result to travel, not the rates.
 
-**50 questions and 30 samples.** The T=0.7 gap includes zero. The first pass also had two grading bugs: my normaliser stripped the accent from "Brasília", so a correct greedy answer scored zero, and three answers were cut off at 8 tokens. I fixed both and reran those four questions at 24 tokens with the same seeds. The other 46 are unchanged, and the first-pass output is still in [`output-sweep50.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/is-temperature-zero-deterministic/output-sweep50.txt) (greedy 68.0%, T=0.7 67.2%).
+**50 questions and 30 samples.** The T=0.7 gap includes zero. The first pass also had two grading bugs: my normaliser stripped the accent from "Brasília", so a correct greedy answer scored zero, and three answers were cut off at 8 tokens. I fixed both and reran those four questions at 24 tokens, all five settings, same seeds, so greedy and every sampled setting were rescored the same way. The other 46 keep their first-pass results (none of their accepted answers has an accent). The first-pass output is still in [`output-sweep50.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/is-temperature-zero-deterministic/output-sweep50.txt) (greedy 68.0%, T=0.7 67.2%).
 
 **Padding and shape are tangled.** Identical rows gave bit-identical logits, and padded batches flipped. I can't say which of padding or batch shape does the damage. I also didn't test top-p or a hosted model.
 

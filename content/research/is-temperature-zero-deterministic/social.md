@@ -1,8 +1,8 @@
 ## Thread
 
-At temperature 0, batching changed the text for 75 of 200 prompts.
+At temperature 0 in bf16, batching changed the text for 75 of 200 prompts. In fp32, it changed 0 of 200.
 
-Same model, same prompts, greedy decoding. The only difference was whether a prompt ran alone or inside a batch of 8. In bf16. In fp32 it was 0 of 200. ↓
+Same model, same prompts, greedy decoding. The only difference was whether a prompt ran alone or inside a batch of 8. ↓
 
 [image: /images/blog/greedy-flips-fp32-vs-bf16.svg]
 ---
@@ -10,16 +10,16 @@ Why bf16 flips: it has 8 significant bits, so logits between 16 and 32 move in s
 
 Of the 75 flips, 43 began at an exact tie between the top two tokens, 30 one step apart, 2 two steps apart. A rounding nudge decides the winner.
 ---
-On the 50 questions I ran, temperature barely moved accuracy.
+On 50 questions, T=0.7 scored 3.3 points under greedy, and I can't call that a real gap.
 
 greedy 74.0%
-T=0.7 70.7% (difference from greedy: -3.3, interval -8.3 to +1.6)
+T=0.7 70.7% (difference from greedy: -3.3, interval -8.3 to +1.6, which includes zero)
 T=1.0 64.7%
 T=1.5 38.3%
 
-I predicted T=0.7 would lose 5 to 10 points. It didn't.
+I predicted T=0.7 would lose 5 to 10 points. It lost 3.3.
 ---
-Greedy was wrong on 13 of the 50, and wrong every single time. Sampling at T=0.7 got 16.7% of those right.
+Greedy was wrong on 13 of the 50. Sampling at T=0.7 got 16.7% of those right.
 
 Australia: Sydney 100 out of 100 at temperature 0. Canberra 54 out of 100 at T=0.7.
 
@@ -55,7 +55,6 @@ Consistent isn't the same as correct.
 
 Across 50 questions on a 0.5B model, T=0.2 scored +0.7 points against greedy. T=0.7 scored -3.3, with an interval that includes zero. T=1.0 was -9.3, and T=1.5 lost 35.7 points.
 
-Temperature stays quiet until it doesn't.
 
 ---
 
@@ -79,11 +78,11 @@ If you run evals or tests at temperature 0, do you assert exact output equality,
 
 ## Substack Note
 
-Out of 200 prompts, 75 produced different text when I ran them inside a batch instead of alone. Greedy decoding, temperature 0, same model, bf16. In fp32 it was 0 of 200.
+Out of 200 prompts, 75 produced different text in bf16 when I ran them inside a batch instead of alone. Greedy decoding, temperature 0, same model. In fp32 it was 0 of 200.
 
 I ran Qwen2.5-0.5B on my Mac's CPU to check whether temperature zero is deterministic. On one machine, with the batch held fixed, it repeated itself 20 of 20 times. Once the batch changed, bf16 flipped 37.5% of outputs. In 43 of the 75 flips the top two tokens were exactly tied, and bf16's step at those logit sizes is 0.125.
 
-Accuracy told a quieter story. Across 50 questions, T=0.7 scored 3.3 points under greedy, with an interval that includes zero. Greedy was wrong on 13 and stayed wrong every time.
+Accuracy told a quieter story. Across 50 questions, T=0.7 scored 3.3 points under greedy, with an interval that includes zero, so I can't say either is better. Greedy was wrong on 13.
 
 The full write-up has the code, the raw output and the three figures:
 
