@@ -8,6 +8,7 @@ tags:
   - ai
   - llm
   - inference
+crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/147'
 ---
 
 One user pasting 128k tokens costs 16 GiB of GPU memory on Llama 3.1 8B. The model itself is 15.0 GiB.

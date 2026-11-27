@@ -8,6 +8,7 @@ tags:
   - ai
   - evals
   - statistics
+crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/147'
 ---
 
 I simulated a system that's truly 3 points better than another. On a 100-example eval, it looked worse or tied one run in three.

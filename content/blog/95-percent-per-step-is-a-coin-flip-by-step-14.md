@@ -9,6 +9,9 @@ tags:
   - agents
   - reliability
   - distributed-systems
+devto_url: >-
+  https://dev.to/0xadityaa/your-95-reliable-agent-fails-half-its-14-step-tasks-3d3i
+crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/147'
 ---
 
 An agent that's right 95% of the time on every step finishes a 14-step job cleanly only 49% of the time.
