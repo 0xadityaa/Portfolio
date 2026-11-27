@@ -1,3 +1,5 @@
+import { toDevtoMath } from "../lib/posts.mjs";
+
 /** dev.to (Forem API). Docs: https://developers.forem.com/api/v1#tag/articles */
 export const devto = {
   name: "dev.to",
@@ -12,7 +14,7 @@ export const devto = {
       body: JSON.stringify({
         article: {
           title: post.title,
-          body_markdown: post.body,
+          body_markdown: toDevtoMath(post.body),
           published: true,
           description: post.summary,
           canonical_url: post.url,

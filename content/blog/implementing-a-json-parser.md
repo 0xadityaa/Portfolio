@@ -1,5 +1,5 @@
 ---
-title: 'I Wrote a JSON Parser From Scratch'
+title: Writing a JSON Parser
 publishedAt: '2024-11-15'
 summary: 'A JSON parser is two small programs: a tokenizer and a recursive descent parser. I built both in TypeScript on Deno to see how they tick.'
 tags:
@@ -9,6 +9,7 @@ tags:
 updated: '2026-10-10'
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
 devto_url: 'https://dev.to/0xadityaa/implementing-a-json-parser-2od8'
+draft: true
 ---
 
 Ever wondered how an app actually understands the data an API sends it? Most of the time that data is JSON, a human-readable format that's all over the internet. But computers don't read "human-readable". Something has to turn that text into real data. That something is a JSON parser.

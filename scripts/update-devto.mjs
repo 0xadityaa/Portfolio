@@ -5,7 +5,7 @@
  * rewriting published posts: `node scripts/update-devto.mjs [--dry-run]`.
  * Docs: https://developers.forem.com/api/v1#tag/articles/operation/updateArticle
  */
-import { absolutize, loadPosts } from "./lib/posts.mjs";
+import { absolutize, loadPosts, toDevtoMath } from "./lib/posts.mjs";
 
 const dryRun = process.argv.includes("--dry-run");
 const apiKey = process.env.DEVTO_API_KEY;
@@ -47,7 +47,7 @@ for (const post of posts) {
   const body = JSON.stringify({
     article: {
       title: data.title,
-      body_markdown: absolutize(post.content.trim()),
+      body_markdown: toDevtoMath(absolutize(post.content.trim())),
       description: data.summary,
       canonical_url: post.url,
       // dev.to allows at most 4 tags, lowercase alphanumeric only.
@@ -55,6 +55,7 @@ for (const post of posts) {
         .map((tag) => tag.toLowerCase().replace(/[^a-z0-9]/g, ""))
         .filter(Boolean)
         .slice(0, 4),
+      published: data.draft !== true,
     },
   });
 

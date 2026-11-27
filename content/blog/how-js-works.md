@@ -1,5 +1,5 @@
 ---
-title: 'How JavaScript Actually Runs Your Code'
+title: 'How Does JavaScript Run?'
 publishedAt: '2024-09-26'
 summary: 'Every bit of JavaScript runs in an execution context built in two passes: memory first, then code. Trace that by hand and the weird stuff stops being weird.'
 tags:
@@ -7,6 +7,7 @@ tags:
 updated: '2026-10-10'
 devto_url: 'https://dev.to/0xadityaa/how-javascript-works-2fel'
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
+draft: true
 ---
 
 JavaScript is a **synchronous**, **single-threaded** language. It runs one line at a time, in the order you wrote it. No running things in parallel.

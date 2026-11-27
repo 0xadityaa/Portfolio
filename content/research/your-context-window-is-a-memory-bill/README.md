@@ -1,10 +1,10 @@
 # KV cache calculator
 
-The artifact behind the post "Your Context Window Is a Memory Bill". It reads real Hugging Face `config.json` files and computes KV cache size and how many full-length sequences fit on an 80 GB GPU.
+The script behind my post "Your Context Window Is a Memory Bill". It reads real Hugging Face `config.json` files and computes KV cache size and how many full-length sequences fit on an 80 GB GPU.
 
 ## Set up
 
-Python 3 standard library only (written and run on Python 3.12.8, macOS). There is no virtualenv, no `pip install`, no GPU and no model weights. Clone the repo and `cd` into this folder:
+Python 3 standard library only (I wrote and ran it on Python 3.12.8, macOS). There is no virtualenv, no `pip install`, no GPU and no model weights. Clone the repo and `cd` into this folder:
 
 ```bash
 cd content/research/your-context-window-is-a-memory-bill
@@ -31,11 +31,11 @@ python3 kv_cache.py --bytes 1 > output-fp8-kv-1gpu.txt   # one byte per cached v
 
 ## How long it takes
 
-Each `kv_cache.py` run finishes in well under a second (0.15 s wall on my laptop). `fetch.py` takes a few seconds on a normal connection. The three committed `output-*.txt` files are byte-identical to a fresh run, which I checked on 2026-11-15.
+Each `kv_cache.py` run finishes in well under a second (0.15 s wall on a laptop). `fetch.py` takes a few seconds on a normal connection. The three committed `output-*.txt` files are byte-identical to a fresh run, which I checked on 2026-11-15.
 
 ## Files
 
-- `configs/*.json`: the exact `config.json` files, fetched 2026-11-14 at the commits below.
+- `configs/*.json`: the exact `config.json` files, I fetched them on 2026-11-14 at the commits below.
 - `configs/params.json`: repo, commit, config URL, and parameter count (Hugging Face API `safetensors.total` for that commit).
 - `fetch.py`, `kv_cache.py`: the scripts.
 - `output-*.txt`: raw output of the three runs above.
