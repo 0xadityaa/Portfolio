@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="760" height="400" role="img" font-family="Helvetica, Arial, sans-serif">
+<rect width="760" height="400" fill="#30302E"/>
+<text x="30" y="40" font-size="20" font-weight="700" fill="#FAF9F5">Valid JSON is not right JSON</text>
+<text x="30" y="64" font-size="13" fill="#FAF9F5" opacity="0.75">Qwen2.5-0.5B-Instruct, 120 invented messages, 5 fields. Code fences stripped before scoring.</text>
+<rect x="30" y="82" width="12" height="12" fill="#FAF9F5" opacity="0.55"/><text x="48" y="93" font-size="13" fill="#FAF9F5">schema-valid</text>
+<rect x="150" y="82" width="12" height="12" fill="#D97757"/><text x="168" y="93" font-size="13" fill="#FAF9F5">all five fields right</text>
+<text x="30" y="142" font-size="14" fill="#FAF9F5">A  Instruction only</text>
+<rect x="230" y="120" width="253.0" height="20" fill="#FAF9F5" opacity="0.55"/>
+<text x="491.0" y="135" font-size="13" fill="#FAF9F5">57.5%</text>
+<rect x="230" y="144" width="117.3" height="20" fill="#D97757"/>
+<text x="355.3" y="159" font-size="13" fill="#FAF9F5">26.7%</text>
+<text x="30" y="208" font-size="14" fill="#FAF9F5">B  3-shot</text>
+<rect x="230" y="186" width="440.0" height="20" fill="#FAF9F5" opacity="0.55"/>
+<text x="678.0" y="201" font-size="13" fill="#FAF9F5">100.0%</text>
+<rect x="230" y="210" width="135.7" height="20" fill="#D97757"/>
+<text x="373.7" y="225" font-size="13" fill="#FAF9F5">30.8%</text>
+<text x="30" y="274" font-size="14" fill="#FAF9F5">C  Constrained</text>
+<rect x="230" y="252" width="440.0" height="20" fill="#FAF9F5" opacity="0.55"/>
+<text x="678.0" y="267" font-size="13" fill="#FAF9F5">100.0%</text>
+<rect x="230" y="276" width="128.3" height="20" fill="#D97757"/>
+<text x="366.3" y="291" font-size="13" fill="#FAF9F5">29.2%</text>
+<text x="30" y="340" font-size="14" fill="#FAF9F5">D  3-shot + constrained</text>
+<rect x="230" y="318" width="440.0" height="20" fill="#FAF9F5" opacity="0.55"/>
+<text x="678.0" y="333" font-size="13" fill="#FAF9F5">100.0%</text>
+<rect x="230" y="342" width="143.0" height="20" fill="#D97757"/>
+<text x="381.0" y="357" font-size="13" fill="#FAF9F5">32.5%</text>
+<line x1="230" y1="112" x2="230" y2="318" stroke="#FAF9F5" opacity="0.4"/>
+<text x="30" y="386" font-size="12" fill="#FAF9F5" opacity="0.7">Raw output, no stripping: A parses 0 of 120 (all fenced). B, C, D are unchanged.</text>
+</svg>

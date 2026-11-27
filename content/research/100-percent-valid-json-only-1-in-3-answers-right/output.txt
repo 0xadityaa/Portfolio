@@ -1,0 +1,56 @@
+n cases per arm: {'instr': 120, 'fewshot': 120, 'instr_o': 120, 'fewshot_o': 120}
+
+=== Format outcomes (95% Wilson intervals) ===
+arm                            raw JSON parse fails         schema-valid (raw)   schema-valid (fences stripped)
+A instruction only             100.0% [96.9, 100.0]          0.0% [-0.0,  3.1]               57.5% [48.6, 66.0]   fenced: 120
+B 3-shot                          0.0% [-0.0,  3.1]       100.0% [96.9, 100.0]             100.0% [96.9, 100.0]   fenced: 0
+C constrained                     0.0% [-0.0,  3.1]       100.0% [96.9, 100.0]             100.0% [96.9, 100.0]   fenced: 0
+D 3-shot + constrained            0.0% [-0.0,  3.1]       100.0% [96.9, 100.0]             100.0% [96.9, 100.0]   fenced: 0
+
+=== Field accuracy over all cases, a failed parse scores 0 (raw output) ===
+arm                                     customer               product              quantity              priority                refund        all five right
+A instruction only             0.0% [-0.0,  3.1]     0.0% [-0.0,  3.1]     0.0% [-0.0,  3.1]     0.0% [-0.0,  3.1]     0.0% [-0.0,  3.1]     0.0% [-0.0,  3.1]
+B 3-shot                    100.0% [96.9, 100.0]  100.0% [96.9, 100.0]  100.0% [96.9, 100.0]    31.7% [24.0, 40.4]    95.8% [90.6, 98.2]    30.8% [23.3, 39.6]
+C constrained                 96.7% [91.7, 98.7]  100.0% [96.9, 100.0]  100.0% [96.9, 100.0]    30.8% [23.3, 39.6]    83.3% [75.7, 88.9]    29.2% [21.8, 37.8]
+D 3-shot + constrained      100.0% [96.9, 100.0]  100.0% [96.9, 100.0]  100.0% [96.9, 100.0]    33.3% [25.5, 42.2]    96.7% [91.7, 98.7]    32.5% [24.8, 41.3]
+
+=== Field accuracy over all cases, a failed parse scores 0 (fences stripped) ===
+arm                                     customer               product              quantity              priority                refund        all five right
+A instruction only            91.7% [85.3, 95.4]  100.0% [96.9, 100.0]  100.0% [96.9, 100.0]    30.0% [22.5, 38.7]    90.8% [84.3, 94.8]    26.7% [19.6, 35.2]
+B 3-shot                    100.0% [96.9, 100.0]  100.0% [96.9, 100.0]  100.0% [96.9, 100.0]    31.7% [24.0, 40.4]    95.8% [90.6, 98.2]    30.8% [23.3, 39.6]
+C constrained                 96.7% [91.7, 98.7]  100.0% [96.9, 100.0]  100.0% [96.9, 100.0]    30.8% [23.3, 39.6]    83.3% [75.7, 88.9]    29.2% [21.8, 37.8]
+D 3-shot + constrained      100.0% [96.9, 100.0]  100.0% [96.9, 100.0]  100.0% [96.9, 100.0]    33.3% [25.5, 42.2]    96.7% [91.7, 98.7]    32.5% [24.8, 41.3]
+
+=== Mean field accuracy, raw output | fences stripped | among valid raw outputs only ===
+A instruction only           0.0  |   82.5  |    nan (n=0)
+B 3-shot                    85.5  |   85.5  |   85.5 (n=120)
+C constrained               82.2  |   82.2  |   82.2 (n=120)
+D 3-shot + constrained      86.0  |   86.0  |   86.0 (n=120)
+
+=== Cost per request ===
+A instruction only         prompt tokens  163.4   new tokens  57.0   seconds mean  9.53 median  8.26
+B 3-shot                   prompt tokens  694.4   new tokens  26.9   seconds mean  7.37 median  7.46
+C constrained              prompt tokens  163.4   new tokens  33.9   seconds mean  5.15 median  5.24
+D 3-shot + constrained     prompt tokens  694.4   new tokens  25.9   seconds mean  6.05 median  5.50
+
+=== Paired bootstrap on per-case mean field accuracy (A minus B, points, 95% interval, 5,000 resamples) ===
+B 3-shot                   minus A instruction only         (raw            )  +85.5 [ +83.7,  +87.3]
+B 3-shot                   minus A instruction only         (fences stripped)   +3.0 [  +1.5,   +4.5]
+C constrained              minus A instruction only         (raw            )  +82.2 [ +79.5,  +84.7]
+C constrained              minus A instruction only         (fences stripped)   -0.3 [  -1.7,   +1.0]
+D 3-shot + constrained     minus B 3-shot                   (raw            )   +0.5 [  +0.0,   +1.2]
+D 3-shot + constrained     minus B 3-shot                   (fences stripped)   +0.5 [  +0.0,   +1.2]
+D 3-shot + constrained     minus C constrained              (raw            )   +3.8 [  +2.3,   +5.5]
+D 3-shot + constrained     minus C constrained              (fences stripped)   +3.8 [  +2.3,   +5.5]
+C constrained              minus B 3-shot                   (raw            )   -3.3 [  -5.0,   -1.8]
+C constrained              minus B 3-shot                   (fences stripped)   -3.3 [  -5.0,   -1.8]
+instr hit the token cap: 0 | priority values: {'high': 120} | refund values: {True: 54, False: 66}
+   invalid after fence stripping: {('extra keys', ('message',), 'missing', ()): 23, ('extra keys', ('reason',), 'missing', ()): 27, ('extra keys', ('action', 'reason'), 'missing', ()): 1}
+fewshot hit the token cap: 0 | priority values: {'high': 118, 'low': 2} | refund values: {True: 60, False: 60}
+   invalid after fence stripping: {}
+instr_o hit the token cap: 0 | priority values: {'high': 118, 'low': 2} | refund values: {True: 45, False: 75}
+   invalid after fence stripping: {}
+fewshot_o hit the token cap: 0 | priority values: {'high': 114, 'low': 6} | refund values: {True: 61, False: 59}
+   invalid after fence stripping: {}
+gold priority: {'high': 36, 'low': 36, 'medium': 48}
+gold refund: {True: 65, False: 55}
