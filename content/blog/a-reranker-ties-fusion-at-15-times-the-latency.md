@@ -1,5 +1,5 @@
 ---
-title: A Reranker Ties Fusion at 15 Times the Latency
+title: 'Do You Need a Reranker?'
 publishedAt: '2026-12-24'
 summary: >-
   At 2,000 tokens, BM25 plus a cross-encoder scores 92.4%, the same as RRF fusion, at 14.6 times the latency. It pays off at 1,000 tokens or fewer.

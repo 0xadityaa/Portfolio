@@ -1,4 +1,4 @@
-# Research note: A Reranker Ties Fusion at 15 Times the Latency
+# Research note: Do You Need a Reranker?
 
 - Topic issue: none (series post 9, planned for Thu 24 December 2026)
 - Format: essay
