@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" data-viz="" viewBox="0 0 560 290" width="560" height="290" role="img" aria-label="Illustrative curves on a time axis, not measurements. Growth below ground rises steadily from the start; what shows above ground stays flat, then rises late, when the harvest reveals what was already there."><style data-standalone="">text{font-family:"DM Sans",Helvetica,Arial,sans-serif}.m{font-family:"DM Mono",Menlo,Consolas,monospace}.h{font-family:Newsreader,Georgia,serif;font-weight:500}</style><rect width="560" height="290" fill="#272725"/>
+<g class="a-fade" style="--d:0s;--t:.5s"><text class="h" x="24" y="42" font-size="24" fill="#FAF9F5">Roots grow before anything shows</text></g>
+<path class="a-draw" pathLength="1" style="--d:.1s;--t:.5s" d="M64 70V230H520" stroke="#B5B3AA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<text class="a-fade" style="--d:.3s;--t:.4s" x="520" y="252" text-anchor="end" font-size="15" fill="#B5B3AA">time</text>
+<path class="a-draw" pathLength="1" style="--d:.5s;--t:1.5s" d="M64 190C170 172 280 130 520 84" stroke="#FAF9F5" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+<path class="a-draw" pathLength="1" style="--d:.5s;--t:1.5s" d="M64 190H388C446 190 484 140 520 84" stroke="#B5B3AA" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+<g class="a-fade" style="--d:1.3s;--t:.4s"><text x="100" y="140" font-size="16" font-weight="500" fill="#FAF9F5">Growth below ground</text><text x="84" y="216" font-size="16" fill="#B5B3AA">What shows above ground</text></g>
+<g class="a-fade" style="--d:2s;--t:.5s"><path d="M388 190V119" stroke="#DB8061" stroke-width="1.5" stroke-dasharray="3 4" fill="none"/><circle cx="388" cy="190" r="5" fill="#DB8061"/><text x="378" y="150" text-anchor="end" font-size="16" font-weight="500" fill="#DB8061">The harvest</text><text x="378" y="170" text-anchor="end" font-size="16" font-weight="500" fill="#DB8061">reveals it</text></g>
+<text class="m a-fade" style="--d:2.4s;--t:.4s" x="24" y="276" font-size="13" fill="#B5B3AA">illustrative: no measurements</text>
+</svg>

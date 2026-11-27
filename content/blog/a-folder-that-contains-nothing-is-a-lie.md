@@ -1,10 +1,10 @@
 ---
-title: A Folder That Contains Nothing Is a Lie
+title: Empty Folders Are Lies
 publishedAt: '2026-10-10T05:28:22Z'
+updated: '2026-11-27'
 summary: >-
-  Folders make you decide where something belongs before you know where you'll
-  need it. Hivemind made that bet, and it broke the whole point.
-updated: '2026-11-26'
+  Folders force you to guess where you'll need a note before you know. I built
+  that into my side project and it broke the whole point of it.
 tags:
   - architecture
   - design
@@ -14,81 +14,88 @@ crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/122'
 devto_url: 'https://dev.to/0xadityaa/a-folder-that-contains-nothing-is-a-lie-5gnp'
 ---
 
-Have you ever noticed that Gmail doesn't have folders?
+Have you ever stopped to wonder why Gmail doesn't have folders?
 
-It has [labels](https://support.google.com/mail/answer/118708). An email can carry three labels, or none, and "removing" one doesn't delete anything. The reason shows up the moment a system hits the exact problem labels solve, and Hivemind's first data model got it wrong in just that way: **a folder makes you decide where something belongs at the moment you save it. That's a bet on where you'll need it later, and for some kinds of data you lose that bet constantly.**
+It has [labels](https://support.google.com/mail/answer/118708). One email can wear three labels at once, or none at all, and peeling a label off doesn't delete the message. For years I assumed that was a quirky Google UI choice. Then I built a side project and hit the exact problem labels exist to solve.
+
+**A folder forces you to decide where something belongs at the moment you save it. That's a bet on where you'll need it later, and for some kinds of data you lose that bet constantly.**
 
 ## The short version
 
-- A folder is a decision made at write time about where you'll need something later.
-- Every note was filed by where it was written. Ask from anywhere else and the note was invisible, which broke the one thing the project was for.
-- The fix: search everything, and treat "where it was written" as a ranking hint, not a wall.
-- If a name in your interface promises containment and the system doesn't contain, rename it.
+- A folder is a write-time bet about where you'll go looking later.
+- In my AI memory project, I filed every note by the app or repo where it was written. Ask from anywhere else and the note vanished, which defeated the point of the product.
+- The fix was to drop the walls, search everything at read time, and demote "where it was written" from a hard filter to a ranking weight.
+- When a word in your UI promises containment and your system doesn't actually contain, rename it before your users get burned.
 
-## The design that looked totally fine
+## The data model that looked reasonable
 
-[Hivemind](https://gethivemind.xyz) is a memory layer for AI tools that Aditya is building. The idea: tell one tool something and your other tools already know it.
+I've been building a shared memory layer for AI tools called [Hivemind](https://gethivemind.xyz). The whole pitch is simple: tell one AI tool something about your work, and your other AI tools already know it.
 
-The first data model was the obvious one. Every note gets a folder when it's written. Every search looks inside exactly one folder. Projects stay separate, results stay relevant, and everybody understands folders. Lovely.
+My first schema was the obvious one. Every note goes into a folder when it's saved. Every search looks inside one folder. Projects stay tidy, results stay relevant, and everyone understands folders. Clean, right?
 
-Then saving went automatic. Nobody wants a "where should this be filed?" popup every time they say something worth keeping. So the folder had to be guessed from wherever you were:
+Then I made saving automatic. Nobody wants a "Which folder?" modal popping up mid-thought. So I inferred the folder from wherever you happened to be:
 
-- In a coding tool, connected over [MCP](https://modelcontextprotocol.io): the repo you're in.
-- In a browser chat: the site you're on.
+- Inside a coding agent connected over [MCP](https://modelcontextprotocol.io): the git repo you're in.
+- Inside a browser chat: the website you're on.
 
-Still sounds reasonable, right?
+Still clean on paper. Then I used it.
 
-## The bug you can't fix with code
+## The bug no ranking algorithm could fix
 
-Now walk through the one thing the project exists to do:
+Here is the most basic thing my app is supposed to do:
 
 | Step | What happens | Folder |
 | --- | --- | --- |
-| 1 | In Claude Code, inside `acme/payments`, you say you're migrating off Stripe Checkout | `acme/payments` |
-| 2 | Later, in ChatGPT, you ask about the migration | `chatgpt.com` |
-| 3 | The search looks in one folder | `chatgpt.com` |
-| 4 | Result | Nothing. The note never comes back. |
+| 1 | In Claude Code, inside `acme/payments`, I mention we're migrating off Stripe Checkout | `acme/payments` |
+| 2 | Later that afternoon, in ChatGPT, I ask about the migration plan | `chatgpt.com` |
+| 3 | Search looks inside one folder | `chatgpt.com` |
+| 4 | Result | Nothing. Zero notes returned. |
 
-The note is sitting right there in the database. The search will never see it, because it's in a different folder.
+The note was sitting right there in the database. My search could never see it because it lived on the other side of a folder wall.
 
-That's not an edge case. That's the entire point of the thing, blocked by the storage model. And no ranking tweak can save you, because the note gets excluded before ranking even runs.
+That wasn't an edge case. It was the *reason I built the project*, defeated by my own storage model. No embedding model or reranker could rescue it, because the folder filter was a `WHERE` clause that ran before ranking, so the note never reached it.
 
-Two smaller cracks pointed the same way. A company-wide convention you happen to mention inside one repo isn't a fact about that repo. And "the site you're on" says almost nothing about which project is in your head.
+Two other cracks showed up fast. A company-wide coding convention I happened to mention inside one repo isn't really about that repo. And "which website tab I have open" tells you almost nothing about which project is actually in my head.
 
-## Decide at read time
+## Demote the wall to gravity
 
-The fix was to stop filing things.
+The fix was simple once I stepped back: stop filing things into boxes.
 
-Notes don't go anywhere now. Every search looks at everything. What used to be a folder became a saved search, the same move as Gmail's labels or a [database view](https://en.wikipedia.org/wiki/View_(SQL)): a named way of looking at the data, not a box the data lives in.
+Now notes don't live inside folders at all. They sit in one space, and every search looks across all of it. What used to be a folder became a saved view, just like Gmail's labels or a [database view](https://en.wikipedia.org/wiki/View_(SQL)): a lens for looking at your data, not a locked box the data gets trapped inside.
 
-![Diagram: with folders the note sits behind a wall the search never crosses, and with views there is one store where the note's origin only adjusts its rank](/images/blog/wall-vs-weight.svg)
+![With folders, a note filed under acme/payments is invisible to a query from chatgpt.com and returns 0 notes; with views the same query finds it](/images/blog/wall-vs-weight.svg "The Stripe scenario from the table above, before and after dropping the folder filter.")
 
-The "where was this written" signal didn't get thrown away. It got demoted from a wall to a weight. Each note still remembers where it came from, and if you ask from that same place, notes from there rank a bit higher. They're just never the only thing you can get.
+I didn't throw away the "where was this written?" signal. I demoted it from a hard filter to a ranking weight. Every note still remembers its origin. If I'm asking from `acme`, notes from `acme` get a ranking boost. If I'm asking from ChatGPT, a strong match from `acme` can still win.
 
 ```ts
 const work = hm.withOrigin("acme");
 await work.remember({ content: "Staging runs Postgres 16" });
 ```
 
-Ask from `acme` and that note gets a boost. Ask from anywhere else and it can still show up, if it's the best answer.
+Ask from `acme` and that note gets a boost. Ask from anywhere else and it still shows up when it's the right answer.
 
-## Why the name had to change too
+## Why I had to kill the word "folder" too
 
-Calling them folders would have been easy, since everyone knows what a folder is. That's the problem. If you take something out of a folder, you expect it to be gone from somewhere. With a saved search it isn't, because it was never "in" there. The name promises containment and the system can't deliver it. Keep the name, keep the broken promise.
+I was tempted to keep calling them folders in the UI. Everyone knows what a folder is, so why invent a new word?
 
-So the word is "view" now, everywhere.
+Because words make promises. If you remove a note from a folder, you expect it to be gone from somewhere. With a saved view, it isn't gone, because it was never "inside" the view to begin with. Keeping the word "folder" meant misdescribing the system to my own users.
 
-An older, already-retired name was off the table too. Recycling dead vocabulary is how "session" ended up meaning two unrelated things in the same schema: a stretch of work, and a browser login. That's exactly as confusing as it sounds.
+So I renamed it to "view" everywhere.
 
-## Where this stops holding
+I also resisted the lazy urge to recycle an older term I had already retired. Reusing dead vocabulary is how I once ended up with "session" meaning two unrelated things in one schema: a stretch of work, and a browser login. Future-you will not thank you.
 
-- **A weight is not a wall.** If you need hard separation, say client A's context must never show up while you're working for client B, ranking won't give you that. A preference isn't a boundary. For real isolation you need a real partition, like separate accounts.
-- **Searching everything costs you.** With no folder to shrink the haystack, the relevance cutoff has to be good, or unrelated projects leak into each other's answers. A structural guarantee became a quality problem. It's the right trade here, and still a trade.
-- **Folders are great for plenty of things.** Files, photos, anything you'll go looking for yourself. Hierarchies are how people navigate. This is about data that has to find you, somewhere you didn't predict.
-- **"Decide at read time" can go too far.** [Schema-on-read](https://en.wikipedia.org/wiki/Data_lake) is the same idea taken to its limit, and plenty of data lakes turned into swamps that way. Some structure at write time is what keeps data usable.
+## Where I'd stop trusting this post
+
+**Gravity is not a security boundary.** If you need strict isolation, like making sure Client A's private context can *never* leak while you're working for Client B, a ranking weight won't save you. A preference isn't a wall. For real isolation, use real partitions: separate workspaces or accounts.
+
+**Searching everything raises the bar on relevance.** Without folders shrinking the haystack, your relevance cutoff has to be good, or unrelated projects bleed into each other. I traded a structural guarantee for a ranking problem. I think it's the right trade here, but it is a trade.
+
+**Folders are still right for plenty of things.** Source files, photos, tax receipts: anything a human is going to walk over and browse by hand. Hierarchies are good for navigation. This post is specifically about data that has to find *you* in places you didn't predict.
+
+**"Decide at read time" can go too far.** Push [schema-on-read](https://en.wikipedia.org/wiki/Data_lake) to the extreme far enough and you get a data swamp. Some structure at write time keeps data sane.
 
 ## The takeaway
 
-Any time you pick a container when something is saved, you're predicting the future. For things a person will go fetch, that's fine. For things that have to turn up on their own, the prediction is wrong often enough to break what you're building.
+Every time you force a piece of data into a container at write time, you're making a prediction about the future. When a person is going to browse for it later, that bet usually pays off. When a system has to surface it automatically somewhere new, that bet breaks the feature.
 
-The rule: decide at read time when you can, and keep the write-time signal as a hint, never a gate. And if a name in your interface promises something the system doesn't do, change the name before a user finds out for you.
+My rule now is simple: decide at read time whenever you can, keep write-time context as a ranking hint instead of a gate, and if a word in your UI promises containment your database doesn't enforce, change the word before a user learns the difference for you.
