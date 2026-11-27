@@ -1,0 +1,57 @@
+articles=48 questions=10570
+doc tokens: 330249 mean per doc: 6880
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+embedding model: BAAI/bge-small-en-v1.5 max_seq_length 512 device cpu torch threads 4
+embedded queries in 289s
+[64_0] chunks=5187 mean_tokens=63.7 questions with a span-gold chunk=0.9681 string-gold=0.9752
+[64_0] embedder tokens per chunk: mean 66, share over 512: 0.000
+[64_0] bm25 5s embed 377s
+[64_0] bm25 span recall@1/5/10: 0.577/0.766/0.811
+[64_0] embed span recall@1/5/10: 0.532/0.767/0.829
+[64_15] chunks=6133 mean_tokens=63.8 questions with a span-gold chunk=0.9989 string-gold=0.9989
+[64_15] embedder tokens per chunk: mean 66, share over 512: 0.000
+[64_15] bm25 7s embed 307s
+[64_15] bm25 span recall@1/5/10: 0.619/0.825/0.868
+[64_15] embed span recall@1/5/10: 0.579/0.823/0.882
+[128_0] chunks=2606 mean_tokens=126.7 questions with a span-gold chunk=0.9841 string-gold=0.9874
+[128_0] embedder tokens per chunk: mean 129, share over 512: 0.000
+[128_0] bm25 1s embed 74s
+[128_0] bm25 span recall@1/5/10: 0.663/0.847/0.889
+[128_0] embed span recall@1/5/10: 0.493/0.776/0.856
+[128_15] chunks=3045 mean_tokens=127.2 questions with a span-gold chunk=0.9998 string-gold=0.9998
+[128_15] embedder tokens per chunk: mean 129, share over 512: 0.000
+[128_15] bm25 2s embed 164s
+[128_15] bm25 span recall@1/5/10: 0.700/0.886/0.924
+[128_15] embed span recall@1/5/10: 0.533/0.818/0.888
+[256_0] chunks=1314 mean_tokens=251.3 questions with a span-gold chunk=0.9925 string-gold=0.9943
+[256_0] embedder tokens per chunk: mean 253, share over 512: 0.000
+[256_0] bm25 2s embed 103s
+[256_0] bm25 span recall@1/5/10: 0.713/0.898/0.933
+[256_0] embed span recall@1/5/10: 0.463/0.783/0.868
+[256_15] chunks=1533 mean_tokens=252.2 questions with a span-gold chunk=1.0000 string-gold=1.0000
+[256_15] embedder tokens per chunk: mean 254, share over 512: 0.000
+[256_15] bm25 1s embed 102s
+[256_15] bm25 span recall@1/5/10: 0.738/0.916/0.950
+[256_15] embed span recall@1/5/10: 0.482/0.803/0.886
+[512_0] chunks=670 mean_tokens=492.9 questions with a span-gold chunk=0.9963 string-gold=0.9974
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (517 > 512). Running this sequence through the model will result in indexing errors
+[512_0] embedder tokens per chunk: mean 494, share over 512: 0.431
+[512_0] bm25 1s embed 86s
+[512_0] bm25 span recall@1/5/10: 0.748/0.931/0.960
+[512_0] embed span recall@1/5/10: 0.423/0.771/0.870
+[512_15] chunks=775 mean_tokens=498.4 questions with a span-gold chunk=1.0000 string-gold=1.0000
+[512_15] embedder tokens per chunk: mean 500, share over 512: 0.437
+[512_15] bm25 1s embed 111s
+[512_15] bm25 span recall@1/5/10: 0.762/0.937/0.967
+[512_15] embed span recall@1/5/10: 0.452/0.797/0.886
+[1024_0] chunks=347 mean_tokens=951.7 questions with a span-gold chunk=0.9982 string-gold=0.9986
+[1024_0] embedder tokens per chunk: mean 953, share over 512: 0.925
+[1024_0] bm25 1s embed 51s
+[1024_0] bm25 span recall@1/5/10: 0.768/0.953/0.977
+[1024_0] embed span recall@1/5/10: 0.356/0.713/0.833
+[1024_15] chunks=394 mean_tokens=973.4 questions with a span-gold chunk=1.0000 string-gold=1.0000
+[1024_15] embedder tokens per chunk: mean 975, share over 512: 0.949
+[1024_15] bm25 1s embed 44s
+[1024_15] bm25 span recall@1/5/10: 0.782/0.955/0.979
+[1024_15] embed span recall@1/5/10: 0.391/0.735/0.847
+done
