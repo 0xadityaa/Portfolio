@@ -1,6 +1,6 @@
 ## Thread
 
-Qwen2.5-0.5B picked answer A on 825 of 825 MT-Bench pairs. The two answers were swapped. It picked A on 825 of 825 again.
+Qwen2.5-0.5B picked answer A on 825 of 825 MT-Bench pairs. I swapped the two answers. It picked A on 825 of 825 again.
 
 If a small LLM judge grades your outputs, that's your verdict: a slot, not an answer.
 
@@ -8,7 +8,7 @@ If a small LLM judge grades your outputs, that's your verdict: a slot, not an an
 ---
 A constant verdict agrees with humans exactly as often as humans pick the first answer: 51.4% (95% interval 48.5 to 54.5). A coin.
 
-It was scored from the logits of "A" and "B". Nothing was generated.
+I scored it from the logits of "A" and "B". Nothing was generated.
 ---
 The margin still moves. Subtract the order-2 margin from the order-1 margin and agreement with humans rises to 63.2% (59.5 to 66.8).
 
@@ -56,13 +56,13 @@ When you use an LLM as a judge, do you score each pair in both orders, and what 
 
 ## Substack Note
 
-825 of 825. That's how many MT-Bench pairs a 0.5B Qwen judge answered "A" on, and when the two answers were swapped it said "A" on all 825 again.
+825 of 825. That's how many MT-Bench pairs a 0.5B Qwen judge answered "A" on, and when I swapped the two answers it said "A" on all 825 again.
 
 A constant verdict agrees with human votes 51.4% of the time, the share of humans who picked the first answer. But the margin behind the letter still moves. Subtract the order-2 margin from the order-1 margin and agreement rises to 63.2%.
 
 A rule that picks the longer answer scores 73.2%. Two humans agree 82.6%.
 
-The 1.5B model flips the bias to the second slot (71% of verdicts) and agrees 48.5% in one order, 64.2% in the other, 73.1% with both averaged. Everything was scored from the logits of "A" and "B", no generation, on a shared CPU.
+The 1.5B model flips the bias to the second slot (71% of verdicts) and agrees 48.5% in one order, 64.2% in the other, 73.1% with both averaged. I scored everything from the logits of "A" and "B", no generation, on a shared CPU.
 
 Check how often your judge picks one slot before you trust a single score.
 
