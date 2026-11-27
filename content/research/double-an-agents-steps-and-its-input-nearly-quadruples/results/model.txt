@@ -1,0 +1,94 @@
+Tokenised samples (tiktoken o200k_base, proxy):
+  file_read_large      3559
+  file_read_medium     1887
+  file_read_small      1260
+  grep                 1435
+  ls                   1359
+  vcs_log              1784
+  check                   8
+Mean tool result over the 10-step cycle: 1,587 tokens; reply 250; per-step growth 1,837
+Prefix 8,000, task 500, summary 4,000, placeholder 20
+Prices ($/MTok): {'input': 2.0, 'cache_write_5m': 2.5, 'cache_write_1h': 4.0, 'cache_read': 0.1, 'output': 10.0}
+
+=== Cumulative input tokens billed (millions), and cost in $ (input only | input+output) ===
+
+-- 10 steps --
+strategy                         input Mtok  uncached $  cached $  cached/uncached  total $ unc  total $ cached  calls
+none                                  0.182       0.364     0.079            0.217        0.389           0.104      0
+clear-sliding (keep 10)               0.182       0.364     0.079            0.217        0.389           0.104      0
+clear-trigger (50k, keep 5)           0.182       0.364     0.079            0.217        0.389           0.104      0
+compact every 25 steps                0.182       0.364     0.079            0.217        0.389           0.104      0
+compact at 100k                       0.182       0.364     0.079            0.217        0.389           0.104      0
+
+-- 25 steps --
+strategy                         input Mtok  uncached $  cached $  cached/uncached  total $ unc  total $ cached  calls
+none                                  0.800       1.601     0.211            0.132        1.663           0.273      0
+clear-sliding (keep 10)               0.614       1.227     0.811            0.661        1.290           0.874      0
+clear-trigger (50k, keep 5)           0.716       1.431     0.232            0.162        1.494           0.294      0
+compact every 25 steps                0.800       1.601     0.211            0.132        1.663           0.273      0
+compact at 100k                       0.800       1.601     0.211            0.132        1.663           0.273      0
+
+-- 50 steps --
+strategy                         input Mtok  uncached $  cached $  cached/uncached  total $ unc  total $ cached  calls
+none                                  2.748       5.497     0.512            0.093        5.622           0.637      0
+clear-sliding (keep 10)               1.468       2.936     2.437            0.830        3.061           2.562      0
+clear-trigger (50k, keep 5)           1.650       3.300     0.470            0.142        3.425           0.595      0
+compact every 25 steps                1.704       3.409     0.417            0.122        3.574           0.582      1
+compact at 100k                       2.748       5.497     0.512            0.093        5.622           0.637      0
+
+-- 100 steps --
+strategy                         input Mtok  uncached $  cached $  cached/uncached  total $ unc  total $ cached  calls
+none                                 10.090      20.181     1.467            0.073       20.431           1.717      0
+clear-sliding (keep 10)               3.682       7.364     6.953            0.944        7.614           7.203      0
+clear-trigger (50k, keep 5)           3.768       7.537     1.353            0.180        7.787           1.603      0
+compact every 25 steps                3.556       7.113     0.842            0.118        7.483           1.212      3
+compact at 100k                       5.694      11.388     1.046            0.092       11.718           1.376      2
+
+=== Per-step context size (tokens) at selected steps, and first step over the 200k window ===
+strategy                               10       25       50      100     peak  >200k at
+none                               25,364   54,389   98,860  190,730  190,730      None
+clear-sliding (keep 10)            25,364   30,654   37,404   50,904   50,904      None
+clear-trigger (50k, keep 5)        25,364   26,136   45,017   42,843   49,978      None
+compact every 25 steps             25,364   54,389   54,862   54,862   57,889      None
+compact at 100k                    25,364   54,389   98,860   12,258   99,965      None
+
+=== Does 'none' follow the quadratic formula? ===
+n= 10 exact=   182,199 formula n(P+U)+g*n(n-1)/2=     167,683  ratio=1.0866
+n= 25 exact=   800,453 formula n(P+U)+g*n(n-1)/2=     763,720  ratio=1.0481
+n= 50 exact= 2,748,395 formula n(P+U)+g*n(n-1)/2=   2,675,815  ratio=1.0271
+n=100 exact=10,090,290 formula n(P+U)+g*n(n-1)/2=   9,945,130  ratio=1.0146
+Growth 10->100 steps (x10 steps):
+  cumulative input 10 steps 182,199  100 steps 10,090,290  ratio 55.4x
+  history term overtakes prefix term at step ~10.3
+
+=== 'none' with caching: where the money goes ===
+n= 10 read tokens    156,835 cost $  0.016 | write tokens   25,364 cost $  0.063
+n= 25 read tokens    746,064 cost $  0.075 | write tokens   54,389 cost $  0.136
+n= 50 read tokens  2,649,535 cost $  0.265 | write tokens   98,860 cost $  0.247
+n=100 read tokens  9,899,560 cost $  0.990 | write tokens  190,730 cost $  0.477
+
+=== Sensitivity: 'none' and 'compact at 100k', 100 steps, cost uncached | cached (input only $) ===
+tool results x0.5 (mean 794): none: 12.18|0.88  clear-trigger (50k, keep 5): 7.02|0.76  compact at 100k: 10.09|0.78  none first over 200k: None
+tool results x1.0 (mean 1,587): none: 20.18|1.47  clear-trigger (50k, keep 5): 7.54|1.35  compact at 100k: 11.39|1.05  none first over 200k: None
+tool results x2.0 (mean 3,175): none: 36.19|2.65  clear-trigger (50k, keep 5): 8.41|3.89  compact at 100k: 11.16|1.42  none first over 200k: 57
+
+=== Prefix size sensitivity ('none', 50 steps, uncached $ | cached $) ===
+prefix  2,000: 4.897 | 0.468
+prefix  8,000: 5.497 | 0.512
+prefix 24,000: 7.097 | 0.631
+
+=== Doubling the steps: cost ratio (input only) ===
+strategy                          25->50 unc  50->100 unc  25->50 cach  50->100 cach
+none                                    3.43         3.67         2.43          2.86
+clear-sliding (keep 10)                 2.39         2.51         3.00          2.85
+clear-trigger (50k, keep 5)             2.31         2.28         2.03          2.88
+compact every 25 steps                  2.13         2.09         1.98          2.02
+compact at 100k                         3.43         2.07         2.43          2.04
+
+=== Cost of the summarisation calls themselves, 100 steps ($) ===
+compact every 25 steps     calls 3  uncached: input 0.344 + output 0.120 = 0.464 of total 7.483;  cached: input 0.029 + output 0.120 of total 1.212
+compact at 100k            calls 2  uncached: input 0.405 + output 0.080 = 0.485 of total 11.718;  cached: input 0.029 + output 0.080 of total 1.376
+
+=== First step whose request exceeds 200k (run to 300 steps) ===
+tool results x1.0: none: 105 (peak 558,210), clear-sliding (keep 10): None (peak 104,904), clear-trigger (50k, keep 5): None (peak 97,550), compact every 25 steps: None (peak 57,889), compact at 100k: None (peak 99,965)
+tool results x2.0: none: 57 (peak 1,033,170), clear-sliding (keep 10): None (peak 120,778), clear-trigger (50k, keep 5): None (peak 107,050), compact every 25 steps: None (peak 97,778), compact at 100k: None (peak 98,742)

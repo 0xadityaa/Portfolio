@@ -1,0 +1,337 @@
+     1	export interface GitHubPinnedRepo {
+     2	  name: string;
+     3	  description: string;
+     4	  url: string;
+     5	  homepageUrl: string | null;
+     6	  stargazerCount: number;
+     7	  forkCount: number;
+     8	  openGraphImageUrl: string;
+     9	  pushedAt: string;
+    10	  primaryLanguage: {
+    11	    name: string;
+    12	    color: string;
+    13	  } | null;
+    14	  languages: string[];
+    15	  topics: string[];
+    16	  issuesCount?: number;
+    17	  commitsCount?: number;
+    18	}
+    19	
+    20	export interface GitHubBuilderProfile {
+    21	  name: string;
+    22	  bio: string;
+    23	  company: string | null;
+    24	  location: string | null;
+    25	  avatarUrl: string;
+    26	  followersCount: number;
+    27	  publicReposCount: number;
+    28	  contributionsCount: number;
+    29	  pinnedRepos: GitHubPinnedRepo[];
+    30	  repos: GitHubPinnedRepo[];
+    31	  /** True when the numbers are placeholders (no token or the API failed). */
+    32	  isMock?: boolean;
+    33	}
+    34	
+    35	const GITHUB_GRAPHQL_API = "https://api.github.com/graphql";
+    36	
+    37	const query = `
+    38	query ($username: String!) {
+    39	  user(login: $username) {
+    40	    name
+    41	    bio
+    42	    company
+    43	    location
+    44	    avatarUrl
+    45	    followers {
+    46	      totalCount
+    47	    }
+    48	    repositories(first: 100, ownerAffiliations: OWNER, privacy: PUBLIC, isFork: false, orderBy: {field: PUSHED_AT, direction: DESC}) {
+    49	      totalCount
+    50	      nodes {
+    51	        name
+    52	        description
+    53	        url
+    54	        homepageUrl
+    55	        stargazerCount
+    56	        forkCount
+    57	        pushedAt
+    58	        issues(states: OPEN) {
+    59	          totalCount
+    60	        }
+    61	        defaultBranchRef {
+    62	          target {
+    63	            ... on Commit {
+    64	              history {
+    65	                totalCount
+    66	              }
+    67	            }
+    68	          }
+    69	        }
+    70	        openGraphImageUrl
+    71	        primaryLanguage {
+    72	          name
+    73	          color
+    74	        }
+    75	        languages(first: 5, orderBy: {field: SIZE, direction: DESC}) {
+    76	          nodes {
+    77	            name
+    78	            color
+    79	          }
+    80	        }
+    81	        repositoryTopics(first: 10) {
+    82	          nodes {
+    83	            topic {
+    84	              name
+    85	            }
+    86	          }
+    87	        }
+    88	      }
+    89	    }
+    90	    pinnedItems(first: 6, types: [REPOSITORY]) {
+    91	      nodes {
+    92	        ... on Repository {
+    93	          name
+    94	          description
+    95	          url
+    96	          homepageUrl
+    97	          stargazerCount
+    98	          forkCount
+    99	          pushedAt
+   100	          issues(states: OPEN) {
+   101	            totalCount
+   102	          }
+   103	          defaultBranchRef {
+   104	            target {
+   105	              ... on Commit {
+   106	                history {
+   107	                  totalCount
+   108	                }
+   109	              }
+   110	            }
+   111	          }
+   112	          openGraphImageUrl
+   113	          primaryLanguage {
+   114	            name
+   115	            color
+   116	          }
+   117	          languages(first: 5, orderBy: {field: SIZE, direction: DESC}) {
+   118	            nodes {
+   119	              name
+   120	              color
+   121	            }
+   122	          }
+   123	          repositoryTopics(first: 10) {
+   124	            nodes {
+   125	              topic {
+   126	                name
+   127	              }
+   128	            }
+   129	          }
+   130	        }
+   131	      }
+   132	    }
+   133	  }
+   134	}
+   135	`;
+   136	
+   137	export async function getGitHubBuilderProfile(username: string = "0xadityaa"): Promise<GitHubBuilderProfile> {
+   138	  const token = process.env.GITHUB_TOKEN;
+   139	
+   140	  if (!token || token.includes("dummy")) {
+   141	    console.warn(`
+   142	⚠️ [WARN] Missing or dummy GITHUB_TOKEN environment variable!
+   143	Returning mock GitHub data.
+   144	`);
+   145	    return getMockProfile();
+   146	  }
+   147	
+   148	  try {
+   149	    const res = await fetch(GITHUB_GRAPHQL_API, {
+   150	      method: "POST",
+   151	      headers: {
+   152	        Authorization: `Bearer ${token}`,
+   153	        "Content-Type": "application/json",
+   154	        "User-Agent": "antigravity-builder-portfolio",
+   155	      },
+   156	      body: JSON.stringify({
+   157	        query,
+   158	        variables: { username },
+   159	      }),
+   160	      next: {
+   161	        revalidate: 3600, // Cache for 1 hour
+   162	        tags: ["github-profile"],
+   163	      },
+   164	    });
+   165	
+   166	  if (!res.ok) {
+   167	      const errorText = await res.text();
+   168	      throw new Error(`GitHub GraphQL API responded with status ${res.status}: ${errorText}`);
+   169	    }
+   170	
+   171	    const { data, errors } = await res.json();
+   172	
+   173	    if (errors && errors.length > 0) {
+   174	      throw new Error(`GitHub GraphQL errors: ${errors.map((e: any) => e.message).join(", ")}`);
+   175	    }
+   176	
+   177	    const user = data?.user;
+   178	    if (!user) {
+   179	      throw new Error(`GitHub user "${username}" not found.`);
+   180	    }
+   181	
+   182	    const mapRepoNode = (node: any): GitHubPinnedRepo => ({
+   183	      name: node.name,
+   184	      description: node.description || "",
+   185	      url: node.url,
+   186	      homepageUrl: node.homepageUrl || null,
+   187	      stargazerCount: node.stargazerCount || 0,
+   188	      forkCount: node.forkCount || 0,
+   189	      issuesCount: node.issues?.totalCount || 0,
+   190	      commitsCount: node.defaultBranchRef?.target?.history?.totalCount || 0,
+   191	      openGraphImageUrl: node.openGraphImageUrl || "",
+   192	      pushedAt: node.pushedAt || new Date().toISOString(),
+   193	      primaryLanguage: node.primaryLanguage
+   194	        ? {
+   195	            name: node.primaryLanguage.name,
+   196	            color: node.primaryLanguage.color,
+   197	          }
+   198	        : null,
+   199	      languages: (node.languages?.nodes || []).map((l: any) => l.name),
+   200	      topics: (node.repositoryTopics?.nodes || []).map((t: any) => t.topic.name),
+   201	    });
+   202	
+   203	    const pinnedRepos: GitHubPinnedRepo[] = (user.pinnedItems?.nodes || []).map(mapRepoNode);
+   204	    const repos: GitHubPinnedRepo[] = (user.repositories?.nodes || []).map(mapRepoNode);
+   205	
+   206	    // Sum all repository commits as an all-time contribution approximation
+   207	    const allTimeCommits = repos.reduce((acc, repo) => acc + (repo.commitsCount || 0), 0);
+   208	    const defaultContributions = user.contributionsCollection?.contributionCalendar?.totalContributions || 0;
+   209	
+   210	    return {
+   211	      name: user.name || "Aditya Negandhi",
+   212	      bio: user.bio || "Full Stack Engineer & aspiring Solutions Architect.",
+   213	      company: user.company || null,
+   214	      location: user.location || null,
+   215	      avatarUrl: user.avatarUrl || "/images/profile/avatar.png",
+   216	      followersCount: user.followers?.totalCount || 0,
+   217	      publicReposCount: user.repositories?.totalCount || 0,
+   218	      contributionsCount: allTimeCommits > 0 ? allTimeCommits : defaultContributions,
+   219	      pinnedRepos,
+   220	      repos,
+   221	    };
+   222	  } catch (error) {
+   223	    console.error("❌ Failed to fetch GitHub profile stats:", error);
+   224	    console.warn("⚠️ Returning mock GitHub data due to fetch failure.");
+   225	    return getMockProfile();
+   226	  }
+   227	}
+   228	
+   229	function getMockProfile(): GitHubBuilderProfile {
+   230	  const mockRepos = [
+   231	    {
+   232	      name: "clipper",
+   233	      description: "AI agent that automatically repurposes long-form video content into engaging clips for social media.",
+   234	      url: "https://github.com/0xadityaa/clipper",
+   235	      homepageUrl: "https://clipper-ai-omega.vercel.app/",
+   236	      stargazerCount: 15,
+   237	      forkCount: 2,
+   238	      openGraphImageUrl: "",
+   239	      pushedAt: new Date(Date.now() - 100000000).toISOString(),
+   240	      primaryLanguage: { name: "TypeScript", color: "#3178c6" },
+   241	      languages: ["TypeScript", "Python"],
+   242	      topics: ["nextjs", "gemini", "ffmpeg"],
+   243	    },
+   244	    {
+   245	      name: "Gitbuddy",
+   246	      description: "A multi-agent developer tool that automates repository maintenance.",
+   247	      url: "https://github.com/0xadityaa/Gitbuddy",
+   248	      homepageUrl: "https://gitbuddy-dev.lovable.app/",
+   249	      stargazerCount: 12,
+   250	      forkCount: 1,
+   251	      openGraphImageUrl: "",
+   252	      pushedAt: new Date(Date.now() - 500000000).toISOString(),
+   253	      primaryLanguage: { name: "TypeScript", color: "#3178c6" },
+   254	      languages: ["TypeScript", "CSS"],
+   255	      topics: ["langchain", "supabase"],
+   256	    },
+   257	    {
+   258	      name: "GraphRAGChat",
+   259	      description: "A scalable chatbot that builds knowledge graphs from scraped data to answer complex questions with citations.",
+   260	      url: "https://github.com/0xadityaa/GraphRAGChat",
+   261	      homepageUrl: "https://frontend-471866182091.us-central1.run.app",
+   262	      stargazerCount: 8,
+   263	      forkCount: 0,
+   264	      openGraphImageUrl: "",
+   265	      pushedAt: new Date(Date.now() - 1500000000).toISOString(),
+   266	      primaryLanguage: { name: "TypeScript", color: "#3178c6" },
+   267	      languages: ["TypeScript", "FastAPI"],
+   268	      topics: ["langchain", "gcp"],
+   269	    },
+   270	    {
+   271	      name: "Finchat",
+   272	      description: "A smart chatbot that helps you analyze stocks and financial markets in real-time.",
+   273	      url: "https://github.com/0xadityaa/Finchat",
+   274	      homepageUrl: null,
+   275	      stargazerCount: 5,
+   276	      forkCount: 1,
+   277	      openGraphImageUrl: "",
+   278	      pushedAt: new Date(Date.now() - 2500000000).toISOString(),
+   279	      primaryLanguage: { name: "Python", color: "#3572A5" },
+   280	      languages: ["Python"],
+   281	      topics: ["langgraph", "azure"],
+   282	    },
+   283	    {
+   284	      name: "json-parser",
+   285	      description: "A custom JSON parser, built with TypeScript, efficiently parses JSON strings into an AST.",
+   286	      url: "https://github.com/0xadityaa/json-parser",
+   287	      homepageUrl: null,
+   288	      stargazerCount: 3,
+   289	      forkCount: 0,
+   290	      openGraphImageUrl: "",
+   291	      pushedAt: new Date(Date.now() - 8500000000).toISOString(),
+   292	      primaryLanguage: { name: "TypeScript", color: "#3178c6" },
+   293	      languages: ["TypeScript"],
+   294	      topics: ["deno", "parser"],
+   295	    },
+   296	    {
+   297	      name: "Byte-Cast",
+   298	      description: "A browser-based streaming tool that lets you stream to platforms like YouTube and Twitch.",
+   299	      url: "https://github.com/0xadityaa/Byte-Cast",
+   300	      homepageUrl: null,
+   301	      stargazerCount: 6,
+   302	      forkCount: 2,
+   303	      openGraphImageUrl: "",
+   304	      pushedAt: new Date(Date.now() - 18500000000).toISOString(),
+   305	      primaryLanguage: { name: "JavaScript", color: "#f1e05a" },
+   306	      languages: ["JavaScript"],
+   307	      topics: ["ffmpeg", "socketio"],
+   308	    },
+   309	    {
+   310	      name: "Crypto-Maniac",
+   311	      description: "A mobile app for crypto paper trading using live market data.",
+   312	      url: "https://github.com/0xadityaa/Crypto-Maniac",
+   313	      homepageUrl: null,
+   314	      stargazerCount: 2,
+   315	      forkCount: 0,
+   316	      openGraphImageUrl: "",
+   317	      pushedAt: new Date(Date.now() - 38500000000).toISOString(),
+   318	      primaryLanguage: { name: "Dart", color: "#00B4AB" },
+   319	      languages: ["Dart"],
+   320	      topics: ["flutter", "firebase"],
+   321	    }
+   322	  ];
+   323	
+   324	  return {
+   325	    name: "Aditya Negandhi (Mock)",
+   326	    bio: "Full Stack Engineer & aspiring Solutions Architect.",
+   327	    company: null,
+   328	    location: "Toronto, ON",
+   329	    avatarUrl: "/images/profile/avatar.png",
+   330	    followersCount: 123,
+   331	    publicReposCount: 45,
+   332	    contributionsCount: 890,
+   333	    pinnedRepos: mockRepos.slice(0, 4),
+   334	    repos: mockRepos,
+   335	    isMock: true,
+   336	  };
+   337	}

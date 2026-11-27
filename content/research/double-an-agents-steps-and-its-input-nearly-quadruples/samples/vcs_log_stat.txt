@@ -1,0 +1,140 @@
+commit 2cea375cdb55101028dbc118c66da22742211337
+Merge: b4a12bc de42689
+Author: Aditya Negandhi <adityanegandhi02@gmail.com>
+Date:   Sat Nov 14 18:05:07 2026 +0530
+
+    Merge pull request #129 from 0xadityaa/claude/typefully-skill
+    
+    Typefully skill for X and Substack Notes; Cross-post hourly
+
+commit de4268981c7da5a0728db4a99421ffdd202e5878
+Author: 0xadityaa <negandhi.aditya@gmail.com>
+Date:   Sat Nov 14 17:25:39 2026 +0530
+
+    Add Typefully skill for X and Substack Notes drafts; Cross-post hourly
+    
+    - Vendor typefully/agent-skills into .claude/skills/typefully so agents can
+      draft social posts cut from blog posts. Agents draft or plan only;
+      scheduling and publishing need Aditya's yes.
+    - Document the X + Medium + Substack plan in docs/publishing.md; LinkedIn off.
+    - Medium checklist step now says to meter the story and submit to a publication.
+    - Cross-post runs hourly instead of every 15 minutes; the dev.to backlog
+      has drained.
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+ .claude/skills/typefully/CHANGELOG.md              |  174 ++
+ .claude/skills/typefully/SKILL.md                  |  322 +++
+ .claude/skills/typefully/references/comments.md    |   47 +
+ .../typefully/references/local-development.md      |   22 +
+ .../typefully/references/platforms/linkedin.md     |   45 +
+ .../typefully/references/platforms/x-articles.md   |  303 +++
+ .claude/skills/typefully/references/platforms/x.md |   26 +
+ .claude/skills/typefully/references/quotes.md      |   25 +
+ .claude/skills/typefully/references/setup.md       |   70 +
+ .claude/skills/typefully/scripts/typefully.js      | 2635 ++++++++++++++++++++
+ .github/workflows/crosspost.yml                    |    3 +-
+ .github/workflows/publish.yml                      |    2 +-
+ .gitignore                                         |    3 +
+ AGENTS.md                                          |    1 +
+ docs/blog/workflow.md                              |    2 +-
+ docs/publishing.md                                 |   19 +-
+ scripts/platforms/medium.mjs                       |    2 +-
+ 17 files changed, 3695 insertions(+), 6 deletions(-)
+
+commit b4a12bc3b6c05c2d00f05ad95781077c92c62051
+Merge: 2742e5d 11a478a
+Author: Aditya Negandhi <adityanegandhi02@gmail.com>
+Date:   Sat Oct 10 23:42:49 2026 -0400
+
+    Merge pull request #126 from 0xadityaa/claude/bio-vibe
+    
+    copy: looser Hivemind description and stat labels
+
+commit 11a478a120668f8201fc20c87f735526350e2162
+Author: 0xadityaa <negandhi.aditya@gmail.com>
+Date:   Sat Oct 10 23:42:42 2026 -0400
+
+    copy: looser Hivemind description and stat labels
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+ src/data/resume.tsx | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+commit 2742e5d1907e4869ccdd236f8bfc69fc55aa244d
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Sat Oct 10 06:02:02 2026 +0000
+
+    chore(crosspost): record published URLs
+
+ content/blog/going-event-driven-read-the-bill-first.md | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+commit f9c6ffd1933d2a3c171ff6e0ddd1f528c03bb332
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Sat Oct 10 06:00:51 2026 +0000
+
+    chore(crosspost): record published URLs
+
+ content/blog/microservices-do-you-really-need-them.md | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+commit 060a988bcc3237cded9d48a4fc1d410bd548c384
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Sat Oct 10 05:59:25 2026 +0000
+
+    chore(crosspost): record published URLs
+
+ content/blog/how-llms-process-text.md | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+commit 770adb07ba680fb320aed99a171e3f590c29313f
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Sat Oct 10 05:58:07 2026 +0000
+
+    chore(crosspost): record published URLs
+
+ content/blog/what-is-semantic-search.md | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+commit 4e6cff1d29fe6ad0097dc091e99ca3fa9c477afc
+Merge: 7d55f5d 04bffe1
+Author: Aditya Negandhi <adityanegandhi02@gmail.com>
+Date:   Sat Oct 10 01:57:21 2026 -0400
+
+    Merge pull request #125 from 0xadityaa/claude/design-handoff
+    
+    Design system handoff doc; Building section title
+
+commit 7d55f5d98ae0e1af8b6b28b45c97bb76024670cc
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Sat Oct 10 05:56:43 2026 +0000
+
+    chore(crosspost): record published URLs
+
+ content/blog/do-you-really-need-agents.md | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+commit 04bffe11ea0ed42294957d16bb247fa2ca64ce4e
+Author: 0xadityaa <negandhi.aditya@gmail.com>
+Date:   Sat Oct 10 01:56:28 2026 -0400
+
+    docs: portable design system for handoff; rename section to Building
+    
+    Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+
+ AGENTS.md             |   1 +
+ docs/design-system.md | 164 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ docs/site.md          |   4 +-
+ src/app/page.tsx      |   2 +-
+ 4 files changed, 168 insertions(+), 3 deletions(-)
+
+commit 1313460614ed4216ad78786d9aea5808d2c6392d
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Sat Oct 10 05:55:25 2026 +0000
+
+    chore(crosspost): record published URLs
+
+ content/blog/what-exactly-is-mcp.md | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
