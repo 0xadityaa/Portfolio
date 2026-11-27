@@ -33,11 +33,11 @@ Two times out of three, yes. The other third of the time, a bug-free eval with n
 
 The confidence interval is worse. Using a standard [bootstrap](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)) (resample your examples with replacement a thousand times and take the middle 95%), the uncertainty band at 100 examples is **21 points wide**. Your "+3% win" is a dot inside a band running from minus 8% to plus 13%.
 
-Scale up to 500 examples and the band is still 9.6 points wide. At 1,000 examples it's 6.8 points, and you still only call a clear win 40% of the time. Even a 5-point true gain only shows up clearly 13.8% of the time at `n = 100`. You need a 10-point leap before a small eval is comfortable (49% at 100 examples, 99% at 500).
+Scale up to 500 examples and the band is still 9.6 points wide. At 1,000 examples it's 6.8 points, and you still only call a clear win 40% of the time. Even a 5-point true gain only shows up clearly 13.8% of the time at $$n = 100$$. You need a 10-point leap before a small eval is comfortable (49% at 100 examples, 99% at 500).
 
 ![A bell curve of the observed score gap on 100 examples, centered on a true gain of 3 points, with a 95 percent interval from minus 8 to plus 13 and about a quarter of runs below zero](/images/blog/eval-ci-band-n100.svg "Curve drawn as a normal approximation to the 21.2-point interval width in [`output.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/your-eval-set-is-too-small-to-tell/output.txt); the 26% is the simulated share of runs where the better system scored lower.")
 
-In the figure, the true center sits at `+3%`, but the curve is so wide at `n = 100` that over a quarter of its area falls below zero, into the "looks worse" zone.
+In the figure, the true center sits at `+3%`, but the curve is so wide at $$n = 100$$ that over a quarter of its area falls below zero, into the "looks worse" zone.
 
 Statisticians have been yelling about this for a while. Evan Miller's Anthropic paper [Adding error bars to evals](https://arxiv.org/abs/2411.00640) (November 2024) makes the same point: an eval set is a small sample from a huge universe of possible user inputs, yet results keep getting reported as bare single numbers. His worked example lands near a thousand questions to catch a 3-point gap ([checked 2026-11-14](https://arxiv.org/html/2411.00640)). Our difficulty assumptions differ slightly, so the exact figures shift, but the order of magnitude lines up.
 
@@ -49,7 +49,7 @@ Instead of comparing two separate totals, run both systems on the exact same exa
 
 Think of timing two runners to see who is slightly faster. If Runner A runs on a hilly trail and Runner B runs on a flat track, the hills drown out a small speed difference. Put both on the *same course* and the hills cancel out. In an eval, most questions are easy for both prompts or hard for both. That shared difficulty is the hill. Once you pair them, the only questions that matter are the ones where the two systems *disagree*.
 
-That is all [McNemar's test](https://en.wikipedia.org/wiki/McNemar%27s_test) does. Count the cases where A is right and B is wrong (`b`), and where B is right and A is wrong (`c`), then compute `(b - c)^2 / (b + c)`. Quinn McNemar published this in 1947 in a [short note on correlated proportions](https://doi.org/10.1007/BF02295996). The trick is nearly eighty years old. At a correlation of 0.5 it halves the examples you need, as the table below shows.
+That is all [McNemar's test](https://en.wikipedia.org/wiki/McNemar%27s_test) does. Count the cases where A is right and B is wrong ($$b$$), and where B is right and A is wrong ($$c$$), then compute $$\frac{(b - c)^2}{b + c}$$. Quinn McNemar published this in 1947 in a [short note on correlated proportions](https://doi.org/10.1007/BF02295996). The trick is nearly eighty years old. At a correlation of 0.5 it halves the examples you need, as the table below shows.
 
 On the exact same 100-example dataset, analyzing two separate totals called a clear win just 2.2% of the time. Analyzing the exact same data as pairs jumped that to 11.1%. (Paired bootstrap and McNemar agreed within a point or two, so use whichever is simpler in your stack.)
 

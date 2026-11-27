@@ -78,3 +78,7 @@ Every number comes from the post or `content/research/<slug>/`. An assumed value
 ```
 
 Generated figures are fine (the prototype's came from a short Python script), but the committed SVG is the source of truth. Check a figure before shipping: scroll to it once on desktop and at 375px, confirm it rests on the final frame, and with `getAnimations()` paused at 1.5s confirm the middle looks deliberate.
+
+## Formulas
+
+Formulas in a post are math, not code: typeset with `$$...$$` as described in `docs/blog/style.md` ("Formulas"). They render as native MathML, so they add no JavaScript, stylesheet or font to the page. In a figure, a formula is SVG text in the figure's own fonts.

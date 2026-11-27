@@ -100,7 +100,7 @@ Shared hand for all of it: ivory strokes at 2 to 2.5px with round caps and joins
 
 ## Voice and content
 
-- **Casual, a bit cheeky,** like an engineer talking to a peer who codes. Articles, social posts and READMEs are impersonal and never first person as Aditya ("you", plain facts, or the artifact as subject; see `docs/blog/style.md`). He rejected two other registers: terse and factual ("walls of text", "too professional"), and polished marketing ("marketing slop").
+- **Casual, a bit cheeky,** like an engineer talking to a peer who codes. Articles, social posts and READMEs are first person: technical, blunt, witty and never weird (see `docs/blog/style.md`). He rejected two other registers: terse and factual ("walls of text", "too professional"), and polished marketing ("marketing slop").
 - A joke never replaces the fact. Every line still says what the thing is.
 - Short sentences, contractions, plain words. Commas, colons and periods where an em dash would go. No emoji in interface text.
 - **Prose over bullets** in descriptions. He asked for bullet points to be removed from a product description.

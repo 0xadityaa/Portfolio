@@ -1,3 +1,5 @@
+import { toCodeMath } from "../lib/posts.mjs";
+
 /**
  * Medium. The API was archived in March 2023 and Medium no longer issues
  * integration tokens, so `publish` only runs for an account that already has
@@ -29,7 +31,7 @@ export const medium = {
       body: JSON.stringify({
         title: post.title,
         contentFormat: "markdown",
-        content: `# ${post.title}\n\n${post.body}`,
+        content: `# ${post.title}\n\n${toCodeMath(post.body)}`,
         canonicalUrl: post.url,
         publishStatus: "public",
         tags: post.tags.slice(0, 5),

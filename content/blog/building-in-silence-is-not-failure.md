@@ -23,7 +23,7 @@ At the time he was painting in obscurity in the village of Nuenen, financially d
 
 That image changes how I read quiet seasons of building.
 
-![Short blades above a line of ground, and a much deeper network of roots below it](/images/blog/building-in-silence-roots.svg)
+![Illustrative curves on a time axis: growth below ground rises steadily from the start, while what shows above ground stays flat and rises only late, at the harvest](/images/blog/building-in-silence-roots.svg "Illustrative, not data: no measurements sit behind these curves. The idea is from [Van Gogh's letter 480](https://vangoghletters.org/en/let480).")
 
 Above ground, early wheat is indistinguishable from grass. Judge by the surface and nothing is happening. Underneath, the roots are doing the work. In a quiet stretch, there are three old ideas I come back to.
 
@@ -38,6 +38,8 @@ When someone who has never farmed walks past a field of young wheat and calls it
 Van Gogh wasn't a Stoic, yet he landed where Epictetus starts his [Enchiridion](https://classics.mit.edu/Epictetus/epicench.html): draw a hard line between what is up to me and what isn't.
 
 My hours at the keyboard are up to me. The clarity of my thinking, the care I put into an architecture or a paragraph, the discipline to show up again tomorrow: all mine. Whether an algorithm picks it up or strangers applaud it is out of my hands. Every time I hand my mood to people who can't tell wheat from grass yet, I make myself miserable for nothing.
+
+![Two concentric circles: inside, what is up to me (the hours, the care, showing up again); outside, what is not (the algorithm, applause, reputation)](/images/blog/building-in-silence-control.svg "The line Epictetus draws at the start of the [Enchiridion](https://classics.mit.edu/Epictetus/epicench.html), filled in with this post's examples.")
 
 ## Do the work because it is what I do
 

@@ -1,9 +1,11 @@
 import fs from "fs";
 import matter from "gray-matter";
 import path from "path";
+import rehypeKatex from "rehype-katex";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeStringify from "rehype-stringify";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
@@ -99,7 +101,12 @@ export async function markdownToHTML(markdown: string, options: { figures?: bool
     .use(remarkParse)
     // Tables, strikethrough, and autolinks, as on GitHub and dev.to.
     .use(remarkGfm)
+    // Formulas: `$$x$$` inline, `$$` on its own lines for display. Single `$` stays
+    // a dollar sign so prices like "$1.00" never turn into math.
+    .use(remarkMath, { singleDollarTextMath: false })
     .use(remarkRehype, { allowDangerousHtml: true })
+    // Native MathML: no KaTeX stylesheet, no webfonts, no client JavaScript.
+    .use(rehypeKatex, { output: "mathml", throwOnError: false } as any)
     .use(rehypePrettyCode, {
       theme: "github-dark",
       keepBackground: true,

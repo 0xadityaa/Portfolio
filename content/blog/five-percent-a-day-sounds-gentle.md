@@ -35,7 +35,7 @@ Worse than it sounds. It isn't 5% once. It's 5% of whatever is left, every singl
 
 Guess first: if a note loses 5% a day, how much of its score is left after six months? "Maybe a third?" sounds plausible. Here is what happens:
 
-| Age of the note | Score multiplier (0.95 ^ days) |
+| Age of the note | Score multiplier ($$0.95^{\text{days}}$$) |
 | --- | --- |
 | 1 day | 0.95 |
 | 7 days | 0.70 |
@@ -46,7 +46,7 @@ Guess first: if a note loses 5% a day, how much of its score is left after six m
 
 After thirty days, your note has already lost four fifths of its score. After six months, it is worth one ten-thousandth of an identical note written today. It could match your question word for word and still lose to basically anything you typed this week.
 
-The shortcut: convert any daily percentage into its [half-life](https://en.wikipedia.org/wiki/Half-life). The formula is `ln(0.5) / ln(0.95)`, and for 5% a day it gives **13.5 days**. It's the same formula that gave the 95% agent its coin-flip step in [the reliability post](/blog/95-percent-per-step-is-a-coin-flip-by-step-14). Every two weeks the score halves. Six months is thirteen halvings in a row. Fold a piece of paper in half thirteen times and see what's left.
+The shortcut: convert any daily percentage into its [half-life](https://en.wikipedia.org/wiki/Half-life). The formula is $$\frac{\ln 0.5}{\ln 0.95}$$, and for 5% a day it gives **13.5 days**. It's the same formula that gave the 95% agent its coin-flip step in [the reliability post](/blog/95-percent-per-step-is-a-coin-flip-by-step-14). Every two weeks the score halves. Six months is thirteen halvings in a row. Fold a piece of paper in half thirteen times and see what's left.
 
 ## Two subsystems that disagreed
 

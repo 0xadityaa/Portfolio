@@ -145,6 +145,26 @@
   @apply tabular-nums;
 }
 
+/* Math: native MathML from rehype-katex, so no KaTeX stylesheet or webfonts. */
+.prose math {
+  font-family: "STIX Two Math", "Latin Modern Math", "Cambria Math", math;
+  font-size: 1.12em;
+  color: hsl(var(--foreground));
+}
+/* Display math arrives as a bare span.katex directly under the article. */
+.prose > .katex {
+  @apply my-6 block overflow-x-auto overflow-y-hidden py-1 text-center;
+}
+.prose math[display="block"] {
+  display: inline-block;
+  font-size: 1.15em;
+  text-align: left;
+}
+.prose td math,
+.prose th math {
+  font-size: 1.05em;
+}
+
 /* Callouts */
 blockquote[data-callout] {
   @apply border-l-2 border-foreground/20 bg-card p-4 my-6 text-sm leading-relaxed rounded-r-lg;
