@@ -28,7 +28,7 @@ I priced five strategies on Claude Sonnet 5.5 at 10, 25, 50 and 100 steps. The m
 
 ## Why does the bill grow with the square?
 
-Because step n resends everything steps 1 to n-1 produced. Picture a support agent rereading the whole ticket thread before typing each reply. Add up 1 + 2 + ... + n and you get n²/2.
+Because step $$n$$ resends everything steps 1 to $$n-1$$ produced. Picture a support agent rereading the whole ticket thread before typing each reply. Add up $$1 + 2 + \dots + n$$ and you get $$\frac{n^2}{2}$$.
 
 For realistic sizes, I captured six tool outputs from this repo (file reads, a grep, a directory listing, a commit log, a check run) and counted them with [tiktoken](https://github.com/openai/tiktoken)'s `o200k_base`: 8 to 3,559 tokens each, averaging 1,587 in a fixed ten-step cycle. With a 250-token reply, the history grows 1,837 tokens a step on top of an 8,000-token system prompt and tools. [Ten MCP servers](/blog/every-mcp-server-taxes-every-prompt) came to 23,895 tokens in an earlier count, so 8,000 is small.
 
@@ -40,7 +40,7 @@ For realistic sizes, I captured six tool outputs from this repo (file reads, a g
 | Compact every 25 steps | 0.18M | 0.80M | 1.70M | 3.56M |
 | Compact at 100k tokens | 0.18M | 0.80M | 2.75M | 5.69M |
 
-Input tokens billed in total, caching off. The first row matches n(P+U) + g·n(n-1)/2, where P+U is 8,500 and g is 1,837, within 1.5% at 100 steps.
+Input tokens billed in total, caching off. The first row matches $$n(P+U) + g \cdot \frac{n(n-1)}{2}$$, where $$P+U$$ is 8,500 and $$g$$ is 1,837, within 1.5% at 100 steps.
 
 ## What does each fix do to the curve?
 
