@@ -1,0 +1,132 @@
+{
+  "stats": {
+    "q_proj": {
+      "max_over_rms": 11.853594779968262,
+      "top1pct_energy_share": 0.1627083122730255
+    },
+    "k_proj": {
+      "max_over_rms": 8.346637725830078,
+      "top1pct_energy_share": 0.15006764233112335
+    },
+    "v_proj": {
+      "max_over_rms": 6.548093318939209,
+      "top1pct_energy_share": 0.12300626933574677
+    },
+    "o_proj": {
+      "max_over_rms": 18.28986167907715,
+      "top1pct_energy_share": 0.14633403718471527
+    },
+    "gate_proj": {
+      "max_over_rms": 19.87765884399414,
+      "top1pct_energy_share": 0.12511762976646423
+    },
+    "up_proj": {
+      "max_over_rms": 21.274375915527344,
+      "top1pct_energy_share": 0.10714765638113022
+    },
+    "down_proj": {
+      "max_over_rms": 23.817262649536133,
+      "top1pct_energy_share": 0.1150483563542366
+    }
+  },
+  "results": {
+    "int8 tensor": {
+      "rel_error": 0.047273941581228565,
+      "mean_per_matrix_rel_error": 0.0361155366523524,
+      "top1pct_weights_error_share": 0.010186913983055506,
+      "rel_error_by_type": {
+        "q_proj": 0.0361369792291296,
+        "k_proj": 0.021211304168210994,
+        "v_proj": 0.016172401837476848,
+        "o_proj": 0.04553543033233538,
+        "gate_proj": 0.04426809856409687,
+        "up_proj": 0.0515233955881889,
+        "down_proj": 0.052168954290521236
+      }
+    },
+    "int8 channel": {
+      "rel_error": 0.009099032539481102,
+      "mean_per_matrix_rel_error": 0.00907647711516499,
+      "top1pct_weights_error_share": 0.019616579314385225,
+      "rel_error_by_type": {
+        "q_proj": 0.008751623164250143,
+        "k_proj": 0.008464525751597085,
+        "v_proj": 0.009722107266016916,
+        "o_proj": 0.009150549424874274,
+        "gate_proj": 0.008190650694943112,
+        "up_proj": 0.008154143030887467,
+        "down_proj": 0.011162014558543012
+      }
+    },
+    "int8 g128": {
+      "rel_error": 0.00635161608745605,
+      "mean_per_matrix_rel_error": 0.006492904779911017,
+      "top1pct_weights_error_share": 0.022065641219511687,
+      "rel_error_by_type": {
+        "q_proj": 0.006524885880973025,
+        "k_proj": 0.006442630306994867,
+        "v_proj": 0.007118753551437784,
+        "o_proj": 0.0063659169362851814,
+        "gate_proj": 0.006289933875197156,
+        "up_proj": 0.006272451042589415,
+        "down_proj": 0.006420547935870079
+      }
+    },
+    "int4 tensor": {
+      "rel_error": 0.6939714099925648,
+      "mean_per_matrix_rel_error": 0.5449257930624833,
+      "top1pct_weights_error_share": 0.010746499680678511,
+      "rel_error_by_type": {
+        "q_proj": 0.4978635679591802,
+        "k_proj": 0.33736655912355834,
+        "v_proj": 0.2709644824115845,
+        "o_proj": 0.618487112090221,
+        "gate_proj": 0.6811203446056212,
+        "up_proj": 0.7366866353596027,
+        "down_proj": 0.7640745858328128
+      }
+    },
+    "int4 channel": {
+      "rel_error": 0.1535354812584409,
+      "mean_per_matrix_rel_error": 0.1533713256927801,
+      "top1pct_weights_error_share": 0.0194850496779307,
+      "rel_error_by_type": {
+        "q_proj": 0.1482989299792369,
+        "k_proj": 0.14340750510275913,
+        "v_proj": 0.16407908862934545,
+        "o_proj": 0.15474207892931155,
+        "gate_proj": 0.13867430147392729,
+        "up_proj": 0.13800841290516527,
+        "down_proj": 0.18727512139278957
+      }
+    },
+    "int4 g128": {
+      "rel_error": 0.10787532694431051,
+      "mean_per_matrix_rel_error": 0.11018680116878635,
+      "top1pct_weights_error_share": 0.021928117021610266,
+      "rel_error_by_type": {
+        "q_proj": 0.11079271473985812,
+        "k_proj": 0.10929411419903388,
+        "v_proj": 0.12050983280525458,
+        "o_proj": 0.10804365696025806,
+        "gate_proj": 0.10682589280919226,
+        "up_proj": 0.10653637052986098,
+        "down_proj": 0.10908855488970727
+      }
+    },
+    "int4 tensor+keep1%": {
+      "rel_error": 0.10837034898184236,
+      "mean_per_matrix_rel_error": 0.11213569860286703,
+      "top1pct_weights_error_share": 0.0,
+      "rel_error_by_type": {
+        "q_proj": 0.12503912647132992,
+        "k_proj": 0.12698595252784586,
+        "v_proj": 0.11650738143677476,
+        "o_proj": 0.11427908244010479,
+        "gate_proj": 0.10724449615188124,
+        "up_proj": 0.103355281191227,
+        "down_proj": 0.10568113991020937
+      }
+    }
+  }
+}

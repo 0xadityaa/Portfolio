@@ -1,0 +1,29 @@
+Written 2026-11-14, before running any of the code in this folder.
+
+Model: Qwen2.5-0.5B (bf16 safetensors, ungated). Plain round-to-nearest (RTN),
+asymmetric min/max quantization, applied to every linear layer weight in the
+transformer blocks (q, k, v, o, gate, up, down). Embeddings and the output
+head are left alone.
+
+What I expect:
+
+1. Relative error (||W - Wq|| / ||W||) falls by roughly 16x going from 4-bit to
+   8-bit (15 steps vs 255 steps across the range), if the weights behaved like
+   a uniform range. So 8-bit should sit around 0.5% to 1% per-tensor and 4-bit
+   around 10% to 20% per-tensor.
+2. Granularity matters more at 4 bits than at 8: per-tensor > per-channel >
+   group-128 in error, with group-128 the clear winner. Per-tensor 4-bit should
+   be much worse than the 16x rule suggests, because a few big weights stretch
+   the range.
+3. Error is concentrated where the weights are large: the top 1% of weights by
+   magnitude should carry far more than 1% of the squared error under
+   per-tensor quantization (my guess: 5% to 15%), and less so under group-128,
+   because each group sets its own range.
+4. Perplexity on WikiText-2 (a few thousand tokens): fp32 baseline around 13 to
+   15 for a 0.5B model; RTN int8 within 1% of baseline; RTN int4 group-128
+   noticeably worse, maybe 10% to 40% higher. Per-tensor int4 might be
+   catastrophic (perplexity in the hundreds or more).
+
+Memory arithmetic expectation: 70B at int4 is about 35 GB plus scales, so it
+fits a 48 GB card with only a few GB left for KV cache, and fits an 80 GB card
+comfortably. 32B at int4 (about 16 GB) fits a 24 GB card, leaving 6 to 7 GB.

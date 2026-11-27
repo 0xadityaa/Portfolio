@@ -1,0 +1,40 @@
+{
+  "output_rel_error": {
+    "int4 tensor": {
+      "none": 0.5068129657470846,
+      "keep 1% weights (by |w|)": 0.08209199039406183,
+      "keep 1% channels (by activation)": 0.39879165858229765,
+      "keep 1% channels (random)": 0.5038262670711174
+    },
+    "int4 channel": {
+      "none": 0.10792152259088543,
+      "keep 1% weights (by |w|)": 0.07726223820869521,
+      "keep 1% channels (by activation)": 0.08393533016935661,
+      "keep 1% channels (random)": 0.10733955864387718
+    },
+    "int4 g128": {
+      "none": 0.08210796914765638,
+      "keep 1% weights (by |w|)": 0.06816566060823023,
+      "keep 1% channels (by activation)": 0.06419951766403188,
+      "keep 1% channels (random)": 0.08163729139458006
+    },
+    "int8 tensor": {
+      "none": 0.03511963395257178
+    },
+    "int8 channel": {
+      "none": 0.006428513737066249
+    },
+    "int8 g128": {
+      "none": 0.0048542199238323265
+    }
+  },
+  "top1pct_channel_error_share": {
+    "int4 tensor": 0.3039274326578219,
+    "int4 channel": 0.38593089942075953,
+    "int4 g128": 0.38449173680531284,
+    "int8 tensor": 0.38611686423024877,
+    "int8 channel": 0.3914764594963825,
+    "int8 g128": 0.3856057848722396
+  },
+  "tokens": 2048
+}
