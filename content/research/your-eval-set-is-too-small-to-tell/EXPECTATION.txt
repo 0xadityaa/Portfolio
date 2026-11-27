@@ -1,0 +1,7 @@
+Written before the first run, 2026-11-14.
+Back-of-envelope with the normal approximation, 80% vs 83%, n = 100:
+- Independent outcomes: SD of the observed difference = sqrt((.8*.2 + .83*.17)/100) = 0.055. Better system shows a higher score about 70% of the time.
+  95% CI width about 21 points. CI excludes zero in the right direction only about 10% of the time.
+- Outcome correlation 0.5 (paired analysis): SD = sqrt((.1600 + .1411 - 2*0.5*sqrt(.1600*.1411))/100) = 0.039, CI width about 15 points. A third narrower.
+- To detect 3 points at 80% power, independent: roughly 2,600 examples per system. Paired at correlation 0.5: roughly 1,300.
+I expect the pairing to help a lot but to not rescue n = 100. Hunch to check: the gap to detect, not the pairing, dominates.

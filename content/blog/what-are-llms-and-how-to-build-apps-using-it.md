@@ -1,5 +1,5 @@
 ---
-title: 'What Are LLMs, and How Do You Build Stuff With Them?'
+title: 'What Are LLMs, Really?'
 publishedAt: '2025-02-18'
 summary: 'An LLM just predicts the next token. Everything useful is the scaffolding around it: context, tools, and memory. My map, via LangChain and LangGraph.'
 tags:

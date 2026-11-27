@@ -8,7 +8,7 @@ GitHub is the whole platform. Content is Markdown in the repo, review happens in
 
 - Install with `npm install --force` (the React 19 peer ranges need it; Vercel does the same).
 - Before opening a pull request, run `npm run posts:check && npm run typecheck && npm run build`. CI runs the same three.
-- Work on a branch and open a pull request. Merging is Aditya's call: a merge is a production deploy. A blog post is approved by his `/publish` comment on its pull request, never by an agent.
+- Work on a branch and open a pull request. Merging is Aditya's call: a merge is a production deploy. Blog posts are the exception: a post's pull request carries a `Publish: YYYY-MM-DD HH:MM` line (Toronto time) and the `Auto-publish` action merges it within an hour of that time, with no human step. Aditya stops one by labelling the pull request `hold`. A post pull request that touches anything outside the post still needs him.
 - Secrets live in GitHub Actions secrets and Vercel env vars. Refer to them by name only.
 
 ## Where things are
@@ -27,5 +27,6 @@ GitHub is the whole platform. Content is Markdown in the repo, review happens in
 - Why the writing rules and the publish slot are what they are: `docs/research/`.
 - Cross-posting, secrets, adding a platform, or a failed Cross-post run: `docs/publishing.md`.
 - Drafting or scheduling social posts (X, Substack Notes) through Typefully: the `typefully` skill in `.claude/skills/typefully/`, plus the "Social posts" section of `docs/publishing.md`. Agents create drafts; Aditya schedules or approves the schedule.
+- Adding a chart or diagram to a post (animated SVG figures): `docs/visuals.md`.
 - Changing how the site looks or renders: `docs/site.md` for the design rules and the performance budget.
 - Reproducing this look and voice on another product, or handing the design to another agent: `docs/design-system.md`. It is self-contained: tokens, type, components, artwork, motion, voice, and what Aditya rejected.

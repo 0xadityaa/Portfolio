@@ -83,7 +83,13 @@ jobs:
           fi
           gh pr merge "$PR" --merge
       - name: Confirm
+        env:
+          FILES: ${{ steps.schedule.outputs.files }}
         run: |
+          syndication="and the Cross-post action syndicates it within the hour"
+          if grep -qx 'syndicate: false' $FILES; then
+            syndication="and it is site-only (\`syndicate: false\`), so it is not cross-posted"
+          fi
           gh pr comment "$PR" --body "Approved and merged. Goes live **${{ steps.schedule.outputs.slot }}**.
 
-          At that time it appears on the site, in the RSS feed and in Markdown mode, and the Cross-post action syndicates it within the hour. To change the time, edit \`publishedAt\` in the post. To pull it, set \`draft: true\`."
+          At that time it appears on the site, in the RSS feed and in Markdown mode, $syndication. To change the time, edit \`publishedAt\` in the post. To pull it, set \`draft: true\`."

@@ -1,5 +1,5 @@
 ---
-title: What Exactly Is MCP?
+title: 'What Exactly Is MCP?'
 publishedAt: '2025-03-08'
 summary: >-
   MCP is a standard plug for AI tools. Write a tool once and any app that speaks

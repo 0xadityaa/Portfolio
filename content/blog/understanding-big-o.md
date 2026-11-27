@@ -1,5 +1,5 @@
 ---
-title: 'Big O, Minus the Scary Math'
+title: Big O, Minus the Math
 publishedAt: '2024-09-23'
 summary: 'Big O is just how much more work your code does when the input grows. Four common shapes, JavaScript examples, and what they cost at real sizes.'
 tags:
@@ -9,6 +9,7 @@ tags:
 updated: '2026-10-10'
 devto_url: 'https://dev.to/0xadityaa/understanding-big-o-5foa'
 crosspost_issue: 'https://github.com/0xadityaa/Portfolio/issues/90'
+draft: true
 ---
 
 [Big O notation](https://en.wikipedia.org/wiki/Big_O_notation) sounds scarier than it is. It answers one question: **when the input gets bigger, how much more work does the algorithm do?** It doesn't care how fast your laptop is. It only cares about the shape of the growth. Here are the four shapes you'll run into most, each with a JavaScript example.
