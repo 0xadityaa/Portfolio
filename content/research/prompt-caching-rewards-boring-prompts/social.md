@@ -1,6 +1,6 @@
 ## Thread
 
-Prompt caching cut the simulated input bill 87.7%. At 1 request an hour, the same 5-minute cache made it 14.1% bigger.
+Prompt caching cut my simulated input bill 87.7%. At 1 request an hour, the same 5-minute cache made it 14.1% bigger.
 
 Two things decide which side you land on ↓
 
@@ -17,7 +17,7 @@ Break-even for a 6,000-token prompt on Claude Sonnet 5.5, against no cache:
 
 At 1 an hour: 5-minute is 14.1% dearer, 1-hour is 22.6% cheaper.
 ---
-Order is the other lever. A 1,677-token support-bot prompt:
+Order is the other lever. I tested a 1,677-token support-bot prompt:
 
 → timestamp and name at the top: 35.7% cacheable
 → at the bottom: 98.4%
@@ -30,18 +30,18 @@ Code and data: https://github.com/0xadityaa/Portfolio/tree/main/content/research
 
 ## Singles
 
-A cache that makes the bill 14.1% bigger.
+I found a cache that makes the bill 14.1% bigger.
 
 Claude Sonnet 5.5, 5-minute TTL, 1 request an hour, 6,000-token static prompt. The same cache at steady traffic cuts input cost 87.7%.
 
-The discount belongs to your traffic, not to the API.
+The discount comes from your traffic, not the API.
 ---
-Most prompts open with the current time and the user's name. Measured on a 1,677-token prompt:
+Most prompts open with the current time and the user's name. I measured a 1,677-token prompt:
 
 → top of the system prompt: 35.7% cacheable
 → bottom: 98.4%
 
-Moving one line is a tenfold gap in blended input price.
+One line moved, tenfold gap in blended input price.
 ---
 A 1-hour cache write costs 60% more than a 5-minute one. Above about 0.5 requests an hour it's still the cheaper cache.
 
@@ -57,7 +57,7 @@ Same content, no cache. Serialising tools from an unordered map is the easiest w
 
 ## Link post
 
-Prompt caching cut the simulated input bill 87.7%, and at 1 request an hour the same 5-minute cache made it 14.1% bigger.
+Prompt caching cut my simulated input bill 87.7%. At 1 request an hour, the same 5-minute cache made it 14.1% bigger.
 
 Traffic rate and prompt order decide which side you get.
 
@@ -71,12 +71,12 @@ How many requests an hour does your busiest prompt prefix get, and have you chec
 
 ## Substack Note
 
-Prompt caching cut the simulated input bill by 87.7%. At one request an hour, the same 5-minute cache made it 14.1% bigger.
+Prompt caching cut my simulated input bill by 87.7%. At one request an hour, the same 5-minute cache made it 14.1% bigger.
 
 Two things decide it. Traffic comes first. On Claude Sonnet 5.5 with a 6,000-token static prompt, a 5-minute cache only beats no cache above 2.8 requests an hour. The 1-hour cache breaks even at 0.72, and a napkin formula gives your own hit rate: 1 minus e^(-rate x TTL).
 
 Order is the second. Caches match an exact prefix, so anything that changes per request has to come last. In a 1,677-token sample prompt, a timestamp and user name at the top left 35.7% cacheable. At the bottom, 98.4%.
 
-No live API was called, and the post lists what stays uncovered. Code and raw output are in the repo.
+I called no live API, and the post lists what stays uncovered. Code and raw output are in the repo.
 
 <BLOG_URL>
