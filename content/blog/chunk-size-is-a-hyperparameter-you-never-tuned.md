@@ -21,7 +21,7 @@ Tutorials cut documents into 512-token chunks because the last tutorial did, or 
 
 ## The short version
 
-- At a fixed k, bigger chunks win for BM25: recall@5 climbs from 76.6% to 95.3%. They also send the model 16 times more text.
+- At a fixed $$k$$, bigger chunks win for BM25: recall@5 climbs from 76.6% to 95.3%. They also send the model 16 times more text.
 - At an equal 2,000-token budget, BM25 is flat from 128 to 512 tokens (91.1%, 92.2%, 91.7%). The embedding model peaks at 64 to 128 and drops to 73.1% at 512.
 - At its best size, BM25 beat the embedding model's best by 2.1 points. Picking the wrong chunk size cost more than picking the wrong retriever.
 - Adding 15% overlap gave small chunks 4 to 5 points and cost 18% more chunks to index.
@@ -36,13 +36,13 @@ I [wrote my expectations down first](https://github.com/0xadityaa/Portfolio/blob
 
 ## Don't bigger chunks just win?
 
-No, that's a cost trick. Retrieve five chunks and BM25's recall@5 goes from 76.6% at 64 tokens to 95.3% at 1,024. It looks like a free win until you see that the 1,024 row hands the model 4,988 tokens and the 64 row hands it 319. More text, more hits. That's the cheap part. (The full k = 5 table is in the [README](https://github.com/0xadityaa/Portfolio/blob/main/content/research/chunk-size-is-a-hyperparameter-you-never-tuned/README.md).)
+No, that's a cost trick. Retrieve five chunks and BM25's recall@5 goes from 76.6% at 64 tokens to 95.3% at 1,024. It looks like a free win until you see that the 1,024 row hands the model 4,988 tokens and the 64 row hands it 319. More text, more hits. That's the cheap part. (The full $$k = 5$$ table is in the [README](https://github.com/0xadityaa/Portfolio/blob/main/content/research/chunk-size-is-a-hyperparameter-you-never-tuned/README.md).)
 
 ![Bars of tokens handed to the model when BM25 retrieves its top 5 chunks, from 319 at 64-token chunks to 4,988 at 1,024-token chunks, with recall at 5 rising from 76.6 to 95.3 percent.](/images/blog/fixed-k-more-text.svg "BM25 at k = 5, no overlap, mean tokens handed over. From the fixed-k table in [`results/analysis.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/chunk-size-is-a-hyperparameter-you-never-tuned/results/analysis.txt).")
 
 The fair test holds the bill still. Tokens are what you pay for, and a longer prompt makes the model worse at [using what's in the middle](https://arxiv.org/abs/2307.03172). So I set the budget at about 2,000 tokens, with $$k$$ set to 2,000 divided by the chunk size: 31 chunks of 64 tokens, down to 2 chunks of 1,024.
 
-| Chunk size | k | BM25 | Embeddings |
+| Chunk size | $$k$$ | BM25 | Embeddings |
 | --- | --- | --- | --- |
 | 64 | 31 | 87.0% | 90.1% |
 | 128 | 16 | 91.1% | 89.7% |
@@ -74,7 +74,7 @@ Chroma's [July 2024 study](https://www.trychroma.com/research/evaluating-chunkin
 
 At small sizes, yes, and by more than the 1 to 3 points I expected. At 64 tokens, 15% overlap added 5.1 points for BM25 and 4.4 for the embedder. Without it, 3.2% of questions have their answer span cut in half by a chunk boundary. With it, that falls to 0.1%.
 
-At 512 and 1,024 tokens BM25 gained under a point. Overlap sends no extra tokens at a fixed k. The price is index size: 6,133 chunks instead of 5,187 at 64 tokens, so about 18% more to embed.
+At 512 and 1,024 tokens BM25 gained under a point. Overlap sends no extra tokens at a fixed $$k$$. The price is index size: 6,133 chunks instead of 5,187 at 64 tokens, so about 18% more to embed.
 
 ## Where I'd stop trusting this post
 
@@ -88,6 +88,6 @@ At 512 and 1,024 tokens BM25 gained under a point. Overlap sends no extra tokens
 
 Find where your chunk size is set and ask who chose it. If the answer is "a tutorial", you've found a free experiment.
 
-Sweep 128, 256 and 512 with your own retriever, score at a fixed token budget instead of a fixed k, and try 15% overlap at the small end. The [eval-size simulation](/blog/your-eval-set-is-too-small-to-tell) says about 200 labelled questions can show a 10-point gap, and telling 128 from 256 takes thousands. If your embedder's input limit is below your chunk size, fix that first.
+Sweep 128, 256 and 512 with your own retriever, score at a fixed token budget instead of a fixed $$k$$, and try 15% overlap at the small end. The [eval-size simulation](/blog/your-eval-set-is-too-small-to-tell) says about 200 labelled questions can show a 10-point gap, and telling 128 from 256 takes thousands. If your embedder's input limit is below your chunk size, fix that first.
 
 If you have a model that reads the full chunk and stops losing to 64-token pieces, I'd like to see it, because it would overturn the embedder half of this.
