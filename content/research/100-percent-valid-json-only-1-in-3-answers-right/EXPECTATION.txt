@@ -1,0 +1,15 @@
+Expectation, written before any model run (2026-11-26).
+
+Model: Qwen2.5-0.5B-Instruct, CPU, 4 threads, greedy decoding, 120 invented customer messages, 5-field schema
+(customer string, product string, quantity integer, priority low|medium|high, refund boolean).
+Arms: A instruction only, B 3-shot, C instruction only + constrained decoding, D 3-shot + constrained decoding.
+
+Guesses:
+1. A (instruction only): strict parse failure 30 to 60% (markdown fences, chatty prefix, wrong keys), schema-valid 40 to 70%.
+2. B (3-shot): strict parse failure under 10%, because the examples show the exact bare JSON shape.
+3. C and D: 0% parse failure and 100% schema-valid by construction.
+4. Field accuracy: constraint fixes format but not content. C within 5 points of A's accuracy among valid outputs; D within 3 points of B.
+   Quantity and priority will be the weakest fields (distractor numbers, cue phrases).
+5. Few-shot costs about 3x the prompt tokens (roughly 250 extra tokens per request).
+6. Constrained decoding adds under 20% wall time per case (the mask is a cached lookup per grammar state).
+7. Biggest uncertainty: whether a 0.5B model is accurate enough on the content for any arm to look good. Guess overall field accuracy 70 to 85% for D.
