@@ -45,6 +45,8 @@ Each document ran under four defences, on CPU, greedy decoding, 64 new tokens. I
 
 A bit. Compared on the same documents, the warning before the document cut 12.5 points (interval 22.5 down to 2.5). Delimiters alone cut 2.5.
 
+![Four defences, with the hit rate as a bar and its 95% interval as a line. Of 40 documents, no defence hit 12, delimiters 11, a warning before 7 and a warning after 11. The intervals overlap and none reaches zero.](/images/blog/injection-defences.svg "Qwen2.5-0.5B-Instruct, 40 documents, one hidden line each, greedy decoding. Numbers from [`analysis_qwen2.5-0.5b_strict.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/prompt-injection-isnt-a-prompt-problem-its-permissions/results/analysis_qwen2.5-0.5b_strict.txt).")
+
 The sandwich is the surprise. Repeating the warning after the document did next to nothing: 11 hits against 12. My notes in [`EXPECTATION.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/prompt-injection-isnt-a-prompt-problem-its-permissions/EXPECTATION.txt), written before the run, had the sandwich winning, and had no defence at 60 to 80% against a measured 30%. Both guesses were wrong.
 
 It's not what [AgentDojo](https://arxiv.org/abs/2406.13352) found for GPT-4o either. There, repeating the user's prompt after each tool call took the attack from 57.69% to 27.82%, and wrapping data in delimiters took it to 41.65% (Table 5). Different model, tasks and attacks, so the numbers don't transfer. The shape does: each trick helps a bit and nothing closes the gap. Simon Willison made the [delimiters point](https://simonwillison.net/2023/May/11/delimiters-wont-save-you/) in 2023: the model reads everything as one stream of tokens.
@@ -57,7 +59,7 @@ The key leaked 0 times in 76 tries, which is less comforting than it sounds. A o
 
 Three things at once. [Simon Willison calls it the lethal trifecta](https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/): access to private data, exposure to untrusted content, and a way to communicate externally. [Greshake and colleagues](https://arxiv.org/abs/2302.12173) showed the untrusted-content leg works through ordinary retrieved pages, against Bing's GPT-4 chat among others.
 
-![Venn diagram of three capabilities: private data, untrusted content, and a way to send data out. Only the overlap of all three, in orange, lets an injected instruction leak data. Removing any one circle closes the leak.](/images/blog/lethal-trifecta.svg)
+![Three overlapping circles: private data, untrusted content, and a way to send data out. Only the overlap of all three, in clay, lets an injected instruction leak data. Removing any one circle closes the leak.](/images/blog/lethal-trifecta.svg "The three legs of the [lethal trifecta](https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/).")
 
 My benchmark model had none of the third leg, because its output went nowhere. A 100% attack rate on it would cost a strange summary. Give the same model an email tool and the same line becomes a breach.
 
