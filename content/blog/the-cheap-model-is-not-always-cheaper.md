@@ -81,7 +81,7 @@ A closed-form formula and a seeded [Monte Carlo](https://en.wikipedia.org/wiki/M
 
 ## What does a leaky check do?
 
-It erases the win, and sooner than the usual guess. The guess is about half of wrong answers slipping through at a dollar a failure. The real limit is 28%.
+It erases the win, and sooner than a reasonable guess would say. That guess is about half of wrong answers slipping through at a dollar a failure. The real limit is 28%.
 
 | Cost of a wrong answer | Leak at which the cascade stops winning |
 | --- | --- |

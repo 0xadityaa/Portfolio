@@ -35,7 +35,7 @@ Same request, assumed 80% against 95% right: Haiku 5.5 is 33x cheaper per useful
 
 The price list never changed. The failure cost did.
 ---
-The usual guess is that a cascade's check can wave through about half of wrong answers and still win.
+A reasonable guess is that a cascade's check can wave through about half of wrong answers and still win.
 
 At $1 a wrong answer, the limit is 28%. At $5, 22%.
 
@@ -75,7 +75,7 @@ At $5 a wrong answer, Haiku 5.5 costs 4.4 times more per useful answer than Opus
 
 You're buying useful answers, not requests. The real unit is spend plus the cost of the wrong answers, divided by the answers that were right.
 
-A seeded script sweeps it on assumed success rates: Haiku right 80% of the time, Opus 95%. On those, a wrong answer costing more than 11 cents makes Opus cheaper. A cheap-first cascade with a decent check beat both, but a check passing more than 28% of wrong answers lost to Opus alone at $1 a failure. The usual guess is 50%.
+A seeded script sweeps it on assumed success rates: Haiku right 80% of the time, Opus 95%. On those, a wrong answer costing more than 11 cents makes Opus cheaper. A cheap-first cascade with a decent check beat both, but a check passing more than 28% of wrong answers lost to Opus alone at $1 a failure. A reasonable guess is 50%.
 
 If a wrong answer is free and the user just asks again, buy the cheap model and move on.
 
