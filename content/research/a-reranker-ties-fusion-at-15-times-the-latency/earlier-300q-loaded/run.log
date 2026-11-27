@@ -1,0 +1,25 @@
+articles=48 questions=10570
+sample of 300 questions, seed 20261115
+W1115 15:39:00.851000 31741 torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 3602.33it/s]
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/105 [00:00<?, ?it/s]Loading weights: 100%|██████████| 105/105 [00:00<00:00, 3038.37it/s]
+embedder BAAI/bge-small-en-v1.5; cross-encoder cross-encoder/ms-marco-MiniLM-L-6-v2; torch threads 4
+[128] bm25      recall@16 = 0.9133   recall@1 = 0.6567
+[128] embed     recall@16 = 0.9000   recall@1 = 0.5300
+[128] rrf       recall@16 = 0.9500   recall@1 = 0.6700
+[256] scoring 15000 new pairs
+[256] 4096/15000 pairs, 258s
+[256] 8192/15000 pairs, 506s
+[256] 12288/15000 pairs, 1058s
+[256] 15000/15000 pairs, 1543s
+[256] scoring 5306 new pairs
+[256] 4096/5306 pairs, 620s
+[256] 5306/5306 pairs, 800s
+[256] bm25      recall@8 = 0.9200   recall@1 = 0.7000
+[256] embed     recall@8 = 0.8533   recall@1 = 0.4733
+[256] rrf       recall@8 = 0.9433   recall@1 = 0.6433
+[256] bm25_rr   recall@8 = 0.9433   recall@1 = 0.7600
+[256] rrf_rr    recall@8 = 0.9433   recall@1 = 0.7633
+[256] latency ms (median / p95): ce50 5229.7/8224.3, ce20 2187.3/5286.6, embed_query 153.0/359.6, bm25_query 6.6/41.5, rrf 0.3/0.7
+done

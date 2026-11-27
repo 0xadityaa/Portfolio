@@ -1,0 +1,90 @@
+== Setup == sample=300 of 10570 questions, seed=20261115, pool=50, rrf_k=60, threads=4
+embedder=BAAI/bge-small-en-v1.5 cross-encoder=cross-encoder/ms-marco-MiniLM-L-6-v2
+size 128: chunks=2606 mean_tokens=126.7 span_gold_ceiling=99.0%
+size 256: chunks=1314 mean_tokens=251.3 span_gold_ceiling=99.7%
+
+== Recall at an equal token budget (k = round(budget / size)), strict span hit, 95% CI ==
+budget | size | k | pipeline | recall % [CI] | mean tokens handed over
+500 | 128 | 4 | BM25 | 85.3 [81.4, 89.3] | 510
+500 | 128 | 4 | bge-small | 77.7 [71.9, 82.9] | 508
+500 | 128 | 4 | RRF | 87.0 [83.5, 90.4] | 509
+500 | 256 | 2 | BM25 | 81.7 [76.2, 86.9] | 507
+500 | 256 | 2 | bge-small | 66.3 [60.5, 72.5] | 504
+500 | 256 | 2 | RRF | 79.3 [74.2, 84.2] | 506
+500 | 256 | 2 | BM25 + rerank | 86.3 [82.7, 89.6] | 507
+500 | 256 | 2 | RRF + rerank | 85.7 [82.2, 89.2] | 506
+1000 | 128 | 8 | BM25 | 88.3 [84.8, 91.6] | 1020
+1000 | 128 | 8 | bge-small | 85.7 [80.6, 90.3] | 1017
+1000 | 128 | 8 | RRF | 92.0 [88.5, 95.2] | 1020
+1000 | 256 | 4 | BM25 | 88.7 [84.4, 92.5] | 1014
+1000 | 256 | 4 | bge-small | 77.7 [72.3, 83.2] | 1010
+1000 | 256 | 4 | RRF | 89.7 [85.8, 93.2] | 1014
+1000 | 256 | 4 | BM25 + rerank | 90.7 [86.7, 94.1] | 1015
+1000 | 256 | 4 | RRF + rerank | 90.3 [86.6, 93.8] | 1012
+2000 | 128 | 16 | BM25 | 91.3 [88.0, 94.7] | 2040
+2000 | 128 | 16 | bge-small | 90.0 [85.7, 94.0] | 2032
+2000 | 128 | 16 | RRF | 95.0 [92.5, 97.3] | 2039
+2000 | 256 | 8 | BM25 | 92.0 [88.9, 94.9] | 2032
+2000 | 256 | 8 | bge-small | 85.3 [80.1, 90.2] | 2017
+2000 | 256 | 8 | RRF | 94.3 [91.5, 96.9] | 2032
+2000 | 256 | 8 | BM25 + rerank | 94.3 [91.2, 96.8] | 2031
+2000 | 256 | 8 | RRF + rerank | 94.3 [91.5, 96.8] | 2024
+
+== Paired differences (percentage points, 95% CI), budget 2000 and 1000 ==
+budget 500 size 128 (k=4): RRF minus BM25 = 1.7 [-1.8, 5.1]
+budget 500 size 128 (k=4): RRF minus bge-small = 9.3 [4.9, 14.2]
+budget 500 size 256 (k=2): RRF minus BM25 = -2.3 [-8.1, 3.1]
+budget 500 size 256 (k=2): RRF minus bge-small = 13.0 [7.5, 17.9]
+budget 500 size 256 (k=2): reranker lift on BM25 = 4.7 [-0.4, 10.2]
+budget 500 size 256 (k=2): reranker lift on RRF = 6.3 [1.6, 10.8]
+budget 500 size 256 (k=2): RRF + rerank minus BM25 alone = 4.0 [-1.5, 9.9]
+budget 500 size 256 (k=2): RRF + rerank minus BM25 + rerank = -0.7 [-2.3, 1.0]
+budget 1000 size 128 (k=8): RRF minus BM25 = 3.7 [1.6, 6.3]
+budget 1000 size 128 (k=8): RRF minus bge-small = 6.3 [2.9, 10.4]
+budget 1000 size 256 (k=4): RRF minus BM25 = 1.0 [-3.1, 5.2]
+budget 1000 size 256 (k=4): RRF minus bge-small = 12.0 [6.5, 17.3]
+budget 1000 size 256 (k=4): reranker lift on BM25 = 2.0 [-2.1, 6.2]
+budget 1000 size 256 (k=4): reranker lift on RRF = 0.7 [-2.6, 4.0]
+budget 1000 size 256 (k=4): RRF + rerank minus BM25 alone = 1.7 [-2.5, 6.4]
+budget 1000 size 256 (k=4): RRF + rerank minus BM25 + rerank = -0.3 [-2.1, 1.4]
+budget 2000 size 128 (k=16): RRF minus BM25 = 3.7 [1.4, 6.1]
+budget 2000 size 128 (k=16): RRF minus bge-small = 5.0 [1.7, 8.4]
+budget 2000 size 256 (k=8): RRF minus BM25 = 2.3 [-0.4, 5.3]
+budget 2000 size 256 (k=8): RRF minus bge-small = 9.0 [4.7, 13.2]
+budget 2000 size 256 (k=8): reranker lift on BM25 = 2.3 [-0.3, 4.9]
+budget 2000 size 256 (k=8): reranker lift on RRF = 0.0 [-2.2, 2.4]
+budget 2000 size 256 (k=8): RRF + rerank minus BM25 alone = 2.3 [-0.7, 5.3]
+budget 2000 size 256 (k=8): RRF + rerank minus BM25 + rerank = 0.0 [-1.9, 2.0]
+
+== Rescued and broken by the reranker (budget 2000): questions that go miss -> hit and hit -> miss ==
+size 256 BM25 -> rerank: rescued 12, broken 5, still missed 12 of 300; first-stage misses 24
+size 256 RRF -> rerank: rescued 8, broken 8, still missed 9 of 300; first-stage misses 17
+
+== Recall@1 (the best single chunk) ==
+size 128 | BM25 | 65.7 [59.0, 72.0]
+size 128 | bge-small | 53.0 [46.3, 59.4]
+size 128 | RRF | 67.0 [62.0, 72.2]
+size 256 | BM25 | 70.0 [63.5, 75.9]
+size 256 | bge-small | 47.3 [41.5, 53.2]
+size 256 | RRF | 64.3 [58.2, 70.7]
+size 256 | BM25 + rerank | 76.0 [71.3, 80.7]
+size 256 | RRF + rerank | 76.3 [71.9, 81.0]
+
+== Pool depth: gold chunk anywhere in the first stage's top n (the most a reranker could reach) ==
+size 128 | BM25 | top10: 89.3 | top20: 93.0 | top50: 94.0
+size 128 | bge-small | top10: 87.3 | top20: 91.0 | top50: 95.3
+size 128 | RRF | top10: 93.0 | top20: 95.3 | top50: 96.7
+size 256 | BM25 | top10: 92.7 | top20: 95.3 | top50: 96.7
+size 256 | bge-small | top10: 89.3 | top20: 93.0 | top50: 95.3
+size 256 | RRF | top10: 95.0 | top20: 97.3 | top50: 98.3
+
+== Rerank a shallower pool (budget 2000): recall with the pool cut to 10, 20, 50 ==
+size 256 k=8 | BM25 first stage 92.0 | pool 10: 92.0 | pool 20: 93.7 | pool 50: 94.3
+size 256 k=8 | RRF first stage 94.3 | pool 10: 94.0 | pool 20: 95.3 | pool 50: 94.3
+
+== Latency per query, one query at a time, 4 CPU threads, machine shared with other jobs (ms) ==
+size 256 | BM25 query (sparse matmul, my code) | median 6.6 | p95 41.5 | mean 14.8
+size 256 | bge-small query embedding | median 153.0 | p95 359.6 | mean 185.9
+size 256 | RRF fusion | median 0.3 | p95 0.7 | mean 0.5
+size 256 | cross-encoder, 20 chunks | median 2187.3 | p95 5286.6 | mean 2633.8
+size 256 | cross-encoder, 50 chunks | median 5229.7 | p95 8224.3 | mean 5401.8
