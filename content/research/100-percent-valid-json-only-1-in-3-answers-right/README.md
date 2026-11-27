@@ -1,6 +1,6 @@
 # Structured-output run: instruction, 3-shot, constrained decoding
 
-The artifact behind the post "100% Valid JSON, Only 1 in 3 Answers Right". Four setups extract five fields from 120 invented customer messages with Qwen2.5-0.5B-Instruct on CPU, and are scored on format and on content.
+The artifact behind the post "100% Valid JSON, Only 1 in 3 Answers Right". I ran four setups that extract five fields from 120 invented customer messages with Qwen2.5-0.5B-Instruct on CPU, and scored them on format and on content. Three of the four setups were 100% schema-valid, and none got all five fields right more than 32.5% of the time.
 
 ## Run it
 
@@ -11,7 +11,7 @@ python3 -m venv /private/tmp/claude-501/outlvenv
 /private/tmp/claude-501/outlvenv/bin/pip install outlines==1.3.3 torch==2.7.1 transformers==4.52.4 numpy
 ```
 
-The run used outlines 1.3.3 (outlines_core 0.2.14), torch 2.7.1, transformers 4.52.4, tokenizers 0.21.4, numpy 2.5.5. `analyze.py` and `make_cases.py` need only the standard library.
+My run used outlines 1.3.3 (outlines_core 0.2.14), torch 2.7.1, transformers 4.52.4, tokenizers 0.21.4, numpy 2.5.5. `analyze.py` and `make_cases.py` need only the standard library.
 
 2. Fetch data or weights. The cases are generated, not downloaded: `python3 make_cases.py` rewrites `cases.jsonl` byte for byte (seed 1231), and the committed file is the one used. The model, [Qwen/Qwen2.5-0.5B-Instruct](https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct), downloads from Hugging Face on first run (about 1 GB, cached under `~/.cache/huggingface`, not in the repo).
 
@@ -27,13 +27,13 @@ python3 analyze.py > output.txt && python3 inspect_runs.py >> output.txt
 python3 make_chart.py                                          # writes public/images/blog/valid-json-vs-right-answers.svg
 ```
 
-4. How long it takes. The four arms took 19, 15, 11 and 13 minutes (58 minutes in all) on 4 threads of an Apple M2 shared with other jobs. Scoring and the chart take a few seconds. The run was not repeated. The committed `results/raw_*.jsonl` are that run's raw outputs, and `output.txt` is `analyze.py` plus `inspect_runs.py` over them. Generation is greedy, so a rerun on the same versions should reproduce the text; the `seconds` column will differ.
+4. How long it takes. The four arms took 19, 15, 11 and 13 minutes (58 minutes in all) on 4 threads of an Apple M2 shared with other jobs. Scoring and the chart take a few seconds. I didn't repeat the run. The committed `results/raw_*.jsonl` are that run's raw outputs, and `output.txt` is `analyze.py` plus `inspect_runs.py` over them. Generation is greedy, so a rerun on the same versions should reproduce the text; the `seconds` column will differ.
 
 ## Load average
 
 Recorded with `uptime` (full log in `load.txt`).
 
-- Before the run, 22:11: 15.37 15.87 13.88. The machine read 20.4 at 22:02, so the run waited for it to fall under 20 first.
+- Before the run, 22:11: 15.37 15.87 13.88. The machine read 20.4 at 22:02, so I waited for it to fall under 20 first.
 - After the run, 23:09: 23.74 22.43 21.82.
 - Other jobs pushed the load to about 90 for a few minutes during arm A. Timings in the post are indicative only. Token counts and outputs are not affected by load.
 
@@ -56,12 +56,12 @@ Recorded with `uptime` (full log in `load.txt`).
 
 ## Library choice
 
-`outlines` installed cleanly in a fresh virtualenv and ran at about the same speed as a hand-written token mask on a 3 to 4 case trial, so it was used for C and D. The hand-written fallback was not needed for any reported number and is not included.
+`outlines` installed cleanly in a fresh virtualenv and ran at about the same speed as a hand-written token mask on a 3 to 4 case trial, so I used it for C and D. I never needed the hand-written fallback for a reported number, so it isn't included.
 
 ## Discarded start
 
-A first start of arm A with a 96-token cap was stopped after about 10 cases because pretty-printed, fenced replies were being cut off, which would have inflated the parse failures. The cap was raised to 160 and all four arms were run from scratch. The reported run is the only complete one.
+I stopped a first start of arm A with a 96-token cap after about 10 cases, because pretty-printed, fenced replies were being cut off and would have inflated the parse failures. I raised the cap to 160 and ran all four arms from scratch. The reported run is the only complete one.
 
-## Limits of the run
+## Where I'd stop trusting this
 
 One model (0.5B), one fixed set of three examples, 120 templated messages, greedy decoding only. The prompt does not define the priority levels. Constrained arms emit the library's default spaced JSON, the example replies are compact JSON. Timings were taken on a shared machine.
