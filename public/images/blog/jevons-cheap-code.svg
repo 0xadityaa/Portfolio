@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" data-viz="" viewBox="0 0 560 330" width="560" height="330" role="img" aria-label="Illustrative curves, not measurements. The cost to write a line of code falls, code written climbs, and what people can review stays flat, so the gap between written and reviewed code widens."><style data-standalone="">text{font-family:"DM Sans",Helvetica,Arial,sans-serif}.m{font-family:"DM Mono",Menlo,Consolas,monospace}.h{font-family:Newsreader,Georgia,serif;font-weight:500}</style><rect width="560" height="330" fill="#272725"/>
+<g class="a-fade" style="--d:0s;--t:.5s"><text class="h" x="24" y="42" font-size="24" fill="#FAF9F5">Writing got cheap, reading did not</text></g>
+<path class="a-draw" pathLength="1" style="--d:.1s;--t:.5s" d="M64 78V270H420" stroke="#B5B3AA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<text class="a-fade" style="--d:.3s;--t:.4s" x="420" y="292" text-anchor="end" font-size="15" fill="#B5B3AA">time</text>
+<path class="a-draw" pathLength="1" style="--d:.5s;--t:1.2s" d="M64 214H420" stroke="#B5B3AA" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+<path class="a-draw" pathLength="1" style="--d:.5s;--t:1.2s" d="M64 100C140 150 220 196 420 250" stroke="#B5B3AA" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+<path class="a-draw" pathLength="1" style="--d:.9s;--t:1.4s" d="M64 214C200 212 300 170 420 88" stroke="#FAF9F5" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+<g class="a-fade" style="--d:1.6s;--t:.4s"><text x="72" y="92" font-size="16" fill="#B5B3AA">Cost to write a line</text><text x="72" y="236" font-size="16" fill="#B5B3AA">What people can review</text><text x="296" y="152" text-anchor="end" font-size="16" font-weight="500" fill="#FAF9F5">Code written</text></g>
+<g class="a-fade" style="--d:2.1s;--t:.5s"><path d="M420 92V210" stroke="#DB8061" stroke-width="1.5" stroke-dasharray="3 4" fill="none"/><circle cx="420" cy="88" r="5" fill="#DB8061"/><circle cx="420" cy="214" r="5" fill="#DB8061"/><text x="436" y="146" font-size="16" font-weight="500" fill="#DB8061">Written,</text><text x="436" y="166" font-size="16" font-weight="500" fill="#DB8061">not read</text></g>
+<text class="m a-fade" style="--d:2.4s;--t:.4s" x="24" y="322" font-size="13" fill="#B5B3AA">illustrative: no measurements</text>
+</svg>
