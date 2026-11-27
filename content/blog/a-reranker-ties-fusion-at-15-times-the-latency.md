@@ -40,9 +40,11 @@ Not at this budget. All four pipelines land within 2.1 points of each other, and
 | BM25 + reranker | 92.4% [90.6, 94.1] | 864 ms |
 | RRF + reranker | 93.3% [91.6, 94.9] | 921 ms |
 
-![Bar chart of recall at equal token budgets, 256-token chunks, 1,675 SQuAD questions. At 2,000 tokens BM25 gets 91.2 percent, RRF 92.4, BM25 with a reranker 92.4 and RRF with a reranker 93.3, so RRF alone ties BM25 plus reranker. At 500 tokens the reranked pipelines reach 81.9 and 81.7, against 78.1 for RRF alone.](/images/blog/reranker-vs-fusion-equal-budget.svg)
+![Dot plot of recall at 500, 1,000 and 2,000 tokens for BM25, RRF, BM25 plus a reranker and RRF plus a reranker. At 2,000 tokens RRF alone and BM25 plus a reranker both reach 92.4%; at 500 tokens the reranked pipelines reach about 82% against 78.1% for RRF.](/images/blog/reranker-vs-fusion-equal-budget.svg "256-token chunks, 1,675 SQuAD v1.1 dev questions, strict span hit, reranker reads the top 20. Intervals are in [`analysis.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/a-reranker-ties-fusion-at-15-times-the-latency/results/analysis.txt).")
 
 Stacking both is the only combination that clearly beats BM25 alone: 2.1 points [0.8, 3.4]. More than half of that, 1.2 points, comes from the fusion step alone, which costs a 56 ms query embedding. Switch to 128-token chunks and fusion alone adds 3.7 points over BM25 [2.6, 4.9], with nothing slower than a vector lookup.
+
+![Bars of median latency per query with recall at 2,000 tokens. BM25 takes 2.4 ms for 91.2%, RRF 59.1 ms for 92.4%, BM25 plus a reranker 864 ms for 92.4%, RRF plus a reranker 921 ms for 93.3%.](/images/blog/reranker-latency-vs-recall.svg "Median of three passes over 30 queries, one at a time, 4 CPU threads on a loaded shared machine. Numbers from [`latency.json`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/a-reranker-ties-fusion-at-15-times-the-latency/results/latency.json) and [`analysis.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/a-reranker-ties-fusion-at-15-times-the-latency/results/analysis.txt).")
 
 Latency is the median of three passes over 30 queries, one query at a time, on 4 CPU threads ([`latency.py`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/a-reranker-ties-fusion-at-15-times-the-latency/latency.py)). The model card lists 1,800 documents a second on a V100 GPU, so the 14.6x is a CPU ratio.
 
