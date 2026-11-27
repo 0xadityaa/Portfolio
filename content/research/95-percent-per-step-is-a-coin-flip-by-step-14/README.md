@@ -1,10 +1,10 @@
 # Agent reliability simulation
 
-Artifact for the post `95% Per Step Is a Coin Flip by Step 14`. Standard library only, Python 3.12.
+The simulation behind my post `95% Per Step Is a Coin Flip by Step 14`. Standard library only, Python 3.12.
 
 ## Set up
 
-Python 3.12 (tested on 3.12.8). Standard library only: no virtualenv, no `pip install`.
+Python 3.12 (I tested on 3.12.8). Standard library only: no virtualenv, no `pip install`.
 
 ```bash
 git clone https://github.com/0xadityaa/Portfolio.git
@@ -14,7 +14,7 @@ python3 --version   # 3.12 or newer
 
 ## Data and weights
 
-None. There is no dataset and no model: every step is a seeded coin flip.
+None. I use no dataset and no model: every step is a seeded coin flip.
 
 ## Run
 
@@ -31,10 +31,10 @@ python3 make_chart.py ../../../public/images/blog/success-vs-steps-compounding.s
 
 - `simulate.py`: the simulation and the closed-form `p^n` table. Constants at the top (trials, steps, `p`, retry count, persistent share, timeout share, checkpoint interval) are the knobs.
 - `output.txt`: the raw output the post quotes.
-- `make_chart.py`: draws the diagram.
+- `make_chart.py`: draws my diagram.
 - `social.md`: the post's X and Substack cuts.
 
-Model: `n` sequential steps, one model call per attempt, each attempt succeeds with probability `p`, failures are detected immediately. Retry and resume strategies are capped at `3n` calls. Calls per completed task is total calls divided by completed tasks, so failed runs count against a strategy.
+My model: `n` sequential steps, one model call per attempt, each attempt succeeds with probability `p`, failures are detected immediately. Retry and resume strategies are capped at `3n` calls. Calls per completed task is total calls divided by completed tasks, so failed runs count against a strategy.
 
 ## Closed form: `p^n`
 

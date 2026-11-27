@@ -54,9 +54,9 @@ So one "Order Placed" event with 12 consumers costs this much per million events
 
 | Line item | Calculation | Cost per 1M events |
 | --- | --- | --- |
-| Publish to EventBridge | 1M x $1.00/M | $1.00 |
-| Lambda requests | 12M x $0.20/M | $2.40 |
-| Lambda compute | 12M x 0.0125 GB-s x $0.0000166667 | $2.50 |
+| Publish to EventBridge | $$1\text{M} \times \$1.00/\text{M}$$ | $1.00 |
+| Lambda requests | $$12\text{M} \times \$0.20/\text{M}$$ | $2.40 |
+| Lambda compute | $$12\text{M} \times 0.0125\ \text{GB-s} \times \$0.0000166667$$ | $2.50 |
 | **Total** | | **$5.90** |
 
 And here it is at three volumes:

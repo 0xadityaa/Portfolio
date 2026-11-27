@@ -19,7 +19,7 @@ Suppose you built an AI agent and tested every individual tool call. It gets the
 
 Now ask that exact same agent to run a 14-step workflow without tripping once. Your 95% agent finishes cleanly **49% of the time**. That is a coin flip.
 
-The math is one line: `0.95^14`. If your agent chains ten or more tool calls, compounding probability is already eating your reliability.
+The math is one line: $$0.95^{14}$$. If your agent chains ten or more tool calls, compounding probability is already eating your reliability.
 
 Back in [Do You Really Need Agents?](/blog/do-you-really-need-agents), I admitted I hadn't put hard numbers on error rates. This is the partial sequel, on reliability only. I wrote a [seeded simulation](https://github.com/0xadityaa/Portfolio/blob/main/content/research/95-percent-per-step-is-a-coin-flip-by-step-14/simulate.py) of a multi-step task and tested five ways to survive failures. It is a simulation, not a live benchmark of a real LLM.
 
@@ -36,17 +36,17 @@ Back in [Do You Really Need Agents?](/blog/do-you-really-need-agents), I admitte
 
 Because every single step has to succeed, so the probabilities multiply instead of averaging out. It's the same compounding curve behind my [5% a day decay bug](/blog/five-percent-a-day-sounds-gentle) back in October, except here steps replace days.
 
-Want a quick mental formula? Any agent hits the 50% coin-flip mark after `ln(0.5) / ln(p)` steps. Plug in the numbers: 6.6 steps at 90%, 13.5 steps at 95%, and 69 steps at 99%. Even a 99% agent is down to two-in-three odds by step 40.
+Want a quick mental formula? Any agent hits the 50% coin-flip mark after $$\frac{\ln 0.5}{\ln p}$$ steps. Plug in the numbers: 6.6 steps at 90%, 13.5 steps at 95%, and 69 steps at 99%. Even a 99% agent is down to two-in-three odds by step 40.
 
 ![Chance every step succeeds against number of steps for 90, 95 and 99 percent per step; the 95 percent curve is 49 percent at step 14](/images/blog/success-vs-steps-compounding.svg "Closed form, 0.95 to the power n, no retries. Values from [`output.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/95-percent-per-step-is-a-coin-flip-by-step-14/output.txt).")
 
 Without checkpoints, your odds shrink with every step.
 
-Researchers hit the same wall on real benchmarks. [τ-bench](https://arxiv.org/abs/2406.12045) grades customer-service agents on whether the database ends in the right state and measures `pass^k`, the odds an agent solves the same task `k` times in a row. In the paper, gpt-4o scored around 61% on retail tasks for a single run, and fell below 25% when asked to solve the same task eight times in a row.
+Researchers hit the same wall on real benchmarks. [τ-bench](https://arxiv.org/abs/2406.12045) grades customer-service agents on whether the database ends in the right state and measures $$\text{pass}^k$$, the odds an agent solves the same task $$k$$ times in a row. In the paper, gpt-4o scored around 61% on retail tasks for a single run, and fell below 25% when asked to solve the same task eight times in a row.
 
 ## How I set up the simulation
 
-I modeled a task as `n` sequential steps, where each model call succeeds with probability `p`. I ran 20,000 simulated tasks for 5, 10, 20, and 40 steps at `p = 0.90`, `0.95`, and `0.99`, using a fixed random seed. As a sanity check, at 95% over 20 steps with no retries, my simulation finished 35.5% of runs, right on top of the theoretical `0.95^20 = 35.8%`. The script is [`simulate.py`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/95-percent-per-step-is-a-coin-flip-by-step-14/simulate.py), the raw output and full grid are in [`output.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/95-percent-per-step-is-a-coin-flip-by-step-14/output.txt), and the write-up is the [README](https://github.com/0xadityaa/Portfolio/blob/main/content/research/95-percent-per-step-is-a-coin-flip-by-step-14/README.md).
+I modeled a task as $$n$$ sequential steps, where each model call succeeds with probability $$p$$. I ran 20,000 simulated tasks for 5, 10, 20, and 40 steps at $$p = 0.90$$, `0.95`, and `0.99`, using a fixed random seed. As a sanity check, at 95% over 20 steps with no retries, my simulation finished 35.5% of runs, right on top of the theoretical $$0.95^{20} = 35.8\%$$. The script is [`simulate.py`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/95-percent-per-step-is-a-coin-flip-by-step-14/simulate.py), the raw output and full grid are in [`output.txt`](https://github.com/0xadityaa/Portfolio/blob/main/content/research/95-percent-per-step-is-a-coin-flip-by-step-14/output.txt), and the write-up is the [README](https://github.com/0xadityaa/Portfolio/blob/main/content/research/95-percent-per-step-is-a-coin-flip-by-step-14/README.md).
 
 I tested five recovery strategies: no retries, retry twice on transient errors, retry twice when half the errors are persistent, checkpoint every 5 steps and resume, and retrying non-idempotent steps. Checkpoint and restart strategies were capped at `3n` total model calls so they couldn't loop forever.
 
@@ -92,7 +92,7 @@ Don't trust an agent to remember it already sent an email. Put the guard in the 
 
 ## Where I'd stop trusting this post
 
-**Real agent steps aren't independent coin flips.** This is the strongest objection. Models often notice a bad tool output and self-correct on the next turn, which flattens the curve compared to pure `p^n`. [METR's task-horizon research](https://arxiv.org/abs/2503.14499) (March 2025) showed models getting steadily better at recovering mid-run, with 50% reliability task lengths doubling roughly every seven months since 2019. Even so, METR's 80% reliability horizons are still 4 to 6 times shorter than its 50% ones, and [Huang et al.](https://arxiv.org/abs/2310.01798) showed LLMs struggle to self-correct reasoning without external feedback. Recovery works when a unit test fails loudly and helps much less when a mistake is silent. You can see the same flattening in τ-bench too: independent 61% coins would pass eight trials only 1.9% of the time (`0.61^8`), whereas gpt-4o landed under 25% because some tasks are simply harder than others.
+**Real agent steps aren't independent coin flips.** This is the strongest objection. Models often notice a bad tool output and self-correct on the next turn, which flattens the curve compared to pure $$p^n$$. [METR's task-horizon research](https://arxiv.org/abs/2503.14499) (March 2025) showed models getting steadily better at recovering mid-run, with 50% reliability task lengths doubling roughly every seven months since 2019. Even so, METR's 80% reliability horizons are still 4 to 6 times shorter than its 50% ones, and [Huang et al.](https://arxiv.org/abs/2310.01798) showed LLMs struggle to self-correct reasoning without external feedback. Recovery works when a unit test fails loudly and helps much less when a mistake is silent. You can see the same flattening in τ-bench too: independent 61% coins would pass eight trials only 1.9% of the time ($$0.61^{8}$$), whereas gpt-4o landed under 25% because some tasks are simply harder than others.
 
 **My simulation detects every failure instantly.** Real agents don't always throw an exception. Sometimes they invent a plausible parameter and carry on. Retries and checkpoints can't catch silent failures. Only verification (tests, strict schemas, a human check) does.
 
@@ -102,6 +102,6 @@ Don't trust an agent to remember it already sent an email. Put the guard in the 
 
 ## The takeaway
 
-Before you extend an agent loop to fifteen or twenty steps, pull out a calculator and punch in `p^n` using the per-step accuracy you *honestly* see in production. If it comes out under 90%, stop editing the prompt.
+Before you extend an agent loop to fifteen or twenty steps, pull out a calculator and punch in $$p^n$$ using the per-step accuracy you *honestly* see in production. If it comes out under 90%, stop editing the prompt.
 
-Break the run into short, verifiable segments that checkpoint their state, put an idempotency key on every tool that mutates the world, and keep retries for errors you know are transient. Show me a production agent with detected failures that beats `p^n` by a wide margin without checkpoints, and I'll update. Until then, I'm betting on architecture over prompts.
+Break the run into short, verifiable segments that checkpoint their state, put an idempotency key on every tool that mutates the world, and keep retries for errors you know are transient. Show me a production agent with detected failures that beats $$p^n$$ by a wide margin without checkpoints, and I'll update. Until then, I'm betting on architecture over prompts.

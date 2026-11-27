@@ -35,13 +35,13 @@ Think of the [KV cache](https://arxiv.org/abs/2309.06180) as the model's scratch
 
 The memory formula for one token is short:
 
-```text
-bytes per token = 2 x layers x kv_heads x head_dim x bytes per value
-```
+$$
+\text{bytes per token} = 2 \times \text{layers} \times \text{kv\_heads} \times \text{head\_dim} \times \text{bytes per value}
+$$
 
 The `2` is for one key and one value vector, and fp16 uses `2` bytes per number. Every other variable sits right inside the model's `config.json`.
 
-To check the formula, I compared it with a published number. The PagedAttention paper reports that a 13B OPT model uses [800 KB per token](https://arxiv.org/abs/2309.06180). Plug OPT-13B into the line above (`2 x 40 layers x 5,120 hidden x 2 bytes`) and you get `819,200` bytes, which is 800 KiB. Exact match.
+To check the formula, I compared it with a published number. The PagedAttention paper reports that a 13B OPT model uses [800 KB per token](https://arxiv.org/abs/2309.06180). Plug OPT-13B into the line above ($$2 \times 40\ \text{layers} \times 5{,}120\ \text{hidden} \times 2\ \text{bytes}$$) and you get `819,200` bytes, which is 800 KiB. Exact match.
 
 The catch: **you pay for the model weights once, no matter how many users show up. You pay for the KV cache per user, multiplied by how much text each person pasted.**
 
