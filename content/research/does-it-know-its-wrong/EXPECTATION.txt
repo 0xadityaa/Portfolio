@@ -1,0 +1,17 @@
+Written before any model run (2026-11-26).
+
+Question: does a small model's own confidence in its answer predict whether the answer is right?
+
+Setup: TriviaQA (rc.nocontext, validation), closed-book, Qwen2.5-1.5B-Instruct, greedy, short answers,
+a seeded random sample of questions. Confidence = the model's probability of its own answer tokens.
+Grading: normalised match against the alias list, or token F1 >= 0.5 against any alias.
+
+Expectations:
+1. Accuracy: 30 to 40% with the alias+F1 grader (small model, hard trivia). 0.5B: 15 to 25%.
+2. Sequence probability (product of answer-token probabilities) separates right from wrong:
+   AUROC 0.75 to 0.85 for 1.5B. Mean token probability is about the same or a bit worse.
+   Answer length alone is much weaker (AUROC under 0.6).
+3. Calibration: the model is overconfident. ECE (10 equal-width bins) of 0.08 to 0.20.
+4. Abstention: the cutoff that halves the wrong answers still keeps about 70 to 80% of the right ones.
+5. 0.5B is less informative than 1.5B (AUROC lower by 0.03 to 0.08).
+6. Biggest surprise I'd accept: AUROC under 0.65, which would make "confidence" nearly useless.

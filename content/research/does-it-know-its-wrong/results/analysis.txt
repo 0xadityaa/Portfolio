@@ -1,0 +1,73 @@
+=== qwen2.5-1.5b: n=112 (truncated at 16 tokens: 0, empty: 0)
+accuracy (alias or F1>=0.5): 30.4%  (34/112), 95% Wilson 22.6 to 39.4
+accuracy (strict alias match): 23.2%  (26/112); F1-only passes: 8
+AUROC (right vs wrong), 95% bootstrap [strict grader]:
+  p_seq            0.793 [0.689, 0.883]   [0.875]
+  p_seq_stop       0.787 [0.688, 0.875]   [0.868]
+  mean_token_p     0.815 [0.717, 0.896]   [0.838]
+  min_token_p      0.805 [0.709, 0.892]   [0.867]
+  first_token_p    0.788 [0.688, 0.882]   [0.812]
+  shortness        0.581 [0.471, 0.694]   [0.691]
+  question_length  0.547 [0.420, 0.678]   [0.600]
+  p_seq minus shortness: 0.212 [0.113, 0.318]
+hand-corrected grader (5 passes read as wrong, 1 failures read as right): accuracy 26.8% (30/112), AUROC p_seq 0.839 [0.743, 0.924], halving wrong keeps 90.0% of right
+ECE of p_seq (10 bins): 0.126 [0.101, 0.221]; mean p_seq 0.394 vs accuracy 0.304
+ECE of mean_token_p: 0.350
+Brier p_seq 0.174 vs constant 0.211
+reliability bins (p_seq): bin, n, mean conf, accuracy
+  0.0-0.1  n=  26  conf 0.040  acc 0.115
+  0.1-0.2  n=  13  conf 0.152  acc 0.154
+  0.2-0.3  n=  15  conf 0.239  acc 0.067
+  0.3-0.4  n=  10  conf 0.356  acc 0.300
+  0.4-0.5  n=   7  conf 0.448  acc 0.429
+  0.5-0.6  n=  11  conf 0.553  acc 0.273
+  0.6-0.7  n=   7  conf 0.638  acc 0.286
+  0.7-0.8  n=   4  conf 0.750  acc 0.500
+  0.8-0.9  n=   8  conf 0.837  acc 0.750
+  0.9-1.0  n=  11  conf 0.966  acc 0.818
+halve the wrong answers using p_seq: cutoff 0.225, keeps 85.3% of right [71.4, 96.7], coverage 60.7%, accuracy of answered 42.6%
+halve the wrong answers using mean_token_p: cutoff 0.590, keeps 88.2% of right [73.2, 100.0], coverage 61.6%, accuracy of answered 43.5%
+split-half (cutoff chosen on one half, applied to the other, 500 splits): keeps 84.5% of right, lets 48.9% (sd 11.1) of wrong through, coverage 59.7%
+accuracy of the most confident half: 46.4%, of the least confident half: 14.3%
+cutoffs on p_seq: cutoff, coverage, accuracy answered, right kept, wrong kept
+  0.9  cov 9.8%  acc 81.8%  right kept 26.5%  wrong kept 2.6%
+  0.7  cov 20.5%  acc 73.9%  right kept 50.0%  wrong kept 7.7%
+  0.5  cov 36.6%  acc 53.7%  right kept 64.7%  wrong kept 24.4%
+  0.3  cov 51.8%  acc 48.3%  right kept 82.4%  wrong kept 38.5%
+  0.1  cov 76.8%  acc 36.0%  right kept 91.2%  wrong kept 70.5%
+
+=== qwen2.5-0.5b: n=112 (truncated at 16 tokens: 10, empty: 0)
+accuracy (alias or F1>=0.5): 14.3%  (16/112), 95% Wilson 9.0 to 22.0
+accuracy (strict alias match): 9.8%  (11/112); F1-only passes: 5
+AUROC (right vs wrong), 95% bootstrap [strict grader]:
+  p_seq            0.790 [0.685, 0.885]   [0.795]
+  p_seq_stop       0.798 [0.697, 0.892]   [0.789]
+  mean_token_p     0.559 [0.389, 0.718]   [0.520]
+  min_token_p      0.702 [0.548, 0.838]   [0.713]
+  first_token_p    0.630 [0.484, 0.770]   [0.650]
+  shortness        0.754 [0.649, 0.847]   [0.824]
+  question_length  0.521 [0.371, 0.676]   [0.499]
+  p_seq minus shortness: 0.037 [-0.087, 0.166]
+hand-corrected grader (3 passes read as wrong, 0 failures read as right): accuracy 11.6% (13/112), AUROC p_seq 0.783 [0.660, 0.898], halving wrong keeps 92.3% of right
+ECE of p_seq (10 bins): 0.075 [0.046, 0.149]; mean p_seq 0.123 vs accuracy 0.143
+ECE of mean_token_p: 0.302
+Brier p_seq 0.112 vs constant 0.122
+reliability bins (p_seq): bin, n, mean conf, accuracy
+  0.0-0.1  n=  68  conf 0.030  acc 0.044
+  0.1-0.2  n=  21  conf 0.133  acc 0.333
+  0.2-0.3  n=   9  conf 0.253  acc 0.111
+  0.3-0.4  n=   4  conf 0.351  acc 0.250
+  0.4-0.5  n=   5  conf 0.436  acc 0.400
+  0.5-0.6  n=   3  conf 0.550  acc 0.333
+  0.6-0.7  n=   1  conf 0.605  acc 0.000
+  0.8-0.9  n=   1  conf 0.826  acc 1.000
+halve the wrong answers using p_seq: cutoff 0.045, keeps 93.8% of right [78.6, 100.0], coverage 56.2%, accuracy of answered 23.8%
+halve the wrong answers using mean_token_p: cutoff 0.447, keeps 56.2% of right [30.8, 84.2], coverage 50.9%, accuracy of answered 15.8%
+split-half (cutoff chosen on one half, applied to the other, 500 splits): keeps 93.3% of right, lets 48.3% (sd 10.0) of wrong through, coverage 54.7%
+accuracy of the most confident half: 26.8%, of the least confident half: 1.8%
+cutoffs on p_seq: cutoff, coverage, accuracy answered, right kept, wrong kept
+  0.9  cov 0.0%  acc n/a  right kept 0.0%  wrong kept 0.0%
+  0.7  cov 0.9%  acc 100.0%  right kept 6.2%  wrong kept 0.0%
+  0.5  cov 4.5%  acc 40.0%  right kept 12.5%  wrong kept 3.1%
+  0.3  cov 12.5%  acc 35.7%  right kept 31.2%  wrong kept 9.4%
+  0.1  cov 39.3%  acc 29.5%  right kept 81.2%  wrong kept 32.3%
