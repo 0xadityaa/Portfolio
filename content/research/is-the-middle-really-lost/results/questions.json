@@ -1,0 +1,1545 @@
+[
+ {
+  "id": "56d6f2960d65d21400198286",
+  "article": 0,
+  "title": "Super_Bowl_50",
+  "question": "How many Offensive players from the Panthers were selected to play in the Pro Bowl?",
+  "golds": [
+   "six"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "573368044776f41900660a2c",
+  "article": 1,
+  "title": "Warsaw",
+  "question": "What park is close to John Lennon street?",
+  "golds": [
+   "Park Ujazdowski"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "56de1563cffd8e1900b4b5c2",
+  "article": 2,
+  "title": "Normans",
+  "question": "When did the Normans attack Dyrrachium?",
+  "golds": [
+   "1185",
+   "in 1185"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "56e0e5f37aa994140058e78b",
+  "article": 3,
+  "title": "Nikola_Tesla",
+  "question": "Which current type was Tesla in favor of?",
+  "golds": [
+   "AC"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "56e1ee4de3433e1400423214",
+  "article": 4,
+  "title": "Computational_complexity_theory",
+  "question": "What evidence between and among complexity classes would signify a theoretical watershed for complexity theory?",
+  "golds": [
+   "Proving that any of these classes are unequal"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "56e761d037bdd419002c3f13",
+  "article": 5,
+  "title": "Teacher",
+  "question": "What must a teacher show towards the course materials for increase learning?",
+  "golds": [
+   "enthusiasm"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "56f80e1daef2371900625d8f",
+  "article": 6,
+  "title": "Martin_Luther",
+  "question": "What fueled Luther's  concept of Christ and His Salvation?",
+  "golds": [
+   "sale of indulgences"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "5705fec152bb89140068977c",
+  "article": 7,
+  "title": "Southern_California",
+  "question": "What magnitude was the 1994 Northridge earthquake?",
+  "golds": [
+   "6.7"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "5709686c200fba1400367f7a",
+  "article": 8,
+  "title": "Sky_(United_Kingdom)",
+  "question": "What was the number of customers that the BBC  reported had yet to receive the service due to failed deliveries?",
+  "golds": [
+   "17,000"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "570d2af0fed7b91900d45c96",
+  "article": 9,
+  "title": "Victoria_(Australia)",
+  "question": "What city is the capital of Victoria?",
+  "golds": [
+   "Melbourne"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "571099b2b654c5140001f9b7",
+  "article": 10,
+  "title": "Huguenot",
+  "question": "What other Northern European cities had Huguenot congregations?",
+  "golds": [
+   "Fredericia (Denmark), Berlin, Stockholm, Hamburg, Frankfurt, Helsinki, and Emden"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "571135b8a58dae1900cd6d10",
+  "article": 11,
+  "title": "Steam_engine",
+  "question": "In what decade were injectors widely used in steam engines?",
+  "golds": [
+   "1850s"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "571c8198dd7acb1400e4c0d2",
+  "article": 12,
+  "title": "Oxygen",
+  "question": "What characteristic due most items display after burning?",
+  "golds": [
+   "appear to become lighter",
+   "appear to become lighter and seem to lose something in the process",
+   "become lighter",
+   "lighter"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "57265bdfdd62a815002e829f",
+  "article": 13,
+  "title": "1973_oil_crisis",
+  "question": "How many passengers can the Ford Fiesta accommodate?",
+  "golds": [
+   "at least four",
+   "at least four passengers",
+   "four"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "5725e547ec44d21400f3d71f",
+  "article": 14,
+  "title": "Apollo_program",
+  "question": "What would the latter Apollo missions carry to the moon to increase exploration?",
+  "golds": [
+   "Lunar Roving Vehicle",
+   "Lunar Roving Vehicle (LRV)",
+   "lunar orbital sensors and cameras",
+   "payload capacity"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "5726b58f5951b619008f7b58",
+  "article": 15,
+  "title": "European_Union_law",
+  "question": "What do the Treaties generally limit?",
+  "golds": [
+   "free trade"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "5729e500af94a219006aa6b7",
+  "article": 16,
+  "title": "Amazon_rainforest",
+  "question": "After the Oligocene period, under what period did the amazon rainforest begin to expand?",
+  "golds": [
+   "Middle Miocene"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "57265c10f1498d1400e8dd37",
+  "article": 17,
+  "title": "Ctenophora",
+  "question": "What happens when bathocyroe and ocyropsis clap their lobes together?",
+  "golds": [
+   "expelled water drives them backwards very quickly",
+   "jet of expelled water drives them backwards very quickly",
+   "jet of expelled water drives them backwards very quickly."
+  ],
+  "rank": 0
+ },
+ {
+  "id": "5725f6e138643c19005acf1d",
+  "article": 18,
+  "title": "Fresno,_California",
+  "question": "What is the most rainfall recorded in a 24 hour period in Fresno?",
+  "golds": [
+   "3.55 inches",
+   "3.55 inches (90.2 mm)"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "57264586f1498d1400e8dac6",
+  "article": 19,
+  "title": "Packet_switching",
+  "question": "What was DATANET 1 ",
+  "golds": [
+   "public switched data network",
+   "the public switched data network operated by the Dutch PTT Telecom",
+   "was the public switched data network operated by the Dutch PTT Telecom"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "57264f18f1498d1400e8dbaf",
+  "article": 20,
+  "title": "Black_Death",
+  "question": "What strains of y. pestis were found in the mass graves?",
+  "golds": [
+   "Y. p. orientalis and Y. p. medievalis",
+   "Y. pestis"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "57267ebfdd62a815002e8730",
+  "article": 21,
+  "title": "Geology",
+  "question": "Which is more sophisticated, numericals model or an analog models of orogenic wedges? ",
+  "golds": [
+   "Numerical",
+   "Numerical models"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "57268d1b708984140094c9d0",
+  "article": 22,
+  "title": "Newcastle_upon_Tyne",
+  "question": "What was renumbered in Newcastle upon completion of the Western Bypass?",
+  "golds": [
+   "roads",
+   "the roads"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "5726fc63dd62a815002e9708",
+  "article": 23,
+  "title": "Victoria_and_Albert_Museum",
+  "question": "What is the largest item from Italy that is part of the sculpture collection?",
+  "golds": [
+   "Chancel Chapel"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "5726808bdd62a815002e877a",
+  "article": 24,
+  "title": "American_Broadcasting_Company",
+  "question": "Which NBC radio network was tasked with testing new programs?",
+  "golds": [
+   "NBC Blue",
+   "NBC Blue Network"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "5726bd655951b619008f7ca1",
+  "article": 25,
+  "title": "Genghis_Khan",
+  "question": "How many soldiers did Genghis Khan send against Kuchlug and Qara Khitai?",
+  "golds": [
+   "20,000"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "5726da89dd62a815002e92b5",
+  "article": 26,
+  "title": "Pharmacy",
+  "question": "What type of professional is a Pharmacy Technician considered to be?",
+  "golds": [
+   "health care professional",
+   "pharmacy health care"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "5729081d3f37b31900477fab",
+  "article": 27,
+  "title": "Immune_system",
+  "question": "What are two types of phagocytes that travel through the body to find invading pathogens?",
+  "golds": [
+   "Neutrophils and macrophages"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "5728fb6a1d04691400778ef9",
+  "article": 28,
+  "title": "Civil_disobedience",
+  "question": "For what reason would someone avoid crimes while protesting?",
+  "golds": [
+   "avoiding attribution",
+   "constitute civil disobedience",
+   "it would undermine the law by encouraging general disobedience",
+   "viewed as not being a civil disobedient"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "572751b4708984140094dc1e",
+  "article": 29,
+  "title": "Construction",
+  "question": "Contracts must be designed to ensure what?",
+  "golds": [
+   "each side is capable of performing the obligations set out",
+   "that each side is capable of performing the obligations set out"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "57275409708984140094dc35",
+  "article": 30,
+  "title": "Private_school",
+  "question": "After apartheid, what types of schools are referred to as \"Model C\" schools?",
+  "golds": [
+   "government schools formerly reserved for white children",
+   "semi-private"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "5727c0402ca10214002d9566",
+  "article": 31,
+  "title": "Harvard_University",
+  "question": "Common Sense Realism of what Scottish philosophers did Agassiz incorporate in his dual view of knowedge?",
+  "golds": [
+   "Thomas Reid and Dugald Stewart"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "572827fc3acd2414000df5bc",
+  "article": 32,
+  "title": "Jacksonville,_Florida",
+  "question": "How many of Jacksonville's city residents are younger than 18?",
+  "golds": [
+   "23.9%"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "572a0ecb1d0469140077971a",
+  "article": 33,
+  "title": "Economic_inequality",
+  "question": "Why does unemployment harm growth?",
+  "golds": [
+   "because it is a waste of resources",
+   "waste of resources"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "572801823acd2414000df1fb",
+  "article": 34,
+  "title": "Doctor_Who",
+  "question": "In what year did the serial format change for the Doctor Who series?",
+  "golds": [
+   "2005"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "57286010ff5b5019007da1cc",
+  "article": 35,
+  "title": "University_of_Chicago",
+  "question": "What was the name of the experiment that tested how life originated?",
+  "golds": [
+   "Chicago Pile-1",
+   "Miller\u2013Urey experiment"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "57287ccb2ca10214002da3da",
+  "article": 36,
+  "title": "Yuan_dynasty",
+  "question": "The Yuan was the first time all of China was ruled by whom?",
+  "golds": [
+   "non-native Chinese",
+   "non-native Chinese people"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "5728dab94b864d1900164f99",
+  "article": 37,
+  "title": "Kenya",
+  "question": "What country boarders the south of Kenya?",
+  "golds": [
+   "Tanzania"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "572943ab1d04691400779219",
+  "article": 38,
+  "title": "Intergovernmental_Panel_on_Climate_Change",
+  "question": "Who was the chairman of the House Committee on Energy and Commerce?",
+  "golds": [
+   "Rep. Joe Barton"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "572974923f37b3190047840b",
+  "article": 39,
+  "title": "Chloroplast",
+  "question": "What is the most important role of chloroplasts?",
+  "golds": [
+   "its role in photosynthesis",
+   "photosynthesis"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "572987e46aef051400154fa5",
+  "article": 40,
+  "title": "Prime_number",
+  "question": "If q=9 and a=3,6 or 9, how many primes would be in the progression?",
+  "golds": [
+   "at most one",
+   "at most one prime number",
+   "one"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "572f7b33947a6a140053c9a3",
+  "article": 41,
+  "title": "Rhine",
+  "question": "The Rhine redistributes into the Ijssel and what other body?",
+  "golds": [
+   "Nederrijn"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "572fb059947a6a140053cb83",
+  "article": 42,
+  "title": "Scottish_Parliament",
+  "question": "What do the former Midlothian County Buildings face?",
+  "golds": [
+   "Parliament Square",
+   "Parliament Square, High Street and George IV Bridge",
+   "Parliament Square, High Street and George IV Bridge in Edinburgh"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "573020f7b2c2fd14005688fb",
+  "article": 43,
+  "title": "Islamism",
+  "question": "What have Muslims praised Hamas for doing?",
+  "golds": [
+   "driving Israel out of the Gaza Strip"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "5730aef38ab72b1400f9c683",
+  "article": 44,
+  "title": "Imperialism",
+  "question": "Colonies were a sign of what amongst European countries?",
+  "golds": [
+   "prestige"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "5730b1e28ab72b1400f9c6ae",
+  "article": 45,
+  "title": "United_Methodist_Church",
+  "question": "What are two official bodies of the UMC governing coalition?",
+  "golds": [
+   "The General Board of Church and Society, and the United Methodist Women",
+   "two official bodies of the United Methodist Church"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "5733eb34d058e614000b65cc",
+  "article": 46,
+  "title": "French_and_Indian_War",
+  "question": "What was William Johnson's role in British military?",
+  "golds": [
+   "British Superintendent for Indian Affairs",
+   "British Superintendent for Indian Affairs in the New York region and beyond"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "57379829c3c5551400e51f41",
+  "article": 47,
+  "title": "Force",
+  "question": "At what temperature do weak and electromagnetic forces appear the same?",
+  "golds": [
+   "1015 kelvins",
+   "approximately 1015 kelvins",
+   "in excess of approximately 1015 kelvins"
+  ],
+  "rank": 0
+ },
+ {
+  "id": "56bf6c3e3aeaaa14008c9615",
+  "article": 0,
+  "title": "Super_Bowl_50",
+  "question": "What position did Rivera play in Super Bowl XX? ",
+  "golds": [
+   "linebacker"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "57332a734776f4190066072a",
+  "article": 1,
+  "title": "Warsaw",
+  "question": "When was the Royal University of Warsaw established?",
+  "golds": [
+   "1816"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "56de4c324396321400ee27ac",
+  "article": 2,
+  "title": "Normans",
+  "question": "What is Norman art's most well known piece?",
+  "golds": [
+   "Bayeux Tapestry",
+   "the Bayeux Tapestry"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "56e108abe3433e1400422b0e",
+  "article": 3,
+  "title": "Nikola_Tesla",
+  "question": "What later invention was Tesla's idea similar to?",
+  "golds": [
+   "modern radar",
+   "radar"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "56e181d9e3433e1400422fa4",
+  "article": 4,
+  "title": "Computational_complexity_theory",
+  "question": "What is one way in which graphs can be encoded? ",
+  "golds": [
+   "adjacency matrices",
+   "directly via their adjacency matrices"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "56e76abf37bdd419002c3f77",
+  "article": 5,
+  "title": "Teacher",
+  "question": "What is something that teacher's are at a high risk for?",
+  "golds": [
+   "occupational burnout"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "56f879bdaef23719006260e1",
+  "article": 6,
+  "title": "Martin_Luther",
+  "question": "How many hymns did Luther write based on the Ten Commandments?",
+  "golds": [
+   "two",
+   "two hymns"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "5705e4fe75f01819005e7707",
+  "article": 7,
+  "title": "Southern_California",
+  "question": "What is the name of the border to the south?",
+  "golds": [
+   "Mexico\u2013United States border",
+   "the Mexico\u2013United States border"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "570967c4ed30961900e840bc",
+  "article": 8,
+  "title": "Sky_(United_Kingdom)",
+  "question": "What satellite enabled Sky Digital to launch an all new digital service?",
+  "golds": [
+   "Eutelsat's Eurobird 1"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "570d47b8b3d812140066d62f",
+  "article": 9,
+  "title": "Victoria_(Australia)",
+  "question": "What gauge of rail lines do two tourist lines use?",
+  "golds": [
+   "760 mm",
+   "760 mm (2 ft 6 in) narrow gauge lines"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "57107e6ca58dae1900cd69f4",
+  "article": 10,
+  "title": "Huguenot",
+  "question": "How many Huguenots were killed during this purge?",
+  "golds": [
+   "5,000 to 30,000"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "571127a5a58dae1900cd6cc4",
+  "article": 11,
+  "title": "Steam_engine",
+  "question": "In what country was a full-scale working railway steam locomotive first invented?",
+  "golds": [
+   "United Kingdom"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "571cca4add7acb1400e4c152",
+  "article": 12,
+  "title": "Oxygen",
+  "question": "At first, what did oxygen and iron combine to form?",
+  "golds": [
+   "banded iron",
+   "banded iron formations"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "57265a58dd62a815002e8273",
+  "article": 13,
+  "title": "1973_oil_crisis",
+  "question": "When American car companies rolled out with their domestic replacement cars, which policy ended?",
+  "golds": [
+   "captive import",
+   "captive import policy"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "5725d403ec44d21400f3d65e",
+  "article": 14,
+  "title": "Apollo_program",
+  "question": "What did the second stage in the Saturn V end up doing?",
+  "golds": [
+   "burned liquid hydrogen"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "572699db5951b619008f779a",
+  "article": 15,
+  "title": "European_Union_law",
+  "question": "What issues do member states say the Court of Justice does not have the final say on?",
+  "golds": [
+   "foundational constitutional questions affecting democracy and human rights",
+   "on foundational constitutional questions affecting democracy and human rights"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "5729f2646aef051400155130",
+  "article": 16,
+  "title": "Amazon_rainforest",
+  "question": "Where does the Amazon region rate among the entire earth for its amount of biodiversity?",
+  "golds": [
+   "highest",
+   "highest on Earth",
+   "the highest"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "572684365951b619008f753f",
+  "article": 17,
+  "title": "Ctenophora",
+  "question": "Juvenile and adult  beroe lack what?",
+  "golds": [
+   "tentacles and tentacle sheaths"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "5725e45689a1e219009ac048",
+  "article": 18,
+  "title": "Fresno,_California",
+  "question": "What type of theater do the neighborhoods feature?",
+  "golds": [
+   "live",
+   "live theater"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "5725d34089a1e219009abf51",
+  "article": 19,
+  "title": "Packet_switching",
+  "question": "What did Distributed Adaptive Message Block Switching do",
+  "golds": [
+   "fault-tolerant, efficient routing method",
+   "provide a fault-tolerant, efficient routing method for telecommunication messages"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "57264a74708984140094c18d",
+  "article": 20,
+  "title": "Black_Death",
+  "question": "Who allegedly coined the name Black Death?",
+  "golds": [
+   "J.I. Pontanus"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "572677e7708984140094c723",
+  "article": 21,
+  "title": "Geology",
+  "question": "What is petrology?",
+  "golds": [
+   "study of rocks",
+   "the study of rocks"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "572689385951b619008f761f",
+  "article": 22,
+  "title": "Newcastle_upon_Tyne",
+  "question": "What mainline station is to the east of the city center?",
+  "golds": [
+   "Manors"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "5726de7a5951b619008f80ad",
+  "article": 23,
+  "title": "Victoria_and_Albert_Museum",
+  "question": "Where did the earliest item in the V&A glass collection come from?",
+  "golds": [
+   "Ancient Egypt"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "57275e95f1498d1400e8f6f7",
+  "article": 24,
+  "title": "American_Broadcasting_Company",
+  "question": "ABC purchased which of Edgar Scherick's company?",
+  "golds": [
+   "Sports Programs, Inc",
+   "Sports Programs, Inc."
+  ],
+  "rank": 1
+ },
+ {
+  "id": "57273c01f1498d1400e8f4e5",
+  "article": 25,
+  "title": "Genghis_Khan",
+  "question": "Which two generals raided the Caucasas and Kievan Rus' for Genghis Khan?",
+  "golds": [
+   "Subutai and Jebe"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "5726f0e35951b619008f82f8",
+  "article": 26,
+  "title": "Pharmacy",
+  "question": "What is one country that has been suggested for importation of medicines?",
+  "golds": [
+   "Canada"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "5729fd111d046914007796a7",
+  "article": 27,
+  "title": "Immune_system",
+  "question": "Cells of the site of an infection in a plant undergo what process to prevent spread of the disease?",
+  "golds": [
+   "apoptosis",
+   "rapid apoptosis"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "5728f50baf94a219006a9e59",
+  "article": 28,
+  "title": "Civil_disobedience",
+  "question": "What type of treatment do civil disobedients usually receive?",
+  "golds": [
+   "mistreatment",
+   "mistreatment from government officials",
+   "sentence"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "57275411dd62a815002e9b33",
+  "article": 29,
+  "title": "Construction",
+  "question": "Who is usually working together?",
+  "golds": [
+   "a consortium of several contractors"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "572746addd62a815002e9a5e",
+  "article": 30,
+  "title": "Private_school",
+  "question": "Along with non-governmental and nonstate schools, what is another name for private schools?",
+  "golds": [
+   "independent",
+   "independent schools"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "5727e21e4b864d1900163f35",
+  "article": 31,
+  "title": "Harvard_University",
+  "question": "What prestigious legal scholars are faculty members at Harvard?",
+  "golds": [
+   "Alan Dershowitz and Lawrence Lessig"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "57281ab63acd2414000df495",
+  "article": 32,
+  "title": "Jacksonville,_Florida",
+  "question": "What term referred to middle class citizens leaving the suburbs?",
+  "golds": [
+   "\"white flight\"",
+   "white flight"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "5727ee372ca10214002d99ec",
+  "article": 33,
+  "title": "Economic_inequality",
+  "question": "What increases with the increase of income inequality?",
+  "golds": [
+   "entrepreneurship rates"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "572803493acd2414000df22d",
+  "article": 34,
+  "title": "Doctor_Who",
+  "question": "What years saw the most loss of old shows in the BBC archives?",
+  "golds": [
+   "Between about 1964 and 1973",
+   "the first six years"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "57284e9fff5b5019007da154",
+  "article": 35,
+  "title": "University_of_Chicago",
+  "question": "What year did the university open a center in Hong Kong?",
+  "golds": [
+   "2015"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "57287ddf3acd2414000dfa42",
+  "article": 36,
+  "title": "Yuan_dynasty",
+  "question": "Who had no real military power during the Yuan?",
+  "golds": [
+   "Ministry of War",
+   "the Ministry of War"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "57290e153f37b31900477fdb",
+  "article": 37,
+  "title": "Kenya",
+  "question": "What group started peace meetings?",
+  "golds": [
+   "Evangelical Lutheran Church"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "57293d6d1d046914007791b9",
+  "article": 38,
+  "title": "Intergovernmental_Panel_on_Climate_Change",
+  "question": "How many contributing authors does an IPCC report chapter have?",
+  "golds": [
+   "a somewhat larger number",
+   "a somewhat larger number of \"contributing authors\""
+  ],
+  "rank": 1
+ },
+ {
+  "id": "57296eb01d04691400779435",
+  "article": 39,
+  "title": "Chloroplast",
+  "question": "What do chloroplasts use their ribosomes for?",
+  "golds": [
+   "synthesize a small fraction of their proteins",
+   "to synthesize a small fraction of their proteins"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "572996c73f37b319004784b4",
+  "article": 40,
+  "title": "Prime_number",
+  "question": "What is another type of public key cryptography algorithm?",
+  "golds": [
+   "Diffie\u2013Hellman",
+   "Diffie\u2013Hellman key exchange",
+   "the Diffie\u2013Hellman key exchange"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "572ffd75b2c2fd14005686e7",
+  "article": 41,
+  "title": "Rhine",
+  "question": "Which direction did the Rhine flow during the last cold phase?",
+  "golds": [
+   "west"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "572fc78d04bcaa1900d76d0a",
+  "article": 42,
+  "title": "Scottish_Parliament",
+  "question": "What type of committee is set down under the SP's standing orders?",
+  "golds": [
+   "Mandatory",
+   "Mandatory Committees"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "572ff760b2c2fd140056867b",
+  "article": 43,
+  "title": "Islamism",
+  "question": "On what basis do the radical Islamist organizations conduct their attacks?",
+  "golds": [
+   "religious"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "5730876a396df9190009617a",
+  "article": 44,
+  "title": "Imperialism",
+  "question": "what is the most controversial aspect of imperialism?",
+  "golds": [
+   "defense and justification of empire-building",
+   "defense and justification of empire-building based on seemingly rational grounds",
+   "empire-building",
+   "is the defense and justification of empire-building based on seemingly rational grounds"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "5730aaa88ab72b1400f9c650",
+  "article": 45,
+  "title": "United_Methodist_Church",
+  "question": "Who assisted Wesley with ordaining Whatcoat and Vasey as presbyters?",
+  "golds": [
+   "Dr. Thomas Coke"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "57340111d058e614000b677f",
+  "article": 46,
+  "title": "French_and_Indian_War",
+  "question": "Where was Montcalm focusing the defense for New France?",
+  "golds": [
+   "St. Lawrence",
+   "St. Lawrence, with primary defenses at Carillon, Quebec, and Louisbourg,",
+   "the defense of the St. Lawrence"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "5737958b1c456719005744c5",
+  "article": 47,
+  "title": "Force",
+  "question": "What is needed to pack electrons densely together?",
+  "golds": [
+   "energy"
+  ],
+  "rank": 1
+ },
+ {
+  "id": "56d98fbfdc89441400fdb565",
+  "article": 0,
+  "title": "Super_Bowl_50",
+  "question": "When was the last time California hosted a Super Bowl?",
+  "golds": [
+   "2003",
+   "2003."
+  ],
+  "rank": 2
+ },
+ {
+  "id": "57339902d058e614000b5e72",
+  "article": 1,
+  "title": "Warsaw",
+  "question": "What profession does Zbigniew Badowski have?",
+  "golds": [
+   "architects"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "56de3ebc4396321400ee26e6",
+  "article": 2,
+  "title": "Normans",
+  "question": "When did the Siege of Antioch take place?",
+  "golds": [
+   "1097"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "56e1097dcd28a01900c6748f",
+  "article": 3,
+  "title": "Nikola_Tesla",
+  "question": "Who did Reuters claim won the 1915 Nobel prize in Physics?",
+  "golds": [
+   "Thomas Edison and Nikola Tesla"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "56e1c720e3433e140042316d",
+  "article": 4,
+  "title": "Computational_complexity_theory",
+  "question": "Resources are constrained by hierarchy theorems to produce what?",
+  "golds": [
+   "a proper hierarchy",
+   "a proper hierarchy on the classes",
+   "a proper hierarchy on the classes defined"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "56e77a8700c9c71400d7718c",
+  "article": 5,
+  "title": "Teacher",
+  "question": "What two factors can generally increase a teacher's salary?",
+  "golds": [
+   "more experience and higher education"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "56f7cdc2a6d7ea1400e17292",
+  "article": 6,
+  "title": "Martin_Luther",
+  "question": "What profession did Martin's father want his son to pursue?",
+  "golds": [
+   "lawyer"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "570602fa52bb89140068979e",
+  "article": 7,
+  "title": "Southern_California",
+  "question": "Southern California's distinctive regions are divided culturally, politically and what other trait?",
+  "golds": [
+   "economically"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "57097d63ed30961900e84200",
+  "article": 8,
+  "title": "Sky_(United_Kingdom)",
+  "question": "What were high court proceedings being held about?",
+  "golds": [
+   "basic channels",
+   "carriage of their respective basic channels",
+   "the carriage of their respective basic channels"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "570d4a6bfed7b91900d45e16",
+  "article": 9,
+  "title": "Victoria_(Australia)",
+  "question": "Where was the location of the colonial government that administered the new colony?",
+  "golds": [
+   "Sydney"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "5710968aa58dae1900cd6a88",
+  "article": 10,
+  "title": "Huguenot",
+  "question": "Where can one find the formerly Huguenot farms in South Africa?",
+  "golds": [
+   "Western Cape province"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "57115dbe2419e314009555a8",
+  "article": 11,
+  "title": "Steam_engine",
+  "question": "What is an examine of work that a centrifugal governor-equipped steam engine wasn't suitable for?",
+  "golds": [
+   "cotton spinning",
+   "operations requiring constant speed"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "571a50df4faf5e1900b8a962",
+  "article": 12,
+  "title": "Oxygen",
+  "question": "Peroxides, nitrates and dichromates are examples of what type of compounds?",
+  "golds": [
+   "compounds of oxygen with a high oxidative",
+   "compounds of oxygen with a high oxidative potential"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "572649d8f1498d1400e8db37",
+  "article": 13,
+  "title": "1973_oil_crisis",
+  "question": "What caused UK to have an oil crisis in its own country?",
+  "golds": [
+   "a series of strikes",
+   "a series of strikes by coal miners and railroad workers",
+   "strikes by coal miners and railroad workers"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "5725c948ec44d21400f3d578",
+  "article": 14,
+  "title": "Apollo_program",
+  "question": "What Apollo mission was this LOR method used and needed?",
+  "golds": [
+   "13",
+   "Apollo 13"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "572695285951b619008f774d",
+  "article": 15,
+  "title": "European_Union_law",
+  "question": "Which articles state that powers stay with member states unless they've been conferred?",
+  "golds": [
+   "TEU articles 4 and 5"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "5725cbb289a1e219009abed5",
+  "article": 16,
+  "title": "Amazon_rainforest",
+  "question": "How long since it's been that geoglyphs were first discovered on deforested land?",
+  "golds": [
+   "1970s",
+   "Since the 1970s"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "572691bedd62a815002e89dd",
+  "article": 17,
+  "title": "Ctenophora",
+  "question": "A molecular phylogeny analysis confirmed that cydippid are not what?",
+  "golds": [
+   "monophyletic"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "5725edfe38643c19005acea0",
+  "article": 18,
+  "title": "Fresno,_California",
+  "question": "In which direction does the west side of Fresno neighborhood lie to the 99 freeway?",
+  "golds": [
+   "southwest"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "5726462b708984140094c118",
+  "article": 19,
+  "title": "Packet_switching",
+  "question": "What was the purpose of CSNET",
+  "golds": [
+   "extend networking benefits",
+   "to extend networking benefits",
+   "to extend networking benefits, for computer science departments at academic and research institutions that could not be directly connected to ARPANET"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "57264fe65951b619008f6fa1",
+  "article": 20,
+  "title": "Black_Death",
+  "question": "What is the current status of the Haensch study?",
+  "golds": [
+   "confirmed and amended"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "57268066708984140094c823",
+  "article": 21,
+  "title": "Geology",
+  "question": "What can be combined with geophysical data to produce a better view of the subsurface?",
+  "golds": [
+   "well logs"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "57269e80f1498d1400e8e520",
+  "article": 22,
+  "title": "Newcastle_upon_Tyne",
+  "question": "What year did Charles Avison die in Newcastle?",
+  "golds": [
+   "1770"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "5726bf325951b619008f7cff",
+  "article": 23,
+  "title": "Victoria_and_Albert_Museum",
+  "question": "What is the name of the gallery devoted to Chinese art?",
+  "golds": [
+   "T. T. Tsui Gallery of Chinese art",
+   "The T. T. Tsui Gallery",
+   "The T. T. Tsui Gallery of Chinese art"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "57275273dd62a815002e9b18",
+  "article": 24,
+  "title": "American_Broadcasting_Company",
+  "question": "What was Disney-ABC International Television previously known as?",
+  "golds": [
+   "Buena Vista International Television"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "5726a00d708984140094cc29",
+  "article": 25,
+  "title": "Genghis_Khan",
+  "question": "Where was Genghis Khan buried?",
+  "golds": [
+   "Mongolia",
+   "somewhere in Mongolia at an unknown location",
+   "unmarked grave somewhere in Mongolia"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "5726e179dd62a815002e93b1",
+  "article": 26,
+  "title": "Pharmacy",
+  "question": "Which pharmacists are likely to seek additional education following pharmacy school?",
+  "golds": [
+   "clinical pharmacists",
+   "pharmacists practicing in hospitals"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "5728fd206aef05140015494f",
+  "article": 27,
+  "title": "Immune_system",
+  "question": "Commensal flora can change what specific conditions of their environment in the gastrointestinal tract?",
+  "golds": [
+   "balance of microbial populations",
+   "pH or available iron"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "5728e07e3acd2414000e00e9",
+  "article": 28,
+  "title": "Civil_disobedience",
+  "question": "What is a simple form of civil disobedience?",
+  "golds": [
+   "Non-revolutionary",
+   "Non-revolutionary civil disobedience",
+   "cultural revolution",
+   "disobedience of laws"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "572745c6708984140094db9d",
+  "article": 29,
+  "title": "Construction",
+  "question": "The owner typically awards a contract to who?",
+  "golds": [
+   "most cost efficient bidder",
+   "the most cost efficient bidder"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "57274a8ff1498d1400e8f5bc",
+  "article": 30,
+  "title": "Private_school",
+  "question": "What is the German term for segregating students based on their parents' wealth?",
+  "golds": [
+   "Sonderungsverbot"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "5727cd0f4b864d1900163d72",
+  "article": 31,
+  "title": "Harvard_University",
+  "question": "How much more land does the school own in Allston than Cambridge?",
+  "golds": [
+   "approximately fifty percent",
+   "fifty percent",
+   "fifty percent more"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "572824f13acd2414000df593",
+  "article": 32,
+  "title": "Jacksonville,_Florida",
+  "question": "In what year did a tropical storm cause a four day loss of power to Jacksonville?",
+  "golds": [
+   "2008",
+   "Fay"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "5727e9523acd2414000def95",
+  "article": 33,
+  "title": "Economic_inequality",
+  "question": "What philosophy of thought  addresses wealth inequality?",
+  "golds": [
+   "Neoclassical economics"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "572808bf4b864d190016429a",
+  "article": 34,
+  "title": "Doctor_Who",
+  "question": "How many times can a Time Lord regenerate?",
+  "golds": [
+   "12"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "57283f014b864d19001647e9",
+  "article": 35,
+  "title": "University_of_Chicago",
+  "question": "What person helped establish the school with a donation?",
+  "golds": [
+   "John D. Rockefeller"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "572881d34b864d1900164a5e",
+  "article": 36,
+  "title": "Yuan_dynasty",
+  "question": "What philosophies underlay Chinese medicine?",
+  "golds": [
+   "yin-yang and wuxing",
+   "yin-yang and wuxing philosophy"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "572925a81d046914007790ce",
+  "article": 37,
+  "title": "Kenya",
+  "question": "When did Kenya gain independance?",
+  "golds": [
+   "12 December 1963"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "572951f16aef051400154cd0",
+  "article": 38,
+  "title": "Intergovernmental_Panel_on_Climate_Change",
+  "question": "What was one proposal to let the IPCC respond to new evidence faster?",
+  "golds": [
+   "turning the whole climate science assessment process into a moderated \"living\" Wikipedia-IPCC"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "572967e31d046914007793b4",
+  "article": 39,
+  "title": "Chloroplast",
+  "question": "What did Lepidodinium viride replace their original chloroplast with?",
+  "golds": [
+   "a green algal derived chloroplast",
+   "green algal derived chloroplast (more specifically, a prasinophyte)",
+   "prasinophyte"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "57299a6f6aef051400155019",
+  "article": 40,
+  "title": "Prime_number",
+  "question": "How can any knot be distinctively indicated?",
+  "golds": [
+   "as a connected sum of prime knots"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "57300c67947a6a140053cff2",
+  "article": 41,
+  "title": "Rhine",
+  "question": "in 1932 what was the Rhine measurement changed to?",
+  "golds": [
+   "1,320 kilometres",
+   "1,320 kilometres (820 miles)"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "572faec7b2c2fd1400568334",
+  "article": 42,
+  "title": "Scottish_Parliament",
+  "question": "Who designed the Scottish Parliament building?",
+  "golds": [
+   "Enric Miralles"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "572ffabf04bcaa1900d76fa3",
+  "article": 43,
+  "title": "Islamism",
+  "question": "What, rather than Islamism, requires explanation?",
+  "golds": [
+   "non-political Islam",
+   "quietist/non-political Islam"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "573092088ab72b1400f9c596",
+  "article": 44,
+  "title": "Imperialism",
+  "question": "The Asante and Lunda Empires were in which region?",
+  "golds": [
+   "Sub-Saharan Africa"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "5730982f396df919000961e6",
+  "article": 45,
+  "title": "United_Methodist_Church",
+  "question": "What is the church's theological orientation?",
+  "golds": [
+   "Wesleyan",
+   "orientation is decidedly Wesleyan"
+  ],
+  "rank": 2
+ },
+ {
+  "id": "5733f5f24776f419006615c3",
+  "article": 46,
+  "title": "French_and_Indian_War",
+  "question": "How many casualties did British get?",
+  "golds": [
+   "1,000",
+   "1,000 British soldiers",
+   "Approximately 1,000",
+   "Approximately 1,000 British soldiers were killed or injured."
+  ],
+  "rank": 2
+ },
+ {
+  "id": "573796edc3c5551400e51f36",
+  "article": 47,
+  "title": "Force",
+  "question": "How are nuclear forces transmitted?",
+  "golds": [
+   "as gluons"
+  ],
+  "rank": 2
+ }
+]

@@ -1,0 +1,9 @@
+check 1 18:52: 18:52  up 39 days, 22:03, 1 user, load averages: 67.35 50.84 40.75
+check 2 18:57: 18:57  up 39 days, 22:08, 1 user, load averages: 27.59 43.12 40.69
+check 3 19:02: 19:02  up 39 days, 22:13, 1 user, load averages: 19.04 30.28 35.55
+start 19:02: 19:02  up 39 days, 22:13, 1 user, load averages: 19.04 30.28 35.55
+end 19:06: 19:06  up 39 days, 22:16, 1 user, load averages: 31.70 28.99 33.67
+restart 19:06 with 3 slots (0,3,6) after measuring ~85 s/question with 5 slots: 19:06  up 39 days, 22:16, 1 user, load averages: 30.68 28.82 33.59
+end 20:42: 20:42  up 39 days, 23:52, 1 user, load averages: 160.54 75.04 45.46
+resume 23:02 (first leg stopped at 52 questions at its time limit; load peaked at 160): 23:02  up 40 days,  2:12, 1 user, load averages: 16.00 14.75 12.30
+final-end 23:28: 23:28  up 40 days,  2:38, 1 user, load averages: 44.04 73.04 63.30

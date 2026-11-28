@@ -1,0 +1,32 @@
+Written 2026-11-27, before any model run. Model: Qwen2.5-0.5B-Instruct, CPU.
+
+Setup in one line: SQuAD v1.1 dev, up to 144 questions (3 per article), a 7-paragraph
+context of 1,000 to 1,500 tokens (the gold paragraph plus 6 paragraphs from the same
+article), the gold paragraph in slot 1, 2, 4, 6 or 7, same distractors in the same
+order every time. Two reference conditions: gold paragraph alone, and 7 distractors
+with no gold.
+
+What I expect:
+- Gold-only is the ceiling: 70 to 85% of answers contain a gold answer string.
+- With six distractors the model loses 10 to 20 points of that.
+- Position: a mild recency effect. Slot 7 (end) best, slot 1 (start) second, the
+  middle slots worst, with a spread of 3 to 8 points between best and worst. Liu et
+  al. found a U shape on much bigger models; a 0.5B model may show only the recency
+  half, or nothing.
+- With 144 questions the paired standard error on a position difference is about 3
+  to 4 points, so a 3 to 5 point effect lands right at the edge of detectable. If all
+  the paired 95% intervals straddle zero I will say "no position effect larger than X
+  points detected" and report X from the interval, not "no effect".
+
+Primary metric (fixed now): a gold answer string, normalised the SQuAD way, appears in
+the model's greedy answer ("contains"). Secondary: SQuAD F1 and the log-probability of
+the first gold answer.
+Primary tests (fixed now): paired article-cluster bootstrap (10,000 resamples) of
+middle (slot 4) - start (slot 1), middle - end (slot 7) and end - start, plus a
+within-question permutation test on the max-minus-min of the five slot accuracies.
+
+Amendment, 2026-11-27 19:06 (before any analysis): the first 2 questions took about 85 s
+each with five slots under load 30, which would have given about 32 questions in the
+time budget. I cut the design to three slots (1, 4, 7 of 7) to get roughly twice the
+questions. The metric and tests above are unchanged; "five slot accuracies" reads
+"three".

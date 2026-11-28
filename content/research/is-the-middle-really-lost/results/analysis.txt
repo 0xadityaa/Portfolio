@@ -1,0 +1,48 @@
+questions with all three slots: 74 from 48 articles
+
+== contains ==
+gold paragraph alone     :   62.16  [  51.90,   72.86]
+slot 1 (start)           :   51.35  [  39.73,   63.16]
+slot 4 (middle)          :   45.95  [  35.90,   56.00]
+slot 7 (end)             :   55.41  [  45.00,   66.15]
+  mean of the three slots minus gold alone:  -11.26  [ -20.83,   -2.19]
+no gold paragraph (n=25):    4.00
+paired differences (A minus B), 95% article-cluster bootstrap
+  middle minus start  :   -5.41  [ -15.79,    5.26]  se  5.29
+  middle minus end    :   -9.46  [ -18.06,   -1.33]  se  4.29
+  end minus start     :    4.05  [  -6.85,   15.07]  se  5.58
+max minus min of slot means: 9.46; permutation p = 0.178
+linear slope per slot step:  0.676  [-1.142,  2.511]
+
+== f1 ==
+gold paragraph alone     :   65.13  [  55.61,   74.78]
+slot 1 (start)           :   53.81  [  43.45,   63.99]
+slot 4 (middle)          :   43.45  [  34.17,   52.96]
+slot 7 (end)             :   53.96  [  43.52,   64.26]
+  mean of the three slots minus gold alone:  -14.72  [ -22.23,   -8.48]
+no gold paragraph (n=25):   11.60
+paired differences (A minus B), 95% article-cluster bootstrap
+  middle minus start  :  -10.36  [ -18.33,   -2.42]  se  4.07
+  middle minus end    :  -10.51  [ -17.64,   -3.53]  se  3.61
+  end minus start     :    0.15  [  -7.51,    7.67]  se  3.85
+max minus min of slot means: 10.51; permutation p = 0.021
+linear slope per slot step:  0.025  [-1.251,  1.278]
+
+== gold_logprob ==
+gold paragraph alone     :   -3.85  [  -4.66,   -3.05]
+slot 1 (start)           :   -4.84  [  -5.85,   -3.85]
+slot 4 (middle)          :   -5.32  [  -6.31,   -4.37]
+slot 7 (end)             :   -4.44  [  -5.42,   -3.50]
+  mean of the three slots minus gold alone:   -1.02  [  -1.50,   -0.55]
+no gold paragraph (n=25):  -17.48
+paired differences (A minus B), 95% article-cluster bootstrap
+  middle minus start  :   -0.48  [  -0.91,   -0.06]  se  0.22
+  middle minus end    :   -0.88  [  -1.29,   -0.50]  se  0.20
+  end minus start     :    0.40  [  -0.09,    0.90]  se  0.25
+max minus min of slot means: 0.88; permutation p = 0.000
+linear slope per slot step:  0.067  [-0.015,  0.150]
+
+questions right at every slot: 28 ( 37.8%), right at some slots only: 20 ( 27.0%), right at none: 26 ( 35.1%)
+
+smallest paired difference this sample can reliably detect (2.8 x se, 80% power): 14.8 points
+prompt tokens: min 1087, median 1250, max 1593
