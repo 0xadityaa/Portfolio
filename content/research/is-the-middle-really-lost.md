@@ -39,7 +39,7 @@ Nothing needed.
 
 ## Outline
 
-1. Opening: 46.0 against 55.4 on the same question; bold thesis.
+1. Opening: 45.9 against 55.4 on the same question; bold thesis.
 2. The short version: four bullets with numbers.
 3. How I built the test: paired design, metric fixed in advance.
 4. What the curve looks like: figure `middle-of-the-context-dip.svg`, table of three metrics.
