@@ -59,8 +59,10 @@ When you pack retrieved chunks into a prompt, do you keep them in rank order, or
 
 ## Substack Note
 
-Qwen2.5-0.5B answered 55.4% of 74 questions correctly with the relevant paragraph last among seven, and 45.9% with it in the middle. Same question, same six distractors, same order. I wanted to know whether that is the lost-in-the-middle effect or sampling noise, so I measured it with a paired bootstrap that resamples whole articles.
+Qwen2.5-0.5B answered 55.4% of 74 questions correctly with the relevant paragraph last among seven, and 45.9% with it in the middle. Same question, same six distractors, same order. Is that lost in the middle, or noise?
 
-The answer is borderline. On the accuracy metric I fixed in advance, middle minus end is -9.5 points with an interval from -18.1 to -1.3, but middle minus start is -5.4 with an interval from -15.8 to +5.3, and a permutation test on the whole curve gives p = 0.18. The secondary metrics, F1 and gold-answer log-probability, show a clearer dip of about 10 F1 points, though they are the same answers and I applied no correction for multiple looks. The six distractors themselves cost 11.3 points, as much as position does, so I would trim the prompt before reordering it. The 74 questions can only detect a gap of about 15 points, and I say what that means for the null in the post.
+Borderline. On the accuracy metric I fixed in advance, middle minus end is -9.5 points (interval -18.1 to -1.3), but middle minus start is -5.4 (-15.8 to +5.3) and a permutation test on the whole curve gives p = 0.18. The secondary metrics, F1 and gold-answer log-probability, show a clearer dip, though they reuse the same answers with no multiple-comparison correction.
+
+The six distractors cost 11.3 points, as much as position does, so I would trim the prompt before reordering it. The post covers what 74 questions can and cannot detect.
 
 <BLOG_URL>
