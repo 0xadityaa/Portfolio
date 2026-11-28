@@ -62,4 +62,4 @@ The prompt with no chat template at all scored highest, 70% with no examples and
 
 The extra 418 tokens cost $83.53 per 100,000 queries uncached on Sonnet 5.5. Print the exact string your model sees before you add an example.
 
-https://www.0xadityaa.dev/blog/is-few-shot-worth-the-tokens
+<BLOG_URL>
