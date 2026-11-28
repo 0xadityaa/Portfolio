@@ -1,0 +1,6 @@
+2026-11-27 18:55:12 load check 0: up 39 days, 22:05, 1 user, load averages: 48.42 49.92 42.01
+2026-11-27 19:00:12 load check 1: up 39 days, 22:10, 1 user, load averages: 24.10 35.59 38.00
+2026-11-27 19:05:13 load check 2: up 39 days, 22:15, 1 user, load averages: 25.91 27.75 33.55
+2026-11-27 19:11:10 START (3 retries done, load still above 20 at the last check; go.sh was killed during the last sleep, started by hand): up 39 days, 22:21, 1 user, load averages: 19.29 23.49 29.83
+2026-11-27 19:25:15 RESTART after trimming the mismatch plan to k=0 and 8 (time budget): up 39 days, 22:35, 1 user, load averages: 49.09 37.05 32.95
+2026-11-27 20:44:14 END: up 39 days, 23:54, 1 user, load averages: 62.86 69.36 46.84

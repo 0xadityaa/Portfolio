@@ -1,0 +1,7 @@
+cache check, max |logit diff| over labels: 6e-05
+Qwen2.5-0.5B-Instruct chat      k=0 set=1  115.1s load=29.4
+Qwen2.5-0.5B-Instruct chat      k=3 set=1  127.1s load=30.0
+Qwen2.5-0.5B-Instruct chat      k=3 set=2  103.4s load=38.8
+Qwen2.5-0.5B-Instruct chat      k=3 set=3   94.0s load=25.1
+Qwen2.5-0.5B-Instruct chat      k=8 set=1  122.1s load=28.1
+Qwen2.5-0.5B-Instruct chat      k=8 set=2  124.9s load=39.8

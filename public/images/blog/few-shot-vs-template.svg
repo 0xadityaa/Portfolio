@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" data-viz="" viewBox="0 0 560 366" width="560" height="366" role="img" aria-label="Accuracy against prompt tokens for Qwen2.5-0.5B on 100 AG News articles. With no chat template, 0 shots score 70 percent and 8 shots 77 percent. With the model's own chat template, 0 shots score 66 percent and 8 shots 69 percent. A Llama-2 template scores 31 percent at 0 shots, and a chat template missing its assistant header scores 25 percent; in both, label mass is 0, so the answer position broke and ability is unmeasured.">
+<style data-standalone="">text{font-family:"DM Sans",Helvetica,Arial,sans-serif}.m{font-family:"DM Mono",Menlo,Consolas,monospace}.h{font-family:Newsreader,Georgia,serif;font-weight:500}</style>
+<rect width="560" height="366" fill="#272725"/>
+<g class="a-fade" style="--d:0s;--t:.5s"><text class="h" x="24" y="38" font-size="24" fill="#FAF9F5">A wrong template broke the answer slot</text></g>
+<path d="M64 290.0H512" stroke="#474743" stroke-width="1" stroke-dasharray="3 4" fill="none"/>
+<text class="m" x="56" y="295.0" text-anchor="end" font-size="13" fill="#B5B3AA">20%</text>
+<path d="M64 228.0H512" stroke="#474743" stroke-width="1" stroke-dasharray="3 4" fill="none"/>
+<text class="m" x="56" y="233.0" text-anchor="end" font-size="13" fill="#B5B3AA">40%</text>
+<path d="M64 166.0H512" stroke="#474743" stroke-width="1" stroke-dasharray="3 4" fill="none"/>
+<text class="m" x="56" y="171.0" text-anchor="end" font-size="13" fill="#B5B3AA">60%</text>
+<path d="M64 104.0H512" stroke="#474743" stroke-width="1" stroke-dasharray="3 4" fill="none"/>
+<text class="m" x="56" y="109.0" text-anchor="end" font-size="13" fill="#B5B3AA">80%</text>
+<path class="a-draw" pathLength="1" style="--d:.1s;--t:.5s" d="M64 290H512" stroke="#B5B3AA" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+<text class="m" x="64.0" y="310" text-anchor="middle" font-size="13" fill="#B5B3AA">0</text>
+<text class="m" x="150.2" y="310" text-anchor="middle" font-size="13" fill="#B5B3AA">100</text>
+<text class="m" x="236.3" y="310" text-anchor="middle" font-size="13" fill="#B5B3AA">200</text>
+<text class="m" x="322.5" y="310" text-anchor="middle" font-size="13" fill="#B5B3AA">300</text>
+<text class="m" x="408.6" y="310" text-anchor="middle" font-size="13" fill="#B5B3AA">400</text>
+<text class="m" x="494.8" y="310" text-anchor="middle" font-size="13" fill="#B5B3AA">500</text>
+<text x="288" y="332" text-anchor="middle" font-size="15" fill="#B5B3AA">Prompt tokens per query (Qwen tokenizer)</text>
+<path class="a-draw" pathLength="1" style="--d:0.5s;--t:.6s" d="M143.7 147.4L183.9 171.2L267.4 149.5L503.5 138.1" stroke="#FAF9F5" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+<g class="a-fade" style="--d:0.8s;--t:.5s">
+<circle cx="143.7" cy="147.4" r="4.5" fill="#FAF9F5"/>
+<path d="M183.9 181.5V162.9" stroke="#FAF9F5" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="183.9" cy="171.2" r="4.5" fill="#FAF9F5"/>
+<path d="M267.4 150.5V147.4" stroke="#FAF9F5" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="267.4" cy="149.5" r="4.5" fill="#FAF9F5"/>
+<path d="M503.5 147.4V125.7" stroke="#FAF9F5" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="503.5" cy="138.1" r="4.5" fill="#FAF9F5"/>
+</g>
+<path class="a-draw" pathLength="1" style="--d:0.9s;--t:.6s" d="M144.5 255.9L504.4 172.2" stroke="#DB8061" stroke-width="1.5" stroke-linecap="round" fill="none" stroke-dasharray="5 4"/>
+<g class="a-fade" style="--d:1.2s;--t:.5s">
+<circle cx="144.5" cy="255.9" r="4.5" fill="#DB8061"/>
+<path d="M504.4 197.0V147.4" stroke="#DB8061" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="504.4" cy="172.2" r="4.5" fill="#DB8061"/>
+</g>
+<path class="a-draw" pathLength="1" style="--d:1.3s;--t:.6s" d="M134.4 135.0L446.0 113.3" stroke="#B5B3AA" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+<g class="a-fade" style="--d:1.6s;--t:.5s">
+<circle cx="134.4" cy="135.0" r="4.5" fill="#B5B3AA"/>
+<path d="M446.0 119.5V104.0" stroke="#B5B3AA" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="446.0" cy="113.3" r="4.5" fill="#B5B3AA"/>
+</g>
+<g class="a-fade" style="--d:1.7s;--t:.5s"><circle cx="141.1" cy="274.5" r="4.5" fill="#DB8061"/><text x="153.1" y="281.5" font-size="14" fill="#DB8061">header cut: 25%, label mass 0</text></g>
+<g class="a-fade" style="--d:1.7s;--t:.5s"><text x="158.5" y="265.9" font-size="14" fill="#DB8061">Llama-2, 0 shots: 31%, label mass 0</text></g>
+<g class="a-fade" style="--d:.3s;--t:.5s"><path d="M24 66H46" stroke="#B5B3AA" stroke-width="1.5" stroke-linecap="round"/><text x="54" y="71" font-size="15" fill="#B5B3AA">no template</text></g>
+<g class="a-fade" style="--d:.3s;--t:.5s"><path d="M150 66H172" stroke="#FAF9F5" stroke-width="1.5" stroke-linecap="round"/><text x="180" y="71" font-size="15" fill="#FAF9F5">own chat template</text></g>
+<g class="a-fade" style="--d:.3s;--t:.5s"><path d="M334 66H356" stroke="#DB8061" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="5 4"/><text x="364" y="71" font-size="15" fill="#DB8061">Llama-2 template</text></g>
+<g class="a-fade" style="--d:2.0s;--t:.5s"><text class="m" x="455.0" y="118.3" font-size="14" font-weight="500" fill="#B5B3AA">77%</text></g>
+<g class="a-fade" style="--d:2.0s;--t:.5s"><text class="m" x="512.5" y="143.1" font-size="14" font-weight="500" fill="#FAF9F5">69%</text></g>
+<g class="a-fade" style="--d:2.0s;--t:.5s"><text class="m" x="513.4" y="177.2" font-size="14" font-weight="500" fill="#DB8061">58%</text></g>
+<text class="a-fade" style="--d:2.3s;--t:.5s" x="24" y="352" font-size="15" fill="#B5B3AA">Dots: mean of three example sets. Bars: lowest to highest.</text>
+</svg>

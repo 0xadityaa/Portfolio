@@ -1,0 +1,37 @@
+=== Qwen2.5-0.5B-Instruct ===
+template                      k  tokens  mean acc        per set (acc %)  range label mass top1=label
+own chat template             0      92     66.0%                   66.0    0.0      0.978      1.000
+own chat template             1     139     58.3%       61.0  55.0  59.0    6.0      0.948      1.000
+own chat template             3     236     65.3%       65.0  66.0  65.0    1.0      0.964      1.000
+own chat template             8     510     69.0%       66.0  68.0  73.0    7.0      0.972      1.000
+chat, no assistant header     0      89     25.0%                   25.0    0.0      0.000      0.000
+Llama-2 [INST] template       0      93     31.0%                   31.0    0.0      0.000      0.000
+Llama-2 [INST] template       8     511     58.0%       66.0  50.0  58.0   16.0      0.879      0.977
+no template                   0      82     70.0%                   70.0    0.0      0.893      0.960
+no template                   8     443     77.0%       76.0  75.0  80.0    5.0      0.903      0.973
+
+Share of predictions per label (World, Sports, Business, Technology), all sets pooled; gold is 25% each:
+  own chat template            k=0:  10.0%   27.0%   55.0%    8.0%
+  own chat template            k=1:  10.0%   27.0%   61.0%    2.0%
+  own chat template            k=3:  14.3%   27.7%   54.3%    3.7%
+  own chat template            k=8:  20.3%   26.3%   47.7%    5.7%
+  chat, no assistant header    k=0:   0.0%    0.0%  100.0%    0.0%
+  Llama-2 [INST] template      k=0:  15.0%    0.0%   35.0%   50.0%
+  Llama-2 [INST] template      k=8:   1.7%   29.3%   55.3%   13.7%
+  no template                  k=0:  12.0%   25.0%   53.0%   10.0%
+  no template                  k=8:  19.7%   27.7%   36.3%   16.3%
+
+One set of 100 articles at 80% accuracy: 95% Wilson interval 71.1 to 86.7 (about +/-7.8 points).
+
+Token cost per accuracy point gained over 0 shots (own chat template):
+  1 shots: +  47 tokens per query,  -7.7 points (per set -5.0, -11.0, -7.0),    no gain
+  3 shots: + 144 tokens per query,  -0.7 points (per set -1.0, +0.0, -1.0),    no gain
+  8 shots: + 418 tokens per query,  +3.0 points (per set +0.0, +2.0, +7.0),     139 extra tokens per point
+
+Template mismatch cost (own chat template minus mismatched, points, per set; positive = mismatch hurts):
+  chat, no assistant header    k=0: mean +41.0  per set +41.0
+  Llama-2 [INST] template      k=0: mean +35.0  per set +35.0
+  Llama-2 [INST] template      k=8: mean +11.0  per set +0.0, +18.0, +15.0
+  no template                  k=0: mean  -4.0  per set -4.0
+  no template                  k=8: mean  -8.0  per set -10.0, -7.0, -7.0
+
