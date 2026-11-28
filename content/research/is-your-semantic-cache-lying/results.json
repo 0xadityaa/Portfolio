@@ -1,0 +1,871 @@
+{
+ "n_pairs": 5000,
+ "dup_share": 0.3704,
+ "models": {
+  "MiniLM-L6": {
+   "random": {
+    "mean": 0.04453837126493454,
+    "std": 0.08445528894662857,
+    "p01": -0.11061771959066391,
+    "p50": 0.03416598588228226,
+    "p99": 0.3074162006378174,
+    "max": 0.9042627215385437
+   },
+   "dup_cos_mean": 0.8648528456687927,
+   "nondup_cos_mean": 0.5609018206596375,
+   "latency_ms_median": 33.21499994490296,
+   "latency_ms_p95": 58.78502639825456,
+   "bulk_seconds": 59.15414071083069,
+   "sweep": [
+    {
+     "t": 0.5,
+     "hit_rate": 0.7834,
+     "false_hit_share": 0.5279550676538167,
+     "false_ci": [
+      0.5116734180550238,
+      0.5435993817890059
+     ],
+     "dup_recall": 0.9983801295896328,
+     "nondup_hit_rate": 0.6569250317662008,
+     "random_above": 0.0008
+    },
+    {
+     "t": 0.6,
+     "hit_rate": 0.6954,
+     "false_hit_share": 0.47167098073051483,
+     "false_ci": [
+      0.45426100379371404,
+      0.48860919869956015
+     ],
+     "dup_recall": 0.9919006479481641,
+     "nondup_hit_rate": 0.5209656925031766,
+     "random_above": 0.0004
+    },
+    {
+     "t": 0.7,
+     "hit_rate": 0.5802,
+     "false_hit_share": 0.3995174077904171,
+     "false_ci": [
+      0.38135892190757525,
+      0.41719019845477956
+     ],
+     "dup_recall": 0.9406047516198704,
+     "nondup_hit_rate": 0.3681702668360864,
+     "random_above": 0.0002
+    },
+    {
+     "t": 0.75,
+     "hit_rate": 0.5134,
+     "false_hit_share": 0.3650175301908843,
+     "false_ci": [
+      0.34616895492186917,
+      0.3834153321757026
+     ],
+     "dup_recall": 0.8801295896328294,
+     "nondup_hit_rate": 0.29764930114358323,
+     "random_above": 0.0002
+    },
+    {
+     "t": 0.8,
+     "hit_rate": 0.4198,
+     "false_hit_share": 0.33063363506431637,
+     "false_ci": [
+      0.3117567048317373,
+      0.35120268364274004
+     ],
+     "dup_recall": 0.7586393088552916,
+     "nondup_hit_rate": 0.2204574332909784,
+     "random_above": 0.0002
+    },
+    {
+     "t": 0.85,
+     "hit_rate": 0.3166,
+     "false_hit_share": 0.27732154137713205,
+     "false_ci": [
+      0.25728373234242125,
+      0.2989227746590838
+     ],
+     "dup_recall": 0.6177105831533477,
+     "nondup_hit_rate": 0.1394536213468869,
+     "random_above": 0.0002
+    },
+    {
+     "t": 0.9,
+     "hit_rate": 0.2014,
+     "false_hit_share": 0.211519364448858,
+     "false_ci": [
+      0.18968663279942177,
+      0.23634862232181
+     ],
+     "dup_recall": 0.4287257019438445,
+     "nondup_hit_rate": 0.06766200762388819,
+     "random_above": 0.0002
+    },
+    {
+     "t": 0.95,
+     "hit_rate": 0.0872,
+     "false_hit_share": 0.13990825688073394,
+     "false_ci": [
+      0.10797953186746378,
+      0.17266292974588937
+     ],
+     "dup_recall": 0.20248380129589633,
+     "nondup_hit_rate": 0.01937738246505718,
+     "random_above": 0.0
+    }
+   ],
+   "hist_random": [
+    4,
+    8,
+    40,
+    121,
+    311,
+    529,
+    766,
+    888,
+    789,
+    539,
+    332,
+    242,
+    147,
+    99,
+    65,
+    46,
+    25,
+    15,
+    13,
+    5,
+    5,
+    3,
+    1,
+    2,
+    2,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0
+   ],
+   "hist_dup": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    1,
+    0,
+    1,
+    4,
+    13,
+    14,
+    33,
+    42,
+    66,
+    74,
+    150,
+    149,
+    159,
+    212,
+    233,
+    251,
+    234,
+    213
+   ],
+   "hist_nondup": [
+    1,
+    1,
+    5,
+    6,
+    28,
+    63,
+    63,
+    66,
+    53,
+    50,
+    44,
+    31,
+    26,
+    37,
+    38,
+    39,
+    35,
+    49,
+    62,
+    80,
+    83,
+    95,
+    99,
+    105,
+    128,
+    125,
+    145,
+    134,
+    130,
+    168,
+    145,
+    121,
+    151,
+    153,
+    150,
+    136,
+    127,
+    99,
+    53,
+    24
+   ],
+   "t_for_5pct": null,
+   "t_for_10pct": {
+    "t": 0.9663090128755365,
+    "hit_rate": 0.055,
+    "dup_recall": 0.13444924406047515
+   },
+   "false_hit_examples": [
+    {
+     "cos": 0.9612103700637817,
+     "q1": "Which is a suitable inpatient drug and alcohol rehab center in Hale County AL?",
+     "q2": "Which is a suitable inpatient drug and alcohol rehab center in Clarke County AL?"
+    },
+    {
+     "cos": 0.9887614250183105,
+     "q1": "Is it safe to use castor oil at 36 weeks to induce labor?",
+     "q2": "Is it safe to use castor oil at 39 weeks to induce labor?"
+    },
+    {
+     "cos": 0.959118127822876,
+     "q1": "What are the strengths and weaknesses of the advising system at Northeastern Illinois University?",
+     "q2": "What are the strengths and weaknesses of the advising system at Western Illinois University?"
+    },
+    {
+     "cos": 0.9269866347312927,
+     "q1": "What is consultancy?",
+     "q2": "What is consultancy company???"
+    },
+    {
+     "cos": 0.9082973003387451,
+     "q1": "Which is the largest city in the world by area?",
+     "q2": "Which is the largest city in the world?"
+    },
+    {
+     "cos": 0.9256605505943298,
+     "q1": "Who is the best Dermatologist in Delhi?",
+     "q2": "Who is the best dermatologist in India?"
+    },
+    {
+     "cos": 0.9633808732032776,
+     "q1": "What is the song in the link below?",
+     "q2": "What song is this in the link below?"
+    },
+    {
+     "cos": 0.9626637697219849,
+     "q1": "Who will win the 2014 Super Bowl?",
+     "q2": "Who do you think will win the 2013-2014 Super Bowl?"
+    }
+   ]
+  },
+  "bge-small": {
+   "random": {
+    "mean": 0.38152366876602173,
+    "std": 0.07124555855989456,
+    "p01": 0.2325507402420044,
+    "p50": 0.3768692910671234,
+    "p99": 0.5682136416435242,
+    "max": 0.9101865291595459
+   },
+   "dup_cos_mean": 0.9056171178817749,
+   "nondup_cos_mean": 0.7217657566070557,
+   "latency_ms_median": 70.68270799936727,
+   "latency_ms_p95": 108.92172978492454,
+   "bulk_seconds": 149.3788001537323,
+   "sweep": [
+    {
+     "t": 0.5,
+     "hit_rate": 0.9164,
+     "false_hit_share": 0.5958096900916631,
+     "false_ci": [
+      0.5819449504409808,
+      0.6097252037154041
+     ],
+     "dup_recall": 1.0,
+     "nondup_hit_rate": 0.8672172808132147,
+     "random_above": 0.0574
+    },
+    {
+     "t": 0.6,
+     "hit_rate": 0.8722,
+     "false_hit_share": 0.5753267599174501,
+     "false_ci": [
+      0.5598954769830268,
+      0.5899362676414869
+     ],
+     "dup_recall": 1.0,
+     "nondup_hit_rate": 0.7970139771283354,
+     "random_above": 0.0044
+    },
+    {
+     "t": 0.7,
+     "hit_rate": 0.7652,
+     "false_hit_share": 0.5169890224777836,
+     "false_ci": [
+      0.5006418030013473,
+      0.5324652094581254
+     ],
+     "dup_recall": 0.9978401727861771,
+     "nondup_hit_rate": 0.6283354510800508,
+     "random_above": 0.0008
+    },
+    {
+     "t": 0.75,
+     "hit_rate": 0.6844,
+     "false_hit_share": 0.4658094681472823,
+     "false_ci": [
+      0.4490068149003754,
+      0.4819258736751341
+     ],
+     "dup_recall": 0.9870410367170627,
+     "nondup_hit_rate": 0.5063532401524777,
+     "random_above": 0.0004
+    },
+    {
+     "t": 0.8,
+     "hit_rate": 0.5898,
+     "false_hit_share": 0.40861308918277384,
+     "false_ci": [
+      0.39042738098285834,
+      0.42599283278638356
+     ],
+     "dup_recall": 0.9416846652267818,
+     "nondup_hit_rate": 0.38278271918678525,
+     "random_above": 0.0002
+    },
+    {
+     "t": 0.85,
+     "hit_rate": 0.4524,
+     "false_hit_share": 0.34526967285587973,
+     "false_ci": [
+      0.325548118539444,
+      0.36518019813035174
+     ],
+     "dup_recall": 0.7996760259179265,
+     "nondup_hit_rate": 0.24809402795425667,
+     "random_above": 0.0002
+    },
+    {
+     "t": 0.9,
+     "hit_rate": 0.2854,
+     "false_hit_share": 0.25508058864751226,
+     "false_ci": [
+      0.23390338298489266,
+      0.27706568793525316
+     ],
+     "dup_recall": 0.5739740820734341,
+     "nondup_hit_rate": 0.1156289707750953,
+     "random_above": 0.0002
+    },
+    {
+     "t": 0.95,
+     "hit_rate": 0.1258,
+     "false_hit_share": 0.14149443561208266,
+     "false_ci": [
+      0.11351466280278452,
+      0.17018233978860225
+     ],
+     "dup_recall": 0.2915766738660907,
+     "nondup_hit_rate": 0.028271918678526048,
+     "random_above": 0.0
+    }
+   ],
+   "hist_random": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    5,
+    18,
+    81,
+    207,
+    450,
+    678,
+    865,
+    820,
+    758,
+    478,
+    278,
+    176,
+    103,
+    49,
+    15,
+    11,
+    3,
+    1,
+    2,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0
+   ],
+   "hist_dup": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    3,
+    9,
+    23,
+    45,
+    104,
+    186,
+    241,
+    288,
+    309,
+    318,
+    325
+   ],
+   "hist_nondup": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    7,
+    5,
+    14,
+    39,
+    54,
+    77,
+    83,
+    69,
+    55,
+    45,
+    57,
+    72,
+    88,
+    133,
+    173,
+    197,
+    223,
+    247,
+    230,
+    239,
+    258,
+    256,
+    244,
+    152,
+    93,
+    36
+   ],
+   "t_for_5pct": {
+    "t": 0.987038626609442,
+    "hit_rate": 0.0286,
+    "dup_recall": 0.0734341252699784
+   },
+   "t_for_10pct": {
+    "t": 0.9692703862660943,
+    "hit_rate": 0.0732,
+    "dup_recall": 0.17818574514038876
+   },
+   "false_hit_examples": [
+    {
+     "cos": 0.9222211837768555,
+     "q1": "Why should you jailbreak a iPhone 6?",
+     "q2": "Why should I jailbreak my iPhone?"
+    },
+    {
+     "cos": 0.9076370000839233,
+     "q1": "What are the legal separation laws in PA and how do they compare with the ones in Washington?",
+     "q2": "What are the legal separation laws in PA and how do they compare with the ones in Minnesota?"
+    },
+    {
+     "cos": 0.9286692142486572,
+     "q1": "How much minimum marks i need in neet 2016 to get admission in private medical college as well as govt college ?",
+     "q2": "How much marks is required to get admission in private medical college through neet?"
+    },
+    {
+     "cos": 0.9555903673171997,
+     "q1": "Who is urologist in Hyderabad?",
+     "q2": "Who is the best urologist in Hyderabad?"
+    },
+    {
+     "cos": 0.9061427116394043,
+     "q1": "How can I improve my novel writing skills?",
+     "q2": "How do I improve my writing skills?"
+    },
+    {
+     "cos": 0.9043624401092529,
+     "q1": "What's the difference between 32 bit and 64 bit cpu?",
+     "q2": "What is the difference between a 32 bit and 64 bit application?"
+    },
+    {
+     "cos": 0.9004786610603333,
+     "q1": "Is it necessary to have a dress code in educational institutions, mainly in colleges?",
+     "q2": "Should there be a dress code for college students?"
+    },
+    {
+     "cos": 0.9014409780502319,
+     "q1": "What are some of the best compliments you ever heard about yourself?",
+     "q2": "What are the best compliments you have ever heard?"
+    }
+   ]
+  },
+  "e5-small": {
+   "random": {
+    "mean": 0.7667297124862671,
+    "std": 0.03187967464327812,
+    "p01": 0.6997470855712891,
+    "p50": 0.7648956775665283,
+    "p99": 0.8546290397644043,
+    "max": 0.9575749039649963
+   },
+   "dup_cos_mean": 0.9575265049934387,
+   "nondup_cos_mean": 0.8837234377861023,
+   "latency_ms_median": 83.69941700948402,
+   "latency_ms_p95": 150.67473478848115,
+   "bulk_seconds": 162.2969400882721,
+   "sweep": [
+    {
+     "t": 0.5,
+     "hit_rate": 1.0,
+     "false_hit_share": 0.6296,
+     "false_ci": [
+      0.615595,
+      0.642605
+     ],
+     "dup_recall": 1.0,
+     "nondup_hit_rate": 1.0,
+     "random_above": 1.0
+    },
+    {
+     "t": 0.6,
+     "hit_rate": 1.0,
+     "false_hit_share": 0.6296,
+     "false_ci": [
+      0.615595,
+      0.642605
+     ],
+     "dup_recall": 1.0,
+     "nondup_hit_rate": 1.0,
+     "random_above": 1.0
+    },
+    {
+     "t": 0.7,
+     "hit_rate": 0.9988,
+     "false_hit_share": 0.6291549859831799,
+     "false_ci": [
+      0.6151370134954579,
+      0.6421003620656979
+     ],
+     "dup_recall": 1.0,
+     "nondup_hit_rate": 0.9980940279542567,
+     "random_above": 0.9894
+    },
+    {
+     "t": 0.75,
+     "hit_rate": 0.9736,
+     "false_hit_share": 0.6195562859490551,
+     "false_ci": [
+      0.6057541439284626,
+      0.6328095101518929
+     ],
+     "dup_recall": 1.0,
+     "nondup_hit_rate": 0.9580686149936467,
+     "random_above": 0.6924
+    },
+    {
+     "t": 0.8,
+     "hit_rate": 0.9168,
+     "false_hit_share": 0.5959860383944153,
+     "false_ci": [
+      0.5820717709979761,
+      0.6097194236281287
+     ],
+     "dup_recall": 1.0,
+     "nondup_hit_rate": 0.8678526048284625,
+     "random_above": 0.1398
+    },
+    {
+     "t": 0.85,
+     "hit_rate": 0.828,
+     "false_hit_share": 0.5526570048309178,
+     "false_ci": [
+      0.5372313209515226,
+      0.5675886216358055
+     ],
+     "dup_recall": 1.0,
+     "nondup_hit_rate": 0.7268106734434562,
+     "random_above": 0.0118
+    },
+    {
+     "t": 0.9,
+     "hit_rate": 0.6524,
+     "false_hit_share": 0.4488044144696505,
+     "false_ci": [
+      0.43053738938557784,
+      0.4656892364097332
+     ],
+     "dup_recall": 0.9708423326133909,
+     "nondup_hit_rate": 0.4650571791613723,
+     "random_above": 0.001
+    },
+    {
+     "t": 0.95,
+     "hit_rate": 0.3348,
+     "false_hit_share": 0.3046594982078853,
+     "false_ci": [
+      0.2835545257545379,
+      0.3260125402474157
+     ],
+     "dup_recall": 0.6285097192224622,
+     "nondup_hit_rate": 0.16200762388818296,
+     "random_above": 0.0002
+    }
+   ],
+   "hist_random": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    53,
+    536,
+    1595,
+    1739,
+    813,
+    205,
+    48,
+    8,
+    2,
+    1,
+    0
+   ],
+   "hist_dup": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    14,
+    90,
+    373,
+    686,
+    688
+   ],
+   "hist_nondup": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    45,
+    140,
+    171,
+    174,
+    324,
+    470,
+    539,
+    558,
+    558,
+    163
+   ],
+   "t_for_5pct": null,
+   "t_for_10pct": {
+    "t": 0.99,
+    "hit_rate": 0.0446,
+    "dup_recall": 0.10961123110151189
+   },
+   "false_hit_examples": [
+    {
+     "cos": 0.9595309495925903,
+     "q1": "What is 7Up?",
+     "q2": "Why is 7up called 7up?"
+    },
+    {
+     "cos": 0.9328535795211792,
+     "q1": "Is there any way to scrape data from a LinkedIn public profile?",
+     "q2": "Can you legally scrape Google+ public profile data?"
+    },
+    {
+     "cos": 0.9119001626968384,
+     "q1": "Why are people ignorant?",
+     "q2": "Why do people ignore other people?"
+    },
+    {
+     "cos": 0.9904403686523438,
+     "q1": "What language is used in Visual Basic? How does it compare to C#?",
+     "q2": "What language is used in Visual Basic? How does it compare to C++?"
+    },
+    {
+     "cos": 0.9416991472244263,
+     "q1": "What are the strengths and weaknesses of the advising system at Northeastern Illinois University?",
+     "q2": "What are the strengths and weaknesses of the advising system at Western Illinois University?"
+    },
+    {
+     "cos": 0.9025329351425171,
+     "q1": "I\u2019m Chinese, how do I learn English?",
+     "q2": "How can I improve my English on Quora?"
+    },
+    {
+     "cos": 0.9401472806930542,
+     "q1": "What are the scopes in biotechnology?",
+     "q2": "What are the scopes of biotechnology abroad?"
+    },
+    {
+     "cos": 0.9580203890800476,
+     "q1": "Are engineers overpaid?",
+     "q2": "Why are engineers so overpaid?"
+    }
+   ]
+  }
+ }
+}

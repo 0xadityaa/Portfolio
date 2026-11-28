@@ -1,0 +1,76 @@
+pairs 5000, duplicates 1852 (37.0%)
+MiniLM-L6 done bulk 59s
+bge-small done bulk 149s
+e5-small done bulk 162s
+
+== MiniLM-L6  random pairs: mean 0.045 sd 0.084 p1 -0.111 p99 0.307 max 0.904
+   duplicate pairs mean cos 0.865, non-duplicate 0.561
+   embed latency batch 1: median 33.2 ms, p95 58.8 ms
+   thr   hit%   dupRecall  falseHit%[95% CI]   nonDupHit%  randomAbove%
+   0.50   78.3%   99.8%    52.8% [51.2%, 54.4%]    65.7%   0.08%
+   0.60   69.5%   99.2%    47.2% [45.4%, 48.9%]    52.1%   0.04%
+   0.70   58.0%   94.1%    40.0% [38.1%, 41.7%]    36.8%   0.02%
+   0.75   51.3%   88.0%    36.5% [34.6%, 38.3%]    29.8%   0.02%
+   0.80   42.0%   75.9%    33.1% [31.2%, 35.1%]    22.0%   0.02%
+   0.85   31.7%   61.8%    27.7% [25.7%, 29.9%]    13.9%   0.02%
+   0.90   20.1%   42.9%    21.2% [19.0%, 23.6%]     6.8%   0.02%
+   0.95    8.7%   20.2%    14.0% [10.8%, 17.3%]     1.9%   0.00%
+   5% false-hit threshold: None
+   10% false-hit threshold: {'t': 0.9663090128755365, 'hit_rate': 0.055, 'dup_recall': 0.13444924406047515}
+   false hits at cosine >= 0.90 (seeded pick):
+     0.961  'Which is a suitable inpatient drug and alcohol rehab center in Hale County AL?'  |  'Which is a suitable inpatient drug and alcohol rehab center in Clarke County AL?'
+     0.989  'Is it safe to use castor oil at 36 weeks to induce labor?'  |  'Is it safe to use castor oil at 39 weeks to induce labor?'
+     0.959  'What are the strengths and weaknesses of the advising system at Northeastern Illinois University?'  |  'What are the strengths and weaknesses of the advising system at Western Illinois University?'
+     0.927  'What is consultancy?'  |  'What is consultancy company???'
+     0.908  'Which is the largest city in the world by area?'  |  'Which is the largest city in the world?'
+     0.926  'Who is the best Dermatologist in Delhi?'  |  'Who is the best dermatologist in India?'
+     0.963  'What is the song in the link below?'  |  'What song is this in the link below?'
+     0.963  'Who will win the 2014 Super Bowl?'  |  'Who do you think will win the 2013-2014 Super Bowl?'
+
+== bge-small  random pairs: mean 0.382 sd 0.071 p1 0.233 p99 0.568 max 0.910
+   duplicate pairs mean cos 0.906, non-duplicate 0.722
+   embed latency batch 1: median 70.7 ms, p95 108.9 ms
+   thr   hit%   dupRecall  falseHit%[95% CI]   nonDupHit%  randomAbove%
+   0.50   91.6%  100.0%    59.6% [58.2%, 61.0%]    86.7%   5.74%
+   0.60   87.2%  100.0%    57.5% [56.0%, 59.0%]    79.7%   0.44%
+   0.70   76.5%   99.8%    51.7% [50.1%, 53.2%]    62.8%   0.08%
+   0.75   68.4%   98.7%    46.6% [44.9%, 48.2%]    50.6%   0.04%
+   0.80   59.0%   94.2%    40.9% [39.0%, 42.6%]    38.3%   0.02%
+   0.85   45.2%   80.0%    34.5% [32.6%, 36.5%]    24.8%   0.02%
+   0.90   28.5%   57.4%    25.5% [23.4%, 27.7%]    11.6%   0.02%
+   0.95   12.6%   29.2%    14.1% [11.4%, 17.0%]     2.8%   0.00%
+   5% false-hit threshold: {'t': 0.987038626609442, 'hit_rate': 0.0286, 'dup_recall': 0.0734341252699784}
+   10% false-hit threshold: {'t': 0.9692703862660943, 'hit_rate': 0.0732, 'dup_recall': 0.17818574514038876}
+   false hits at cosine >= 0.90 (seeded pick):
+     0.922  'Why should you jailbreak a iPhone 6?'  |  'Why should I jailbreak my iPhone?'
+     0.908  'What are the legal separation laws in PA and how do they compare with the ones in Washington?'  |  'What are the legal separation laws in PA and how do they compare with the ones in Minnesota?'
+     0.929  'How much minimum marks i need in neet 2016 to get admission in private medical college as well as govt college ?'  |  'How much marks is required to get admission in private medical college through neet?'
+     0.956  'Who is urologist in Hyderabad?'  |  'Who is the best urologist in Hyderabad?'
+     0.906  'How can I improve my novel writing skills?'  |  'How do I improve my writing skills?'
+     0.904  "What's the difference between 32 bit and 64 bit cpu?"  |  'What is the difference between a 32 bit and 64 bit application?'
+     0.900  'Is it necessary to have a dress code in educational institutions, mainly in colleges?'  |  'Should there be a dress code for college students?'
+     0.901  'What are some of the best compliments you ever heard about yourself?'  |  'What are the best compliments you have ever heard?'
+
+== e5-small  random pairs: mean 0.767 sd 0.032 p1 0.700 p99 0.855 max 0.958
+   duplicate pairs mean cos 0.958, non-duplicate 0.884
+   embed latency batch 1: median 83.7 ms, p95 150.7 ms
+   thr   hit%   dupRecall  falseHit%[95% CI]   nonDupHit%  randomAbove%
+   0.50  100.0%  100.0%    63.0% [61.6%, 64.3%]   100.0%   100.00%
+   0.60  100.0%  100.0%    63.0% [61.6%, 64.3%]   100.0%   100.00%
+   0.70   99.9%  100.0%    62.9% [61.5%, 64.2%]    99.8%   98.94%
+   0.75   97.4%  100.0%    62.0% [60.6%, 63.3%]    95.8%   69.24%
+   0.80   91.7%  100.0%    59.6% [58.2%, 61.0%]    86.8%   13.98%
+   0.85   82.8%  100.0%    55.3% [53.7%, 56.8%]    72.7%   1.18%
+   0.90   65.2%   97.1%    44.9% [43.1%, 46.6%]    46.5%   0.10%
+   0.95   33.5%   62.9%    30.5% [28.4%, 32.6%]    16.2%   0.02%
+   5% false-hit threshold: None
+   10% false-hit threshold: {'t': 0.99, 'hit_rate': 0.0446, 'dup_recall': 0.10961123110151189}
+   false hits at cosine >= 0.90 (seeded pick):
+     0.960  'What is 7Up?'  |  'Why is 7up called 7up?'
+     0.933  'Is there any way to scrape data from a LinkedIn public profile?'  |  'Can you legally scrape Google+ public profile data?'
+     0.912  'Why are people ignorant?'  |  'Why do people ignore other people?'
+     0.990  'What language is used in Visual Basic? How does it compare to C#?'  |  'What language is used in Visual Basic? How does it compare to C++?'
+     0.942  'What are the strengths and weaknesses of the advising system at Northeastern Illinois University?'  |  'What are the strengths and weaknesses of the advising system at Western Illinois University?'
+     0.903  'I’m Chinese, how do I learn English?'  |  'How can I improve my English on Quora?'
+     0.940  'What are the scopes in biotechnology?'  |  'What are the scopes of biotechnology abroad?'
+     0.958  'Are engineers overpaid?'  |  'Why are engineers so overpaid?'
