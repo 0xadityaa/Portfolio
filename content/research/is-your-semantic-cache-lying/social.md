@@ -25,7 +25,7 @@ At 0.85 it also missed 38% of the real duplicates. Holding the wrong share to 10
 ---
 Calibrate the threshold on your own pairs, and add an entity or number check before serving a hit.
 
-Full post: https://www.0xadityaa.dev/blog/is-your-semantic-cache-lying
+Full post: <BLOG_URL>
 Code and data: https://github.com/0xadityaa/Portfolio/tree/main/content/research/is-your-semantic-cache-lying
 
 ## Singles
@@ -44,7 +44,7 @@ A semantic cache needs a query embedding before it can say hit or miss. On 4 CPU
 
 A semantic cache at 0.85 returned the wrong answer on 28% of its hits (MiniLM, 5,000 Quora pairs, a deliberately hard set). Unrelated text isn't the cause; one-word differences are. I tested three models and what a stricter threshold costs.
 
-https://www.0xadityaa.dev/blog/is-your-semantic-cache-lying
+<BLOG_URL>
 [image: /images/blog/semantic-cache-false-hits.svg]
 
 ## Question
@@ -61,4 +61,4 @@ Raising the threshold shrinks the wrong share slowly and the hits much faster. H
 
 The numbers, the figures and the script are in the post:
 
-https://www.0xadityaa.dev/blog/is-your-semantic-cache-lying
+<BLOG_URL>
