@@ -1,0 +1,14 @@
+cache check, max |logit diff| over labels: 6e-05
+Qwen2.5-0.5B-Instruct chat      k=8 set=3   89.7s load=19.8
+Qwen2.5-0.5B-Instruct chat      k=1 set=1   83.6s load=16.2
+Qwen2.5-0.5B-Instruct chat      k=1 set=2   81.4s load=14.2
+Qwen2.5-0.5B-Instruct chat      k=1 set=3   85.7s load=16.7
+Qwen2.5-0.5B-Instruct raw       k=0 set=1   76.7s load=17.8
+Qwen2.5-0.5B-Instruct raw       k=8 set=1   96.3s load=19.0
+Qwen2.5-0.5B-Instruct raw       k=8 set=2   87.9s load=17.7
+Qwen2.5-0.5B-Instruct raw       k=8 set=3   88.7s load=14.3
+Qwen2.5-0.5B-Instruct llama     k=0 set=1   77.4s load=14.4
+Qwen2.5-0.5B-Instruct llama     k=8 set=1  144.4s load=80.9
+Qwen2.5-0.5B-Instruct llama     k=8 set=2 3666.2s load=158.2
+Qwen2.5-0.5B-Instruct llama     k=8 set=3   45.3s load=103.9
+Qwen2.5-0.5B-Instruct no_header k=0 set=1   38.0s load=62.9

@@ -1,0 +1,25 @@
+Articles only A gets right vs only B gets right (of 100), exact two-sided sign test p. 0-shot has one set.
+own template 0 shots vs 1 shot
+  set 1: A only  6, B only  1, p = 0.125
+  set 2: A only 11, B only  0, p = 0.001
+  set 3: A only  8, B only  1, p = 0.039
+own template 0 shots vs 3 shots
+  set 1: A only  6, B only  5, p = 1.000
+  set 2: A only  5, B only  5, p = 1.000
+  set 3: A only  6, B only  5, p = 1.000
+own template 0 shots vs 8 shots
+  set 1: A only  8, B only  8, p = 1.000
+  set 2: A only  6, B only  8, p = 0.791
+  set 3: A only  2, B only  9, p = 0.065
+own template vs no template, 0 shots
+  set 1: A only  2, B only  6, p = 0.289
+  set 2: A only  2, B only  6, p = 0.289
+  set 3: A only  2, B only  6, p = 0.289
+own template vs no template, 8 shots
+  set 1: A only  3, B only 13, p = 0.021
+  set 2: A only  3, B only 10, p = 0.092
+  set 3: A only  6, B only 13, p = 0.167
+own template vs Llama-2 template, 8 shots
+  set 1: A only 19, B only 19, p = 1.000
+  set 2: A only 19, B only  1, p = 0.000
+  set 3: A only 21, B only  6, p = 0.006
