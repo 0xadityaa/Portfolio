@@ -13,10 +13,10 @@ o = []
 w = o.append
 w('<svg xmlns="http://www.w3.org/2000/svg" data-viz="" viewBox="0 0 560 366" width="560" height="366" role="img" '
   'aria-label="Accuracy against prompt tokens for Qwen2.5-0.5B on 100 AG News articles. With no chat template, 0 shots score 70 percent and 8 shots 77 percent. '
-  'With the model\'s own chat template, 0 shots score 66 percent and 8 shots 69 percent. A Llama-2 template scores 31 percent at 0 shots, and a chat template missing its assistant header scores 25 percent.">')
+  'With the model\'s own chat template, 0 shots score 66 percent and 8 shots 69 percent. A Llama-2 template scores 31 percent at 0 shots, and a chat template missing its assistant header scores 25 percent; in both, label mass is 0, so the answer position broke and ability is unmeasured.">')
 w('<style data-standalone="">text{font-family:"DM Sans",Helvetica,Arial,sans-serif}.m{font-family:"DM Mono",Menlo,Consolas,monospace}.h{font-family:Newsreader,Georgia,serif;font-weight:500}</style>')
 w('<rect width="560" height="366" fill="#272725"/>')
-w('<g class="a-fade" style="--d:0s;--t:.5s"><text class="h" x="24" y="38" font-size="24" fill="#FAF9F5">Template choice beat shot count</text></g>')
+w('<g class="a-fade" style="--d:0s;--t:.5s"><text class="h" x="24" y="38" font-size="24" fill="#FAF9F5">A wrong template broke the answer slot</text></g>')
 for a in (20, 40, 60, 80):
     y = sy(a)
     w(f'<path d="M{X0} {y:.1f}H{X1}" stroke="#474743" stroke-width="1" stroke-dasharray="3 4" fill="none"/>')
@@ -42,17 +42,17 @@ def series(key, color, d, dash=False, ks=(0, 8)):
 
 
 series("chat", IVORY, .5, ks=(0, 1, 3, 8))
-series("llama", MUTED, .9, dash=True)
-series("raw", CLAY, 1.3)
+series("llama", CLAY, .9, dash=True)
+series("raw", MUTED, 1.3)
 c = R["no_header|0"]
-w(f'<g class="a-fade" style="--d:1.7s;--t:.5s"><circle cx="{sx(c["tokens"]):.1f}" cy="{sy(100*c["mean"]):.1f}" r="4.5" fill="{MUTED}"/>'
-  f'<text x="{sx(c["tokens"])+12:.1f}" y="{sy(100*c["mean"])+5:.1f}" font-size="15" fill="{MUTED}">own template, assistant header cut: 25%</text></g>')
+w(f'<g class="a-fade" style="--d:1.7s;--t:.5s"><circle cx="{sx(c["tokens"]):.1f}" cy="{sy(100*c["mean"]):.1f}" r="4.5" fill="{CLAY}"/>'
+  f'<text x="{sx(c["tokens"])+12:.1f}" y="{sy(100*c["mean"])+7:.1f}" font-size="14" fill="{CLAY}">header cut: 25%, label mass 0</text></g>')
 l0 = R["llama|0"]
-w(f'<g class="a-fade" style="--d:1.7s;--t:.5s"><text x="{sx(l0["tokens"])+12:.1f}" y="{sy(100*l0["mean"])+5:.1f}" font-size="15" fill="{MUTED}">Llama-2 template, 0 shots: 31%</text></g>')
+w(f'<g class="a-fade" style="--d:1.7s;--t:.5s"><text x="{sx(l0["tokens"])+14:.1f}" y="{sy(100*l0["mean"])+10:.1f}" font-size="14" fill="{CLAY}">Llama-2, 0 shots: 31%, label mass 0</text></g>')
 # legend and endpoint numbers
-for x, col, txt, dash in ((24, CLAY, "no template", ""), (150, IVORY, "own chat template", ""), (310, MUTED, "Llama-2 template", ' stroke-dasharray="5 4"')):
+for x, col, txt, dash in ((24, MUTED, "no template", ""), (150, IVORY, "own chat template", ""), (334, CLAY, "Llama-2 template", ' stroke-dasharray="5 4"')):
     w(f'<g class="a-fade" style="--d:.3s;--t:.5s"><path d="M{x} 66H{x+22}" stroke="{col}" stroke-width="1.5" stroke-linecap="round"{dash}/><text x="{x+30}" y="71" font-size="15" fill="{col}">{txt}</text></g>')
-for key, col in (("raw", CLAY), ("chat", IVORY), ("llama", MUTED)):
+for key, col in (("raw", MUTED), ("chat", IVORY), ("llama", CLAY)):
     c = R[f"{key}|8"]
     w(f'<g class="a-fade" style="--d:2.0s;--t:.5s"><text class="m" x="{sx(c["tokens"])+9:.1f}" y="{sy(100*c["mean"])+5:.1f}" font-size="14" font-weight="500" fill="{col}">{100*c["mean"]:.0f}%</text></g>')
 w(f'<text class="a-fade" style="--d:2.3s;--t:.5s" x="24" y="352" font-size="15" fill="{MUTED}">Dots: mean of three example sets. Bars: lowest to highest.</text>')
